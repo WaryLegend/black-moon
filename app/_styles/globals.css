@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-0: #fff;
+  --color-primary-50: #f9fafb;
+  --color-primary-100: #f3f4f6;
+  --color-primary-200: #e5e7eb;
+  --color-primary-300: #d1d5db;
+  --color-primary-400: #9ca3af;
+  --color-primary-500: #6b7280;
+  --color-primary-600: #4b5563;
+  --color-primary-700: #374151;
+  --color-primary-800: #1f2937;
+  --color-primary-900: #111827;
+  --color-primary-950: #0f141f;
+
+  --color-accent-50: #e6eaf0;
+  --color-accent-100: #cdd7e2;
+  --color-accent-200: #b3c2d3;
+  --color-accent-300: #99adc4;
+  --color-accent-400: #8098b5;
+  --color-accent-500: #6683a6;
+  --color-accent-600: #526d8a;
+  --color-accent-700: #3f566d;
+  --color-accent-800: #2c4050;
+  --color-accent-900: #1a2a44;
+  --color-accent-950: #141e2e;
+}
+
+@layer components {
+  .spinner {
+    margin: 3.2rem auto 1.6rem;
+    width: 60px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 8px solid var(--color-primary-900);
+    border-right-color: var(--color-primary-200);
+    animation: rotate 1s infinite linear;
+  }
+
+  .spinner-mini {
+    margin: 0;
+    width: 20px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 2px solid var(--color-primary-200);
+    border-right-color: transparent;
+    animation: rotate 1s infinite linear;
+  }
+
+  @keyframes rotate {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+
+  .spinnerbar {
+    width: 45px;
+    aspect-ratio: 0.75;
+    --c: no-repeat linear-gradient(var(--color-primary-200) 0 0);
+    background:
+      var(--c) 0% 50%,
+      var(--c) 50% 50%,
+      var(--c) 100% 50%;
+    background-size: 20% 50%;
+    animation: loading 1s infinite linear;
+  }
+
+  @keyframes loading {
+    20% {
+      background-position:
+        0% 0%,
+        50% 50%,
+        100% 50%;
+    }
+    40% {
+      background-position:
+        0% 100%,
+        50% 0%,
+        100% 50%;
+    }
+    60% {
+      background-position:
+        0% 50%,
+        50% 100%,
+        100% 0%;
+    }
+    80% {
+      background-position:
+        0% 50%,
+        50% 50%,
+        100% 100%;
+    }
+  }
+}
+
+/* day picker
+.rdp {
+  --rdp-cell-size: 32px !important;
+  --rdp-primary-color: theme("colors.primary.500") !important;
+  --rdp-background-color: theme("colors.primary.600") !important;
+  margin: 0 !important;
+} */
