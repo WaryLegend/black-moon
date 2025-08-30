@@ -34,7 +34,7 @@ export default function UserSignup() {
           Đăng nhập với Google
         </button>
 
-        {/* No account yet? */}
+        {/* Already has an account? */}
         <div className="my-4 flex justify-center gap-1 text-center">
           <span className="text-primary-500">Đã có tài khoản?</span>
           <span>

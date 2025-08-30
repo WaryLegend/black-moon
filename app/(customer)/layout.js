@@ -1,7 +1,7 @@
-// This pulls the "Josefin Sans" or others font from Google Fonts via Next.js. No need <link> or <head>.
+// This pulls the "Josefin Sans" or others font from Google Fonts via Next.js.
 import { Josefin_Sans } from "next/font/google";
 const josefin = Josefin_Sans({
-  subsets: ["latin"], // language styles. Ex: "vietnamese" --> "Chào buổi sáng"
+  subsets: ["latin"], // language styles
   display: "swap", // browser will use a fallback system font immediately, then “swap” in Josefin Sans once it’s downloaded.
 });
 
@@ -14,7 +14,7 @@ export const metadata = {
     default: "Welcome | Black & Moon", // default --> page without title
   },
   description:
-    "Black & Moon is a modern fashion brand offering stylish, high-quality clothing. Discover the latest collections of shirts, dresses, pants, and accessories for men and women.",
+    "Black & Moon is a modern fashion brand offering stylish, high-quality clothing. Discover the latest collections of shirts, dresses, pants, and accessories for men, women and kids.",
 };
 
 export default function RootLayout({ children }) {
@@ -25,9 +25,7 @@ export default function RootLayout({ children }) {
       >
         <Header />
 
-        <div className="border-primary-200 flex-1 border-t-2 px-8 py-1">
-          <main className="mx-auto w-full max-w-7xl">{children}</main>
-        </div>
+        <main className="absolute top-0 left-0">{children}</main>
       </body>
     </html>
   );

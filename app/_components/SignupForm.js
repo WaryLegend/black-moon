@@ -20,8 +20,10 @@ export default function SignupForm() {
     console.log("Signup attempted with:", {
       email,
       password,
-      surname,
-      lastname,
+      name: {
+        surname,
+        lastname,
+      },
       phone,
       dateOfBirth,
       gender,

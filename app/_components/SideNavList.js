@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 
 import { FaTshirt, FaRegUser, FaGift } from "react-icons/fa";
 import { LuLayoutDashboard } from "react-icons/lu";
@@ -52,14 +53,21 @@ function SideNavList() {
           const isActive =
             pathname === link.href || pathname.startsWith(link.href + "/");
           return (
-            <li key={link.name}>
+            <li key={link.name} className="relative z-10">
               <Link
-                className={`hover:bg-accent-500 hover:text-primary-100 flex items-center gap-4 rounded-md border-2 px-5 py-3 font-semibold transition-colors ${isActive ? "bg-accent-600 border-accent-500 text-accent-50 shadow-md" : "border-transparent"}`}
+                className={`flex items-center gap-4 rounded-md border-2 border-transparent px-5 py-3 font-semibold transition-colors hover:underline ${isActive ? "text-primary-50" : "hover:scale-104"}`}
                 href={link.href}
               >
                 {link.icon}
                 <p className="whitespace-nowrap">{link.name}</p>
               </Link>
+              {isActive && (
+                <motion.div
+                  layoutId="activeLink" // smooth shared layout animation
+                  className="border-accent-500 bg-accent-600 absolute inset-0 -z-[1] rounded-md border-2 shadow-md"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
+              )}
             </li>
           );
         })}

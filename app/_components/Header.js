@@ -5,7 +5,7 @@ import Sidebar from "./Sidebar";
 
 function Header() {
   return (
-    <header className="sticky z-10 px-4 py-4 sm:px-8 sm:py-5">
+    <header className="sticky z-10 w-full px-4 py-4 sm:px-8 sm:py-5">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         <LogoLink />
         <Navigation />

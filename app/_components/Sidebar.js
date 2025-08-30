@@ -1,19 +1,19 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { FiMenu } from "react-icons/fi";
+import { usePathname } from "next/navigation";
+
+const links = [
+  { href: "/", label: "Nữ" },
+  { href: "/men", label: "Nam" },
+  { href: "/kids", label: "Trẻ em" },
+];
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
-
-  const links = [
-    { href: "/", label: "Trang chủ" },
-    { href: "/products", label: "Cửa hàng" },
-    { href: "/about", label: "Về chúng tôi" },
-  ];
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -33,7 +33,7 @@ export default function Sidebar() {
 
       {/* Sidebar - Hidden on md and above, slides in when open */}
       <div
-        className={`bg-primary-200/90 fixed top-0 right-0 h-full transform ${
+        className={`bg-primary-100/90 fixed top-0 right-0 h-full transform ${
           isOpen ? "translate-x-0" : "translate-x-full"
         } z-20 transition-transform duration-300 ease-in-out md:hidden`}
       >
@@ -46,10 +46,14 @@ export default function Sidebar() {
                   pathname.startsWith(link.href + "/");
                 return (
                   <li key={link.href}>
-                    <Link href={link.href} onClick={() => setIsOpen(false)}>
+                    <Link
+                      href={link.href}
+                      onClick={toggleSidebar}
+                      className="group relative"
+                    >
                       <p
-                        className={`hover:text-accent-700 transition-all hover:scale-105 ${
-                          isActive ? "underline" : ""
+                        className={`group-hover:text-accent-700 transition-all ${
+                          isActive ? "underline" : "hover:scale-105"
                         }`}
                       >
                         {link.label}
