@@ -9,9 +9,9 @@ function ToggleSideBar() {
   return (
     <button className="hover:cursor-pointer" onClick={toggleSidebar}>
       {isOpen ? (
-        <TbLayoutSidebarFilled className="h-6 w-6" />
+        <TbLayoutSidebarFilled className="h-6 w-6" title="Collapse sidebar" />
       ) : (
-        <TbLayoutSidebar className="h-6 w-6" />
+        <TbLayoutSidebar className="h-6 w-6" title="Expand sidebar" />
       )}
     </button>
   );

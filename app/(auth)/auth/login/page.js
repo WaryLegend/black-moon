@@ -41,6 +41,7 @@ export default function UserLogin() {
           <span>
             <Link
               href="/auth/signup"
+              replace={true}
               className="text-primary-800 hover:underline"
             >
               Đăng ký ngay

@@ -8,5 +8,13 @@ export function middleware(request) {
     return NextResponse.rewrite(new URL("/", request.url));
   }
 
+  if (pathname === "/admin") {
+    return NextResponse.redirect(new URL("/admin/dashboard", request.url));
+  }
+
   return NextResponse.next();
 }
+
+export const config = {
+  matcher: ["/admin", "/men", "/kids"],
+};

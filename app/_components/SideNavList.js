@@ -4,9 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
-import { FaTshirt, FaRegUser, FaGift } from "react-icons/fa";
+import { FaTshirt, FaGift, FaUsers } from "react-icons/fa";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { MdOutlineCategory, MdOutlineShoppingCart } from "react-icons/md";
+import {
+  MdOutlineCategory,
+  MdOutlineInventory2,
+  MdOutlineShoppingCart,
+} from "react-icons/md";
 
 const ADMIN_ROOT = "/admin";
 
@@ -19,7 +23,7 @@ const navLinks = [
   {
     name: "Người dùng",
     href: `${ADMIN_ROOT}/users`,
-    icon: <FaRegUser className="h-5 w-5" />,
+    icon: <FaUsers className="h-5 w-5" />,
   },
   {
     name: "Sản phẩm",
@@ -40,6 +44,11 @@ const navLinks = [
     name: "Khuyến mãi",
     href: `${ADMIN_ROOT}/promotions`,
     icon: <FaGift className="h-5 w-5" />,
+  },
+  {
+    name: "Kho hàng",
+    href: `${ADMIN_ROOT}/inventory`,
+    icon: <MdOutlineInventory2 className="h-5 w-5" />,
   },
 ];
 
