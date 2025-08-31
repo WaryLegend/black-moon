@@ -44,13 +44,31 @@ const AllButtons = styled.div`
 `;
 
 function ProductRow({ product }) {
-  const { id: productId, name, description, price, category, image } = product;
+  const {
+    id: productId,
+    name,
+    description,
+    basePrice,
+    category,
+    image,
+  } = product;
+
+  function handleDuplicate() {
+    createProduct({
+      id: crypto.randomUUID(),
+      name: `Copy of ${name}`,
+      description,
+      basePrice,
+      category,
+      image,
+    });
+  }
 
   return (
     <Table.Row>
       <Img src={image} />
       <Name>{name}</Name>
-      <Price>{formatCurrency(price)}</Price>
+      <Price>{formatCurrency(basePrice)}</Price>
       <Category>{category}</Category>
       <AllButtons>
         <Modal>
@@ -61,6 +79,7 @@ function ProductRow({ product }) {
               <Menus.Button
                 icon={<HiSquare2Stack />}
                 // onClick={handleDuplicate}
+                onClick={() => alert("Copy thành công")}
                 // disabled={isCreating}
               >
                 Duplicate
@@ -79,9 +98,10 @@ function ProductRow({ product }) {
             </Modal.Window>
             <Modal.Window name="delete">
               <ConfirmDelete
-                resourceName={`product ${product.name}`}
+                resourceName={product.name}
                 // disabled={isDeleting}
                 // onConfirm={() => deleteCabin(productId)}
+                onConfirm={() => alert("Mimic xóa thành công")}
               />
             </Modal.Window>
           </Menus.Menu>

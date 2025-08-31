@@ -21,32 +21,32 @@ const navLinks = [
     icon: <LuLayoutDashboard className="h-5 w-5" />,
   },
   {
-    name: "Người dùng",
+    name: "Users",
     href: `${ADMIN_ROOT}/users`,
     icon: <FaUsers className="h-5 w-5" />,
   },
   {
-    name: "Sản phẩm",
+    name: "Products",
     href: `${ADMIN_ROOT}/products`,
     icon: <FaTshirt className="h-5 w-5" />,
   },
   {
-    name: "Danh mục",
+    name: "Categories",
     href: `${ADMIN_ROOT}/categories`,
     icon: <MdOutlineCategory className="h-5 w-5" />,
   },
   {
-    name: "Đơn hàng",
+    name: "Orders",
     href: `${ADMIN_ROOT}/orders`,
     icon: <MdOutlineShoppingCart className="h-5 w-5" />,
   },
   {
-    name: "Khuyến mãi",
+    name: "Promotions",
     href: `${ADMIN_ROOT}/promotions`,
     icon: <FaGift className="h-5 w-5" />,
   },
   {
-    name: "Kho hàng",
+    name: "Inventory",
     href: `${ADMIN_ROOT}/inventory`,
     icon: <MdOutlineInventory2 className="h-5 w-5" />,
   },

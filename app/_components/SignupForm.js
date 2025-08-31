@@ -102,7 +102,7 @@ export default function SignupForm() {
       </div>
 
       {/* Birth Field */}
-      <div className="flex gap-4">
+      <div className="flex gap-4 max-[450px]:flex-col">
         <div className="relative flex-1">
           <input
             id="dateofbirth"

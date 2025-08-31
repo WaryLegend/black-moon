@@ -1,11 +1,3 @@
-// This pulls the "Josefin Sans" or others font from Google Fonts via Next.js.
-import { Josefin_Sans } from "next/font/google";
-const josefin = Josefin_Sans({
-  subsets: ["latin"], // language styles
-  display: "swap", // browser will use a fallback system font immediately, then “swap” in Josefin Sans once it’s downloaded.
-});
-
-import "@/app/_styles/globals.css";
 import Header from "@/app/_components/Header";
 
 export const metadata = {
@@ -19,14 +11,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${josefin.className} bg-primary-50 text-primary-900 relative flex min-h-screen flex-col antialiased`}
-      >
-        <Header />
+    <div className="relative flex min-h-screen flex-col">
+      <Header />
 
-        <main className="absolute top-0 left-0">{children}</main>
-      </body>
-    </html>
+      <main className="absolute top-0 left-0 h-full w-full">{children}</main>
+    </div>
   );
 }

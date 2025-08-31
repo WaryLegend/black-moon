@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { notFound, usePathname, useRouter } from "next/navigation";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 function Carousel({ children, routes }) {
@@ -17,7 +17,7 @@ function Carousel({ children, routes }) {
   // Determine category from clean pathname
   let category = pathname === "/" ? "women" : pathname.slice(1).toLowerCase();
   if (!routes.includes(category)) {
-    category = "women";
+    notFound();
   }
 
   const initialIndex = routeMap[category] || 0;

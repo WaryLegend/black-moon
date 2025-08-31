@@ -8,9 +8,9 @@ import ProductRow from "./ProductRow";
 const fakedata = [
   {
     id: 1,
-    name: "Áo sơ",
+    name: "Áo sơ mi",
     description: "Form slimfit, vải cotton thoáng mát",
-    price: 180000,
+    basePrice: 180000,
     category: "Shirt",
     image: img.src,
   },
@@ -18,7 +18,7 @@ const fakedata = [
     id: 2,
     name: "Quần tây",
     description: "Chất liệu vải dày dặn, sang trọng",
-    price: 250000,
+    basePrice: 250000,
     category: "Pants",
     image: img.src,
   },
@@ -26,7 +26,7 @@ const fakedata = [
     id: 3,
     name: "Áo polo",
     description: "Kiểu dáng trẻ trung, dễ phối đồ",
-    price: 160000,
+    basePrice: 160000,
     category: "T-shirt",
     image: img.src,
   },
@@ -34,7 +34,7 @@ const fakedata = [
     id: 4,
     name: "Quần short kaki",
     description: "Phong cách năng động, thoải mái",
-    price: 140000,
+    basePrice: 140000,
     category: "Shorts",
     image: img.src,
   },
@@ -42,7 +42,7 @@ const fakedata = [
     id: 5,
     name: "Áo hoodie",
     description: "Chất nỉ mềm mại, giữ ấm tốt",
-    price: 220000,
+    basePrice: 220000,
     category: "Hoodie",
     image: img.src,
   },
@@ -54,9 +54,9 @@ function ProductTable() {
       <Table columns="0.8fr 2.2fr 1.8fr 1fr 1fr">
         <Table.Header>
           <div></div>
-          <div>Tên sản phẩm</div>
-          <div>Giá bán</div>
-          <div>Thể loại</div>
+          <div>Name</div>
+          <div>Price</div>
+          <div>Category</div>
           <div></div>
         </Table.Header>
         <Table.Body
@@ -72,5 +72,4 @@ function ProductTable() {
 
 export default ProductTable;
 
-// form nhập product:  name, description, , price, category , images
-// prodyuct variant( kho): Chọn sản phẩm, color, size, quantity, differentPrice, imgaes
+// form nhập product:  name, description, , basePrice, category , images

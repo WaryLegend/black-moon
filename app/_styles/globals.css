@@ -31,43 +31,52 @@
   --shadow-lg: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.12);
 }
 
+input:focus,
+button:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--color-accent-600);
+  outline-offset: -1px;
+}
+
 @layer components {
   .spinner {
-    margin: 3.2rem auto 1.6rem;
-    width: 60px;
+    margin: 0;
+    width: var(--spinner-size, 60px);
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 8px solid var(--color-primary-900);
+    border: 8px solid var(--spinner-color, #000);
     border-right-color: var(--color-primary-200);
     animation: rotate 1s infinite linear;
   }
 
   .spinner-mini {
     margin: 0;
-    width: 20px;
+    width: var(--spinner-size, 20px);
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 2px solid var(--color-primary-200);
+    border: 2px solid var(--spinner-color, #000);
     border-right-color: transparent;
     animation: rotate 1s infinite linear;
   }
 
-  @keyframes rotate {
-    to {
-      transform: rotate(1turn);
-    }
-  }
-
   .spinnerbar {
-    width: 45px;
+    margin: 0;
+    width: var(--spinner-size, 45px);
     aspect-ratio: 0.75;
-    --c: no-repeat linear-gradient(var(--color-primary-200) 0 0);
+    --c: no-repeat linear-gradient(var(--spinner-color, #000) 0 0);
     background:
       var(--c) 0% 50%,
       var(--c) 50% 50%,
       var(--c) 100% 50%;
     background-size: 20% 50%;
     animation: loading 1s infinite linear;
+  }
+
+  @keyframes rotate {
+    to {
+      transform: rotate(1turn);
+    }
   }
 
   @keyframes loading {
