@@ -3,7 +3,7 @@
 import { createContext, useContext } from "react";
 import styled from "styled-components";
 
-const StyledTable = styled.div`
+const StyledTable = styled.table`
   border: 1px solid var(--color-primary-200);
   font-size: 1rem;
   background-color: var(--color-primary-0);
@@ -11,7 +11,7 @@ const StyledTable = styled.div`
   overflow: hidden;
 `;
 
-const CommonRow = styled.div`
+const CommonRow = styled.tr`
   display: grid;
   grid-template-columns: ${(props) => props.$columns};
   column-gap: 2.4rem;
@@ -21,7 +21,7 @@ const CommonRow = styled.div`
 
 const StyledHeader = styled(CommonRow)`
   padding: 0.8rem 1.8rem;
-
+  text-align: left;
   background-color: var(--color-primary-50);
   border-bottom: 1px solid var(--color-primary-100);
   text-transform: uppercase;
@@ -39,8 +39,8 @@ const StyledRow = styled(CommonRow)`
   }
 `;
 
-const StyledBody = styled.section`
-  margin: 0.4rem 0;
+const StyledBody = styled.tbody`
+  padding: 0.4rem 0;
 `;
 
 const Footer = styled.footer`
@@ -55,11 +55,11 @@ const Footer = styled.footer`
   }
 `;
 
-const Empty = styled.p`
+const Empty = styled.td`
   font-size: 1.2rem;
-  font-weight: 500;
+  color: var(--color-primary-600);
   text-align: center;
-  margin: 2.4rem;
+  padding: 2.4rem;
 `;
 
 const TableContext = createContext();
@@ -67,29 +67,38 @@ const TableContext = createContext();
 function Table({ columns, children }) {
   return (
     <TableContext.Provider value={{ columns }}>
-      <StyledTable role="table">{children}</StyledTable>
+      <StyledTable>{children}</StyledTable>
     </TableContext.Provider>
   );
 }
 
-function Header({ children }) {
+function Header({ children, className }) {
   const { columns } = useContext(TableContext);
   return (
-    <StyledHeader role="row" $columns={columns}>
-      {children}
-    </StyledHeader>
+    <thead>
+      <StyledHeader $columns={columns} className={className}>
+        {children}
+      </StyledHeader>
+    </thead>
   );
 }
-function Row({ children }) {
+function Row({ children, className }) {
   const { columns } = useContext(TableContext);
   return (
-    <StyledRow role="row" $columns={columns}>
+    <StyledRow $columns={columns} className={className}>
       {children}
     </StyledRow>
   );
 }
 function Body({ data, render }) {
-  if (!data?.length) return <Empty>Chưa có dữ liệu để hiển thị</Empty>;
+  if (!data?.length)
+    return (
+      <StyledBody>
+        <tr>
+          <Empty>No data to show at the moment.</Empty>
+        </tr>
+      </StyledBody>
+    );
   return <StyledBody>{data.map(render)}</StyledBody>;
 }
 

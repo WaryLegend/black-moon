@@ -3,10 +3,41 @@ import Form from "@/app/_components/Forms/Form";
 import FormRow from "@/app/_components/Forms/FormRow";
 import Input from "@/app/_components/Forms/Input";
 import FileInput from "@/app/_components/Forms/FileInput";
-import Textarea from "@/app/_components/Forms/Textarea";
 import Button from "@/app/_components/Button";
+import Selector from "@/app/_components/Forms/Selector";
+import Radio from "@/app/_components/Forms/Radio";
+import { formatCurrency } from "@/app/_utils/helpers";
 // import { useCreateVariant } from "./useCreateVariant";
 // import { useEditVariant } from "./useEditVariant";
+
+//test data same from products
+const fakedata = [
+  {
+    id: 1,
+    name: "Áo sơ mi",
+    basePrice: 180000,
+  },
+  {
+    id: 2,
+    name: "Quần tây",
+    basePrice: 250000,
+  },
+  {
+    id: 3,
+    name: "Áo polo",
+    basePrice: 160000,
+  },
+  {
+    id: 4,
+    name: "Quần short kaki",
+    basePrice: 140000,
+  },
+  {
+    id: 5,
+    name: "Áo hoodie",
+    basePrice: 220000,
+  },
+];
 
 function CreateVariantForm({ VariantToEdit = {}, onCloseModal }) {
   // const { isCreating, createVariant } = useCreateVariant();
@@ -58,47 +89,62 @@ function CreateVariantForm({ VariantToEdit = {}, onCloseModal }) {
       onSubmit={handleSubmit(onSubmitForm)}
       type={onCloseModal ? "modal" : "regular"}
     >
-      <FormRow label="Variant name" error={errors?.name?.message}>
-        <Input
-          type="text"
+      <FormRow label="Product name" error={errors?.name?.message}>
+        <Selector
           id="name"
+          data={fakedata}
           disabled={isWorking}
           {...register("name", { required: "This field is required" })}
         />
       </FormRow>
 
-      <FormRow label="Price" error={errors?.price?.message}>
-        <Input
-          type="number"
-          id="price"
+      <FormRow label="Color" error={errors?.color?.message}>
+        <Radio
           disabled={isWorking}
-          {...register("price", {
-            required: "This field is required",
-            validate: (value) =>
-              value > 0 || "Regular price should be greater than 0",
-          })}
+          data={[
+            { value: "white" },
+            { value: "blue" },
+            { value: "green" },
+            { value: "black" },
+            { value: "brown" },
+            { value: "pink" },
+            { value: "orange" },
+          ]}
+          {...register("color", { required: "This field is required" })}
         />
       </FormRow>
 
-      <FormRow label="Category" error={errors?.category?.message}>
+      <FormRow label="Size" error={errors?.size?.message}>
+        <Radio
+          disabled={isWorking}
+          data={[
+            { value: "XS" },
+            { value: "S" },
+            { value: "M" },
+            { value: "L" },
+            { value: "XL" },
+            { value: "XXL" },
+            { value: "XXXL" },
+          ]}
+          {...register("size", { required: "This field is required" })}
+        />
+      </FormRow>
+
+      <FormRow label="Base price">
         <Input
           type="text"
-          id="category"
-          disabled={isWorking}
-          {...register("category", { required: "This field is required" })}
+          id="basePrice"
+          disabled // un-editable (base price of product)
+          value={formatCurrency(150000)} // need logic get the base price base on Product name got selected
         />
       </FormRow>
 
-      <FormRow
-        label="Description for Variant"
-        error={errors?.description?.message}
-      >
-        <Textarea
+      <FormRow label="Price difference [higher or lower] (Optional)">
+        <Input
           type="number"
-          id="description"
-          defaultValue=""
+          id="priceDifference"
+          defaultValue={0}
           disabled={isWorking}
-          {...register("description", { required: "This field is required" })}
         />
       </FormRow>
 

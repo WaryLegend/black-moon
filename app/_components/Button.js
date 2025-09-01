@@ -20,7 +20,7 @@ export default function Button({
 
   return (
     <button
-      className={`cursor-pointer rounded-md border-none shadow-sm transition-all ${sizeClasses[size]} ${variantClasses[variant]} ${className}`}
+      className={`rounded-md border-none shadow-sm transition-all ${sizeClasses[size]} ${variantClasses[variant]} ${className}`}
       {...props}
     >
       {children}

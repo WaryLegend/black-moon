@@ -94,7 +94,7 @@ function CreateProductForm({ ProductToEdit = {}, onCloseModal }) {
         error={errors?.description?.message}
       >
         <Textarea
-          type="number"
+          type="text"
           id="description"
           defaultValue=""
           disabled={isWorking}

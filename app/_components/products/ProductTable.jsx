@@ -53,11 +53,11 @@ function ProductTable() {
     <Menus>
       <Table columns="0.8fr 2.2fr 1.8fr 1fr 1fr">
         <Table.Header>
-          <div></div>
-          <div>Name</div>
-          <div>Price</div>
-          <div>Category</div>
-          <div></div>
+          <th></th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Category</th>
+          <th></th>
         </Table.Header>
         <Table.Body
           data={fakedata}

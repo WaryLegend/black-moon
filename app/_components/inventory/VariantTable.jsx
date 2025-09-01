@@ -14,32 +14,32 @@ const fakedata = [
     colors: [
       {
         id: 101,
-        color: "WHITE",
+        color: "white",
         image: img.src,
         sizes: [
-          { size: "S", quantity: 10, differentPrice: 0 },
+          { size: "S", quantity: 15, differentPrice: 0 },
           { size: "M", quantity: 12, differentPrice: 0 },
-          { size: "L", quantity: 8, differentPrice: 20000 },
+          { size: "L", quantity: 30, differentPrice: 20000 },
         ],
       },
       {
         id: 102,
-        color: "BLUE",
+        color: "blue",
         image: img.src,
         sizes: [
-          { size: "S", quantity: 15, differentPrice: 0 },
+          { size: "S", quantity: 25, differentPrice: 0 },
           { size: "M", quantity: 10, differentPrice: 0 },
           { size: "L", quantity: 6, differentPrice: 20000 },
         ],
       },
       {
         id: 103,
-        color: "BLACK",
+        color: "black",
         image: img.src,
         sizes: [
           { size: "S", quantity: 9, differentPrice: 0 },
           { size: "M", quantity: 7, differentPrice: 0 },
-          { size: "L", quantity: 5, differentPrice: 20000 },
+          { size: "L", quantity: 20, differentPrice: 20000 },
         ],
       },
     ],
@@ -69,13 +69,13 @@ function VariantTable() {
     <Menus>
       <Table columns="0.8fr 1.5fr 0.8fr 0.5fr 1fr 1.2fr 1fr">
         <Table.Header>
-          <div></div>
-          <div>Name</div>
-          <div>Color</div>
-          <div>Size</div>
-          <div>Quantity</div>
-          <div>Price</div>
-          <div></div>
+          <th></th>
+          <th>Name</th>
+          <th>Color</th>
+          <th>Size</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th></th>
         </Table.Header>
         <Table.Body
           data={flatVariants}
