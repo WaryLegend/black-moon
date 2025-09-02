@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { notFound, usePathname, useRouter } from "next/navigation";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useMenuStore } from "@/app/_context/HomeMenuStore";
@@ -8,13 +8,12 @@ import { useMenuStore } from "@/app/_context/HomeMenuStore";
 function Carousel({ children, routes }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { setActiveLink } = useMenuStore();
 
   // routes = ["women", "men", "kids"]
-  const routeMap = routes.reduce((acc, route, i) => {
-    acc[route] = i;
-    return acc;
-  }, {});
+  const routeMap = useMemo(
+    () => routes.reduce((acc, r, i) => ({ ...acc, [r]: i }), {}),
+    [routes],
+  );
 
   // Determine category from clean pathname
   const category = pathname === "/" ? "women" : pathname.slice(1).toLowerCase();
@@ -22,13 +21,16 @@ function Carousel({ children, routes }) {
     notFound();
   }
 
-  const initialIndex = routeMap[category] || 0;
+  // console.log("trigger");
+
+  const initialIndex = routeMap[category];
 
   const [activeIndex, setActiveIndex] = useState(initialIndex);
   const [width, setWidth] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const x = useMotionValue(0);
-  const animatedX = useSpring(x, { stiffness: 200, damping: 40 }); // Less stiff, more damped for snappy feel
+  const animatedX = useSpring(x, { stiffness: 300, damping: 40 }); // Less stiff, more damped for snappy feel
 
   // Handle window resize for full-screen slides
   useEffect(() => {
@@ -42,12 +44,13 @@ function Carousel({ children, routes }) {
   useEffect(() => {
     const newCategory =
       pathname === "/" ? "women" : pathname.slice(1).toLowerCase();
-    const newIndex = routeMap[newCategory] || 0;
-    if (newIndex !== activeIndex) {
+    const newIndex = routeMap[newCategory];
+    if (newIndex !== activeIndex && !isTransitioning) {
       setActiveIndex(newIndex);
-      setActiveLink(pathname);
+    } else if (isTransitioning && newIndex === activeIndex) {
+      setIsTransitioning(false);
     }
-  }, [pathname, activeIndex, routeMap, setActiveLink]);
+  }, [pathname, routeMap, isTransitioning, activeIndex]);
 
   // Animate to the active slide
   useEffect(() => {
@@ -57,7 +60,7 @@ function Carousel({ children, routes }) {
   }, [activeIndex, width, animatedX]);
 
   // Handle drag end for snapping
-  const handleDragEnd = (event, { offset, velocity, point }) => {
+  const handleDragEnd = (event, { offset, velocity }) => {
     const threshold = width * 0.5;
     const velocityThreshold = 500;
 
@@ -73,6 +76,7 @@ function Carousel({ children, routes }) {
     if (newIndex >= 0 && newIndex < routes.length) {
       setActiveIndex(newIndex);
       const newPath = newIndex === 0 ? "/" : `/${routes[newIndex]}`;
+      setIsTransitioning(true);
       router.push(newPath, { scroll: false });
       animatedX.set(-newIndex * width); // spring takes over
     } else {

@@ -5,12 +5,14 @@ import { useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { usePathname } from "next/navigation";
 import { links } from "@/app/_utils/constant";
+import { useMenuStore } from "@/app/_context/HomeMenuStore";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const { toggleMenu } = useMenuStore();
 
-  const toggleSidebar = (e) => {
+  const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
@@ -46,10 +48,9 @@ export default function Sidebar() {
                       onClick={(e) => {
                         if (isActive) {
                           e.preventDefault();
-                          toggleSidebar();
-                        } else {
-                          toggleSidebar();
                         }
+                        toggleSidebar();
+                        toggleMenu(link.href);
                       }}
                       className="group relative"
                     >

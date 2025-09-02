@@ -1,4 +1,5 @@
 import Header from "@/app/_components/Header";
+import HomePanel from "@/app/_components/HomePanel";
 
 export const metadata = {
   title: {
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <div className="relative flex min-h-screen flex-col">
       <Header />
+      <HomePanel />
 
       <main className="absolute top-0 left-0 h-full w-full">{children}</main>
     </div>

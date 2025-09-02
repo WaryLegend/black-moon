@@ -22,7 +22,7 @@ function NavList() {
               className="group relative"
               onClick={(e) => {
                 if (isActive) {
-                  e.preventDefault(); // actived link doesn't send request again
+                  e.preventDefault();
                 }
                 toggleMenu(link.href);
               }}
