@@ -2,6 +2,7 @@ import Navigation from "@/app/_components/Navigation";
 import LogoLink from "@/app/_components/LogoLink";
 import User from "./User";
 import Sidebar from "./Sidebar";
+import NavPanel from "./NavPanel";
 
 function Header() {
   return (
@@ -14,6 +15,7 @@ function Header() {
           <Sidebar />
         </div>
       </div>
+      <NavPanel />
     </header>
   );
 }

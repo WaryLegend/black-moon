@@ -67,15 +67,15 @@ function CreateProductForm({ ProductToEdit = {}, onCloseModal }) {
         />
       </FormRow>
 
-      <FormRow label="Regular price" error={errors?.price?.message}>
+      <FormRow label="Base price" error={errors?.basePrice?.message}>
         <Input
           type="number"
-          id="price"
+          id="basePrice"
           disabled={isWorking}
-          {...register("price", {
+          {...register("basePrice", {
             required: "This field is required",
             validate: (value) =>
-              value > 0 || "Regular price should be greater than 0",
+              value > 0 || "Base price should be greater than 0",
           })}
         />
       </FormRow>

@@ -11,7 +11,7 @@ const pages = [
 
 const routes = pages.map((c) => c.route);
 
-export default function CategoryPage() {
+export default function Page() {
   return (
     <div className="relative h-screen w-screen overflow-hidden">
       <Carousel routes={routes}>

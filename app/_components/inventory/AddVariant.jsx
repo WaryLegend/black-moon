@@ -10,7 +10,7 @@ function AddVariant() {
   return (
     <div>
       <Modal>
-        <Modal.Open opens="product-form">
+        <Modal.Open opens="variant-form">
           <Button
             type="button"
             className="flex items-center justify-center gap-1"
@@ -19,7 +19,7 @@ function AddVariant() {
             Add new variant
           </Button>
         </Modal.Open>
-        <Modal.Window name="product-form">
+        <Modal.Window name="variant-form">
           <CreateVariantForm />
         </Modal.Window>
       </Modal>

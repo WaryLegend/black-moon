@@ -1,17 +1,29 @@
-export default function Selector({ data = [], className = "", ...props }) {
+export default function Selector({
+  data = [],
+  type = "text",
+  customDefaultOption = "--Choose a value--",
+  className = "",
+  ...props
+}) {
   return (
     <select
       className={`border-primary-300 bg-primary-50 rounded-md border px-3 py-2 font-sans shadow-sm ${className}`}
       {...props}
     >
-      <option value="" className="text-primary-500">
-        -- Select a product --
+      <option value={type === "number" ? 0 : ""} className="text-primary-500">
+        {customDefaultOption}
       </option>
-      {data.map((product) => (
-        <option key={product.id} value={product.name}>
-          {product.name}
-        </option>
-      ))}
+      {type === "number"
+        ? data.map((item) => (
+            <option key={item.value} value={item.value}>
+              {item.value}
+            </option>
+          ))
+        : data.map((product) => (
+            <option key={product.id} value={product.name}>
+              {product.name}
+            </option>
+          ))}
     </select>
   );
 }

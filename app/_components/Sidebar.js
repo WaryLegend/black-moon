@@ -4,18 +4,13 @@ import Link from "next/link";
 import { useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { usePathname } from "next/navigation";
-
-const links = [
-  { href: "/", label: "Nữ" },
-  { href: "/men", label: "Nam" },
-  { href: "/kids", label: "Trẻ em" },
-];
+import { links } from "@/app/_utils/constant";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
-  const toggleSidebar = () => {
+  const toggleSidebar = (e) => {
     setIsOpen(!isOpen);
   };
 
@@ -48,7 +43,14 @@ export default function Sidebar() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      onClick={toggleSidebar}
+                      onClick={(e) => {
+                        if (isActive) {
+                          e.preventDefault();
+                          toggleSidebar();
+                        } else {
+                          toggleSidebar();
+                        }
+                      }}
                       className="group relative"
                     >
                       <p

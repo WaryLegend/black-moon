@@ -101,7 +101,7 @@ function VariantRow({ variant }) {
               </Modal.Window>
               <Modal.Window name="delete">
                 <ConfirmDelete
-                  resourceName={variant.name}
+                  resourceName={`${variant.name}-${variant.color} (${variant.size})`}
                   // disabled={isDeleting}
                   // onConfirm={() => deleteCabin(productId)}
                   onConfirm={() => alert("Mimic xóa thành công")}

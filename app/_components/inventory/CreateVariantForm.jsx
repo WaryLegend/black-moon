@@ -37,6 +37,11 @@ const fakedata = [
     name: "Áo hoodie",
     basePrice: 220000,
   },
+  {
+    id: 6,
+    name: "Áo khoác da",
+    basePrice: 200000,
+  },
 ];
 
 function CreateVariantForm({ VariantToEdit = {}, onCloseModal }) {
@@ -49,13 +54,38 @@ function CreateVariantForm({ VariantToEdit = {}, onCloseModal }) {
   const { id: editId, ...editValues } = VariantToEdit;
   // check if it's an edit form or not || add form
   const isEditSession = Boolean(editId);
-  // install react-hook-
-  // {defaultValues} --> set all default values for all fields in the form
-  const { register, handleSubmit, reset, getValues, formState } = useForm({
+  // install react-hook-form
+  const {
+    register,
+    handleSubmit,
+    reset,
+    getValues,
+    setValue,
+    watch,
+    formState,
+  } = useForm({
+    // {defaultValues} --> set all default values for all fields in the form
     defaultValues: isEditSession ? editValues : {},
   });
   // get the input error from formState
   const { errors } = formState;
+
+  // watch fields
+  const basePrice = watch("basePrice") || "";
+  const priceDiff = Number(watch("priceDifference") || 0);
+
+  // Custom onChange handler for product name selection
+  const handleProductChange = (e) => {
+    const selectedName = e.target.value;
+    const product = fakedata.find((p) => p.name === selectedName);
+    if (product) {
+      setValue("basePrice", product.basePrice, { shouldValidate: true });
+    } else {
+      setValue("basePrice", 0, { shouldValidate: true });
+    }
+  };
+
+  const finalPrice = basePrice ? basePrice + priceDiff : null;
 
   function onSubmitForm(data) {
     // type "string" mean it's an imagePath --> after created
@@ -92,15 +122,20 @@ function CreateVariantForm({ VariantToEdit = {}, onCloseModal }) {
       <FormRow label="Product name" error={errors?.name?.message}>
         <Selector
           id="name"
+          type="text"
+          customDefaultOption="--Select a product--"
           data={fakedata}
-          disabled={isWorking}
-          {...register("name", { required: "This field is required" })}
+          disabled={isWorking || isEditSession}
+          {...register("name", {
+            required: "This field is required",
+            onChange: handleProductChange,
+          })}
         />
       </FormRow>
 
       <FormRow label="Color" error={errors?.color?.message}>
         <Radio
-          disabled={isWorking}
+          disabled={isWorking || isEditSession}
           data={[
             { value: "white" },
             { value: "blue" },
@@ -116,7 +151,7 @@ function CreateVariantForm({ VariantToEdit = {}, onCloseModal }) {
 
       <FormRow label="Size" error={errors?.size?.message}>
         <Radio
-          disabled={isWorking}
+          disabled={isWorking || isEditSession}
           data={[
             { value: "XS" },
             { value: "S" },
@@ -135,16 +170,47 @@ function CreateVariantForm({ VariantToEdit = {}, onCloseModal }) {
           type="text"
           id="basePrice"
           disabled // un-editable (base price of product)
-          value={formatCurrency(150000)} // need logic get the base price base on Product name got selected
+          value={formatCurrency(basePrice)}
         />
+        <Input type="hidden" value={basePrice} {...register("basePrice")} />
       </FormRow>
 
-      <FormRow label="Price difference [higher or lower] (Optional)">
+      <FormRow
+        label="Price difference(±) (Optional)"
+        error={errors?.priceDifference?.message}
+        helper={
+          finalPrice !== null
+            ? `= ${formatCurrency(finalPrice)} ${priceDiff ? "(" + (priceDiff > 0 ? "+" : "") + formatCurrency(priceDiff) + ")" : ""}`
+            : null
+        }
+      >
         <Input
           type="number"
           id="priceDifference"
           defaultValue={0}
           disabled={isWorking}
+          {...register("priceDifference", {
+            validate: (value) =>
+              // getValue() --> react-form tech allow to get value from other inputs
+              Math.abs(Number(value)) <= Number(getValues().basePrice) * 0.5 ||
+              "Price difference shouldn't be more than 50% of base price",
+          })}
+        />
+      </FormRow>
+
+      <FormRow label="Quantity" error={errors?.quantity?.message}>
+        <Input
+          type="number"
+          id="quantity"
+          defaultValue={0}
+          disabled={isWorking}
+          {...register("quantity", {
+            required: "This field is required",
+            min: {
+              value: 0,
+              message: "Quanity is a positive number",
+            },
+          })}
         />
       </FormRow>
 

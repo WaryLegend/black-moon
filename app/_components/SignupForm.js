@@ -8,8 +8,8 @@ import { useState } from "react";
 export default function SignupForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [surname, setSurname] = useState("");
-  const [lastname, setLastname] = useState("");
+  const [lastName, setLastname] = useState("");
+  const [firstName, setSurname] = useState("");
   const [phone, setPhone] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [gender, setGender] = useState("");
@@ -21,8 +21,8 @@ export default function SignupForm() {
       email,
       password,
       name: {
-        surname,
-        lastname,
+        lastName,
+        firstName,
       },
       phone,
       dateOfBirth,
@@ -66,7 +66,7 @@ export default function SignupForm() {
           <input
             id="surname"
             type="text"
-            value={surname}
+            value={lastName}
             onChange={(e) => setSurname(e.target.value)}
             placeholder="Họ*"
             className="focus:ring-accent-600 border-accent-300 w-full rounded-lg border px-4 py-2 pl-10 focus:ring-2 focus:outline-none"
@@ -79,7 +79,7 @@ export default function SignupForm() {
           <input
             id="lastname"
             type="text"
-            value={lastname}
+            value={firstName}
             onChange={(e) => setLastname(e.target.value)}
             placeholder="Tên*"
             className="focus:ring-accent-600 border-accent-300 w-full rounded-lg border px-4 py-2 focus:ring-2 focus:outline-none"

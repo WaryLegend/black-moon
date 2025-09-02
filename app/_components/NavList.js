@@ -3,15 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-
-const links = [
-  { href: "/", label: "Nữ" },
-  { href: "/men", label: "Nam" },
-  { href: "/kids", label: "Trẻ em" },
-];
+import { links } from "@/app/_utils/constant";
+import { useMenuStore } from "@/app/_context/HomeMenuStore";
 
 function NavList() {
   const pathname = usePathname();
+  const { toggleMenu } = useMenuStore();
 
   return (
     <>
@@ -24,7 +21,10 @@ function NavList() {
               href={link.href}
               className="group relative"
               onClick={(e) => {
-                if (isActive) e.preventDefault();
+                if (isActive) {
+                  e.preventDefault(); // actived link doesn't send request again
+                }
+                toggleMenu(link.href);
               }}
             >
               <p

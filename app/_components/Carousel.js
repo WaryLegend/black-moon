@@ -3,10 +3,12 @@
 import { useState, useEffect } from "react";
 import { notFound, usePathname, useRouter } from "next/navigation";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useMenuStore } from "@/app/_context/HomeMenuStore";
 
 function Carousel({ children, routes }) {
   const pathname = usePathname();
   const router = useRouter();
+  const { setActiveLink } = useMenuStore();
 
   // routes = ["women", "men", "kids"]
   const routeMap = routes.reduce((acc, route, i) => {
@@ -15,7 +17,7 @@ function Carousel({ children, routes }) {
   }, {});
 
   // Determine category from clean pathname
-  let category = pathname === "/" ? "women" : pathname.slice(1).toLowerCase();
+  const category = pathname === "/" ? "women" : pathname.slice(1).toLowerCase();
   if (!routes.includes(category)) {
     notFound();
   }
@@ -36,15 +38,16 @@ function Carousel({ children, routes }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Sync activeIndex with pathname changes (e.g., browser back/forward or direct URL entry)
+  // Sync activeIndex with pathname changes
   useEffect(() => {
     const newCategory =
       pathname === "/" ? "women" : pathname.slice(1).toLowerCase();
     const newIndex = routeMap[newCategory] || 0;
     if (newIndex !== activeIndex) {
       setActiveIndex(newIndex);
+      setActiveLink(pathname);
     }
-  }, [pathname, activeIndex, routeMap]);
+  }, [pathname, activeIndex, routeMap, setActiveLink]);
 
   // Animate to the active slide
   useEffect(() => {
