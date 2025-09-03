@@ -3,6 +3,7 @@ export default function Button({
   variant = "primary",
   className = "",
   children,
+  custom = false,
   ...props
 }) {
   const sizeClasses = {
@@ -18,11 +19,10 @@ export default function Button({
     danger: "text-red-100 bg-red-700 hover:bg-red-800",
   };
 
+  const sumClasses = `rounded-md border-none shadow-sm transition-all ${sizeClasses[size]} ${variantClasses[variant]}`;
+
   return (
-    <button
-      className={`rounded-md border-none shadow-sm transition-all ${sizeClasses[size]} ${variantClasses[variant]} ${className}`}
-      {...props}
-    >
+    <button className={`${className} ${custom ? "" : sumClasses}`} {...props}>
       {children}
     </button>
   );

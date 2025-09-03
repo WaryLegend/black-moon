@@ -9,7 +9,7 @@ export default function SignupForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [lastName, setLastname] = useState("");
-  const [firstName, setSurname] = useState("");
+  const [firstName, setFirstname] = useState("");
   const [phone, setPhone] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [gender, setGender] = useState("");
@@ -64,10 +64,10 @@ export default function SignupForm() {
       <div className="flex gap-4">
         <div className="relative flex-1">
           <input
-            id="surname"
+            id="lastname"
             type="text"
             value={lastName}
-            onChange={(e) => setSurname(e.target.value)}
+            onChange={(e) => setLastname(e.target.value)}
             placeholder="Họ*"
             className="focus:ring-accent-600 border-accent-300 w-full rounded-lg border px-4 py-2 pl-10 focus:ring-2 focus:outline-none"
             required
@@ -77,10 +77,10 @@ export default function SignupForm() {
 
         <div className="relative flex-1">
           <input
-            id="lastname"
+            id="firstname"
             type="text"
             value={firstName}
-            onChange={(e) => setLastname(e.target.value)}
+            onChange={(e) => setFirstname(e.target.value)}
             placeholder="Tên*"
             className="focus:ring-accent-600 border-accent-300 w-full rounded-lg border px-4 py-2 focus:ring-2 focus:outline-none"
             required

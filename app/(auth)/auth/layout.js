@@ -37,7 +37,7 @@ export default function AdminLoginLayout({ children }) {
       <div className="relative z-10 mx-auto flex w-full max-w-7xl lg:gap-10">
         <div className="text-primary-50 hidden w-2/3 flex-col items-start justify-center px-8 lg:flex">
           <Logo />
-          <h1 className="mt-20 text-4xl font-bold">Xin chào!</h1>
+          <h1 className="mt-30 text-4xl font-bold">Xin chào!</h1>
           <p className="mt-4 max-w-md text-xl leading-relaxed">
             Chào mừng bạn đến với <span className="font-bold">Black&Moon.</span>
           </p>

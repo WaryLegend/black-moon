@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { FiMail, FiLock } from "react-icons/fi";
 import { useState } from "react";
+import Button from "./Button";
 
 export default function LoginForm({ noForgot }) {
   const [email, setEmail] = useState("");
@@ -58,7 +59,7 @@ export default function LoginForm({ noForgot }) {
       {/* Login Button */}
       <button
         type="submit"
-        className="bg-accent-500 hover:bg-accent-800 hover:text-primary-100 w-full cursor-pointer rounded-lg py-2 transition-colors"
+        className="bg-accent-500 hover:bg-accent-800 hover:text-primary-100 w-full rounded-lg py-2 transition-colors"
       >
         Đăng nhập
       </button>
