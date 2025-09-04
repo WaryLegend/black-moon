@@ -1,9 +1,9 @@
 import Image from "next/image";
 import logo from "@/public/logo.png";
 
-function Logo() {
+function Logo({ className = "" }) {
   return (
-    <div className="z-10 flex items-center gap-2">
+    <div className={`z-10 flex items-center gap-2 ${className}`}>
       <Image
         src={logo}
         height="72"

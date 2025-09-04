@@ -3,19 +3,15 @@ import Men from "@/app/_components/Men";
 import Kids from "@/app/_components/Kids";
 import Carousel from "@/app/_components/Carousel";
 
-const pages = [
-  { route: "women", component: Women },
-  { route: "men", component: Men },
-  { route: "kids", component: Kids },
-];
+const sliders = ["women", "men", "kids"];
 
-const routes = pages.map((c) => c.route);
+const slideComponents = [Women, Men, Kids];
 
 export default function Page() {
   return (
     <div className="relative h-screen w-screen overflow-hidden">
-      <Carousel routes={routes}>
-        {pages.map(({ component: Component }, index) => (
+      <Carousel sliders={sliders}>
+        {slideComponents.map((Component, index) => (
           <div
             key={index}
             className="relative h-full min-w-full px-10 py-10 pt-20"

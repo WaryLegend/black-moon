@@ -1,4 +1,4 @@
-function Spinner({ type = "circle", color, size }) {
+function Spinner({ className = "", type = "circle", color, size }) {
   const classMap = {
     bar: "spinnerbar",
     mini: "spinner-mini",
@@ -11,7 +11,7 @@ function Spinner({ type = "circle", color, size }) {
     style["--spinner-size"] = size + "px";
   }
 
-  return <div className={classMap[type]} style={style} />;
+  return <div className={`${classMap[type]} ${className}`} style={style} />;
 }
 
 export default Spinner;

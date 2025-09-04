@@ -2,9 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "@/public/logo.png";
 
-function LogoLink({ linkTo }) {
+function LogoLink({ linkTo, className = "" }) {
   return (
-    <Link href={linkTo || "/"} className="z-10 flex items-center gap-2">
+    <Link
+      href={linkTo || "/"}
+      className={`z-10 flex items-center gap-2 ${className}`}
+    >
       <Image
         src={logo}
         height="40"

@@ -9,7 +9,7 @@ export default function AdHeaderSideNav() {
     <SidebarProvider>
       <AdHeader />
       <SideNavigation>
-        <LogoLink linkTo={"/admin"} />
+        <LogoLink linkTo={"/admin"} className="max-lg:scale-90" />
         <SideNavList />
       </SideNavigation>
     </SidebarProvider>

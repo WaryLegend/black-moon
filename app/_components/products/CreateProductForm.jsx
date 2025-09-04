@@ -20,7 +20,7 @@ function CreateProductForm({ ProductToEdit = {}, onCloseModal }) {
   const isEditSession = Boolean(editId);
   // install react-hook-
   // {defaultValues} --> set all default values for all fields in the form
-  const { register, handleSubmit, reset, getValues, formState } = useForm({
+  const { register, handleSubmit, reset, formState } = useForm({
     defaultValues: isEditSession ? editValues : {},
   });
   // get the input error from formState

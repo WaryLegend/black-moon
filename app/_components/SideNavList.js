@@ -57,7 +57,7 @@ function SideNavList() {
 
   return (
     <nav>
-      <ul className="text-primary-900 flex h-full shrink-0 flex-col gap-2 text-lg">
+      <ul className="text-primary-900 flex h-full shrink-0 flex-col gap-2 text-sm lg:text-lg">
         {navLinks.map((link) => {
           const isActive =
             pathname === link.href || pathname.startsWith(link.href + "/");

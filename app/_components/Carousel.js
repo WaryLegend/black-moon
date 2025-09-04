@@ -3,21 +3,19 @@
 import { useState, useEffect, useMemo } from "react";
 import { notFound, usePathname, useRouter } from "next/navigation";
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import { useMenuStore } from "@/app/_context/HomeMenuStore";
 
-function Carousel({ children, routes }) {
+function Carousel({ children, sliders }) {
   const pathname = usePathname();
   const router = useRouter();
 
-  // routes = ["women", "men", "kids"]
   const routeMap = useMemo(
-    () => routes.reduce((acc, r, i) => ({ ...acc, [r]: i }), {}),
-    [routes],
+    () => sliders.reduce((acc, r, i) => ({ ...acc, [r]: i }), {}),
+    [sliders],
   );
 
   // Determine category from clean pathname
   const category = pathname === "/" ? "women" : pathname.slice(1).toLowerCase();
-  if (!routes.includes(category)) {
+  if (!sliders.includes(category)) {
     notFound();
   }
 
@@ -73,9 +71,9 @@ function Carousel({ children, routes }) {
       newIndex = activeIndex + direction;
     }
 
-    if (newIndex >= 0 && newIndex < routes.length) {
+    if (newIndex >= 0 && newIndex < sliders.length) {
       setActiveIndex(newIndex);
-      const newPath = newIndex === 0 ? "/" : `/${routes[newIndex]}`;
+      const newPath = newIndex === 0 ? "/" : `/${sliders[newIndex]}`;
       setIsTransitioning(true);
       router.push(newPath, { scroll: false });
       animatedX.set(-newIndex * width); // spring takes over
@@ -91,7 +89,7 @@ function Carousel({ children, routes }) {
         className="z-10 flex h-full w-full"
         style={{ x: animatedX }}
         drag="x"
-        dragConstraints={{ left: -width * (routes.length - 1), right: 0 }}
+        dragConstraints={{ left: -width * (sliders.length - 1), right: 0 }}
         dragElastic={0} // 1: slippery
         dragMomentum={false} // Prevent coasting after release
         onDragEnd={handleDragEnd}

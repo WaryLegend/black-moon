@@ -2,10 +2,7 @@ import Header from "@/app/_components/Header";
 import HomePanel from "@/app/_components/HomePanel";
 
 export const metadata = {
-  title: {
-    template: "%s | Black & Moon", // %s where child-page tilte replace
-    default: "Welcome | Black & Moon", // default --> page without title
-  },
+  title: "Welcome | Black & Moon", // default --> page without title
   description:
     "Black & Moon is a modern fashion brand offering stylish, high-quality clothing. Discover the latest collections of shirts, dresses, pants, and accessories for men, women and kids.",
 };

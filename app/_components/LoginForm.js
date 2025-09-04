@@ -2,47 +2,72 @@
 
 import Link from "next/link";
 import { FiMail, FiLock } from "react-icons/fi";
-import { useState } from "react";
-import Button from "./Button";
+import { useForm } from "react-hook-form";
 
 export default function LoginForm({ noForgot }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add logic here (e.g., API call)
-    console.log("Login attempted with:", { email, password });
+  const onSubmitForm = async (data) => {
+    try {
+      // await loginAction(data); // server action call
+      reset(); // clear form
+      alert("Login successful!");
+    } catch (err) {
+      console.error(err);
+      alert("Login failed");
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit(onSubmitForm)} className="space-y-4">
       {/* Email Field */}
       <div className="relative">
         <input
-          id="email"
           type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          name="email"
           placeholder="Email*"
           className="focus:ring-accent-600 border-accent-300 w-full rounded-lg border px-4 py-2 pl-10 focus:ring-2 focus:outline-none"
+          {...register("email", {
+            required: "Email is required",
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: "Invalid email format",
+            },
+          })}
           required
         />
         <FiMail className="text-accent-500 absolute top-2.5 left-3" />
+        {errors?.email && (
+          <p className="mt-1 text-sm text-red-500">{errors?.email.message}</p>
+        )}
       </div>
 
       {/* Password Field */}
       <div className="relative">
         <input
-          id="password"
           type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          name="password"
           placeholder="Mật khẩu*"
           className="focus:ring-accent-600 border-accent-300 w-full rounded-lg border px-4 py-2 pl-10 focus:ring-2 focus:outline-none"
-          required
+          {...register("password", {
+            required: "Password is required",
+            minLength: {
+              value: 8,
+              message: "Password must be at least 8 characters",
+            },
+          })}
         />
         <FiLock className="text-accent-500 absolute top-2.5 left-3" />
+        {errors?.password && (
+          <p className="mt-1 text-sm text-red-500">
+            {errors?.password?.message}
+          </p>
+        )}
       </div>
 
       {/* Forgot Password */}
