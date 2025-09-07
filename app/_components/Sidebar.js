@@ -25,7 +25,7 @@ export default function Sidebar() {
         className="p-2 focus:outline-none md:hidden"
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
-        <FiMenu className="text-primary-900 h-6 w-6" />
+        <FiMenu className="text-primary-900 h-5 w-5" />
       </button>
 
       {/* Sidebar - Hidden on md and above, slides in when open */}

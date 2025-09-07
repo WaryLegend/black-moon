@@ -2,8 +2,11 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useMenuStore } from "@/app/_context/HomeMenuStore";
+import WomenPanel from "./WomenPanel";
+import MenPanel from "./MenPanel";
+import KidsPanel from "./KidsPanel";
 
-function NavPanel() {
+function HomePanel() {
   const { isOpen, activeLink, closeMenu } = useMenuStore();
 
   return (
@@ -32,13 +35,23 @@ function NavPanel() {
               stiffness: 350,
               damping: 30,
             }}
-            className="bg-primary-100/95 absolute top-0 right-0 left-0 z-10 h-[calc(100%-150px)] rounded-b-sm p-10 pt-20 shadow-lg"
+            className="bg-primary-100/95 absolute top-0 right-0 left-0 z-10 flex h-[calc(100%-150px)] justify-center rounded-b-sm py-10 pt-20 shadow-lg"
           >
-            <div>
-              <p className="font-semibold">Panel for {activeLink}</p>
-              {activeLink === "/" && <p>Women’s categories...</p>}
-              {activeLink === "/men" && <p>Men’s categories...</p>}
-              {activeLink === "/kids" && <p>Kids’ categories...</p>}
+            {/* fade animetion */}
+            <div className="w-full overflow-y-auto px-10">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeLink}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {activeLink === "/" && <WomenPanel />}
+                  {activeLink === "/men" && <MenPanel />}
+                  {activeLink === "/kids" && <KidsPanel />}
+                </motion.div>
+              </AnimatePresence>
             </div>
           </motion.div>
         </div>
@@ -47,4 +60,4 @@ function NavPanel() {
   );
 }
 
-export default NavPanel;
+export default HomePanel;

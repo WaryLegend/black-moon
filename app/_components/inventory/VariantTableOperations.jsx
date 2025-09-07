@@ -1,7 +1,7 @@
 // import Filter from "../../ui/Filter";
 // import SortBy from "../../ui/SortBy";
 
-function ProductTableOperations() {
+function VariantTableOperations() {
   return (
     <div className="flex items-center gap-6">
       <div>Filter</div>
@@ -31,4 +31,4 @@ function ProductTableOperations() {
   );
 }
 
-export default ProductTableOperations;
+export default VariantTableOperations;

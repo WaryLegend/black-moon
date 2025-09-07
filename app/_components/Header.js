@@ -1,18 +1,8 @@
-import Navigation from "@/app/_components/Navigation";
-import LogoLink from "@/app/_components/LogoLink";
-import User from "./User";
-import Sidebar from "./Sidebar";
-
-function Header() {
+function Header({ children }) {
   return (
-    <header className="sticky z-100 w-full px-4 py-4 sm:px-8 sm:py-5">
+    <header className="sticky z-100 w-full px-4 py-4 sm:px-10 sm:py-5 lg:px-20">
       <div className="mx-auto flex items-center justify-between">
-        <LogoLink />
-        <Navigation />
-        <div className="flex gap-4 md:gap-0">
-          <User />
-          <Sidebar />
-        </div>
+        {children}
       </div>
     </header>
   );

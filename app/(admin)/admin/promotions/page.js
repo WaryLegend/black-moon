@@ -3,5 +3,9 @@ export const metadata = {
 };
 
 export default function Page() {
-  return <div>Promotions</div>;
+  return (
+    <div className="flex items-center justify-between">
+      <h1 className="text-3xl font-semibold">All Promotions</h1>
+    </div>
+  );
 }

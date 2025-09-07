@@ -13,15 +13,15 @@ function Carousel({ children, sliders }) {
     [sliders],
   );
 
-  // Determine category from clean pathname
-  const category = pathname === "/" ? "women" : pathname.slice(1).toLowerCase();
-  if (!sliders.includes(category)) {
+  // Determine group from clean pathname
+  const group = pathname === "/" ? "women" : pathname.slice(1).toLowerCase();
+  if (!sliders.includes(group)) {
     notFound();
   }
 
   // console.log("trigger");
 
-  const initialIndex = routeMap[category];
+  const initialIndex = routeMap[group];
 
   const [activeIndex, setActiveIndex] = useState(initialIndex);
   const [width, setWidth] = useState(0);
@@ -40,9 +40,9 @@ function Carousel({ children, sliders }) {
 
   // Sync activeIndex with pathname changes
   useEffect(() => {
-    const newCategory =
+    const newGroup =
       pathname === "/" ? "women" : pathname.slice(1).toLowerCase();
-    const newIndex = routeMap[newCategory];
+    const newIndex = routeMap[newGroup];
     if (newIndex !== activeIndex && !isTransitioning) {
       setActiveIndex(newIndex);
     } else if (isTransitioning && newIndex === activeIndex) {

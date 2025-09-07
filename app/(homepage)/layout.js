@@ -1,14 +1,14 @@
 import Header from "@/app/_components/Header";
+import Navigation from "@/app/_components/Navigation";
 import LogoLink from "@/app/_components/LogoLink";
 import User from "@/app/_components/User";
+import Sidebar from "@/app/_components/Sidebar";
 import Cart from "@/app/_components/Cart";
-import WishList from "@/app/_components/Wishlist";
+import HomePanel from "@/app/_components/HomePanel";
+import Wishlist from "@/app/_components/Wishlist";
 
 export const metadata = {
-  title: {
-    template: "%s | Black & Moon",
-    default: "Black & Moon", // default --> page without title
-  },
+  title: "Welcome | Black & Moon", // default --> page without title
   description:
     "Black & Moon is a modern fashion brand offering stylish, high-quality clothing. Discover the latest collections of shirts, dresses, pants, and accessories for men, women and kids.",
 };
@@ -18,18 +18,17 @@ export default function RootLayout({ children }) {
     <div className="relative flex min-h-screen flex-col">
       <Header>
         <LogoLink />
+        <Navigation />
         <div className="flex gap-2.5 sm:gap-4">
-          <WishList />
+          <Wishlist />
           <Cart />
           <User />
+          <Sidebar />
         </div>
       </Header>
 
-      <main className="h-full w-full">
-        <div className="border-primary-400 border-t-1 px-4 py-4 sm:px-10 sm:py-5 lg:px-20">
-          {children}
-        </div>
-      </main>
+      <HomePanel />
+      <main className="absolute top-0 left-0 h-full w-full">{children}</main>
     </div>
   );
 }

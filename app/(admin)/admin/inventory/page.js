@@ -1,6 +1,6 @@
 import AddVariant from "@/app/_components/inventory/AddVariant";
 import VariantTable from "@/app/_components/inventory/VariantTable";
-import VariantTableOperations from "@/app/_components/products/ProductTableOperations";
+import VariantTableOperations from "@/app/_components/inventory/VariantTableOperations";
 import Spinner from "@/app/_components/Spinner";
 import { Suspense } from "react";
 

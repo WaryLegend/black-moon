@@ -1,7 +1,7 @@
 import Image from "next/image";
 import default_user from "@/public/default-user.jpg";
 import Link from "next/link";
-import { FaRegUser } from "react-icons/fa";
+import { FaRegUserCircle } from "react-icons/fa";
 
 // test user
 const user = { name: "Wary", avatar: null, isAuth: false };
@@ -12,21 +12,21 @@ function User() {
   return (
     <Link
       href={isAuth ? "/profile" : "/auth/login"}
-      className="flex items-center gap-2 px-1 py-1 hover:underline"
+      className="flex items-center gap-1 px-1 py-1 hover:underline"
     >
       {isAuth ? (
-        <div className="relative aspect-square size-[30px] sm:size-[35px]">
+        <div className="relative aspect-square size-[25px]">
           <Image
             src={avatar || default_user}
             fill
             alt="User's avatar"
-            className="border-accent-700 rounded-full border-2 object-cover"
+            className="border-primary-800 rounded-full border-2 object-cover"
           />
         </div>
       ) : (
-        <FaRegUser className="hidden h-5 w-5 sm:block" />
+        <FaRegUserCircle className="h-5 w-5" />
       )}
-      <span className="text-lg font-semibold sm:text-xl">
+      <span className="hidden text-lg font-semibold sm:text-xl md:block">
         {isAuth ? `Chào, ${name}` : "Sign\u00A0in"}
       </span>
     </Link>
