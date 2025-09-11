@@ -26,14 +26,14 @@ const navLinks = [
     icon: <FaUsers className="h-5 w-5" />,
   },
   {
-    name: "Products",
-    href: `${ADMIN_ROOT}/products`,
-    icon: <FaTshirt className="h-5 w-5" />,
-  },
-  {
     name: "Categories",
     href: `${ADMIN_ROOT}/categories`,
     icon: <MdOutlineCategory className="h-5 w-5" />,
+  },
+  {
+    name: "Products",
+    href: `${ADMIN_ROOT}/products`,
+    icon: <FaTshirt className="h-5 w-5" />,
   },
   {
     name: "Orders",

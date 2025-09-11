@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { links } from "@/app/_utils/constant";
+import { grouplinks } from "@/app/_utils/constants";
 import { useMenuStore } from "@/app/_context/HomeMenuStore";
 
 function NavList() {
@@ -12,7 +12,7 @@ function NavList() {
 
   return (
     <>
-      {links.map((link) => {
+      {grouplinks.map((link) => {
         const isActive =
           pathname === link.href || pathname.startsWith(link.href + "/");
         return (

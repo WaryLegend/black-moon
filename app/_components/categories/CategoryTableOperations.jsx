@@ -1,32 +1,25 @@
-// import Filter from "../../ui/Filter";
-// import SortBy from "../../ui/SortBy";
+import TabFilter from "@/app/_components/Filters/TabFilter";
+import { groupOptions } from "@/app/_utils/constants";
+import SortBy from "@/app/_components/SortBy";
 
 function CategoryTableOperations() {
   return (
-    <div className="flex items-center gap-6">
-      <div>Filter</div>
-      <div>Sort by</div>
-      {/* <Filter
-        filterField="discount"
-        options={[
-          { value: "all", label: "All" },
-          { value: "no-discount", label: "No discount" },
-          { value: "with-discount", label: "With discount" },
-        ]}
+    <div className="flex items-center gap-6 lg:gap-8">
+      <TabFilter
+        filterField="group"
+        options={[{ value: "all", label: "All" }, ...groupOptions]}
       />
+
       <SortBy
         options={[
-          { value: "name-asc", label: "Sort by name (A-Z)" },
-          { value: "name-desc", label: "Sort by name (Z-A)" },
-          { value: "regularPrice-asc", label: "Sort by price (low first)" },
-          { value: "regularPrice-desc", label: "Sort by price (high first)" },
-          { value: "maxCapacity-asc", label: "Sort by capacity (low first)" },
-          {
-            value: "maxCapacity-desc",
-            label: "Sort by capacity (high first)",
-          },
+          { value: "createdDate-desc", label: "Date (recent first)" },
+          { value: "createdDate-asc", label: "Date (earlier first)" },
+          { value: "name-asc", label: "Name (A-Z)" },
+          { value: "name-desc", label: "Name (Z-A)" },
+          { value: "group-asc", label: "Group (A-Z)" },
+          { value: "group-desc", label: "Group (Z-A)" },
         ]}
-      /> */}
+      />
     </div>
   );
 }

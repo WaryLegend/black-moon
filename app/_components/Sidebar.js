@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { usePathname } from "next/navigation";
-import { links } from "@/app/_utils/constant";
+import { grouplinks } from "@/app/_utils/constants";
 import { useMenuStore } from "@/app/_context/HomeMenuStore";
 
 export default function Sidebar() {
@@ -37,7 +37,7 @@ export default function Sidebar() {
         <div className="mt-16 flex flex-col p-4">
           <nav>
             <ul className="flex flex-col gap-4 text-lg font-semibold">
-              {links.map((link) => {
+              {grouplinks.map((link) => {
                 const isActive =
                   pathname === link.href ||
                   pathname.startsWith(link.href + "/");

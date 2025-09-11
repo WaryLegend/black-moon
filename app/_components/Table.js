@@ -43,7 +43,7 @@ const StyledBody = styled.tbody`
   padding: 0.4rem 0;
 `;
 
-const Footer = styled.footer`
+const Footer = styled.tfoot`
   background-color: var(--color-primary-50);
   display: flex;
   justify-content: center;

@@ -51,7 +51,7 @@ const fakedata = [
 function ProductTable() {
   return (
     <Menus>
-      <Table columns="0.8fr 2.2fr 1.8fr 1fr 1fr">
+      <Table columns="0.8fr 2.2fr 1.4fr 1.4fr 1fr">
         <Table.Header>
           <th></th>
           <th>Name</th>
@@ -65,11 +65,10 @@ function ProductTable() {
             <ProductRow product={product} key={product.id} />
           )}
         />
+        <Table.Footer>{/* <Pagination count={count} /> */}</Table.Footer>
       </Table>
     </Menus>
   );
 }
 
 export default ProductTable;
-
-// form nhập product:  name, description, , basePrice, category , images

@@ -7,6 +7,7 @@ import Button from "@/app/_components/Button";
 import Selector from "@/app/_components/Forms/Selector";
 import Radio from "@/app/_components/Forms/Radio";
 import { formatCurrency } from "@/app/_utils/helpers";
+import { COLORS, SIZES } from "@/app/_utils/constants";
 // import { useCreateVariant } from "./useCreateVariant";
 // import { useEditVariant } from "./useEditVariant";
 
@@ -123,7 +124,7 @@ function CreateVariantForm({ VariantToEdit = {}, onCloseModal }) {
         <Selector
           id="name"
           type="text"
-          customDefaultOption="--Select a product--"
+          customDefaultOption="Select a product"
           data={fakedata}
           disabled={isWorking || isEditSession}
           {...register("name", {
@@ -136,15 +137,7 @@ function CreateVariantForm({ VariantToEdit = {}, onCloseModal }) {
       <FormRow label="Color" error={errors?.color?.message}>
         <Radio
           disabled={isWorking || isEditSession}
-          data={[
-            { value: "white" },
-            { value: "blue" },
-            { value: "green" },
-            { value: "black" },
-            { value: "brown" },
-            { value: "pink" },
-            { value: "orange" },
-          ]}
+          data={COLORS}
           {...register("color", { required: "This field is required" })}
         />
       </FormRow>
@@ -152,15 +145,7 @@ function CreateVariantForm({ VariantToEdit = {}, onCloseModal }) {
       <FormRow label="Size" error={errors?.size?.message}>
         <Radio
           disabled={isWorking || isEditSession}
-          data={[
-            { value: "XS" },
-            { value: "S" },
-            { value: "M" },
-            { value: "L" },
-            { value: "XL" },
-            { value: "XXL" },
-            { value: "XXXL" },
-          ]}
+          data={SIZES}
           {...register("size", { required: "This field is required" })}
         />
       </FormRow>

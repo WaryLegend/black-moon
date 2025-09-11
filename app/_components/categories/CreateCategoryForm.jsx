@@ -3,19 +3,20 @@ import Form from "@/app/_components/Forms/Form";
 import FormRow from "@/app/_components/Forms/FormRow";
 import Input from "@/app/_components/Forms/Input";
 import FileInput from "@/app/_components/Forms/FileInput";
-import Textarea from "@/app/_components/Forms/Textarea";
+import Radio from "@/app/_components/Forms/Radio";
+import { groupOptions } from "@/app/_utils/constants";
 import Button from "@/app/_components/Button";
-// import { useCreateProduct } from "./useCreateProduct";
-// import { useEditProduct } from "./useEditProduct";
+// import { useCreateCategory } from "./useCreateCategory";
+// import { useEditCategory } from "./useEditCategory";
 
-function CreateProductForm({ ProductToEdit = {}, onCloseModal }) {
-  // const { isCreating, createProduct } = useCreateProduct();
-  // const { isEditing, editProduct } = useEditProduct();
+function CreateCategoryForm({ CategoryToEdit = {}, onCloseModal }) {
+  // const { isCreating, createCategory } = useCreateCategory();
+  // const { isEditing, editCategory } = useEditCategory();
 
   // const isWorking = isCreating || isEditing;
   const isWorking = false;
 
-  const { id: editId, ...editValues } = ProductToEdit;
+  const { id: editId, ...editValues } = CategoryToEdit;
   // check if it's an edit form or not || add form
   const isEditSession = Boolean(editId);
   // install react-hook-
@@ -32,8 +33,8 @@ function CreateProductForm({ ProductToEdit = {}, onCloseModal }) {
       typeof data.image === "string" ? data.image : data.image?.[0];
 
     if (isEditSession)
-      editProduct(
-        { newProductData: { ...data, image: checkimage }, id: editId },
+      editCategory(
+        { newCategoryData: { ...data, image: checkimage }, id: editId },
         {
           onSuccess: () => {
             reset(); // reset form
@@ -42,7 +43,7 @@ function CreateProductForm({ ProductToEdit = {}, onCloseModal }) {
         },
       );
     else
-      createProduct(
+      createCategory(
         { ...data, image: checkimage },
         {
           onSuccess: () => {
@@ -58,7 +59,7 @@ function CreateProductForm({ ProductToEdit = {}, onCloseModal }) {
       onSubmit={handleSubmit(onSubmitForm)}
       type={onCloseModal ? "modal" : "regular"}
     >
-      <FormRow label="Product name" error={errors?.name?.message}>
+      <FormRow label="Category name" error={errors?.name?.message}>
         <Input
           type="text"
           id="name"
@@ -67,42 +68,16 @@ function CreateProductForm({ ProductToEdit = {}, onCloseModal }) {
         />
       </FormRow>
 
-      <FormRow label="Base price" error={errors?.basePrice?.message}>
-        <Input
-          type="number"
-          id="basePrice"
-          disabled={isWorking}
-          {...register("basePrice", {
-            required: "This field is required",
-            validate: (value) =>
-              value > 0 || "Base price should be greater than 0",
-          })}
+      <FormRow label="Group" error={errors?.group?.message}>
+        <Radio
+          disabled={isWorking || isEditSession}
+          className="lg:gap-10"
+          data={groupOptions}
+          {...register("group", { required: "This field is required" })}
         />
       </FormRow>
 
-      <FormRow label="Category" error={errors?.category?.message}>
-        <Input
-          type="text"
-          id="category"
-          disabled={isWorking}
-          {...register("category", { required: "This field is required" })}
-        />
-      </FormRow>
-
-      <FormRow
-        label="Description for product"
-        error={errors?.description?.message}
-      >
-        <Textarea
-          type="text"
-          id="description"
-          defaultValue=""
-          disabled={isWorking}
-          {...register("description", { required: "This field is required" })}
-        />
-      </FormRow>
-
-      <FormRow label="Product's photo" error={errors?.image?.message}>
+      <FormRow label="Category's photo" error={errors?.image?.message}>
         <FileInput
           id="image"
           accept="image/*"
@@ -123,11 +98,11 @@ function CreateProductForm({ ProductToEdit = {}, onCloseModal }) {
           Cancel
         </Button>
         <Button disabled={isWorking}>
-          {isEditSession ? "Edit product" : "Add new product"}
+          {isEditSession ? "Edit category" : "Add new category"}
         </Button>
       </FormRow>
     </Form>
   );
 }
 
-export default CreateProductForm;
+export default CreateCategoryForm;

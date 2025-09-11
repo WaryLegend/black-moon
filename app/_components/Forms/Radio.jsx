@@ -19,11 +19,14 @@ export default function Radio({ data = [], className = "", ...props }) {
               value={option.value}
               className="h-3 w-3 rounded-full lg:h-4 lg:w-4"
               style={{
-                accentColor: color ? color : "var(--color-accent-600)",
+                accentColor:
+                  color && option.value !== "white"
+                    ? color
+                    : "var(--color-accent-600)",
               }}
             />
-            <span style={styleColor} className="rounded-sm font-semibold">
-              {option.value}
+            <span style={styleColor} className="rounded-sm p-0.5 font-semibold">
+              {option.label || option.value}
             </span>
           </label>
         );

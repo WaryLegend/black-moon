@@ -10,7 +10,6 @@ const fakedata = [
     id: 1,
     name: "Áo sơ mi",
     basePrice: 180000,
-    // category: "Shirt", // don't need
     colors: [
       {
         id: 101,

@@ -41,7 +41,7 @@ button {
 
 select:disabled,
 input:disabled {
-  background-color: var(--color-primary-200);
+  background-color: var(--color-primary-300);
   color: var(--color-primary-700);
 }
 
