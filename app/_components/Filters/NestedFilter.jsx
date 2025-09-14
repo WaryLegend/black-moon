@@ -1,8 +1,14 @@
 import Filter from "./Filter";
 
-function NestedFilter({ filters, label = "Filter", className }) {
+function NestedFilter({
+  filters,
+  label = "Filter",
+  className,
+  onFilterChange,
+  localFilterState,
+}) {
   return (
-    <div className={`flex items-center gap-2 p-1 ${className}`}>
+    <div className={`flex flex-wrap items-center gap-2 p-1 ${className}`}>
       {label && <label className="font-semibold">{label}</label>}
       {filters.map((fil) => (
         <Filter
@@ -10,6 +16,9 @@ function NestedFilter({ filters, label = "Filter", className }) {
           filterField={fil?.filterField}
           options={fil?.options}
           selectProps={fil?.selectProps}
+          onFilterChange={onFilterChange}
+          // for local state view only (via SideFilter)
+          value={localFilterState?.[fil.filterField]}
         />
       ))}
     </div>

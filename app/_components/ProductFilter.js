@@ -47,7 +47,7 @@ function ProductFilter() {
       {/* Optimized for smaller-screens and mobiles */}
       <SideFilter filters={filters} />
 
-      <div className="hidden lg:block">
+      <div className="hidden md:block">
         <NestedFilter filters={filters} label="" />
       </div>
     </div>

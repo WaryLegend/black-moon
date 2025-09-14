@@ -16,32 +16,35 @@ async function Page({ params }) {
   const { label, href } = GROUPS[group];
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <h1 className="inline-flex text-3xl font-semibold">
-          <Link
-            href={href}
-            className="hover:text-accent-700 flex gap-1 hover:underline"
-          >
-            <IoIosArrowBack />
-            {capitalizeFirst(label)}
-          </Link>
-          /{categoryId}
-        </h1>
-        <SortBy
-          label="Sắp xếp theo"
-          options={[
-            { value: "createdDate-desc", label: "Ngày (gần đây)" },
-            { value: "createdDate-asc", label: "Ngày (trước đây)" },
-            { value: "name-asc", label: "Tên sản phẩm (A-Z)" },
-            { value: "name-desc", label: "Tên sản phẩm (Z-A)" },
-            { value: "price-asc", label: "Giá bán (thấp → cao)" },
-            { value: "price-desc", label: "Giá bán (cao → thấp)" },
-          ]}
-        />
+    <>
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-wrap items-center justify-between">
+          <h1 className="inline-flex text-2xl font-semibold lg:text-3xl">
+            <Link
+              href={href}
+              className="hover:text-accent-700 flex gap-1 hover:underline"
+            >
+              <IoIosArrowBack />
+              {capitalizeFirst(label)}
+            </Link>
+            /{categoryId} Áo khoác da
+          </h1>
+          <SortBy
+            label="Sắp xếp theo"
+            className="ml-auto"
+            options={[
+              { value: "createdDate-desc", label: "Ngày (gần đây)" },
+              { value: "createdDate-asc", label: "Ngày (trước đây)" },
+              { value: "name-asc", label: "Tên sản phẩm (A-Z)" },
+              { value: "name-desc", label: "Tên sản phẩm (Z-A)" },
+              { value: "price-asc", label: "Giá bán (thấp → cao)" },
+              { value: "price-desc", label: "Giá bán (cao → thấp)" },
+            ]}
+          />
+        </div>
+        <ProductFilter />
       </div>
-      <ProductFilter />
-    </div>
+    </>
   );
 }
 

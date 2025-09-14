@@ -3,7 +3,7 @@
 import Select from "@/app/_components/CustomSelect";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
-function SortBy({ options, label = "Sort by" }) {
+function SortBy({ options, label = "Sort by", className }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -21,7 +21,7 @@ function SortBy({ options, label = "Sort by" }) {
 
   return (
     <>
-      <div className="flex items-center gap-2 p-1">
+      <div className={`flex items-center gap-2 p-1 ${className}`}>
         <label htmlFor="sortBy" className="font-semibold">
           {label}
         </label>

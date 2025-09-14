@@ -1,13 +1,35 @@
+"use client";
+
 import { IoClose, IoFilter } from "react-icons/io5";
-import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useCallback, useEffect } from "react";
 import NestedFilter from "@/app/_components/Filters/NestedFilter";
 import Button from "@/app/_components/Button";
 
 function SideFilter({ filters }) {
   const [isOpenSideFilter, setIsOpenSideFilter] = useState(false);
+  const [localFilters, setLocalFilters] = useState({});
+  const router = useRouter();
   const searchParams = useSearchParams();
 
+  // Initialize local filters when sidebar opens
+  useEffect(() => {
+    if (isOpenSideFilter) {
+      const initialFilters = {};
+      filters.forEach((fil) => {
+        const raw = searchParams.get(fil.filterField);
+        initialFilters[fil.filterField] = fil.selectProps?.isMulti
+          ? raw
+            ? raw.split(",")
+            : []
+          : raw || "";
+      });
+
+      setLocalFilters(initialFilters);
+    }
+  }, [isOpenSideFilter, searchParams, filters]);
+
+  // Calculate active filters for display (based on applied URL params)
   const activeFilters = filters.reduce((acc, fil) => {
     const value = searchParams.get(fil.filterField);
     if (!value) return acc;
@@ -21,6 +43,41 @@ function SideFilter({ filters }) {
 
     return acc + 1;
   }, 0);
+
+  // Handle filter changes locally
+  const handleFilterChange = useCallback((filterField, value) => {
+    setLocalFilters((prev) => ({
+      ...prev,
+      [filterField]: value,
+    }));
+  }, []);
+
+  // Apply filters to URL when "Áp dụng" is clicked
+  const applyFilters = useCallback(() => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    // Update URL with local filter values
+    filters.forEach((fil) => {
+      const filterField = fil.filterField;
+      const value = localFilters[filterField];
+
+      if (!value || (Array.isArray(value) && value.length === 0)) {
+        params.delete(filterField);
+      } else if (Array.isArray(value)) {
+        params.set(filterField, value.join(","));
+      } else {
+        params.set(filterField, value);
+      }
+    });
+
+    // Reset page to 1 if page param exists
+    if (params.has("page")) {
+      params.set("page", "1");
+    }
+
+    router.push(`?${params.toString()}`);
+    setIsOpenSideFilter(false);
+  }, [localFilters, searchParams, filters, router]);
 
   return (
     <>
@@ -38,7 +95,7 @@ function SideFilter({ filters }) {
       </button>
 
       <div className="z-100">
-        {/* Dark background */}
+        {/* Faded Overlayer */}
         <div
           onClick={() => setIsOpenSideFilter(false)}
           className={`bg-primary-800/50 fixed inset-0 transition-opacity ${isOpenSideFilter ? "visible opacity-100" : "invisible opacity-0"}`}
@@ -63,15 +120,18 @@ function SideFilter({ filters }) {
 
           {/* Filters */}
           <div className="flex-1 overflow-y-auto p-4">
-            <NestedFilter filters={filters} className="grid gap-4" label="" />
+            <NestedFilter
+              filters={filters}
+              className="grid gap-4"
+              label=""
+              onFilterChange={handleFilterChange}
+              localFilterState={localFilters}
+            />
           </div>
 
           {/* Apply button */}
           <div className="border-primary-400 border-t p-4">
-            <Button
-              onClick={() => setIsOpenSideFilter(false)}
-              className="w-full"
-            >
+            <Button onClick={applyFilters} className="w-full">
               Áp dụng
             </Button>
           </div>

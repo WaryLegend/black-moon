@@ -3,31 +3,46 @@
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Select from "@/app/_components/CustomSelect";
 
-function Filter({ filterField, options, selectProps = {} }) {
+function Filter({
+  filterField,
+  options,
+  selectProps = {},
+  onFilterChange,
+  value: propValue,
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // get from params
-  const raw = searchParams.get(filterField);
-  const currentFilter = selectProps.isMulti
-    ? (raw?.split(",") ?? []) // multi -> array
-    : raw || ""; // single -> string
+  // Use provided value if in deferred mode (onFilterChange), otherwise from params
+  const currentFilter = onFilterChange
+    ? propValue
+    : selectProps.isMulti
+      ? (searchParams.get(filterField)?.split(",") ?? [])
+      : searchParams.get(filterField) || "";
 
   function handleChange(event) {
     const value = event.target.value; // string or array
+
+    // If onFilterChange is provided (from SideFilter), update local state
+    if (onFilterChange) {
+      onFilterChange(filterField, value);
+      return;
+    }
+
+    // Otherwise, update URL directly (for NestedFilter in ProductFilter)
     const params = new URLSearchParams(searchParams.toString());
 
     if (!value || (Array.isArray(value) && value.length === 0)) {
       params.delete(filterField);
     } else if (Array.isArray(value)) {
-      params.set(filterField, value.join(",")); // store as comma string
+      params.set(filterField, value.join(","));
     } else {
       params.set(filterField, value);
     }
 
-    // if page param exist
-    if (params.get("page")) params.set("page", 1);
+    // If page param exists
+    if (params.get("page")) params.set("page", "1");
 
     router.push(`${pathname}?${params.toString()}`);
   }
