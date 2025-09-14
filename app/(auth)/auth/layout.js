@@ -65,7 +65,9 @@ export default function AdminLoginLayout({ children }) {
         </div>
 
         {/* Form */}
-        <main className="relative mx-auto w-full max-w-7xl">{children}</main>
+        <main className="relative mx-auto h-screen w-full max-w-7xl">
+          {children}
+        </main>
       </div>
     </div>
   );

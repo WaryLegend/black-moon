@@ -4,7 +4,7 @@ export function middleware(request) {
   const url = request.nextUrl;
   const pathname = url.pathname;
 
-  if (pathname === "/men" || pathname === "/kids") {
+  if (pathname === "/men" || pathname === "/kids" || pathname === "/women") {
     return NextResponse.rewrite(new URL("/", request.url));
   }
 
@@ -16,5 +16,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/admin", "/men", "/kids"],
+  matcher: ["/admin", "/women", "/men", "/kids"],
 };

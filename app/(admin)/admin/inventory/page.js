@@ -23,8 +23,8 @@ export default function Page() {
               { value: "name-desc", label: "Name (Z-A)" },
               { value: "quantity-asc", label: "quantity (highest first)" },
               { value: "quantity-desc", label: "quantity (lowest first)" },
-              { value: "price-asc", label: "Price (highest first)" },
-              { value: "price-desc", label: "Price (lowest first)" },
+              { value: "price-asc", label: "Price (lowest first)" },
+              { value: "price-desc", label: "Price (highest first)" },
             ]}
           />
         </div>

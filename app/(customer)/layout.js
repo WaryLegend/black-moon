@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
     <div className="relative flex min-h-screen flex-col">
       <Header>
         <LogoLink />
-        <div className="flex gap-2.5 sm:gap-4">
+        <div className="flex items-center gap-2.5 sm:gap-4">
           <WishList />
           <Cart />
           <User />
@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
       </Header>
 
       <main className="h-full w-full">
-        <div className="border-primary-400 border-t-1 px-4 py-4 sm:px-10 sm:py-5 lg:px-20">
+        <div className="border-primary-400 border-t-1 px-4 py-4 sm:px-10 sm:py-5 md:px-15 lg:px-30">
           {children}
         </div>
       </main>

@@ -3,7 +3,7 @@
 import Select from "@/app/_components/CustomSelect";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
-function SortBy({ options }) {
+function SortBy({ options, label = "Sort by" }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -23,7 +23,7 @@ function SortBy({ options }) {
     <>
       <div className="flex items-center gap-2 p-1">
         <label htmlFor="sortBy" className="font-semibold">
-          Sort by
+          {label}
         </label>
         <Select
           inputId="sortBy"

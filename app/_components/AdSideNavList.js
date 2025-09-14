@@ -52,7 +52,7 @@ const navLinks = [
   },
 ];
 
-function SideNavList() {
+function AdSideNavList() {
   const pathname = usePathname();
 
   return (
@@ -85,4 +85,4 @@ function SideNavList() {
   );
 }
 
-export default SideNavList;
+export default AdSideNavList;

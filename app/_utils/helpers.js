@@ -1,3 +1,9 @@
+// set first letter to captital
+export function capitalizeFirst(str) {
+  if (!str) return "";
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 export const formatCurrency = (value) =>
   new Intl.NumberFormat("vi", { style: "currency", currency: "VND" }).format(
     value,
@@ -24,8 +30,8 @@ export function getQuantityTextColor(value) {
 
 export function getTextColor(text) {
   const TEXT_COLORS = {
-    BLACK: { color: "#0f0f0f", backgroundColor: "#8a8a8a" },
-    WHITE: { color: "#FFFFFF", backgroundColor: "#9ca3af" },
+    BLACK: { color: "#0f0f0f", backgroundColor: "#3d3d3d" },
+    WHITE: { color: "#FFFFFF", backgroundColor: "#bbc1ca" },
     BLUE: { color: "#1D4ED8", backgroundColor: "#dbeafe" },
     GREEN: { color: "#15803D", backgroundColor: "#dcfce7" },
     BROWN: { color: "#7A3E00", backgroundColor: "#f5e6d3" },

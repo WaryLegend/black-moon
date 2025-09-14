@@ -1,6 +1,5 @@
-import Image from "next/image";
-import test_img from "@/public/t-shirt.jpg";
 import Link from "next/link";
+import CategoryItem from "./CategoryItem";
 
 function CategoryList({ categories = [], group, children }) {
   if (!categories.length)
@@ -9,21 +8,7 @@ function CategoryList({ categories = [], group, children }) {
   return (
     <ul className="border-accent-300 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-5 border-b-1 pb-5 uppercase sm:px-10 lg:px-20">
       {categories.map((cat) => (
-        <li key={cat.id}>
-          <Link
-            href={`/${group}/${cat.id}`}
-            className="hover:bg-primary-200 flex cursor-pointer items-center gap-2 p-2 transition-all hover:shadow"
-          >
-            <Image
-              src={test_img}
-              className="aspect-square object-cover"
-              alt={`${cat.name}'s image`}
-              width={40}
-              height={40}
-            />
-            <span className="text-accent-800 flex-1 text-sm">{cat.name}</span>
-          </Link>
-        </li>
+        <CategoryItem key={cat.id} category={cat} group={group} />
       ))}
 
       {/* aditional li if has*/}

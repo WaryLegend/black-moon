@@ -12,7 +12,7 @@ function User() {
   return (
     <Link
       href={isAuth ? "/profile" : "/auth/login"}
-      className="flex items-center gap-1 px-1 py-1 hover:underline"
+      className="hover:text-accent-700 flex items-center gap-1 p-1 hover:underline"
     >
       {isAuth ? (
         <div className="relative aspect-square size-[25px]">

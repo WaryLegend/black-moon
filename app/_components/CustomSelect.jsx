@@ -47,12 +47,16 @@ function CustomSelect({
         backgroundColor: state.isSelected
           ? "var(--color-accent-600)"
           : state.isFocused
-            ? "var(--color-accent-100)"
+            ? custom.backgroundColor || "var(--color-accent-100)"
             : "white",
         color: state.isSelected
           ? "white"
-          : custom.color || "var(--color-primary-700)",
-        ...custom, // apply custom color/backgroundColor
+          : state.isFocused
+            ? state.data.value === "black"
+              ? "white"
+              : custom.color
+            : (state.data.value !== "white" && custom.color) ||
+              "var(--color-primary-700)",
       };
     },
     singleValue: (provided) => {
@@ -71,8 +75,11 @@ function CustomSelect({
       const custom = getOptionStyle?.(state.data.value) || {};
       return {
         ...provided,
-        color: custom.color || provided.color,
-        ...custom,
+        color:
+          state.data.value === "black"
+            ? "white"
+            : custom.color || provided.color,
+        backgroundColor: custom.backgroundColor,
       };
     },
     multiValueRemove: (provided, state) => {

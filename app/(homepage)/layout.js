@@ -2,7 +2,7 @@ import Header from "@/app/_components/Header";
 import Navigation from "@/app/_components/Navigation";
 import LogoLink from "@/app/_components/LogoLink";
 import User from "@/app/_components/User";
-import Sidebar from "@/app/_components/Sidebar";
+import SideNav from "@/app/_components/SideNav";
 import Cart from "@/app/_components/Cart";
 import HomePanel from "@/app/_components/HomePanel";
 import Wishlist from "@/app/_components/Wishlist";
@@ -19,11 +19,11 @@ export default function RootLayout({ children }) {
       <Header>
         <LogoLink />
         <Navigation />
-        <div className="flex gap-2.5 sm:gap-4">
+        <div className="flex items-center gap-2.5 sm:gap-4">
           <Wishlist />
           <Cart />
           <User />
-          <Sidebar />
+          <SideNav />
         </div>
       </Header>
 

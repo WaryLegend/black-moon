@@ -2,7 +2,7 @@
 
 import { useSidebar } from "@/app/_context/SidebarContext";
 
-function SideNavigation({ children }) {
+function AdSideNavigation({ children }) {
   const { isOpen } = useSidebar();
 
   return (
@@ -15,4 +15,4 @@ function SideNavigation({ children }) {
   );
 }
 
-export default SideNavigation;
+export default AdSideNavigation;

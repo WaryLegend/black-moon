@@ -29,7 +29,7 @@ function NavList() {
             >
               <p
                 className={`group-hover:text-accent-700 transition-all ${
-                  isActive ? "cursor-default" : "hover:scale-105"
+                  isActive ? "" : "hover:scale-105"
                 }`}
               >
                 {link.label}

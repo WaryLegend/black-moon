@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { grouplinks } from "@/app/_utils/constants";
 import { useMenuStore } from "@/app/_context/HomeMenuStore";
 
-export default function Sidebar() {
+export default function SideNav() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const { toggleMenu } = useMenuStore();
@@ -28,7 +28,7 @@ export default function Sidebar() {
         <FiMenu className="text-primary-900 h-5 w-5" />
       </button>
 
-      {/* Sidebar - Hidden on md and above, slides in when open */}
+      {/* SideNav - Hidden on md and above, slides in when open */}
       <div
         className={`bg-primary-100/90 fixed top-0 right-0 h-full transform ${
           isOpen ? "translate-x-0" : "translate-x-full"

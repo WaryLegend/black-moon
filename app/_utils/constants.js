@@ -1,8 +1,7 @@
 // Pagination size/length
 export const PAGE_SIZE = 10;
 
-// constants.js
-export const groups = {
+export const GROUPS = {
   women: { label: "Nữ", href: "/" },
   men: { label: "Nam", href: "/men" },
   kids: { label: "Trẻ\u00A0em", href: "/kids" },
@@ -10,17 +9,17 @@ export const groups = {
 
 // 👉 for table display
 export const groupLabels = Object.fromEntries(
-  Object.entries(groups).map(([key, val]) => [key, val.label]),
+  Object.entries(GROUPS).map(([key, val]) => [key, val.label]),
 );
 
 // 👉 for navigation (Homepage page naviagtion)
-export const grouplinks = Object.values(groups).map(({ href, label }) => ({
+export const grouplinks = Object.values(GROUPS).map(({ href, label }) => ({
   href,
   label,
 }));
 
 // 👉 for radio option, filter, select, ...
-export const groupOptions = Object.entries(groups).map(
+export const groupOptions = Object.entries(GROUPS).map(
   ([value, { label }]) => ({
     value,
     label,
@@ -40,11 +39,41 @@ export const SIZES = [
 
 //clothes color
 export const COLORS = [
-  { value: "white", label: "Trắng" },
-  { value: "blue", label: "Lam" },
-  { value: "green", label: "Lục" },
-  { value: "black", label: "Đen" },
-  { value: "brown", label: "Nâu" },
-  { value: "pink", label: "Hồng" },
   { value: "orange", label: "Cam" },
+  { value: "pink", label: "Hồng" },
+  { value: "brown", label: "Nâu" },
+  { value: "green", label: "Lục" },
+  { value: "blue", label: "Lam" },
+  { value: "white", label: "Trắng" },
+  { value: "black", label: "Đen" },
+];
+
+// Price
+export const PRICES = [
+  { label: "Tất cả giá", value: "all" },
+  { label: "Dưới 199.000 VND", value: "under-199000" },
+  {
+    label: "199.000 VND - 299.000 VND",
+    value: "199000-299000",
+  },
+  {
+    label: "299.000 VND - 399.000 VND",
+    value: "299000-399000",
+  },
+  {
+    label: "399.000 VND - 499.000 VND",
+    value: "399000-499000",
+  },
+  {
+    label: "499.000 VND - 799.000 VND",
+    value: "499000-799000",
+  },
+  {
+    label: "799.000 VND - 999.000 VND",
+    value: "799000-999000",
+  },
+  {
+    label: "Trên 999.000 VND",
+    value: "above-999000",
+  },
 ];

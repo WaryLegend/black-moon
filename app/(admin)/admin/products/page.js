@@ -21,8 +21,8 @@ export default function Page() {
               { value: "createdDate-asc", label: "Date (earlier first)" },
               { value: "name-asc", label: "Name (A-Z)" },
               { value: "name-desc", label: "Name (Z-A)" },
-              { value: "price-asc", label: "Price (highest first)" },
-              { value: "price-desc", label: "Price (lowest first)" },
+              { value: "price-asc", label: "Price (lowest first)" },
+              { value: "price-desc", label: "Price (highest first)" },
             ]}
           />
         </div>

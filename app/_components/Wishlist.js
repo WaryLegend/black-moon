@@ -7,7 +7,7 @@ function Wishlist() {
   return (
     <Link
       href="/wishlist"
-      className="group hover:text-accent-700 relative flex items-center gap-2 px-1 py-1"
+      className="group hover:text-accent-700 relative flex items-center justify-center p-1"
     >
       <FaRegHeart className="h-5 w-5 group-hover:hidden" />
       <FaHeart className="hidden h-5 w-5 group-hover:block" />

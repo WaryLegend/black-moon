@@ -7,8 +7,8 @@ export const metadata = {
 
 export default function AdminLogin() {
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <div className="bg-primary-50 w-full max-w-md rounded-lg p-8 shadow-lg">
+    <div className="flex h-full items-center justify-center p-5">
+      <div className="bg-primary-50 max-h-full max-w-lg overflow-y-auto rounded-lg p-8 shadow-lg">
         {/* Logo */}
         <div className="p flex justify-center pb-5">
           <Logo />

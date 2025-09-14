@@ -9,8 +9,8 @@ export const metadata = {
 
 export default function UserLogin() {
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <div className="bg-primary-50 w-full max-w-md rounded-lg p-8 shadow-lg">
+    <div className="flex h-full items-center justify-center p-5">
+      <div className="bg-primary-50 max-h-full max-w-lg overflow-y-auto rounded-lg p-8 shadow-lg">
         {/* Login Title */}
         <h2 className="text-primary-900 mb-6 text-center text-3xl font-bold">
           Đăng nhập

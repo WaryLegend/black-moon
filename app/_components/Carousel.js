@@ -19,8 +19,6 @@ function Carousel({ children, sliders }) {
     notFound();
   }
 
-  // console.log("trigger");
-
   const initialIndex = routeMap[group];
 
   const [activeIndex, setActiveIndex] = useState(initialIndex);
