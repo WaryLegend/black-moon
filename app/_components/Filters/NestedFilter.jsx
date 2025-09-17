@@ -3,7 +3,7 @@ import Filter from "./Filter";
 function NestedFilter({
   filters,
   label = "Filter",
-  className,
+  className = "",
   onFilterChange,
   localFilterState,
 }) {

@@ -82,7 +82,7 @@ function SideFilter({ filters }) {
   return (
     <>
       <button
-        className="relative inline-flex items-center justify-center p-1"
+        className="bg-primary-0 border-accent-400 relative m-1 ml-auto inline-flex items-center justify-center rounded-full border-1 p-1 md:m-0"
         title="Bộ lọc"
         onClick={() => setIsOpenSideFilter(true)}
       >

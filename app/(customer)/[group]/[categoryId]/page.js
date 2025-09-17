@@ -2,9 +2,21 @@ import { IoIosArrowBack } from "react-icons/io";
 import { notFound } from "next/navigation";
 import { capitalizeFirst } from "@/app/_utils/helpers";
 import { GROUPS } from "@/app/_utils/constants";
+import StickyFilterWrapper from "@/app/_components/StickyFilterWrapper";
 import ProductFilter from "@/app/_components/ProductFilter";
 import SortBy from "@/app/_components/SortBy";
 import Link from "next/link";
+import ProductSection from "@/app/_components/ProductSection";
+
+const variants = [
+  "ĐỒ MẶC NGOÀI",
+  "QUẦN",
+  "HEATTECH",
+  "ĐỒ BẦU",
+  "ÁO THUN, ÁO NI & ÁO GIẢ LÔNG CỪU",
+  "AIRism",
+  "Đồ mặc nhà",
+];
 
 async function Page({ params }) {
   const { group, categoryId } = await params;
@@ -17,7 +29,7 @@ async function Page({ params }) {
 
   return (
     <>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-1 pb-10 md:gap-4">
         <div className="flex flex-wrap items-center justify-between">
           <h1 className="inline-flex text-2xl font-semibold lg:text-3xl">
             <Link
@@ -42,7 +54,13 @@ async function Page({ params }) {
             ]}
           />
         </div>
-        <ProductFilter />
+        <StickyFilterWrapper>
+          <ProductFilter />
+        </StickyFilterWrapper>
+
+        {/* list of productSection need map()*/}
+        <ProductSection variants={variants} />
+        <ProductSection variants={variants} />
       </div>
     </>
   );

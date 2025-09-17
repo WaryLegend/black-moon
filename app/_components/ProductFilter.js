@@ -43,7 +43,7 @@ const filters = [
 
 function ProductFilter() {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-1">
       {/* Optimized for smaller-screens and mobiles */}
       <SideFilter filters={filters} />
 
