@@ -82,11 +82,11 @@ function SideFilter({ filters }) {
   return (
     <>
       <button
-        className="bg-primary-0 border-accent-400 relative m-1 ml-auto inline-flex items-center justify-center rounded-full border-1 p-1 md:m-0"
+        className="bg-primary-0 border-accent-400 hover:border-accent-700 relative m-1 ml-auto inline-flex items-center justify-center rounded-full border-1 p-1 transition-all md:m-0"
         title="Bộ lọc"
         onClick={() => setIsOpenSideFilter(true)}
       >
-        <IoFilter className="hover:text-accent-700 h-5 w-5" />
+        <IoFilter className="hover:text-accent-700 h-5 w-5 transition-all" />
         {activeFilters > 0 && (
           <span className="bg-accent-500 absolute top-0 -right-1 flex h-4 w-4 items-center justify-center rounded-full text-[10px] font-bold text-white">
             {activeFilters}

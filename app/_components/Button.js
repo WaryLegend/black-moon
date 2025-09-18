@@ -13,16 +13,17 @@ export default function Button({
   };
 
   const variantClasses = {
-    primary: "text-accent-50 bg-accent-600 hover:bg-accent-700",
+    primary:
+      "text-accent-50 bg-accent-600 hover:bg-accent-700 hover:text-primary-0",
     secondary:
-      "text-primary-600 bg-primary-100 border border-primary-200 hover:bg-primary-200",
+      "text-primary-600 bg-primary-100 border border-primary-200 hover:bg-primary-200 hover:text-primary-500",
     danger: "text-red-100 bg-red-700 hover:bg-red-800",
   };
 
   const sumClasses = `rounded-md border-none shadow-sm transition-all ${sizeClasses[size]} ${variantClasses[variant]}`;
 
   return (
-    <button className={`${className} ${custom ? "" : sumClasses}`} {...props}>
+    <button className={`${custom ? "" : sumClasses} ${className}`} {...props}>
       {children}
     </button>
   );

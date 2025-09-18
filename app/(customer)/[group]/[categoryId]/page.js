@@ -1,66 +1,52 @@
-import { IoIosArrowBack } from "react-icons/io";
-import { notFound } from "next/navigation";
-import { capitalizeFirst } from "@/app/_utils/helpers";
-import { GROUPS } from "@/app/_utils/constants";
 import StickyFilterWrapper from "@/app/_components/StickyFilterWrapper";
 import ProductFilter from "@/app/_components/ProductFilter";
-import SortBy from "@/app/_components/SortBy";
 import Link from "next/link";
 import ProductSection from "@/app/_components/ProductSection";
+import BreadCrumbNav from "@/app/_components/BreadCrumbNav";
 
-const variants = [
-  "ĐỒ MẶC NGOÀI",
-  "QUẦN",
-  "HEATTECH",
-  "ĐỒ BẦU",
-  "ÁO THUN, ÁO NI & ÁO GIẢ LÔNG CỪU",
-  "AIRism",
-  "Đồ mặc nhà",
+// fetch products by categoryId
+const products = [
+  { id: 1, name: "ĐỒ MẶC NGOÀI" },
+  { id: 2, name: "QUẦN" },
+  { id: 3, name: "HEATTECH" },
+  { id: 4, name: "ĐỒ BẦU" },
+  { id: 5, name: "ÁO THUN, ÁO NI & ÁO GIẢ LÔNG CỪU" },
+  { id: 6, name: "AIRism" },
+  { id: 7, name: "Đồ mặc nhà" },
 ];
 
+// const products = [];
+
 async function Page({ params }) {
-  const { group, categoryId } = await params;
-
-  if (!Object.keys(GROUPS).includes(group)) {
-    notFound();
-  }
-
-  const { label, href } = GROUPS[group];
+  //use this to fetch products
+  const { categoryId } = await params;
 
   return (
     <>
-      <div className="flex flex-col gap-1 pb-10 md:gap-4">
-        <div className="flex flex-wrap items-center justify-between">
-          <h1 className="inline-flex text-2xl font-semibold lg:text-3xl">
-            <Link
-              href={href}
-              className="hover:text-accent-700 flex gap-1 hover:underline"
-            >
-              <IoIosArrowBack />
-              {capitalizeFirst(label)}
-            </Link>
-            /{categoryId} Áo khoác da
-          </h1>
-          <SortBy
-            label="Sắp xếp theo"
-            className="ml-auto"
-            options={[
-              { value: "createdDate-desc", label: "Ngày (gần đây)" },
-              { value: "createdDate-asc", label: "Ngày (trước đây)" },
-              { value: "name-asc", label: "Tên sản phẩm (A-Z)" },
-              { value: "name-desc", label: "Tên sản phẩm (Z-A)" },
-              { value: "price-asc", label: "Giá bán (thấp → cao)" },
-              { value: "price-desc", label: "Giá bán (cao → thấp)" },
-            ]}
-          />
-        </div>
+      <div className="flex flex-col gap-1 md:gap-4">
+        {/* sub-header, title, navigation */}
+        <BreadCrumbNav params={params} />
+        {/* filters */}
         <StickyFilterWrapper>
           <ProductFilter />
         </StickyFilterWrapper>
 
-        {/* list of productSection need map()*/}
-        <ProductSection variants={variants} />
-        <ProductSection variants={variants} />
+        {/* products section */}
+        {products?.length ? (
+          <ProductSection products={products} />
+        ) : (
+          <span className="bg-accent-100 rounded-sm p-10 text-center">
+            <p className="text-2xl font-semibold">
+              Tên_thể_loại chưa có sản phẩm nào.{" "}
+              <Link
+                href={href}
+                className="text-accent-600 hover:text-accent-700 text-lg font-normal underline"
+              >
+                Quay lại
+              </Link>
+            </p>
+          </span>
+        )}
       </div>
     </>
   );

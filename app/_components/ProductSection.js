@@ -1,54 +1,44 @@
 import Image from "next/image";
 import test from "@/public/test-product.jpg";
-import test_img from "@/public/t-shirt.jpg";
+import ProductList from "@/app/_components/ProductList";
+import ViewProductLink from "@/app/_components/ViewProductLink";
+import SortBy from "@/app/_components/SortBy";
 
-function ProductSection({ variants }) {
+function ProductSection({ products }) {
+  // get first product of list as presenter
+  const productId = products[0].id;
+
   return (
-    <div className="px-5">
-      <div className="py-5 text-xl">Product name</div>
+    <div className="grid">
+      <div className="flex flex-wrap items-center justify-between pb-3">
+        <div className="font-semibold">{products.length} Sản phẩm</div>
+        <SortBy
+          label="Sắp xếp theo"
+          className="ml-auto"
+          options={[
+            { value: "createdDate-desc", label: "Ngày (gần đây)" },
+            { value: "createdDate-asc", label: "Ngày (trước đây)" },
+            { value: "name-asc", label: "Tên sản phẩm (A-Z)" },
+            { value: "name-desc", label: "Tên sản phẩm (Z-A)" },
+            { value: "price-asc", label: "Giá bán (thấp → cao)" },
+            { value: "price-desc", label: "Giá bán (cao → thấp)" },
+          ]}
+        />
+      </div>
       <div className="flex justify-center">
-        <div className="relative h-150 max-h-200 w-full max-w-7xl">
+        <div className="relative h-100 max-h-200 w-full max-w-7xl lg:h-150">
           <Image
-            src={test}
+            src={test} // get the category image
             fill
             placeholder="blur"
             alt="product"
-            className="rounded-sm object-cover"
+            className="aspect-[3/4] rounded-sm object-cover"
           />
-          <button className="bg-primary-50 hover:bg-primary-200 absolute right-2.5 bottom-2.5 rounded-full px-2 py-1 transition-all">
-            Xem sản phẩm
-          </button>
+          <ViewProductLink productId={productId} disabled={!products?.length} />
         </div>
       </div>
-      {variants ? (
-        <ul className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-5 p-5">
-          {variants.map((variant, index) => (
-            <li
-              key={index}
-              className="group flex cursor-pointer flex-col overflow-hidden rounded-md border border-gray-200 bg-white shadow-sm transition hover:shadow-md"
-            >
-              {/* Image wrapper */}
-              <div className="relative aspect-[4/3] w-full overflow-hidden">
-                <Image
-                  src={test_img}
-                  alt={`${variant}'s image`}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-              </div>
-
-              {/* Caption */}
-              <div className="p-3 text-center">
-                <span className="text-accent-800 text-sm font-medium">
-                  {variant}
-                </span>
-              </div>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <span>Chưa có dữ liệu hiển thị</span>
-      )}
+      {/* variant-list of product*/}
+      <ProductList products={products} />
     </div>
   );
 }

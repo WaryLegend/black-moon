@@ -54,7 +54,10 @@ function VariantRow({ variant }) {
       <td>
         <Field>
           <p
-            style={getTextColor(color).style}
+            style={{
+              ...getTextColor(color).style,
+              ...(color.toLowerCase() === "black" && { color: "white" }),
+            }}
             className="inline rounded-sm px-1 py-0.5 uppercase"
           >
             {color}

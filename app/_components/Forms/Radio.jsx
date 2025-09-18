@@ -25,7 +25,13 @@ export default function Radio({ data = [], className = "", ...props }) {
                     : "var(--color-accent-600)",
               }}
             />
-            <span style={styleColor} className="rounded-sm p-0.5 font-semibold">
+            <span
+              style={{
+                ...styleColor,
+                ...(option.value === "black" && { color: "white" }),
+              }}
+              className="rounded-sm p-0.5 font-semibold"
+            >
               {option.label || option.value}
             </span>
           </label>

@@ -13,7 +13,7 @@ export const metadata = {
     "Black & Moon is a modern fashion brand offering stylish, high-quality clothing. Discover the latest collections of shirts, dresses, pants, and accessories for men, women and kids.",
 };
 
-export default function RootLayout({ children }) {
+export default function HomeLayout({ children }) {
   return (
     <div className="relative flex min-h-screen flex-col">
       <Header>

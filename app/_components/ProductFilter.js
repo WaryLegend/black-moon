@@ -15,7 +15,7 @@ const filters = [
       isClearable: true,
       closeMenuOnSelect: false,
       isAnimated: true,
-      placeholder: "Kích thước",
+      placeholder: "Kích cỡ",
     },
   },
   {

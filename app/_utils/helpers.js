@@ -1,7 +1,20 @@
 // set first letter to captital
 export function capitalizeFirst(str) {
   if (!str) return "";
-  return str.charAt(0).toUpperCase() + str.slice(1);
+
+  // Step 1: detect all-uppercase (ignoring non-letters)
+  const isAllUpper = /^[^a-z]*[A-Z][^a-z]*$/.test(str);
+  if (isAllUpper) {
+    str = str.toLowerCase();
+  }
+
+  // Step 2: capitalize sentences + words
+  return str
+    .toLowerCase()
+    .replace(/(^\s*[a-z])|([.!?]\s*[a-z])/g, (match) => match.toUpperCase())
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 }
 
 export const formatCurrency = (value) =>
@@ -44,5 +57,6 @@ export function getTextColor(text) {
   return {
     style, // --> {object}
     color: style?.color, // --> color only value
+    backgroundColor: style?.backgroundColor, // --> bg color only
   };
 }

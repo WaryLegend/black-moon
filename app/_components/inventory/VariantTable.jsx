@@ -46,15 +46,15 @@ const fakedata = [
 ];
 
 function flattenProducts(products) {
-  return products.flatMap((variant) =>
-    variant.colors.flatMap((color) =>
+  return products.flatMap((product) =>
+    product.colors.flatMap((color) =>
       color.sizes.map((size) => ({
-        productId: variant.id,
-        name: variant.name,
+        productId: product.id,
+        name: product.name,
         color: color.color,
         size: size.size,
         quantity: size.quantity,
-        price: variant.basePrice + size.differentPrice,
+        price: product.basePrice + size.differentPrice,
         image: color.image,
       })),
     ),
