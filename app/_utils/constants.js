@@ -77,3 +77,6 @@ export const PRICES = [
     value: "above-999000",
   },
 ];
+
+// Star ⭐ rating length 5/5, 10/10 ?
+export const STAR_LENGTH = 5;

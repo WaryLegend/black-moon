@@ -22,33 +22,31 @@ async function Page({ params }) {
   const { categoryId } = await params;
 
   return (
-    <>
-      <div className="flex flex-col gap-1 md:gap-4">
-        {/* sub-header, title, navigation */}
-        <BreadCrumbNav params={params} />
-        {/* filters */}
-        <StickyFilterWrapper>
-          <ProductFilter />
-        </StickyFilterWrapper>
+    <div className="flex flex-col gap-1 md:gap-4">
+      {/* sub-header, title, navigation */}
+      <BreadCrumbNav params={params} />
+      {/* filters */}
+      <StickyFilterWrapper>
+        <ProductFilter />
+      </StickyFilterWrapper>
 
-        {/* products section */}
-        {products?.length ? (
-          <ProductSection products={products} />
-        ) : (
-          <span className="bg-accent-100 rounded-sm p-10 text-center">
-            <p className="text-2xl font-semibold">
-              Tên_thể_loại chưa có sản phẩm nào.{" "}
-              <Link
-                href={href}
-                className="text-accent-600 hover:text-accent-700 text-lg font-normal underline"
-              >
-                Quay lại
-              </Link>
-            </p>
-          </span>
-        )}
-      </div>
-    </>
+      {/* products section */}
+      {products?.length ? (
+        <ProductSection products={products} />
+      ) : (
+        <span className="bg-accent-100 rounded-sm p-10 text-center">
+          <p className="text-2xl font-semibold">
+            Tên_thể_loại chưa có sản phẩm nào.{" "}
+            <Link
+              href={href}
+              className="text-accent-600 hover:text-accent-700 text-lg font-normal underline"
+            >
+              Quay lại
+            </Link>
+          </p>
+        </span>
+      )}
+    </div>
   );
 }
 

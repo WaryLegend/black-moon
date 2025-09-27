@@ -3,7 +3,7 @@ export default function Button({
   variant = "primary",
   className = "",
   children,
-  custom = false,
+  icon = false,
   ...props
 }) {
   const sizeClasses = {
@@ -14,16 +14,19 @@ export default function Button({
 
   const variantClasses = {
     primary:
-      "text-accent-50 bg-accent-600 hover:bg-accent-700 hover:text-primary-0",
+      "text-accent-50 bg-accent-600 hover:bg-accent-700 hover:text-primary-0 rounded-md border-none shadow-sm",
     secondary:
-      "text-primary-600 bg-primary-100 border border-primary-200 hover:bg-primary-200 hover:text-primary-500",
-    danger: "text-red-100 bg-red-700 hover:bg-red-800",
+      "text-primary-600 bg-primary-100 border border-primary-200 hover:bg-primary-200 hover:text-primary-500 rounded-md border-none shadow-sm",
+    danger:
+      "text-red-100 bg-red-700 hover:bg-red-800 rounded-md border-none shadow-sm",
   };
 
-  const sumClasses = `rounded-md border-none shadow-sm transition-all ${sizeClasses[size]} ${variantClasses[variant]}`;
+  const sumClasses = icon
+    ? "transition-all flex items-center justify-center p-1"
+    : `transition-all ${sizeClasses[size]} ${variantClasses[variant]}`;
 
   return (
-    <button className={`${custom ? "" : sumClasses} ${className}`} {...props}>
+    <button className={`${sumClasses} ${className}`} {...props}>
       {children}
     </button>
   );

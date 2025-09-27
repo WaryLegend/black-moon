@@ -1,30 +1,41 @@
 import BreadCrumbNav from "@/app/_components/BreadCrumbNav";
 import Button from "@/app/_components/Button";
+import ProductDetails from "@/app/_components/ProductDetails";
+import ProductRates from "@/app/_components/ProductRates";
 import Image from "next/image";
 
 export default function Page({ params }) {
   return (
-    <>
+    <div className="flex flex-col gap-1 md:gap-4">
       <BreadCrumbNav params={params} />
 
-      {/* Product detail body */}
+      {/* Product main body */}
       <div className="grid grid-cols-[2fr_1.2fr] gap-5">
-        {/* LEFT: product images */}
-        <div className="relative grid grid-cols-2 gap-2 overflow-hidden rounded-sm">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i} className="relative aspect-square">
-              <Image
-                src="/t-shirt.jpg"
-                alt="Product"
-                fill
-                className="object-cover"
-              />
-            </div>
-          ))}
+        {/* LEFT: product images, details and more...*/}
+        <div className="flex flex-col gap-10">
+          {/* product images */}
+          <div className="relative grid grid-cols-2 overflow-hidden rounded-sm">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="relative aspect-square">
+                <Image
+                  src="/t-shirt.jpg"
+                  alt="Product"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Product details */}
+          <ProductDetails />
+
+          {/* Product rates */}
+          <ProductRates />
         </div>
 
         {/* RIGHT: sticky product info */}
-        <div className="bg-primary-0">
+        <div className="bg-primary-0 rounded-sm">
           <div className="sticky top-[var(--header-height)] p-5">
             <h1 className="text-2xl font-semibold lg:text-3xl">
               Quần Jogger Siêu Co Giãn
@@ -52,17 +63,20 @@ export default function Page({ params }) {
             {/* Sizes */}
             <div className="mt-6">
               <p className="mb-2 text-sm font-medium">Kích cỡ</p>
-              <div className="flex flex-wrap gap-2">
-                {["4-5Y", "6-7Y", "8-9Y", "10-11Y", "12-13Y", "14Y+"].map(
-                  (size) => (
-                    <button
-                      key={size}
-                      className="rounded border px-3 py-1 text-sm hover:border-black"
-                    >
+              <div className="flex flex-wrap gap-3">
+                {["XS", "S", "M", "L", "XL", "XXL", "XXXL"].map((size) => (
+                  <label key={size}>
+                    <input
+                      type="radio"
+                      name="size"
+                      value={size}
+                      className="peer hidden"
+                    />
+                    <span className="border-primary-800 peer-hover:outline-primary-800 peer-checked:bg-accent-700 peer-checked:outline-accent-700 cursor-pointer rounded-sm border px-3 py-2 text-sm outline-offset-2 transition-colors select-none peer-checked:text-white peer-checked:outline-1 peer-hover:outline-2">
                       {size}
-                    </button>
-                  ),
-                )}
+                    </span>
+                  </label>
+                ))}
               </div>
             </div>
 
@@ -73,6 +87,6 @@ export default function Page({ params }) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
