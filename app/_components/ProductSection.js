@@ -5,8 +5,9 @@ import ViewProductLink from "@/app/_components/ViewProductLink";
 import SortBy from "@/app/_components/SortBy";
 
 function ProductSection({ products }) {
+  if (!products) return "No product";
   // get first product of list as presenter
-  const productId = products[0].id;
+  const productId = products[0]?.id;
 
   return (
     <div className="grid">

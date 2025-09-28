@@ -1,11 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import { IoIosArrowBack } from "react-icons/io";
 import { GROUPS } from "@/app/_utils/constants";
 import { capitalizeFirst } from "@/app/_utils/helpers";
 import { notFound } from "next/navigation";
+import { useParamsContext } from "@/app/_context/NavParamsContext";
 
-async function BreadCrumbNav({ params }) {
-  const { group, categoryId, productId } = await params;
+function BreadCrumbNav() {
+  const { group, categoryId, productId } = useParamsContext();
 
   // Validate group
   if (!Object.keys(GROUPS).includes(group)) {

@@ -48,7 +48,7 @@ export const COLORS = [
   { value: "black", label: "Đen" },
 ];
 
-// Price
+// filter Price
 export const PRICES = [
   { label: "Tất cả giá", value: "all" },
   { label: "Dưới 199.000 VND", value: "under-199000" },

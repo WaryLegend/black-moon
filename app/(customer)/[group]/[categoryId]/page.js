@@ -1,8 +1,13 @@
 import StickyFilterWrapper from "@/app/_components/StickyFilterWrapper";
 import ProductFilter from "@/app/_components/ProductFilter";
-import Link from "next/link";
 import ProductSection from "@/app/_components/ProductSection";
 import BreadCrumbNav from "@/app/_components/BreadCrumbNav";
+import { ParamsProvider } from "@/app/_context/NavParamsContext";
+import NoProductsFound from "@/app/_components/NoProductsFound";
+
+export const metadata = {
+  title: "Name of category",
+};
 
 // fetch products by categoryId
 const products = [
@@ -15,39 +20,31 @@ const products = [
   { id: 7, name: "Đồ mặc nhà" },
 ];
 
-// const products = [];
+// const products = []; // for testing empty
 
-async function Page({ params }) {
+export default async function Page({ params }) {
+  const trueParams = await params;
+
   //use this to fetch products
-  const { categoryId } = await params;
+  // const {categoryId} = trueParams; // later use
 
   return (
-    <div className="flex flex-col gap-1 md:gap-4">
-      {/* sub-header, title, navigation */}
-      <BreadCrumbNav params={params} />
-      {/* filters */}
-      <StickyFilterWrapper>
-        <ProductFilter />
-      </StickyFilterWrapper>
+    <ParamsProvider params={trueParams}>
+      <div className="flex flex-col gap-1 md:gap-4">
+        {/* sub-header, title, navigation */}
+        <BreadCrumbNav />
+        {/* filters */}
+        <StickyFilterWrapper>
+          <ProductFilter />
+        </StickyFilterWrapper>
 
-      {/* products section */}
-      {products?.length ? (
-        <ProductSection products={products} />
-      ) : (
-        <span className="bg-accent-100 rounded-sm p-10 text-center">
-          <p className="text-2xl font-semibold">
-            Tên_thể_loại chưa có sản phẩm nào.{" "}
-            <Link
-              href={href}
-              className="text-accent-600 hover:text-accent-700 text-lg font-normal underline"
-            >
-              Quay lại
-            </Link>
-          </p>
-        </span>
-      )}
-    </div>
+        {/* products section */}
+        {products?.length ? (
+          <ProductSection products={products} />
+        ) : (
+          <NoProductsFound />
+        )}
+      </div>
+    </ParamsProvider>
   );
 }
-
-export default Page;

@@ -8,7 +8,7 @@ export default function Button({
 }) {
   const sizeClasses = {
     small: "text-sm px-2 py-1 uppercase font-semibold text-center",
-    medium: "text-md px-4 py-3 font-medium",
+    medium: "text-[1rem] px-4 py-3 font-medium",
     large: "text-lg px-6 py-4 font-medium",
   };
 

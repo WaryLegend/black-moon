@@ -56,7 +56,7 @@ export default function ProductDetails({ productId }) {
 
   return (
     <div className="grid gap-3">
-      <h1 className="text-3xl font-semibold">Mô tả</h1>
+      <h1 className="text-2xl font-semibold lg:text-3xl">Mô tả</h1>
       <p className="text-primary-700 text-sm">Mã sản phẩm: 480971</p>
 
       <div className="divide-primary-300 border-primary-400 flex flex-col divide-y border-t text-lg">
