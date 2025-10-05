@@ -38,7 +38,14 @@ function ProductItem({ product }) {
                 />
               ))}
             </div>
-            <button className="hover:text-accent-700 flex items-center justify-center p-1 transition-all hover:scale-105">
+            <button
+              className="hover:text-accent-700 flex items-center justify-center p-1 transition-all hover:scale-105"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                // console.log("Liked!");
+              }}
+            >
               {isLiked ? <FaHeart /> : <FaRegHeart />}
             </button>
           </div>

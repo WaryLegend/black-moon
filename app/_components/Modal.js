@@ -42,7 +42,7 @@ function Window({ children, name }) {
           onClick={close}
           className="hover:bg-primary-100 absolute top-4 right-7 translate-x-3 rounded-lg p-1.5 transition-colors"
         >
-          <HiXMark className="text-primary-500 h-6 w-6" />
+          <HiXMark className="h-5 w-5" />
         </button>
 
         <div>{cloneElement(children, { onCloseModal: close })}</div>

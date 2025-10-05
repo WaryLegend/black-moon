@@ -25,7 +25,6 @@ const products = [
 export default async function Page({ params }) {
   const trueParams = await params;
 
-  //use this to fetch products
   // const {categoryId} = trueParams; // later use
 
   return (

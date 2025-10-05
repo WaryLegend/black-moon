@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
-import { FaTshirt, FaGift, FaUsers } from "react-icons/fa";
+import { FaTshirt, FaUsers, FaTicketAlt } from "react-icons/fa";
 import { LuLayoutDashboard } from "react-icons/lu";
 import {
   MdOutlineCategory,
@@ -43,7 +43,7 @@ const navLinks = [
   {
     name: "Promotions",
     href: `${ADMIN_ROOT}/promotions`,
-    icon: <FaGift className="h-5 w-5" />,
+    icon: <FaTicketAlt className="h-5 w-5" />,
   },
   {
     name: "Inventory",

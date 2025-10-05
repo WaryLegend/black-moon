@@ -1,4 +1,4 @@
-import ProductAvgRates from "@/app/_components/ProductAvgRates";
+import ProductAvgRates from "@/app/_components/CProductPage/ProductAvgRates";
 import ProductReviews from "@/app/_components/ProductReviews";
 
 export default function ProductRates({ reviews }) {
