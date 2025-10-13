@@ -37,7 +37,7 @@ export default function ProductMenu() {
   const finalPrice = price * (1 - Sale / 100);
 
   return (
-    <div className="bg-primary-0 rounded-sm">
+    <div className="bg-primary-0 rounded-md">
       <div className="sticky top-[var(--header-height)] p-5">
         <div className="grid gap-[4vh]">
           <div className="flex items-center">

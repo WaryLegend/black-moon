@@ -60,7 +60,7 @@ export default async function Page({ params }) {
           {/* LEFT: product images, details and more...*/}
           <div className="flex flex-col gap-10">
             {/* product images */}
-            <div className="relative grid grid-cols-2 overflow-hidden rounded-sm">
+            <div className="relative grid grid-cols-2 overflow-hidden rounded-md">
               {Array.from({ length: imgLength }).map((_, i) => (
                 <div key={i} className="relative aspect-square">
                   <Image

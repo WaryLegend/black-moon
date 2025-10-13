@@ -1,10 +1,15 @@
+"use client";
+
+import { useCartStore } from "@/app/_context/CartStore";
 import { formatCurrency } from "@/app/_utils/helpers";
-import Image from "next/image";
 import { HiXMark } from "react-icons/hi2";
-import Button from "../Button";
+import Image from "next/image";
+import Button from "@/app/_components/Button";
 
 function CartItem({ item }) {
   const { id, name, color, size, price, quantity, image, isNew, sale } = item;
+
+  const { updateQuantity, removeItem } = useCartStore();
 
   const finalPrice = price * (1 - sale / 100);
 
@@ -12,7 +17,12 @@ function CartItem({ item }) {
     <li className="relative flex flex-col gap-4 px-2 py-6 md:flex-row md:gap-6">
       {/* Image */}
       <div className="relative aspect-square w-50 shrink-0 self-center md:aspect-[5/6] md:h-auto md:self-auto">
-        <Image src={image} alt={name} fill className="object-cover" />
+        <Image
+          src={image}
+          alt={name}
+          fill
+          className="rounded-md object-cover"
+        />
       </div>
 
       {/* Product Info */}
@@ -31,16 +41,19 @@ function CartItem({ item }) {
         {/* QUANTITY + TOTAL */}
         <div className="mt-3 flex flex-wrap items-center justify-between text-sm md:text-base">
           <label htmlFor={`quantity-${id}`} className="font-semibold">
-            SỐ LƯỢNG
+            SỐ LƯỢNG:
           </label>
           <div className="flex items-center gap-4">
             <select
               id={`quantity-${id}`}
               value={quantity}
+              onChange={(e) => updateQuantity(id, Number(e.target.value))}
               className="border-primary-400 border px-2 py-1"
             >
-              {[1, 2, 3, 4, 5].map((n) => (
-                <option key={n}>{n}</option>
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+                <option key={n} value={n}>
+                  {n}
+                </option>
               ))}
             </select>
             <p className="font-semibold">
@@ -59,6 +72,7 @@ function CartItem({ item }) {
           aria-label="Remove item"
           icon
           className="hover:text-accent-700 font-bold"
+          onClick={() => removeItem(id)}
         >
           <HiXMark className="h-6 w-6" />
         </Button>

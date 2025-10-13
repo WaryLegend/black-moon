@@ -1,20 +1,27 @@
+"use client";
+
 import { formatCurrency } from "@/app/_utils/helpers";
 import { FaGift, FaTicketAlt } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
+import { useCartStore } from "@/app/_context/CartStore";
 import Button from "@/app/_components/Button";
+import ContinuteShoppingBtn from "./ContinuteShoppingBtn";
 
 function CartMenu() {
-  const count = 5;
-  const totalPrice = 2391000;
+  const cartItems = useCartStore((state) => state.items);
+
+  const count = cartItems.length;
+  const totalPrice = useCartStore((state) => state.getTotalPrice());
+
   const voucher = 5; // %
   const discount = (totalPrice * voucher) / 100;
 
   return (
-    <div className="bg-primary-0 rounded-sm">
+    <div className="bg-primary-0 rounded-md">
       <div className="sticky top-[var(--header-height)] p-2">
         <div className="grid gap-[2vh]">
           {/* Order info */}
-          <div className="border-primary-400 grid gap-5 border p-5 lg:gap-8">
+          <div className="border-primary-400 grid gap-5 rounded-md border p-5 lg:gap-8">
             {/* Order header */}
             <h1 className="text-lg font-bold uppercase lg:text-xl">
               Tổng đơn hàng | {count} sản phẩm
@@ -40,7 +47,8 @@ function CartMenu() {
               <span>{formatCurrency(totalPrice - discount)}</span>
             </div>
           </div>
-          {/* Optional button */}
+
+          {/* Optional buttons */}
           <div className="divide-primary-300 border-primary-300 flex flex-col divide-y border-y-1">
             {/* add voucher?*/}
             <button className="px-2">
@@ -63,17 +71,11 @@ function CartMenu() {
               </div>
             </button>
           </div>
-          {/* Finish Order or continute shopping button */}
+          {/* Finishing Order and continute shopping button */}
           <Button type="button" className="w-full lg:text-2xl">
             Thanh toán
           </Button>
-          <Button
-            type="button"
-            variant="secondary"
-            className="w-full lg:text-2xl"
-          >
-            Tiếp tục mua sắm
-          </Button>
+          <ContinuteShoppingBtn />
         </div>
       </div>
     </div>
