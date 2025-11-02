@@ -1,14 +1,15 @@
-import AddCategory from "@/app/_components/categories/AddCategory";
-import CategoryTable from "@/app/_components/categories/CategoryTable";
+import { Suspense } from "react";
 import CategoryTableOperations from "@/app/_components/categories/CategoryTableOperations";
 import Spinner from "@/app/_components/Spinner";
-import { Suspense } from "react";
+import CategoryTableAndBtns from "@/app/_components/categories/CategoryTableAndBtns";
 
 export const metadata = {
   title: "Categories",
 };
 
-export default function Page() {
+export default async function Page({ searchParams }) {
+  const filterParams = await searchParams;
+
   return (
     <>
       <div className="flex items-center justify-between">
@@ -16,9 +17,15 @@ export default function Page() {
         <CategoryTableOperations />
       </div>
       <div className="flex flex-col gap-4">
-        <Suspense callback={<Spinner color="var(--color-accent-800)" />}>
-          <CategoryTable />
-          <AddCategory />
+        <Suspense
+          fallback={
+            <Spinner
+              color="var(--color-accent-600)"
+              className="my-0.5 self-center"
+            />
+          }
+        >
+          <CategoryTableAndBtns searchParams={filterParams} />
         </Suspense>
       </div>
     </>

@@ -60,7 +60,7 @@ button:has(svg) {
 @layer components {
   .spinner {
     margin: 0;
-    width: var(--spinner-size, 60px);
+    width: var(--spinner-size, 50px);
     aspect-ratio: 1;
     border-radius: 50%;
     border: 8px solid var(--spinner-color, #000);

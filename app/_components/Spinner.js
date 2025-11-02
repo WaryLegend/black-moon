@@ -1,8 +1,8 @@
 function Spinner({ className = "", type = "circle", color, size }) {
   const classMap = {
+    circle: "spinner",
     bar: "spinnerbar",
     mini: "spinner-mini",
-    circle: "spinner",
   };
 
   const style = { "--spinner-color": color };

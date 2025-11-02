@@ -29,9 +29,9 @@ function ProductRow({ product }) {
   const {
     id: productId,
     name,
+    category,
     description,
     basePrice,
-    category,
     image,
   } = product;
 
@@ -54,7 +54,7 @@ function ProductRow({ product }) {
           alt={`image of ${name}`}
           width={50}
           height={40}
-          className="block aspect-[3/2] max-w-[2rem] scale-150 rounded-xs object-cover object-center lg:max-w-[3.5rem]"
+          className="aspect-[3/2] max-w-[2rem] scale-150 rounded-xs object-cover object-center lg:max-w-[3.5rem]"
         />
       </td>
       <td>
@@ -95,7 +95,7 @@ function ProductRow({ product }) {
               </Modal.Window>
               <Modal.Window name="delete">
                 <ConfirmDelete
-                  resourceName={product.name}
+                  resourceName={name}
                   // disabled={isDeleting}
                   // onConfirm={() => deleteCabin(productId)}
                   onConfirm={() => alert("Mimic xóa thành công")}

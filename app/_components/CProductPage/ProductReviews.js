@@ -1,6 +1,6 @@
 import { FaPencilAlt } from "react-icons/fa";
 import StarRatings from "@/app/_components/StarRatings";
-import TextButton from "./TextButton";
+import TextButton from "../TextButton";
 
 function ProductReviews({ reviews }) {
   return (

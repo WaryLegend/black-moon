@@ -4,6 +4,7 @@ import {
   getQuantityTextColor,
   getTextColor,
 } from "@/app/_utils/helpers";
+import { getColorLabel } from "@/app/_utils/constants";
 import Image from "next/image";
 import Table from "@/app/_components/Table";
 import styled from "styled-components";
@@ -19,7 +20,8 @@ const Field = styled.div`
 
 const Size = styled.div`
   font-size: 1rem;
-  font-family: "Sono";
+  font-weight: 600;
+  text-transform: uppercase;
 `;
 
 const Price = styled.div`
@@ -35,7 +37,7 @@ const AllButtons = styled.div`
 `;
 
 function VariantRow({ variant }) {
-  const { id: productId, name, color, size, quantity, price, image } = variant;
+  const { id, sku, name, color, size, stock, variantPrice, image } = variant;
 
   return (
     <Table.Row className="text-primary-600">
@@ -60,7 +62,7 @@ function VariantRow({ variant }) {
             }}
             className="inline rounded-sm px-1 py-0.5 uppercase"
           >
-            {color}
+            {getColorLabel(color)}
           </p>
         </Field>
       </td>
@@ -68,19 +70,17 @@ function VariantRow({ variant }) {
         <Size>{size}</Size>
       </td>
       <td>
-        <Field style={{ color: getQuantityTextColor(quantity) }}>
-          {quantity}
-        </Field>
+        <Price>{formatCurrency(variantPrice)}</Price>
       </td>
       <td>
-        <Price>{formatCurrency(price)}</Price>
+        <Field style={{ color: getQuantityTextColor(stock) }}>{stock}</Field>
       </td>
       <td>
         <AllButtons>
           <Modal>
             <Menus.Menu>
-              <Menus.Toggle id={`${productId}-${color}-${size}`} />
-              <Menus.List id={`${productId}-${color}-${size}`}>
+              <Menus.Toggle id={sku || id} />
+              <Menus.List id={sku || id}>
                 {/* duplicate btn */}
                 <Menus.Button
                   icon={<HiSquare2Stack />}

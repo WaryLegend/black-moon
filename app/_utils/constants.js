@@ -48,6 +48,12 @@ export const COLORS = [
   { value: "black", label: "Đen" },
 ];
 
+// basically from black --> đen (language issue)
+export function getColorLabel(value) {
+  const color = COLORS.find((c) => c.value === value);
+  return color ? color.label : value;
+}
+
 // filter Price
 export const PRICES = [
   { label: "Tất cả giá", value: "all" },

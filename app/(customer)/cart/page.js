@@ -1,6 +1,6 @@
 import CartList from "@/app/_components/CCartPage/CartList";
 import CartMenu from "@/app/_components/CCartPage/CartMenu";
-import CartInitializer from "@/app/_components/CProductPage/CartInitializer";
+import CartInitializer from "@/app/_components/CCartPage/CartInitializer";
 
 export const metadata = {
   title: "Cart",

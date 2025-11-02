@@ -38,7 +38,7 @@ function ProductSection({ products }) {
           <ViewProductLink productId={productId} disabled={!products?.length} />
         </div>
       </div>
-      {/* variant-list of product*/}
+      {/* products of a category */}
       <ProductList products={products} />
     </div>
   );

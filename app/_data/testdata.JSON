@@ -1,0 +1,1568 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "name": "Áo khoác ngoài",
+      "group": "women",
+      "image": "/bg-women.jpg"
+    },
+    {
+      "id": "2",
+      "name": "Chân váy & đầm",
+      "group": "women",
+      "image": "/bg-women.jpg"
+    },
+    {
+      "id": "3",
+      "name": "Quần",
+      "group": "women",
+      "image": "/bg-women.jpg"
+    },
+    {
+      "id": "4",
+      "name": "Áo khoác ngoài",
+      "group": "men",
+      "image": "/bg-men.jpg"
+    },
+    {
+      "id": "5",
+      "name": "Quần",
+      "group": "men",
+      "image": "/bg-men.jpg"
+    },
+    {
+      "id": "6",
+      "name": "Áo sơ mi & áo polo",
+      "group": "men",
+      "image": "/bg-men.jpg"
+    },
+    {
+      "id": "7",
+      "name": "Áo khoác ngoài",
+      "group": "kids",
+      "image": "/bg-kids.jpg"
+    },
+    {
+      "id": "8",
+      "name": "Quần",
+      "group": "kids",
+      "image": "/bg-kids.jpg"
+    },
+    {
+      "id": "9",
+      "name": "Đầm & chân váy",
+      "group": "kids",
+      "image": "/bg-kids.jpg"
+    },
+    {
+      "id": "10",
+      "name": "Đồ mặc nhà",
+      "group": "kids",
+      "image": "/bg-kids.jpg"
+    }
+  ],
+
+  "products": [
+    {
+      "id": "1",
+      "name": "Áo khoác bomber lót lông",
+      "categoryId": "1",
+      "description": "",
+      "colors": ["black", "brown", "pink"],
+      "sizes": ["s", "m", "l"],
+      "basePrice": 799000,
+      "images": ["/t-shirt.jpg"],
+      "reviews": [],
+      "variants": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    },
+    {
+      "id": "2",
+      "name": "Áo khoác trench dài",
+      "categoryId": "1",
+      "description": "",
+      "colors": ["orange", "white"],
+      "sizes": ["xs", "m", "xl"],
+      "basePrice": 1199000,
+      "images": ["/t-shirt.jpg"],
+      "reviews": [],
+      "variants": ["10", "11", "12", "13", "14", "15"]
+    },
+
+    {
+      "id": "3",
+      "name": "Đầm midi hoa nhí",
+      "categoryId": "2",
+      "description": "",
+      "colors": ["pink", "blue"],
+      "sizes": ["s", "m", "l"],
+      "basePrice": 499000,
+      "images": ["/t-shirt.jpg"],
+      "reviews": [],
+      "variants": ["16", "17", "18", "19", "20", "21"]
+    },
+    {
+      "id": "4",
+      "name": "Chân váy xếp ly",
+      "categoryId": "2",
+      "description": "",
+      "colors": ["black", "green", "white"],
+      "sizes": ["m", "l"],
+      "basePrice": 350000,
+      "images": ["/t-shirt.jpg"],
+      "reviews": [],
+      "variants": ["22", "23", "24", "25", "26"]
+    },
+
+    {
+      "id": "5",
+      "name": "Quần jeans ống loe",
+      "categoryId": "3",
+      "description": "",
+      "colors": ["blue", "black"],
+      "sizes": ["s", "m", "xl"],
+      "basePrice": 599000,
+      "images": ["/t-shirt.jpg"],
+      "reviews": [],
+      "variants": ["27", "28", "29", "30", "31", "32"]
+    },
+    {
+      "id": "6",
+      "name": "Quần culottes linen",
+      "categoryId": "3",
+      "description": "",
+      "colors": ["brown", "white"],
+      "sizes": ["xs", "m", "l"],
+      "basePrice": 450000,
+      "images": ["/t-shirt.jpg"],
+      "reviews": [],
+      "variants": ["33", "34", "35", "36", "37", "38"]
+    },
+
+    {
+      "id": "7",
+      "name": "Áo khoác da nam",
+      "categoryId": "4",
+      "description": "",
+      "colors": ["black", "brown"],
+      "sizes": ["m", "l", "xl"],
+      "basePrice": 1299000,
+      "images": ["/t-shirt.jpg"],
+      "reviews": [],
+      "variants": ["39", "40", "41", "42", "43", "44"]
+    },
+    {
+      "id": "8",
+      "name": "Áo khoác parka chống nước",
+      "categoryId": "4",
+      "description": "",
+      "colors": ["green", "black"],
+      "sizes": ["l", "xl", "xxl"],
+      "basePrice": 999000,
+      "images": ["/t-shirt.jpg"],
+      "reviews": [],
+      "variants": ["45", "46", "47", "48", "49", "50"]
+    },
+
+    {
+      "id": "9",
+      "name": "Quần jeans slim fit",
+      "categoryId": "5",
+      "description": "",
+      "colors": ["blue", "black"],
+      "sizes": ["m", "l", "xl"],
+      "basePrice": 699000,
+      "images": ["/t-shirt.jpg"],
+      "reviews": [],
+      "variants": ["51", "52", "53", "54", "55", "56"]
+    },
+    {
+      "id": "10",
+      "name": "Quần kaki cargo",
+      "categoryId": "5",
+      "description": "",
+      "colors": ["brown", "green"],
+      "sizes": ["s", "m", "xxl"],
+      "basePrice": 550000,
+      "images": ["/t-shirt.jpg"],
+      "reviews": [],
+      "variants": ["57", "58", "59", "60", "61", "62"]
+    },
+
+    {
+      "id": "11",
+      "name": "Áo sơ mi oxford",
+      "categoryId": "6",
+      "description": "",
+      "colors": ["white", "blue"],
+      "sizes": ["m", "l", "xl"],
+      "basePrice": 399000,
+      "images": ["/t-shirt.jpg"],
+      "reviews": [],
+      "variants": ["63", "64", "65", "66", "67", "68"]
+    },
+    {
+      "id": "12",
+      "name": "Áo polo cotton piqué",
+      "categoryId": "6",
+      "description": "",
+      "colors": ["black", "orange", "white"],
+      "sizes": ["s", "m"],
+      "basePrice": 329000,
+      "images": ["/t-shirt.jpg"],
+      "reviews": [],
+      "variants": ["69", "70", "71", "72", "73", "74"]
+    },
+
+    {
+      "id": "13",
+      "name": "Áo khoác bomber bé trai",
+      "categoryId": "7",
+      "description": "",
+      "colors": ["blue", "black"],
+      "sizes": ["xs", "s", "m"],
+      "basePrice": 399000,
+      "images": ["/t-shirt.jpg"],
+      "reviews": [],
+      "variants": ["75", "76", "77", "78", "79", "80"]
+    },
+    {
+      "id": "14",
+      "name": "Áo khoác gió bé gái",
+      "categoryId": "7",
+      "description": "",
+      "colors": ["pink", "white"],
+      "sizes": ["s", "m", "l"],
+      "basePrice": 359000,
+      "images": ["/t-shirt.jpg"],
+      "reviews": [],
+      "variants": ["81", "82", "83", "84", "85", "86"]
+    },
+
+    {
+      "id": "15",
+      "name": "Quần jeans bé trai",
+      "categoryId": "8",
+      "description": "",
+      "colors": ["blue", "black"],
+      "sizes": ["xs", "s", "m"],
+      "basePrice": 299000,
+      "images": ["/t-shirt.jpg"],
+      "reviews": [],
+      "variants": ["87", "88", "89", "90", "91", "92"]
+    },
+    {
+      "id": "16",
+      "name": "Quần legging bé gái",
+      "categoryId": "8",
+      "description": "",
+      "colors": ["pink", "brown"],
+      "sizes": ["s", "m", "l"],
+      "basePrice": 199000,
+      "images": ["/t-shirt.jpg"],
+      "reviews": [],
+      "variants": ["93", "94", "95", "96", "97", "98"]
+    },
+
+    {
+      "id": "17",
+      "name": "Đầm hoa bé gái",
+      "categoryId": "9",
+      "description": "",
+      "colors": ["pink", "white"],
+      "sizes": ["xs", "s", "m"],
+      "basePrice": 279000,
+      "images": ["/t-shirt.jpg"],
+      "reviews": [],
+      "variants": ["99", "100", "101", "102", "103", "104"]
+    },
+    {
+      "id": "18",
+      "name": "Chân váy tutu bé gái",
+      "categoryId": "9",
+      "description": "",
+      "colors": ["pink", "orange"],
+      "sizes": ["s", "m", "l"],
+      "basePrice": 219000,
+      "images": ["/t-shirt.jpg"],
+      "reviews": [],
+      "variants": ["105", "106", "107", "108", "109", "110"]
+    },
+
+    {
+      "id": "19",
+      "name": "Bộ pyjama cotton bé trai",
+      "categoryId": "10",
+      "description": "",
+      "colors": ["blue", "green"],
+      "sizes": ["xs", "s", "m"],
+      "basePrice": 189000,
+      "images": ["/t-shirt.jpg"],
+      "reviews": [],
+      "variants": ["111", "112", "113", "114", "115", "116"]
+    },
+    {
+      "id": "20",
+      "name": "Bộ đồ ngủ bé gái",
+      "categoryId": "10",
+      "description": "",
+      "colors": ["pink", "white"],
+      "sizes": ["s", "m", "l"],
+      "basePrice": 179000,
+      "images": ["/t-shirt.jpg"],
+      "reviews": [],
+      "variants": ["117", "118", "119", "120", "121", "122"]
+    }
+  ],
+
+  "variants": [
+    {
+      "id": "1",
+      "productId": "1",
+      "color": "black",
+      "size": "s",
+      "sku": "1-BLACK-S",
+      "variantPrice": 799000,
+      "image": "/t-shirt.jpg",
+      "stock": 30
+    },
+    {
+      "id": "2",
+      "productId": "1",
+      "color": "black",
+      "size": "m",
+      "sku": "1-BLACK-M",
+      "variantPrice": 799000,
+      "image": "/t-shirt.jpg",
+      "stock": 45
+    },
+    {
+      "id": "3",
+      "productId": "1",
+      "color": "black",
+      "size": "l",
+      "sku": "1-BLACK-L",
+      "variantPrice": 799000,
+      "image": "/t-shirt.jpg",
+      "stock": 20
+    },
+    {
+      "id": "4",
+      "productId": "1",
+      "color": "brown",
+      "size": "s",
+      "sku": "1-BROWN-S",
+      "variantPrice": 799000,
+      "image": "/t-shirt.jpg",
+      "stock": 25
+    },
+    {
+      "id": "5",
+      "productId": "1",
+      "color": "brown",
+      "size": "m",
+      "sku": "1-BROWN-M",
+      "variantPrice": 799000,
+      "image": "/t-shirt.jpg",
+      "stock": 40
+    },
+    {
+      "id": "6",
+      "productId": "1",
+      "color": "brown",
+      "size": "l",
+      "sku": "1-BROWN-L",
+      "variantPrice": 799000,
+      "image": "/t-shirt.jpg",
+      "stock": 15
+    },
+    {
+      "id": "7",
+      "productId": "1",
+      "color": "pink",
+      "size": "s",
+      "sku": "1-PINK-S",
+      "variantPrice": 799000,
+      "image": "/t-shirt.jpg",
+      "stock": 35
+    },
+    {
+      "id": "8",
+      "productId": "1",
+      "color": "pink",
+      "size": "m",
+      "sku": "1-PINK-M",
+      "variantPrice": 799000,
+      "image": "/t-shirt.jpg",
+      "stock": 50
+    },
+    {
+      "id": "9",
+      "productId": "1",
+      "color": "pink",
+      "size": "l",
+      "sku": "1-PINK-L",
+      "variantPrice": 799000,
+      "image": "/t-shirt.jpg",
+      "stock": 28
+    },
+
+    {
+      "id": "10",
+      "productId": "2",
+      "color": "orange",
+      "size": "xs",
+      "sku": "2-ORANGE-XS",
+      "variantPrice": 1199000,
+      "image": "/t-shirt.jpg",
+      "stock": 12
+    },
+    {
+      "id": "11",
+      "productId": "2",
+      "color": "orange",
+      "size": "m",
+      "sku": "2-ORANGE-M",
+      "variantPrice": 1199000,
+      "image": "/t-shirt.jpg",
+      "stock": 20
+    },
+    {
+      "id": "12",
+      "productId": "2",
+      "color": "orange",
+      "size": "xl",
+      "sku": "2-ORANGE-XL",
+      "variantPrice": 1199000,
+      "image": "/t-shirt.jpg",
+      "stock": 8
+    },
+    {
+      "id": "13",
+      "productId": "2",
+      "color": "white",
+      "size": "xs",
+      "sku": "2-WHITE-XS",
+      "variantPrice": 1199000,
+      "image": "/t-shirt.jpg",
+      "stock": 15
+    },
+    {
+      "id": "14",
+      "productId": "2",
+      "color": "white",
+      "size": "m",
+      "sku": "2-WHITE-M",
+      "variantPrice": 1199000,
+      "image": "/t-shirt.jpg",
+      "stock": 22
+    },
+    {
+      "id": "15",
+      "productId": "2",
+      "color": "white",
+      "size": "xl",
+      "sku": "2-WHITE-XL",
+      "variantPrice": 1199000,
+      "image": "/t-shirt.jpg",
+      "stock": 10
+    },
+
+    {
+      "id": "16",
+      "productId": "3",
+      "color": "pink",
+      "size": "s",
+      "sku": "3-PINK-S",
+      "variantPrice": 499000,
+      "image": "/t-shirt.jpg",
+      "stock": 40
+    },
+    {
+      "id": "17",
+      "productId": "3",
+      "color": "pink",
+      "size": "m",
+      "sku": "3-PINK-M",
+      "variantPrice": 499000,
+      "image": "/t-shirt.jpg",
+      "stock": 55
+    },
+    {
+      "id": "18",
+      "productId": "3",
+      "color": "pink",
+      "size": "l",
+      "sku": "3-PINK-L",
+      "variantPrice": 499000,
+      "image": "/t-shirt.jpg",
+      "stock": 30
+    },
+    {
+      "id": "19",
+      "productId": "3",
+      "color": "blue",
+      "size": "s",
+      "sku": "3-BLUE-S",
+      "variantPrice": 499000,
+      "image": "/t-shirt.jpg",
+      "stock": 35
+    },
+    {
+      "id": "20",
+      "productId": "3",
+      "color": "blue",
+      "size": "m",
+      "sku": "3-BLUE-M",
+      "variantPrice": 499000,
+      "image": "/t-shirt.jpg",
+      "stock": 48
+    },
+    {
+      "id": "21",
+      "productId": "3",
+      "color": "blue",
+      "size": "l",
+      "sku": "3-BLUE-L",
+      "variantPrice": 499000,
+      "image": "/t-shirt.jpg",
+      "stock": 25
+    },
+
+    {
+      "id": "22",
+      "productId": "4",
+      "color": "black",
+      "size": "m",
+      "sku": "4-BLACK-M",
+      "variantPrice": 350000,
+      "image": "/t-shirt.jpg",
+      "stock": 60
+    },
+    {
+      "id": "23",
+      "productId": "4",
+      "color": "black",
+      "size": "l",
+      "sku": "4-BLACK-L",
+      "variantPrice": 350000,
+      "image": "/t-shirt.jpg",
+      "stock": 45
+    },
+    {
+      "id": "24",
+      "productId": "4",
+      "color": "green",
+      "size": "m",
+      "sku": "4-GREEN-M",
+      "variantPrice": 350000,
+      "image": "/t-shirt.jpg",
+      "stock": 50
+    },
+    {
+      "id": "25",
+      "productId": "4",
+      "color": "green",
+      "size": "l",
+      "sku": "4-GREEN-L",
+      "variantPrice": 350000,
+      "image": "/t-shirt.jpg",
+      "stock": 38
+    },
+    {
+      "id": "26",
+      "productId": "4",
+      "color": "white",
+      "size": "m",
+      "sku": "4-WHITE-M",
+      "variantPrice": 350000,
+      "image": "/t-shirt.jpg",
+      "stock": 55
+    },
+    {
+      "id": "27",
+      "productId": "4",
+      "color": "white",
+      "size": "l",
+      "sku": "4-WHITE-L",
+      "variantPrice": 350000,
+      "image": "/t-shirt.jpg",
+      "stock": 42
+    },
+
+    {
+      "id": "27",
+      "productId": "5",
+      "color": "blue",
+      "size": "s",
+      "sku": "5-BLUE-S",
+      "variantPrice": 599000,
+      "image": "/t-shirt.jpg",
+      "stock": 33
+    },
+    {
+      "id": "28",
+      "productId": "5",
+      "color": "blue",
+      "size": "m",
+      "sku": "5-BLUE-M",
+      "variantPrice": 599000,
+      "image": "/t-shirt.jpg",
+      "stock": 48
+    },
+    {
+      "id": "29",
+      "productId": "5",
+      "color": "blue",
+      "size": "xl",
+      "sku": "5-BLUE-XL",
+      "variantPrice": 599000,
+      "image": "/t-shirt.jpg",
+      "stock": 22
+    },
+    {
+      "id": "30",
+      "productId": "5",
+      "color": "black",
+      "size": "s",
+      "sku": "5-BLACK-S",
+      "variantPrice": 599000,
+      "image": "/t-shirt.jpg",
+      "stock": 30
+    },
+    {
+      "id": "31",
+      "productId": "5",
+      "color": "black",
+      "size": "m",
+      "sku": "5-BLACK-M",
+      "variantPrice": 599000,
+      "image": "/t-shirt.jpg",
+      "stock": 45
+    },
+    {
+      "id": "32",
+      "productId": "5",
+      "color": "black",
+      "size": "xl",
+      "sku": "5-BLACK-XL",
+      "variantPrice": 599000,
+      "image": "/t-shirt.jpg",
+      "stock": 20
+    },
+
+    {
+      "id": "33",
+      "productId": "6",
+      "color": "brown",
+      "size": "xs",
+      "sku": "6-BROWN-XS",
+      "variantPrice": 450000,
+      "image": "/t-shirt.jpg",
+      "stock": 18
+    },
+    {
+      "id": "34",
+      "productId": "6",
+      "color": "brown",
+      "size": "m",
+      "sku": "6-BROWN-M",
+      "variantPrice": 450000,
+      "image": "/t-shirt.jpg",
+      "stock": 35
+    },
+    {
+      "id": "35",
+      "productId": "6",
+      "color": "brown",
+      "size": "l",
+      "sku": "6-BROWN-L",
+      "variantPrice": 450000,
+      "image": "/t-shirt.jpg",
+      "stock": 25
+    },
+    {
+      "id": "36",
+      "productId": "6",
+      "color": "white",
+      "size": "xs",
+      "sku": "6-WHITE-XS",
+      "variantPrice": 450000,
+      "image": "/t-shirt.jpg",
+      "stock": 20
+    },
+    {
+      "id": "37",
+      "productId": "6",
+      "color": "white",
+      "size": "m",
+      "sku": "6-WHITE-M",
+      "variantPrice": 450000,
+      "image": "/t-shirt.jpg",
+      "stock": 40
+    },
+    {
+      "id": "38",
+      "productId": "6",
+      "color": "white",
+      "size": "l",
+      "sku": "6-WHITE-L",
+      "variantPrice": 450000,
+      "image": "/t-shirt.jpg",
+      "stock": 28
+    },
+
+    {
+      "id": "39",
+      "productId": "7",
+      "color": "black",
+      "size": "m",
+      "sku": "7-BLACK-M",
+      "variantPrice": 1299000,
+      "image": "/t-shirt.jpg",
+      "stock": 15
+    },
+    {
+      "id": "40",
+      "productId": "7",
+      "color": "black",
+      "size": "l",
+      "sku": "7-BLACK-L",
+      "variantPrice": 1299000,
+      "image": "/t-shirt.jpg",
+      "stock": 22
+    },
+    {
+      "id": "41",
+      "productId": "7",
+      "color": "black",
+      "size": "xl",
+      "sku": "7-BLACK-XL",
+      "variantPrice": 1299000,
+      "image": "/t-shirt.jpg",
+      "stock": 10
+    },
+    {
+      "id": "42",
+      "productId": "7",
+      "color": "brown",
+      "size": "m",
+      "sku": "7-BROWN-M",
+      "variantPrice": 1299000,
+      "image": "/t-shirt.jpg",
+      "stock": 18
+    },
+    {
+      "id": "43",
+      "productId": "7",
+      "color": "brown",
+      "size": "l",
+      "sku": "7-BROWN-L",
+      "variantPrice": 1299000,
+      "image": "/t-shirt.jpg",
+      "stock": 25
+    },
+    {
+      "id": "44",
+      "productId": "7",
+      "color": "brown",
+      "size": "xl",
+      "sku": "7-BROWN-XL",
+      "variantPrice": 1299000,
+      "image": "/t-shirt.jpg",
+      "stock": 12
+    },
+
+    {
+      "id": "45",
+      "productId": "8",
+      "color": "green",
+      "size": "l",
+      "sku": "8-GREEN-L",
+      "variantPrice": 999000,
+      "image": "/t-shirt.jpg",
+      "stock": 20
+    },
+    {
+      "id": "46",
+      "productId": "8",
+      "color": "green",
+      "size": "xl",
+      "sku": "8-GREEN-XL",
+      "variantPrice": 999000,
+      "image": "/t-shirt.jpg",
+      "stock": 15
+    },
+    {
+      "id": "47",
+      "productId": "8",
+      "color": "green",
+      "size": "xxl",
+      "sku": "8-GREEN-XXL",
+      "variantPrice": 999000,
+      "image": "/t-shirt.jpg",
+      "stock": 8
+    },
+    {
+      "id": "48",
+      "productId": "8",
+      "color": "black",
+      "size": "l",
+      "sku": "8-BLACK-L",
+      "variantPrice": 999000,
+      "image": "/t-shirt.jpg",
+      "stock": 25
+    },
+    {
+      "id": "49",
+      "productId": "8",
+      "color": "black",
+      "size": "xl",
+      "sku": "8-BLACK-XL",
+      "variantPrice": 999000,
+      "image": "/t-shirt.jpg",
+      "stock": 18
+    },
+    {
+      "id": "50",
+      "productId": "8",
+      "color": "black",
+      "size": "xxl",
+      "sku": "8-BLACK-XXL",
+      "variantPrice": 999000,
+      "image": "/t-shirt.jpg",
+      "stock": 10
+    },
+
+    {
+      "id": "51",
+      "productId": "9",
+      "color": "blue",
+      "size": "m",
+      "sku": "9-BLUE-M",
+      "variantPrice": 699000,
+      "image": "/t-shirt.jpg",
+      "stock": 40
+    },
+    {
+      "id": "52",
+      "productId": "9",
+      "color": "blue",
+      "size": "l",
+      "sku": "9-BLUE-L",
+      "variantPrice": 699000,
+      "image": "/t-shirt.jpg",
+      "stock": 55
+    },
+    {
+      "id": "53",
+      "productId": "9",
+      "color": "blue",
+      "size": "xl",
+      "sku": "9-BLUE-XL",
+      "variantPrice": 699000,
+      "image": "/t-shirt.jpg",
+      "stock": 30
+    },
+    {
+      "id": "54",
+      "productId": "9",
+      "color": "black",
+      "size": "m",
+      "sku": "9-BLACK-M",
+      "variantPrice": 699000,
+      "image": "/t-shirt.jpg",
+      "stock": 35
+    },
+    {
+      "id": "55",
+      "productId": "9",
+      "color": "black",
+      "size": "l",
+      "sku": "9-BLACK-L",
+      "variantPrice": 699000,
+      "image": "/t-shirt.jpg",
+      "stock": 48
+    },
+    {
+      "id": "56",
+      "productId": "9",
+      "color": "black",
+      "size": "xl",
+      "sku": "9-BLACK-XL",
+      "variantPrice": 699000,
+      "image": "/t-shirt.jpg",
+      "stock": 25
+    },
+
+    {
+      "id": "57",
+      "productId": "10",
+      "color": "brown",
+      "size": "s",
+      "sku": "10-BROWN-S",
+      "variantPrice": 550000,
+      "image": "/t-shirt.jpg",
+      "stock": 30
+    },
+    {
+      "id": "58",
+      "productId": "10",
+      "color": "brown",
+      "size": "m",
+      "sku": "10-BROWN-M",
+      "variantPrice": 550000,
+      "image": "/t-shirt.jpg",
+      "stock": 45
+    },
+    {
+      "id": "59",
+      "productId": "10",
+      "color": "brown",
+      "size": "xxl",
+      "sku": "10-BROWN-XXL",
+      "variantPrice": 550000,
+      "image": "/t-shirt.jpg",
+      "stock": 15
+    },
+    {
+      "id": "60",
+      "productId": "10",
+      "color": "green",
+      "size": "s",
+      "sku": "10-GREEN-S",
+      "variantPrice": 550000,
+      "image": "/t-shirt.jpg",
+      "stock": 28
+    },
+    {
+      "id": "61",
+      "productId": "10",
+      "color": "green",
+      "size": "m",
+      "sku": "10-GREEN-M",
+      "variantPrice": 550000,
+      "image": "/t-shirt.jpg",
+      "stock": 40
+    },
+    {
+      "id": "62",
+      "productId": "10",
+      "color": "green",
+      "size": "xxl",
+      "sku": "10-GREEN-XXL",
+      "variantPrice": 550000,
+      "image": "/t-shirt.jpg",
+      "stock": 12
+    },
+
+    {
+      "id": "63",
+      "productId": "11",
+      "color": "white",
+      "size": "m",
+      "sku": "11-WHITE-M",
+      "variantPrice": 399000,
+      "image": "/t-shirt.jpg",
+      "stock": 50
+    },
+    {
+      "id": "64",
+      "productId": "11",
+      "color": "white",
+      "size": "l",
+      "sku": "11-WHITE-L",
+      "variantPrice": 399000,
+      "image": "/t-shirt.jpg",
+      "stock": 60
+    },
+    {
+      "id": "65",
+      "productId": "11",
+      "color": "white",
+      "size": "xl",
+      "sku": "11-WHITE-XL",
+      "variantPrice": 399000,
+      "image": "/t-shirt.jpg",
+      "stock": 35
+    },
+    {
+      "id": "66",
+      "productId": "11",
+      "color": "blue",
+      "size": "m",
+      "sku": "11-BLUE-M",
+      "variantPrice": 399000,
+      "image": "/t-shirt.jpg",
+      "stock": 45
+    },
+    {
+      "id": "67",
+      "productId": "11",
+      "color": "blue",
+      "size": "l",
+      "sku": "11-BLUE-L",
+      "variantPrice": 399000,
+      "image": "/t-shirt.jpg",
+      "stock": 55
+    },
+    {
+      "id": "68",
+      "productId": "11",
+      "color": "blue",
+      "size": "xl",
+      "sku": "11-BLUE-XL",
+      "variantPrice": 399000,
+      "image": "/t-shirt.jpg",
+      "stock": 30
+    },
+
+    {
+      "id": "69",
+      "productId": "12",
+      "color": "black",
+      "size": "s",
+      "sku": "12-BLACK-S",
+      "variantPrice": 329000,
+      "image": "/t-shirt.jpg",
+      "stock": 40
+    },
+    {
+      "id": "70",
+      "productId": "12",
+      "color": "black",
+      "size": "m",
+      "sku": "12-BLACK-M",
+      "variantPrice": 329000,
+      "image": "/t-shirt.jpg",
+      "stock": 55
+    },
+    {
+      "id": "71",
+      "productId": "12",
+      "color": "orange",
+      "size": "s",
+      "sku": "12-ORANGE-S",
+      "variantPrice": 329000,
+      "image": "/t-shirt.jpg",
+      "stock": 35
+    },
+    {
+      "id": "72",
+      "productId": "12",
+      "color": "orange",
+      "size": "m",
+      "sku": "12-ORANGE-M",
+      "variantPrice": 329000,
+      "image": "/t-shirt.jpg",
+      "stock": 48
+    },
+    {
+      "id": "73",
+      "productId": "12",
+      "color": "white",
+      "size": "s",
+      "sku": "12-WHITE-S",
+      "variantPrice": 329000,
+      "image": "/t-shirt.jpg",
+      "stock": 45
+    },
+    {
+      "id": "74",
+      "productId": "12",
+      "color": "white",
+      "size": "m",
+      "sku": "12-WHITE-M",
+      "variantPrice": 329000,
+      "image": "/t-shirt.jpg",
+      "stock": 60
+    },
+
+    {
+      "id": "75",
+      "productId": "13",
+      "color": "blue",
+      "size": "xs",
+      "sku": "13-BLUE-XS",
+      "variantPrice": 399000,
+      "image": "/t-shirt.jpg",
+      "stock": 25
+    },
+    {
+      "id": "76",
+      "productId": "13",
+      "color": "blue",
+      "size": "s",
+      "sku": "13-BLUE-S",
+      "variantPrice": 399000,
+      "image": "/t-shirt.jpg",
+      "stock": 35
+    },
+    {
+      "id": "77",
+      "productId": "13",
+      "color": "blue",
+      "size": "m",
+      "sku": "13-BLUE-M",
+      "variantPrice": 399000,
+      "image": "/t-shirt.jpg",
+      "stock": 20
+    },
+    {
+      "id": "78",
+      "productId": "13",
+      "color": "black",
+      "size": "xs",
+      "sku": "13-BLACK-XS",
+      "variantPrice": 399000,
+      "image": "/t-shirt.jpg",
+      "stock": 30
+    },
+    {
+      "id": "79",
+      "productId": "13",
+      "color": "black",
+      "size": "s",
+      "sku": "13-BLACK-S",
+      "variantPrice": 399000,
+      "image": "/t-shirt.jpg",
+      "stock": 40
+    },
+    {
+      "id": "80",
+      "productId": "13",
+      "color": "black",
+      "size": "m",
+      "sku": "13-BLACK-M",
+      "variantPrice": 399000,
+      "image": "/t-shirt.jpg",
+      "stock": 22
+    },
+
+    {
+      "id": "81",
+      "productId": "14",
+      "color": "pink",
+      "size": "s",
+      "sku": "14-PINK-S",
+      "variantPrice": 359000,
+      "image": "/t-shirt.jpg",
+      "stock": 45
+    },
+    {
+      "id": "82",
+      "productId": "14",
+      "color": "pink",
+      "size": "m",
+      "sku": "14-PINK-M",
+      "variantPrice": 359000,
+      "image": "/t-shirt.jpg",
+      "stock": 55
+    },
+    {
+      "id": "83",
+      "productId": "14",
+      "color": "pink",
+      "size": "l",
+      "sku": "14-PINK-L",
+      "variantPrice": 359000,
+      "image": "/t-shirt.jpg",
+      "stock": 30
+    },
+    {
+      "id": "84",
+      "productId": "14",
+      "color": "white",
+      "size": "s",
+      "sku": "14-WHITE-S",
+      "variantPrice": 359000,
+      "image": "/t-shirt.jpg",
+      "stock": 40
+    },
+    {
+      "id": "85",
+      "productId": "14",
+      "color": "white",
+      "size": "m",
+      "sku": "14-WHITE-M",
+      "variantPrice": 359000,
+      "image": "/t-shirt.jpg",
+      "stock": 50
+    },
+    {
+      "id": "86",
+      "productId": "14",
+      "color": "white",
+      "size": "l",
+      "sku": "14-WHITE-L",
+      "variantPrice": 359000,
+      "image": "/t-shirt.jpg",
+      "stock": 28
+    },
+
+    {
+      "id": "87",
+      "productId": "15",
+      "color": "blue",
+      "size": "xs",
+      "sku": "15-BLUE-XS",
+      "variantPrice": 299000,
+      "image": "/t-shirt.jpg",
+      "stock": 35
+    },
+    {
+      "id": "88",
+      "productId": "15",
+      "color": "blue",
+      "size": "s",
+      "sku": "15-BLUE-S",
+      "variantPrice": 299000,
+      "image": "/t-shirt.jpg",
+      "stock": 45
+    },
+    {
+      "id": "89",
+      "productId": "15",
+      "color": "blue",
+      "size": "m",
+      "sku": "15-BLUE-M",
+      "variantPrice": 299000,
+      "image": "/t-shirt.jpg",
+      "stock": 25
+    },
+    {
+      "id": "90",
+      "productId": "15",
+      "color": "black",
+      "size": "xs",
+      "sku": "15-BLACK-XS",
+      "variantPrice": 299000,
+      "image": "/t-shirt.jpg",
+      "stock": 30
+    },
+    {
+      "id": "91",
+      "productId": "15",
+      "color": "black",
+      "size": "s",
+      "sku": "15-BLACK-S",
+      "variantPrice": 299000,
+      "image": "/t-shirt.jpg",
+      "stock": 40
+    },
+    {
+      "id": "92",
+      "productId": "15",
+      "color": "black",
+      "size": "m",
+      "sku": "15-BLACK-M",
+      "variantPrice": 299000,
+      "image": "/t-shirt.jpg",
+      "stock": 20
+    },
+
+    {
+      "id": "93",
+      "productId": "16",
+      "color": "pink",
+      "size": "s",
+      "sku": "16-PINK-S",
+      "variantPrice": 199000,
+      "image": "/t-shirt.jpg",
+      "stock": 60
+    },
+    {
+      "id": "94",
+      "productId": "16",
+      "color": "pink",
+      "size": "m",
+      "sku": "16-PINK-M",
+      "variantPrice": 199000,
+      "image": "/t-shirt.jpg",
+      "stock": 70
+    },
+    {
+      "id": "95",
+      "productId": "16",
+      "color": "pink",
+      "size": "l",
+      "sku": "16-PINK-L",
+      "variantPrice": 199000,
+      "image": "/t-shirt.jpg",
+      "stock": 45
+    },
+    {
+      "id": "96",
+      "productId": "16",
+      "color": "brown",
+      "size": "s",
+      "sku": "16-BROWN-S",
+      "variantPrice": 199000,
+      "image": "/t-shirt.jpg",
+      "stock": 55
+    },
+    {
+      "id": "97",
+      "productId": "16",
+      "color": "brown",
+      "size": "m",
+      "sku": "16-BROWN-M",
+      "variantPrice": 199000,
+      "image": "/t-shirt.jpg",
+      "stock": 65
+    },
+    {
+      "id": "98",
+      "productId": "16",
+      "color": "brown",
+      "size": "l",
+      "sku": "16-BROWN-L",
+      "variantPrice": 199000,
+      "image": "/t-shirt.jpg",
+      "stock": 40
+    },
+
+    {
+      "id": "99",
+      "productId": "17",
+      "color": "pink",
+      "size": "xs",
+      "sku": "17-PINK-XS",
+      "variantPrice": 279000,
+      "image": "/t-shirt.jpg",
+      "stock": 40
+    },
+    {
+      "id": "100",
+      "productId": "17",
+      "color": "pink",
+      "size": "s",
+      "sku": "17-PINK-S",
+      "variantPrice": 279000,
+      "image": "/t-shirt.jpg",
+      "stock": 50
+    },
+    {
+      "id": "101",
+      "productId": "17",
+      "color": "pink",
+      "size": "m",
+      "sku": "17-PINK-M",
+      "variantPrice": 279000,
+      "image": "/t-shirt.jpg",
+      "stock": 30
+    },
+    {
+      "id": "102",
+      "productId": "17",
+      "color": "white",
+      "size": "xs",
+      "sku": "17-WHITE-XS",
+      "variantPrice": 279000,
+      "image": "/t-shirt.jpg",
+      "stock": 35
+    },
+    {
+      "id": "103",
+      "productId": "17",
+      "color": "white",
+      "size": "s",
+      "sku": "17-WHITE-S",
+      "variantPrice": 279000,
+      "image": "/t-shirt.jpg",
+      "stock": 45
+    },
+    {
+      "id": "104",
+      "productId": "17",
+      "color": "white",
+      "size": "m",
+      "sku": "17-WHITE-M",
+      "variantPrice": 279000,
+      "image": "/t-shirt.jpg",
+      "stock": 25
+    },
+
+    {
+      "id": "105",
+      "productId": "18",
+      "color": "pink",
+      "size": "s",
+      "sku": "18-PINK-S",
+      "variantPrice": 219000,
+      "image": "/t-shirt.jpg",
+      "stock": 55
+    },
+    {
+      "id": "106",
+      "productId": "18",
+      "color": "pink",
+      "size": "m",
+      "sku": "18-PINK-M",
+      "variantPrice": 219000,
+      "image": "/t-shirt.jpg",
+      "stock": 65
+    },
+    {
+      "id": "107",
+      "productId": "18",
+      "color": "pink",
+      "size": "l",
+      "sku": "18-PINK-L",
+      "variantPrice": 219000,
+      "image": "/t-shirt.jpg",
+      "stock": 40
+    },
+    {
+      "id": "108",
+      "productId": "18",
+      "color": "orange",
+      "size": "s",
+      "sku": "18-ORANGE-S",
+      "variantPrice": 219000,
+      "image": "/t-shirt.jpg",
+      "stock": 50
+    },
+    {
+      "id": "109",
+      "productId": "18",
+      "color": "orange",
+      "size": "m",
+      "sku": "18-ORANGE-M",
+      "variantPrice": 219000,
+      "image": "/t-shirt.jpg",
+      "stock": 60
+    },
+    {
+      "id": "110",
+      "productId": "18",
+      "color": "orange",
+      "size": "l",
+      "sku": "18-ORANGE-L",
+      "variantPrice": 219000,
+      "image": "/t-shirt.jpg",
+      "stock": 35
+    },
+
+    {
+      "id": "111",
+      "productId": "19",
+      "color": "blue",
+      "size": "xs",
+      "sku": "19-BLUE-XS",
+      "variantPrice": 189000,
+      "image": "/t-shirt.jpg",
+      "stock": 45
+    },
+    {
+      "id": "112",
+      "productId": "19",
+      "color": "blue",
+      "size": "s",
+      "sku": "19-BLUE-S",
+      "variantPrice": 189000,
+      "image": "/t-shirt.jpg",
+      "stock": 55
+    },
+    {
+      "id": "113",
+      "productId": "19",
+      "color": "blue",
+      "size": "m",
+      "sku": "19-BLUE-M",
+      "variantPrice": 189000,
+      "image": "/t-shirt.jpg",
+      "stock": 30
+    },
+    {
+      "id": "114",
+      "productId": "19",
+      "color": "green",
+      "size": "xs",
+      "sku": "19-GREEN-XS",
+      "variantPrice": 189000,
+      "image": "/t-shirt.jpg",
+      "stock": 40
+    },
+    {
+      "id": "115",
+      "productId": "19",
+      "color": "green",
+      "size": "s",
+      "sku": "19-GREEN-S",
+      "variantPrice": 189000,
+      "image": "/t-shirt.jpg",
+      "stock": 50
+    },
+    {
+      "id": "116",
+      "productId": "19",
+      "color": "green",
+      "size": "m",
+      "sku": "19-GREEN-M",
+      "variantPrice": 189000,
+      "image": "/t-shirt.jpg",
+      "stock": 25
+    },
+
+    {
+      "id": "117",
+      "productId": "20",
+      "color": "pink",
+      "size": "s",
+      "sku": "20-PINK-S",
+      "variantPrice": 179000,
+      "image": "/t-shirt.jpg",
+      "stock": 70
+    },
+    {
+      "id": "118",
+      "productId": "20",
+      "color": "pink",
+      "size": "m",
+      "sku": "20-PINK-M",
+      "variantPrice": 179000,
+      "image": "/t-shirt.jpg",
+      "stock": 85
+    },
+    {
+      "id": "119",
+      "productId": "20",
+      "color": "pink",
+      "size": "l",
+      "sku": "20-PINK-L",
+      "variantPrice": 179000,
+      "image": "/t-shirt.jpg",
+      "stock": 60
+    },
+    {
+      "id": "120",
+      "productId": "20",
+      "color": "white",
+      "size": "s",
+      "sku": "20-WHITE-S",
+      "variantPrice": 179000,
+      "image": "/t-shirt.jpg",
+      "stock": 65
+    },
+    {
+      "id": "121",
+      "productId": "20",
+      "color": "white",
+      "size": "m",
+      "sku": "20-WHITE-M",
+      "variantPrice": 179000,
+      "image": "/t-shirt.jpg",
+      "stock": 78
+    },
+    {
+      "id": "122",
+      "productId": "20",
+      "color": "white",
+      "size": "l",
+      "sku": "20-WHITE-L",
+      "variantPrice": 179000,
+      "image": "/t-shirt.jpg",
+      "stock": 55
+    }
+  ]
+}

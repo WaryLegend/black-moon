@@ -95,7 +95,7 @@ function Body({ data, render }) {
     return (
       <StyledBody>
         <tr>
-          <Empty>No data to show at the moment.</Empty>
+          <Empty>No data found.</Empty>
         </tr>
       </StyledBody>
     );

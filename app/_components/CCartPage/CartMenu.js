@@ -10,7 +10,7 @@ import ContinuteShoppingBtn from "./ContinuteShoppingBtn";
 function CartMenu() {
   const cartItems = useCartStore((state) => state.items);
 
-  const count = cartItems.length;
+  const totalItemAmount = cartItems.length;
   const totalPrice = useCartStore((state) => state.getTotalPrice());
 
   const voucher = 5; // %
@@ -24,7 +24,7 @@ function CartMenu() {
           <div className="border-primary-400 grid gap-5 rounded-md border p-5 lg:gap-8">
             {/* Order header */}
             <h1 className="text-lg font-bold uppercase lg:text-xl">
-              Tổng đơn hàng | {count} sản phẩm
+              Tổng đơn hàng | {totalItemAmount} sản phẩm
             </h1>
             {/* Total price & vouchers */}
             <div className="grid gap-2">

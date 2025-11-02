@@ -1,5 +1,4 @@
-import AddProduct from "@/app/_components/products/AddProduct";
-import ProductTable from "@/app/_components/products/ProductTable";
+import ProductTableAndBtns from "@/app/_components/products/ProductTableAndBtns";
 import ProductTableOperations from "@/app/_components/products/ProductTableOperations";
 import SortBy from "@/app/_components/SortBy";
 import Spinner from "@/app/_components/Spinner";
@@ -9,7 +8,9 @@ export const metadata = {
   title: "Products",
 };
 
-export default function Page() {
+export default async function Page({ searchParams }) {
+  const filterParams = await searchParams;
+
   return (
     <>
       <div>
@@ -21,8 +22,10 @@ export default function Page() {
               { value: "createdDate-asc", label: "Date (earlier first)" },
               { value: "name-asc", label: "Name (A-Z)" },
               { value: "name-desc", label: "Name (Z-A)" },
-              { value: "price-asc", label: "Price (lowest first)" },
-              { value: "price-desc", label: "Price (highest first)" },
+              { value: "category-asc", label: "Category (A-Z)" },
+              { value: "category-desc", label: "Category (Z-A)" },
+              { value: "basePrice-asc", label: "Price (lowest first)" },
+              { value: "basePrice-desc", label: "Price (highest first)" },
             ]}
           />
         </div>
@@ -31,9 +34,15 @@ export default function Page() {
       </div>
 
       <div className="flex flex-col gap-4">
-        <Suspense callback={<Spinner color="var(--color-accent-800)" />}>
-          <ProductTable />
-          <AddProduct />
+        <Suspense
+          fallback={
+            <Spinner
+              color="var(--color-accent-600)"
+              className="my-0.5 self-center"
+            />
+          }
+        >
+          <ProductTableAndBtns searchParams={filterParams} />
         </Suspense>
       </div>
     </>

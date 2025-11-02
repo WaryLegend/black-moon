@@ -17,7 +17,6 @@ function Admin() {
       <div className="relative aspect-square size-[30px] sm:size-[35px]">
         <Image
           src={avatar || default_user}
-          fill
           alt={`${name}'s avatar`}
           className="border-accent-700 rounded-full border-2 object-cover"
         />
