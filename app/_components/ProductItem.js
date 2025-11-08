@@ -9,7 +9,7 @@ import test_img from "@/public/t-shirt.jpg";
 
 function ProductItem({ product }) {
   const pathname = usePathname();
-  const { id, name } = product;
+  const { id, name, colors, sizes, basePrice, image, reviews } = product;
   const isLiked = false; // test
 
   return (
@@ -30,13 +30,19 @@ function ProductItem({ product }) {
           {/* Color swatches */}
           <div className="flex justify-between">
             <div className="flex flex-wrap items-center gap-1">
-              {["#000", "#fff", "#ccc", "#8b5cf6"].map((color, i) => (
+              {colors?.slice(0, 4).map((color, i) => (
                 <span
                   key={i}
                   className="border-primary-300 h-5 w-5 rounded-full border"
                   style={{ backgroundColor: color }}
                 />
               ))}
+
+              {colors?.length > 4 && (
+                <span className="flex h-5 w-5 items-center justify-center rounded-full border text-xs">
+                  +{colors.length - 4}
+                </span>
+              )}
             </div>
             <button
               className="hover:text-accent-700 flex items-center justify-center p-1 transition-all hover:scale-105"

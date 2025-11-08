@@ -102,17 +102,21 @@ export default function CustomSelectAsync({
       defaultOptions={defaultOptions}
       loadOptions={cachedLoadOptions}
       value={selectedOptions}
-      onChange={(selected) =>
+      onChange={(selected) => {
+        const value = Array.isArray(selected)
+          ? selected.map((s) => s.value)
+          : selected?.value;
+        // pass both value and full selected option object
         onChange({
-          target: {
-            value: Array.isArray(selected)
-              ? selected.map((s) => s.value)
-              : selected?.value,
-          },
-        })
-      }
+          target: { value },
+          option: selected,
+        });
+      }}
       styles={customStyles}
       components={isAnimated ? makeAnimated() : null}
+      noOptionsMessage={({ inputValue }) =>
+        inputValue ? "No options found" : "Type any to search"
+      }
       {...props}
     />
   );

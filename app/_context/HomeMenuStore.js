@@ -8,12 +8,12 @@ export const useMenuStore = create((set) => ({
       if (state.activeLink === link) {
         // If clicking same link, toggle open/close
         return {
-          isOpen: !state.isOpen,
           activeLink: !state.isOpen ? link : "",
+          isOpen: !state.isOpen,
         };
       }
       // If different link, always open
-      return { isOpen: true, activeLink: link };
+      return { activeLink: link, isOpen: true };
     }),
   setActiveLink: (link) => set({ activeLink: link }),
   //use for click outside

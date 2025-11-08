@@ -41,7 +41,7 @@ function Filter({
       onFilterChange(filterField, value);
       return;
     }
-    // Otherwise, update URL directly (for NestedFilter in ProductFilter)
+    // Otherwise, update URL directly (for runtime NestedFilter in ProductFilter)
     const params = new URLSearchParams(searchParams.toString());
 
     if (!value || (Array.isArray(value) && value.length === 0)) {

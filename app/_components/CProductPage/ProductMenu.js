@@ -1,36 +1,15 @@
+"use client";
+
 import { formatCurrency } from "@/app/_utils/helpers";
 import { FaRegHeart } from "react-icons/fa";
-import { COLORS, SIZES } from "@/app/_utils/constants";
 import ProductAvgRates from "@/app/_components/CProductPage/ProductAvgRates";
 import QuantityInput from "@/app/_components/QuantityInput";
 import Button from "@/app/_components/Button";
+import ColorAndSizeInput from "./ColorAndSizeInput";
 
-// fake reviews data (testing)
-const mockReviews = [
-  {
-    title: "This shirt is nice, cosy and fit",
-    date: "26/09/2025",
-    rates: 5,
-    comment:
-      "Kích cỡ đã mua: S, Quần áo có vừa không: Hơi chật, Really comfortable and affordable pair that can be worn daily",
-  },
-  {
-    title: "Great quality, love the design",
-    date: "25/09/2025",
-    rates: 4,
-    comment:
-      "Kích cỡ đã mua: M, Quần áo có vừa không: Vừa vặn, Looks stylish and feels great for casual wear",
-  },
-  {
-    title: "Perfect for daily wear",
-    date: "24/09/2025",
-    rates: 5,
-    comment:
-      "Kích cỡ đã mua: L, Quần áo có vừa không: Rộng rãi, Super soft fabric, highly recommend!",
-  },
-];
+export default function ProductMenu({ product }) {
+  const { id, name: productName, colors, sizes, reviews } = product;
 
-export default function ProductMenu() {
   const isNew = true; // test
   const price = 293000; // default price of a product
   const Sale = 9; // % discount of a single product
@@ -41,9 +20,7 @@ export default function ProductMenu() {
       <div className="sticky top-[var(--header-height)] p-5">
         <div className="grid gap-[4vh]">
           <div className="flex items-center">
-            <h1 className="text-xl font-semibold lg:text-2xl">
-              Quần Jogger Siêu Co Giãn
-            </h1>
+            <h1 className="text-xl font-semibold lg:text-2xl">{productName}</h1>
             <Button
               icon
               className="hover:text-accent-700 ml-auto"
@@ -53,47 +30,8 @@ export default function ProductMenu() {
             </Button>
           </div>
 
-          {/* Colors */}
-          <div>
-            <p className="mb-2 font-medium">Màu sắc</p>
-            <div className="flex flex-wrap gap-2">
-              {COLORS.map(({ value, label }) => (
-                <label key={value}>
-                  <input
-                    type="radio"
-                    name="color"
-                    value={value}
-                    className="peer hidden"
-                  />
-                  <span
-                    className="peer-checked:ring-accent-700 peer-hover:outline-accent-700 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border transition-all peer-checked:ring-2 peer-checked:ring-offset-2 peer-hover:outline-1"
-                    style={{ backgroundColor: value }}
-                    title={label}
-                  ></span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          {/* Sizes */}
-          <div>
-            <p className="mb-2 font-medium">Kích cỡ</p>
-            <div className="flex flex-wrap gap-3">
-              {SIZES.map(({ value, label }) => (
-                <label key={value}>
-                  <input
-                    type="radio"
-                    name="size"
-                    value={value}
-                    className="peer hidden"
-                  />
-                  <span className="border-primary-800 peer-checked:bg-accent-700 peer-checked:ring-accent-700 cursor-pointer rounded-sm border px-3 py-2 text-sm transition-all select-none peer-checked:text-white peer-checked:ring-2 peer-checked:ring-offset-2">
-                    {label}
-                  </span>
-                </label>
-              ))}
-            </div>
-          </div>
+          {/* colors and sizes variant selection */}
+          <ColorAndSizeInput product={product} />
 
           {/* Price section */}
           <div>
@@ -110,7 +48,7 @@ export default function ProductMenu() {
               </span>
               {/* avg product rates */}
               <div className="ml-auto">
-                <ProductAvgRates reviews={mockReviews} />
+                <ProductAvgRates reviews={reviews} />
               </div>
             </div>
             {/* Sale? */}

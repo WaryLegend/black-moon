@@ -1,42 +1,6 @@
 import testdata from "@/app/_data/testdata.JSON";
-import { groupLabels } from "@/app/_utils/constants";
-import { PAGE_SIZE } from "@/app/_utils/constants";
-
-// Sorting logic
-function sortData(data, field, direction = "asc", locale = "vi") {
-  // Defensive – no sort requested → return
-  if (!field) return [...data];
-
-  return [...data].sort((a, b) => {
-    let aVal = a[field];
-    let bVal = b[field];
-    // special handling per field (add more as needed) ----
-    // === 1. NUMERIC FIELDS ===
-    if (typeof aVal === "number" && typeof bVal === "number") {
-      aVal = Number(aVal);
-      bVal = Number(bVal);
-    }
-    // === 2. DATE FIELDS ===
-    else if (field === "createdDate") {
-      aVal = new Date(aVal).getTime();
-      bVal = new Date(bVal).getTime();
-    }
-    // === 3. STRING FIELDS (locale-aware) ===
-    else {
-      aVal = String(aVal);
-      bVal = String(bVal);
-      const collator = new Intl.Collator(locale, {
-        sensitivity: "base",
-        numeric: true,
-      });
-      return collator.compare(aVal, bVal) * (direction === "asc" ? 1 : -1);
-    }
-    // === 4. Final comparison ===
-    if (aVal < bVal) return direction === "asc" ? -1 : 1;
-    if (aVal > bVal) return direction === "asc" ? 1 : -1;
-    return 0;
-  });
-}
+import { groupLabels, PAGE_SIZE } from "@/app/_utils/constants";
+import { sortData } from "@/app/_utils/helpers";
 
 export async function getAllCategories() {
   try {
@@ -48,6 +12,38 @@ export async function getAllCategories() {
     return categories;
   } catch (err) {
     console.error("Error loading all categories:", err);
+  }
+}
+
+export async function getCategoryById(id) {
+  try {
+    await new Promise((res) => setTimeout(res, 300));
+    const categories = testdata.categories || [];
+
+    const category = categories.find((c) => c.id === id);
+    if (!category) {
+      return [];
+    }
+
+    return { category };
+  } catch (err) {
+    console.error("Error loading category:", err);
+  }
+}
+
+export async function getCategoryByGroup(group) {
+  try {
+    await new Promise((res) => setTimeout(res, 300));
+    const categories = testdata.categories || [];
+
+    const result = categories.filter((c) => c.group === group);
+    if (!result) {
+      return [];
+    }
+
+    return { categories: result };
+  } catch (err) {
+    console.error("Error loading categories by group:", err);
   }
 }
 
@@ -156,21 +152,67 @@ export async function getProducts({ filters, page, sortBy }) {
   }
 }
 
-// get all product's Variants by filters, order by and page
+export async function getProductById(id) {
+  try {
+    await new Promise((res) => setTimeout(res, 300));
+    const products = testdata.products || [];
+
+    const product = products.find((p) => p.id === id);
+    if (!product) {
+      return [];
+    }
+
+    return { product };
+  } catch (err) {
+    console.error("Error loading product:", err);
+  }
+}
+
+export async function getProductsByCategory(categoryId) {
+  try {
+    // 1. Simulate network latency
+    await new Promise((res) => setTimeout(res, 300));
+    const { products } = testdata;
+
+    // 2. Enrich every product that matches the categoryId
+    const enriched = products
+      .filter((prod) => prod.categoryId === categoryId)
+      .map((prod) => {
+        return {
+          id: prod.id,
+          name: prod.name,
+          categoryId: prod.categoryId,
+          colors: prod.colors,
+          sizes: prod.sizes,
+          basePrice: prod.basePrice ?? 0,
+          image: prod.images?.[0] ?? null,
+          reviews: prod.reviews,
+        };
+      });
+
+    return { products: enriched };
+  } catch (err) {
+    console.error("Error loading product:", err);
+  }
+}
+
+// get all product's variants by filters, order by and page
 export async function getVariants({ filters, page, sortBy }) {
   try {
     // 1. Simulate network latency
     await new Promise((res) => setTimeout(res, 300));
-    const { products, variants } = testdata;
+    const { products, variants, colors, sizes } = testdata;
     // 2. Join with products
     const enriched = variants.map((vari) => {
       const product = products.find((c) => c.id === vari.productId);
+      const color = colors.find((cl) => cl.id === vari.color);
+      const size = sizes.find((sz) => sz.id === vari.size);
       return {
         id: vari.id,
         name: product.name,
         productId: vari.productId,
-        color: vari.color,
-        size: vari.size,
+        color,
+        size,
         sku: vari.sku,
         variantPrice: vari.variantPrice ?? 0,
         stock: vari.stock,
@@ -229,15 +271,41 @@ export async function getVariants({ filters, page, sortBy }) {
   }
 }
 
-// unique service for searching product base on name
+// unique service for searching product by name
 export async function searchProducts(query = "") {
   const all = await getAllProducts();
+  if (!query) return [];
 
-  const result = query
-    ? all
-        .filter((p) => p.name.toLowerCase().includes(query.toLowerCase()))
-        .slice(0, 100) // cap results 100
-    : all;
+  const normQuery = normalize(query);
+  // Áo --> ao
+  function normalize(str) {
+    return str
+      .normalize("NFD")
+      .replace(/\p{Diacritic}/gu, "")
+      .toLowerCase();
+  }
 
-  return result.map((p) => ({ label: p.name, value: p.id }));
+  const matched = all
+    .filter((p) => normalize(p.name).includes(normQuery))
+    .sort((a, b) => {
+      const aNorm = normalize(a.name);
+      const bNorm = normalize(b.name);
+
+      const aStarts = aNorm.startsWith(normQuery);
+      const bStarts = bNorm.startsWith(normQuery);
+
+      // If one starts with query, prioritize it
+      if (aStarts && !bStarts) return -1;
+      if (!aStarts && bStarts) return 1;
+
+      // else fallback to alphabetical
+      return aNorm.localeCompare(bNorm);
+    })
+    .slice(0, 100);
+
+  return matched.map((p) => ({
+    label: p.name,
+    value: p.id,
+    basePrice: p.basePrice,
+  }));
 }

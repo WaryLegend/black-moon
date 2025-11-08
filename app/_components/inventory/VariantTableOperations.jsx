@@ -1,60 +1,63 @@
 "use client";
 
 import NestedFilter from "@/app/_components/Filters/NestedFilter";
+import { useColorsAndSizes } from "@/app/_context/ColorsAndSizesContext";
 import { searchProducts } from "@/app/_lib/data-service";
-import { COLORS, PRICES, SIZES } from "@/app/_utils/constants";
+import { PRICES_RANGE } from "@/app/_utils/constants";
 
-const staticFilters = [
-  {
-    filterField: "color",
-    options: COLORS,
-    selectProps: {
-      minWidth: "5rem",
-      isMulti: true,
-      isClearable: true,
-      closeMenuOnSelect: false,
-      isAnimated: true,
-      placeholder: "Màu sắc",
-    },
+const priceFilters = {
+  filterField: "variantPrice",
+  options: PRICES_RANGE,
+  selectProps: {
+    minWidth: "16rem",
+    placeholder: "Giá",
   },
-  {
-    filterField: "size",
-    options: SIZES,
-    selectProps: {
-      minWidth: "3rem",
-      isMulti: true,
-      isClearable: true,
-      closeMenuOnSelect: false,
-      isAnimated: true,
-      placeholder: "Kích cỡ",
-    },
-  },
-  {
-    filterField: "variantPrice",
-    options: PRICES,
-    selectProps: {
-      minWidth: "16rem",
-      placeholder: "Giá",
-    },
-  },
-];
+};
 
 function VariantTableOperations() {
-  const productFilter = {
-    filterField: "productId",
-    loadOptions: searchProducts,
-    selectProps: {
-      minWidth: "15rem",
-      isMulti: true,
-      isClearable: true,
-      closeMenuOnSelect: false,
-      isAnimated: true,
-      placeholder: "Tên sản phẩm",
-      isAsync: true,
-    },
-  };
+  const { colors, sizes } = useColorsAndSizes();
 
-  const filters = [productFilter, ...staticFilters];
+  const variantFilter = [
+    {
+      filterField: "productId",
+      loadOptions: searchProducts,
+      selectProps: {
+        minWidth: "15rem",
+        isMulti: true,
+        isClearable: true,
+        closeMenuOnSelect: false,
+        isAnimated: true,
+        placeholder: "Tên sản phẩm",
+        isAsync: true,
+      },
+    },
+    {
+      filterField: "color",
+      options: colors,
+      selectProps: {
+        minWidth: "5rem",
+        isMulti: true,
+        isClearable: true,
+        closeMenuOnSelect: false,
+        isAnimated: true,
+        placeholder: "Màu sắc",
+      },
+    },
+    {
+      filterField: "size",
+      options: sizes,
+      selectProps: {
+        minWidth: "3rem",
+        isMulti: true,
+        isClearable: true,
+        closeMenuOnSelect: false,
+        isAnimated: true,
+        placeholder: "Kích cỡ",
+      },
+    },
+  ];
+
+  const filters = [...variantFilter, priceFilters];
 
   return (
     <div className="flex items-center justify-end">

@@ -4,7 +4,6 @@ import {
   getQuantityTextColor,
   getTextColor,
 } from "@/app/_utils/helpers";
-import { getColorLabel } from "@/app/_utils/constants";
 import Image from "next/image";
 import Table from "@/app/_components/Table";
 import styled from "styled-components";
@@ -57,17 +56,16 @@ function VariantRow({ variant }) {
         <Field>
           <p
             style={{
-              ...getTextColor(color).style,
-              ...(color.toLowerCase() === "black" && { color: "white" }),
+              ...getTextColor(color?.id).style,
             }}
             className="inline rounded-sm px-1 py-0.5 uppercase"
           >
-            {getColorLabel(color)}
+            {color?.label}
           </p>
         </Field>
       </td>
       <td>
-        <Size>{size}</Size>
+        <Size>{size?.label}</Size>
       </td>
       <td>
         <Price>{formatCurrency(variantPrice)}</Price>

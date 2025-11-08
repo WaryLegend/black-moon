@@ -1,3 +1,9 @@
+import { colord, extend } from "colord";
+import mixPlugin from "colord/plugins/mix";
+import namesPlugin from "colord/plugins/names";
+import a11yPlugin from "colord/plugins/a11y";
+extend([mixPlugin, namesPlugin, a11yPlugin]);
+
 // set first letter to captital
 export function capitalizeFirst(str) {
   if (!str) return "";
@@ -27,6 +33,7 @@ export function getQuantityTextColor(value) {
     LOW: "#FF0000", // Red
     MEDIUM: "#DAA520", // Yellow
     GOOD: "#008000", // Green
+    NEUTRAL: "#808080",
   };
 
   const THRESHOLDS = {
@@ -34,29 +41,75 @@ export function getQuantityTextColor(value) {
     MEDIUM: 25,
   };
 
-  if (!Number.isFinite(value)) return TEXT_COLORS.LOW; // Default to red for invalid input
+  if (!Number.isFinite(value) || value <= 0) return TEXT_COLORS.NEUTRAL; // Default to red for invalid input
 
   if (value <= THRESHOLDS.LOW) return TEXT_COLORS.LOW;
   if (value <= THRESHOLDS.MEDIUM) return TEXT_COLORS.MEDIUM;
   return TEXT_COLORS.GOOD;
 }
 
-export function getTextColor(text) {
-  const TEXT_COLORS = {
-    BLACK: { color: "#0f0f0f", backgroundColor: "#3d3d3d" },
-    WHITE: { color: "#FFFFFF", backgroundColor: "#bbc1ca" },
-    BLUE: { color: "#1D4ED8", backgroundColor: "#dbeafe" },
-    GREEN: { color: "#15803D", backgroundColor: "#dcfce7" },
-    BROWN: { color: "#7A3E00", backgroundColor: "#f5e6d3" },
-    PINK: { color: "#DB2777", backgroundColor: "#fce7f3" },
-    ORANGE: { color: "#FFa500", backgroundColor: "#fff7ed" },
-  };
-
-  const style = TEXT_COLORS[text.toUpperCase()];
+export function getTextColor(name) {
+  const base = colord(name);
+  // Special case: WHITE
+  if (base.isEqual(colord("#ffffff"))) {
+    return {
+      color: "#777",
+      backgroundColor: "#ececec",
+      style: { color: "#777", backgroundColor: "#ececec" },
+    };
+  }
+  // Special case: BLACK
+  if (base.isEqual(colord("#000000"))) {
+    return {
+      color: "#000",
+      backgroundColor: "#979797",
+      style: { color: "#000", backgroundColor: "#979797" },
+    };
+  }
+  // Normal colors logic
+  const bg = base
+    .mix("#ffffff", 0.75) // 75% white → pastel, not washed
+    .desaturate(0.05); // keep identity, but softer
 
   return {
-    style, // --> {object}
-    color: style?.color, // --> color only value
-    backgroundColor: style?.backgroundColor, // --> bg color only
+    color: base.toHex(),
+    backgroundColor: bg.toHex(),
+    style: { color: base.toHex(), backgroundColor: bg.toHex() },
   };
+}
+
+// Sorting logic
+export function sortData(data, field, direction = "asc", locale = "vi") {
+  // Defensive – no sort requested → return
+  if (!field) return [...data];
+
+  return [...data].sort((a, b) => {
+    let aVal = a[field];
+    let bVal = b[field];
+    // special handling per field (add more as needed) ----
+    // === 1. NUMERIC FIELDS ===
+    if (typeof aVal === "number" && typeof bVal === "number") {
+      aVal = Number(aVal);
+      bVal = Number(bVal);
+    }
+    // === 2. DATE FIELDS ===
+    else if (field === "createdDate") {
+      aVal = new Date(aVal).getTime();
+      bVal = new Date(bVal).getTime();
+    }
+    // === 3. STRING FIELDS (locale-aware) ===
+    else {
+      aVal = String(aVal);
+      bVal = String(bVal);
+      const collator = new Intl.Collator(locale, {
+        sensitivity: "base",
+        numeric: true,
+      });
+      return collator.compare(aVal, bVal) * (direction === "asc" ? 1 : -1);
+    }
+    // === 4. Final comparison ===
+    if (aVal < bVal) return direction === "asc" ? -1 : 1;
+    if (aVal > bVal) return direction === "asc" ? 1 : -1;
+    return 0;
+  });
 }

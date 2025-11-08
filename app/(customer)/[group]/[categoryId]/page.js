@@ -2,48 +2,47 @@ import StickyFilterWrapper from "@/app/_components/StickyFilterWrapper";
 import ProductFilter from "@/app/_components/ProductFilter";
 import ProductSection from "@/app/_components/ProductSection";
 import BreadCrumbNav from "@/app/_components/BreadCrumbNav";
-import { ParamsProvider } from "@/app/_context/NavParamsContext";
-import NoProductsFound from "@/app/_components/NoProductsFound";
+import { getCategoryById } from "@/app/_lib/data-service";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import Spinner from "@/app/_components/Spinner";
 
-export const metadata = {
-  title: "Name of category",
-};
+export async function generateMetadata({ params }) {
+  const Params = await params;
+  const { categoryId } = Params;
+  const { category } = await getCategoryById(categoryId);
 
-// fetch products by categoryId
-const products = [
-  { id: 1, name: "ĐỒ MẶC NGOÀI" },
-  { id: 2, name: "QUẦN" },
-  { id: 3, name: "HEATTECH" },
-  { id: 4, name: "ĐỒ BẦU" },
-  { id: 5, name: "ÁO THUN, ÁO NI & ÁO GIẢ LÔNG CỪU" },
-  { id: 6, name: "AIRism" },
-  { id: 7, name: "Đồ mặc nhà" },
-];
-
-// const products = []; // for testing empty
+  return {
+    title: `${category?.name}` ?? "Not Found",
+  };
+}
 
 export default async function Page({ params }) {
-  const trueParams = await params;
-
-  // const {categoryId} = trueParams; // later use
+  const Params = await params;
+  const { group, categoryId } = Params;
+  const { category } = await getCategoryById(categoryId);
+  if (!category) notFound();
 
   return (
-    <ParamsProvider params={trueParams}>
-      <div className="flex flex-col gap-1 md:gap-4">
-        {/* sub-header, title, navigation */}
-        <BreadCrumbNav />
-        {/* filters */}
-        <StickyFilterWrapper>
-          <ProductFilter />
-        </StickyFilterWrapper>
+    <div className="flex flex-col gap-1 md:gap-4">
+      {/* sub-header, title, navigation */}
+      <BreadCrumbNav paths={{ group, category: category.name }} />
+      {/* filters */}
+      <StickyFilterWrapper>
+        <ProductFilter />
+      </StickyFilterWrapper>
 
-        {/* products section */}
-        {products?.length ? (
-          <ProductSection products={products} />
-        ) : (
-          <NoProductsFound />
-        )}
-      </div>
-    </ParamsProvider>
+      {/* products section */}
+      <Suspense
+        fallback={
+          <Spinner
+            color="var(--color-accent-600)"
+            className="my-0.5 self-center"
+          />
+        }
+      >
+        <ProductSection categoryId={categoryId} />
+      </Suspense>
+    </div>
   );
 }

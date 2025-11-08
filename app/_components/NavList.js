@@ -8,7 +8,7 @@ import { useMenuStore } from "@/app/_context/HomeMenuStore";
 
 function NavList() {
   const pathname = usePathname();
-  const { toggleMenu } = useMenuStore();
+  const { toggleMenu, setActiveLink, openPanel } = useMenuStore();
 
   return (
     <>

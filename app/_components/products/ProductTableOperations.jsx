@@ -1,12 +1,16 @@
 import NestedFilter from "@/app/_components/Filters/NestedFilter";
 import TabFilter from "@/app/_components/Filters/TabFilter";
 import { getAllCategories } from "@/app/_lib/data-service";
-import { groupLabels, groupOptions, PRICES } from "@/app/_utils/constants";
+import {
+  groupLabels,
+  groupOptions,
+  PRICES_RANGE,
+} from "@/app/_utils/constants";
 
 const staticFilters = [
   {
     filterField: "basePrice",
-    options: PRICES,
+    options: PRICES_RANGE,
     selectProps: {
       minWidth: "16rem",
       placeholder: "Giá",

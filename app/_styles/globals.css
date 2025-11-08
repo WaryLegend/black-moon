@@ -78,6 +78,12 @@ button:has(svg) {
     animation: rotate 1s infinite linear;
   }
 
+  @keyframes rotate {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+
   .spinnerbar {
     margin: 0;
     width: var(--spinner-size, 45px);
@@ -89,12 +95,6 @@ button:has(svg) {
       var(--c) 100% 50%;
     background-size: 20% 50%;
     animation: loading 1s infinite linear;
-  }
-
-  @keyframes rotate {
-    to {
-      transform: rotate(1turn);
-    }
   }
 
   @keyframes loading {

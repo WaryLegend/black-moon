@@ -1,11 +1,11 @@
 import Filter from "./Filter";
 
 function NestedFilter({
-  filters,
   label = "Filter",
   className = "",
+  filters,
   onFilterChange,
-  localFilterState,
+  localFilterState = [],
   children,
 }) {
   return (

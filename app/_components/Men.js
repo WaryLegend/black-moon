@@ -1,7 +1,7 @@
 import Image from "next/image";
 import bg from "@/public/bg-men.jpg";
 
-export default function Women() {
+export default function Men() {
   return (
     <div className="bg-primary-500 absolute top-0 left-0 flex h-screen w-screen flex-col items-center justify-center">
       <Image
@@ -9,7 +9,7 @@ export default function Women() {
         fill
         placeholder="blur"
         quality={90}
-        alt="Women-section-image"
+        alt="Men-section-image"
         className="pointer-events-none object-cover opacity-70"
       />
 

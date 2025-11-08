@@ -1,9 +1,13 @@
 import Link from "next/link";
-import CategoryItem from "./CategoryItem";
+import CategoryItem from "@/app/_components/CategoryItem";
 
 function CategoryList({ categories = [], group, children }) {
   if (!categories.length)
-    return <p className="text-center">Không có dữ liệu để hiển thị...</p>;
+    return (
+      <div className="border-accent-300 border-b-1">
+        <p className="text-center">Chưa có danh mục để hiển thị...</p>;
+      </div>
+    );
 
   return (
     <ul className="border-accent-300 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-5 border-b-1 pb-5 uppercase sm:px-10 lg:px-20">
@@ -11,7 +15,7 @@ function CategoryList({ categories = [], group, children }) {
         <CategoryItem key={cat.id} category={cat} group={group} />
       ))}
 
-      {/* aditional li if has*/}
+      {/* additional li if has*/}
       {children}
 
       {/* fixed list-options */}

@@ -26,36 +26,8 @@ export const groupOptions = Object.entries(GROUPS).map(
   }),
 );
 
-//clothes Size
-export const SIZES = [
-  { value: "xs", label: "XS" },
-  { value: "s", label: "S" },
-  { value: "m", label: "M" },
-  { value: "l", label: "L" },
-  { value: "xl", label: "XL" },
-  { value: "xxl", label: "XXL" },
-  { value: "xxxl", label: "XXXL" },
-];
-
-//clothes color
-export const COLORS = [
-  { value: "orange", label: "Cam" },
-  { value: "pink", label: "Hồng" },
-  { value: "brown", label: "Nâu" },
-  { value: "green", label: "Lục" },
-  { value: "blue", label: "Lam" },
-  { value: "white", label: "Trắng" },
-  { value: "black", label: "Đen" },
-];
-
-// basically from black --> đen (language issue)
-export function getColorLabel(value) {
-  const color = COLORS.find((c) => c.value === value);
-  return color ? color.label : value;
-}
-
 // filter Price
-export const PRICES = [
+export const PRICES_RANGE = [
   { label: "Tất cả giá", value: "all" },
   { label: "Dưới 199.000 VND", value: "under-199000" },
   {

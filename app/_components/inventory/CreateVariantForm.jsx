@@ -4,46 +4,13 @@ import FormRow from "@/app/_components/Forms/FormRow";
 import Input from "@/app/_components/Forms/Input";
 import FileInput from "@/app/_components/Forms/FileInput";
 import Button from "@/app/_components/Button";
-import Selector from "@/app/_components/Forms/Selector";
 import Radio from "@/app/_components/Forms/Radio";
 import { formatCurrency } from "@/app/_utils/helpers";
-import { COLORS, SIZES } from "@/app/_utils/constants";
+import { useColorsAndSizes } from "@/app/_context/ColorsAndSizesContext";
+import { searchProducts } from "@/app/_lib/data-service";
+import CustomSelectAsync from "../CustomSelectAsync";
 // import { useCreateVariant } from "./useCreateVariant";
 // import { useEditVariant } from "./useEditVariant";
-
-//test data same from products
-const fakedata = [
-  {
-    id: 1,
-    name: "Áo sơ mi",
-    basePrice: 180000,
-  },
-  {
-    id: 2,
-    name: "Quần tây",
-    basePrice: 250000,
-  },
-  {
-    id: 3,
-    name: "Áo polo",
-    basePrice: 160000,
-  },
-  {
-    id: 4,
-    name: "Quần short kaki",
-    basePrice: 140000,
-  },
-  {
-    id: 5,
-    name: "Áo hoodie",
-    basePrice: 220000,
-  },
-  {
-    id: 6,
-    name: "Áo khoác da",
-    basePrice: 200000,
-  },
-];
 
 function CreateVariantForm({ VariantToEdit = {}, onCloseModal }) {
   // const { isCreating, createVariant } = useCreateVariant();
@@ -51,6 +18,7 @@ function CreateVariantForm({ VariantToEdit = {}, onCloseModal }) {
 
   // const isWorking = isCreating || isEditing;
   const isWorking = false;
+  const { colors, sizes } = useColorsAndSizes();
 
   const { id: editId, ...editValues } = VariantToEdit;
   // check if it's an edit form or not || add form
@@ -74,17 +42,6 @@ function CreateVariantForm({ VariantToEdit = {}, onCloseModal }) {
   // watch fields
   const basePrice = watch("basePrice") || "";
   const priceDiff = Number(watch("priceDifference") || 0);
-
-  // Custom onChange handler for product name selection
-  const handleProductChange = (e) => {
-    const selectedName = e.target.value;
-    const product = fakedata.find((p) => p.name === selectedName);
-    if (product) {
-      setValue("basePrice", product.basePrice, { shouldValidate: true });
-    } else {
-      setValue("basePrice", 0, { shouldValidate: true });
-    }
-  };
 
   const finalPrice = basePrice ? basePrice + priceDiff : null;
 
@@ -120,24 +77,38 @@ function CreateVariantForm({ VariantToEdit = {}, onCloseModal }) {
       onSubmit={handleSubmit(onSubmitForm)}
       type={onCloseModal ? "modal" : "regular"}
     >
-      <FormRow label="Product name" error={errors?.name?.message}>
-        <Selector
-          id="name"
-          type="text"
-          customDefaultOption="Select a product"
-          data={fakedata}
+      <FormRow label="Product name" error={errors?.productId?.message}>
+        <CustomSelectAsync
+          filterField="product"
+          cacheOptions
+          defaultOptions
+          loadOptions={searchProducts}
           disabled={isWorking || isEditSession}
-          {...register("name", {
-            required: "This field is required",
-            onChange: handleProductChange,
-          })}
+          value={watch("productId")}
+          onChange={({ target, option }) => {
+            const productId = target.value;
+            const product = option; // we finally have full object
+
+            setValue("productId", productId, { shouldValidate: true });
+
+            if (product) {
+              setValue("basePrice", product.basePrice, {
+                shouldValidate: true,
+              });
+            }
+          }}
+          placeholder="Search a product..."
+        />
+        <input
+          type="hidden"
+          {...register("productId", { required: "Product is required" })}
         />
       </FormRow>
 
       <FormRow label="Color" error={errors?.color?.message}>
         <Radio
           disabled={isWorking || isEditSession}
-          data={COLORS}
+          data={colors}
           {...register("color", { required: "This field is required" })}
         />
       </FormRow>
@@ -145,7 +116,7 @@ function CreateVariantForm({ VariantToEdit = {}, onCloseModal }) {
       <FormRow label="Size" error={errors?.size?.message}>
         <Radio
           disabled={isWorking || isEditSession}
-          data={SIZES}
+          data={sizes}
           {...register("size", { required: "This field is required" })}
         />
       </FormRow>

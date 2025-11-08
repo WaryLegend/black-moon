@@ -1,17 +1,24 @@
-import { ParamsProvider } from "@/app/_context/NavParamsContext";
 import Image from "next/image";
 import BreadCrumbNav from "@/app/_components/BreadCrumbNav";
 import ProductDetails from "@/app/_components/CProductPage/ProductDetails";
 import ProductRates from "@/app/_components/CProductPage/ProductRates";
 import ProductList from "@/app/_components/ProductList";
 import ProductMenu from "@/app/_components/CProductPage/ProductMenu";
+import { getCategoryById, getProductById } from "@/app/_lib/data-service";
+import { notFound } from "next/navigation";
 
-export const metadata = {
-  title: "Name of product",
-};
+export async function generateMetadata({ params }) {
+  const Params = await params;
+  const { productId } = Params;
+  const { product } = await getProductById(productId);
+
+  return {
+    title: `${product?.name}` ?? "Not Found",
+  };
+}
 
 // testing
-const products = [
+const recommended = [
   { id: 1, name: "ĐỒ MẶC NGOÀI" },
   { id: 2, name: "QUẦN" },
   { id: 3, name: "HEATTECH" },
@@ -47,50 +54,58 @@ const mockReviews = [
 ];
 
 export default async function Page({ params }) {
-  const trueParams = await params;
+  const Params = await params;
+  const { group, categoryId, productId } = Params;
+  const { category } = await getCategoryById(categoryId);
+  const { product } = await getProductById(productId);
+  if (!product) notFound();
 
   const imgLength = 6; // amount of image that product has
 
   return (
-    <ParamsProvider params={trueParams}>
-      <div className="flex flex-col gap-1 md:gap-4">
-        <BreadCrumbNav />
-        {/* Product page main body */}
-        <section className="grid grid-cols-[2fr_1.2fr] gap-5">
-          {/* LEFT: product images, details and more...*/}
-          <div className="flex flex-col gap-10">
-            {/* product images */}
-            <div className="relative grid grid-cols-2 overflow-hidden rounded-md">
-              {Array.from({ length: imgLength }).map((_, i) => (
-                <div key={i} className="relative aspect-square">
-                  <Image
-                    src="/t-shirt.jpg"
-                    alt="Product"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              ))}
-            </div>
-            {/* Product details */}
-            <ProductDetails />
-            {/* Product average rates and reviews*/}
-            <ProductRates reviews={mockReviews} />
+    <div className="flex flex-col gap-1 md:gap-4">
+      <BreadCrumbNav
+        paths={{
+          group,
+          category: { id: category.id, name: category.name },
+          product: product.name,
+        }}
+      />
+      {/* Product page main body */}
+      <section className="grid grid-cols-[2fr_1.2fr] gap-5">
+        {/* LEFT: product images, details and more...*/}
+        <div className="flex flex-col gap-10">
+          {/* product images */}
+          <div className="relative grid grid-cols-2 overflow-hidden rounded-md">
+            {Array.from({ length: imgLength }).map((_, i) => (
+              <div key={i} className="relative aspect-square">
+                <Image
+                  src="/t-shirt.jpg"
+                  alt="Product"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            ))}
           </div>
+          {/* Product details */}
+          <ProductDetails />
+          {/* Product average rates and reviews*/}
+          <ProductRates reviews={mockReviews} />
+        </div>
 
-          {/* RIGHT: sticky product info and add_to_cart button */}
-          <ProductMenu />
-        </section>
+        {/* RIGHT: sticky product info and add_to_cart button */}
+        <ProductMenu product={product} />
+      </section>
 
-        {/* extra section / footer */}
-        <section className="mt-10">
-          <h1 className="text-center text-2xl font-semibold lg:text-3xl">
-            Sản phẩm được quan tâm
-          </h1>
-          {/* testing this is fake recommend list*/}
-          <ProductList products={products} />
-        </section>
-      </div>
-    </ParamsProvider>
+      {/* extra section / footer */}
+      <section className="mt-10">
+        <h1 className="text-center text-2xl font-semibold lg:text-3xl">
+          Sản phẩm được quan tâm
+        </h1>
+        {/* testing this is fake recommend list*/}
+        <ProductList products={recommended} />
+      </section>
+    </div>
   );
 }

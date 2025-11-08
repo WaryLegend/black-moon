@@ -1,18 +1,22 @@
-import Image from "next/image";
+import { getProductsByCategory } from "@/app/_lib/data-service";
 import test from "@/public/test-product.jpg";
 import ProductList from "@/app/_components/ProductList";
+import Image from "next/image";
 import ViewProductLink from "@/app/_components/ViewProductLink";
 import SortBy from "@/app/_components/SortBy";
+import NoProductsFound from "@/app/_components/NoProductsFound";
 
-function ProductSection({ products }) {
-  if (!products) return "No product";
-  // get first product of list as presenter
-  const productId = products[0]?.id;
+async function ProductSection({ categoryId }) {
+  const { products } = await getProductsByCategory(categoryId);
+
+  if (!products) return <NoProductsFound />;
+
+  const firstProductId = products?.[0].id;
 
   return (
     <div className="grid">
       <div className="flex flex-wrap items-center justify-between pb-3">
-        <div className="font-semibold">{products.length} Sản phẩm</div>
+        <div className="font-semibold">{products?.length} Sản phẩm</div>
         <SortBy
           label="Sắp xếp theo"
           className="ml-auto"
@@ -35,7 +39,10 @@ function ProductSection({ products }) {
             alt="product"
             className="aspect-[3/4] rounded-sm object-cover"
           />
-          <ViewProductLink productId={productId} disabled={!products?.length} />
+          <ViewProductLink
+            productId={firstProductId}
+            disabled={!products?.length}
+          />
         </div>
       </div>
       {/* products of a category */}

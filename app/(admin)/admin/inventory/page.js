@@ -2,6 +2,8 @@ import VariantTableAndBtns from "@/app/_components/inventory/VariantTableAndBtns
 import VariantTableOperations from "@/app/_components/inventory/VariantTableOperations";
 import SortBy from "@/app/_components/SortBy";
 import Spinner from "@/app/_components/Spinner";
+import { ColorsAndSizesProvider } from "@/app/_context/ColorsAndSizesContext";
+import { getColors, getSizes } from "@/app/_lib/apiSettings";
 import { Suspense } from "react";
 
 export const metadata = {
@@ -9,10 +11,14 @@ export const metadata = {
 };
 
 export default async function Page({ searchParams }) {
-  const filterParams = await searchParams;
+  const [filterParams, colors, sizes] = await Promise.all([
+    searchParams,
+    getColors(),
+    getSizes(),
+  ]);
 
   return (
-    <>
+    <ColorsAndSizesProvider value={{ colors, sizes }}>
       <div>
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-semibold">All product variants</h1>
@@ -45,6 +51,6 @@ export default async function Page({ searchParams }) {
           <VariantTableAndBtns searchParams={filterParams} />
         </Suspense>
       </div>
-    </>
+    </ColorsAndSizesProvider>
   );
 }

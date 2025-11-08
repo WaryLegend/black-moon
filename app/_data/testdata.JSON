@@ -1,4 +1,24 @@
 {
+  "sizes": [
+    { "id": "xs", "label": "XS" },
+    { "id": "s", "label": "S" },
+    { "id": "m", "label": "M" },
+    { "id": "l", "label": "L" },
+    { "id": "xl", "label": "XL" },
+    { "id": "xxl", "label": "XXL" },
+    { "id": "xxxl", "label": "XXXL" }
+  ],
+
+  "colors": [
+    { "id": "orange", "label": "Cam" },
+    { "id": "hotpink", "label": "Hồng" },
+    { "id": "brown", "label": "Nâu" },
+    { "id": "green", "label": "Lục" },
+    { "id": "blue", "label": "Lam" },
+    { "id": "white", "label": "Trắng" },
+    { "id": "black", "label": "Đen" }
+  ],
+
   "categories": [
     {
       "id": "1",
@@ -68,7 +88,7 @@
       "name": "Áo khoác bomber lót lông",
       "categoryId": "1",
       "description": "",
-      "colors": ["black", "brown", "pink"],
+      "colors": ["black", "brown", "hotpink"],
       "sizes": ["s", "m", "l"],
       "basePrice": 799000,
       "images": ["/t-shirt.jpg"],
@@ -93,7 +113,7 @@
       "name": "Đầm midi hoa nhí",
       "categoryId": "2",
       "description": "",
-      "colors": ["pink", "blue"],
+      "colors": ["hotpink", "blue"],
       "sizes": ["s", "m", "l"],
       "basePrice": 499000,
       "images": ["/t-shirt.jpg"],
@@ -112,7 +132,6 @@
       "reviews": [],
       "variants": ["22", "23", "24", "25", "26"]
     },
-
     {
       "id": "5",
       "name": "Quần jeans ống loe",
@@ -230,7 +249,7 @@
       "name": "Áo khoác gió bé gái",
       "categoryId": "7",
       "description": "",
-      "colors": ["pink", "white"],
+      "colors": ["hotpink", "white"],
       "sizes": ["s", "m", "l"],
       "basePrice": 359000,
       "images": ["/t-shirt.jpg"],
@@ -255,7 +274,7 @@
       "name": "Quần legging bé gái",
       "categoryId": "8",
       "description": "",
-      "colors": ["pink", "brown"],
+      "colors": ["hotpink", "brown"],
       "sizes": ["s", "m", "l"],
       "basePrice": 199000,
       "images": ["/t-shirt.jpg"],
@@ -268,7 +287,7 @@
       "name": "Đầm hoa bé gái",
       "categoryId": "9",
       "description": "",
-      "colors": ["pink", "white"],
+      "colors": ["hotpink", "white"],
       "sizes": ["xs", "s", "m"],
       "basePrice": 279000,
       "images": ["/t-shirt.jpg"],
@@ -280,7 +299,7 @@
       "name": "Chân váy tutu bé gái",
       "categoryId": "9",
       "description": "",
-      "colors": ["pink", "orange"],
+      "colors": ["hotpink", "orange"],
       "sizes": ["s", "m", "l"],
       "basePrice": 219000,
       "images": ["/t-shirt.jpg"],
@@ -305,7 +324,7 @@
       "name": "Bộ đồ ngủ bé gái",
       "categoryId": "10",
       "description": "",
-      "colors": ["pink", "white"],
+      "colors": ["hotpink", "white"],
       "sizes": ["s", "m", "l"],
       "basePrice": 179000,
       "images": ["/t-shirt.jpg"],
@@ -378,7 +397,7 @@
     {
       "id": "7",
       "productId": "1",
-      "color": "pink",
+      "color": "hotpink",
       "size": "s",
       "sku": "1-PINK-S",
       "variantPrice": 799000,
@@ -388,7 +407,7 @@
     {
       "id": "8",
       "productId": "1",
-      "color": "pink",
+      "color": "hotpink",
       "size": "m",
       "sku": "1-PINK-M",
       "variantPrice": 799000,
@@ -398,7 +417,7 @@
     {
       "id": "9",
       "productId": "1",
-      "color": "pink",
+      "color": "hotpink",
       "size": "l",
       "sku": "1-PINK-L",
       "variantPrice": 799000,
@@ -440,7 +459,7 @@
       "id": "13",
       "productId": "2",
       "color": "white",
-      "size": "xs",
+      "size": "s",
       "sku": "2-WHITE-XS",
       "variantPrice": 1199000,
       "image": "/t-shirt.jpg",
@@ -460,7 +479,7 @@
       "id": "15",
       "productId": "2",
       "color": "white",
-      "size": "xl",
+      "size": "l",
       "sku": "2-WHITE-XL",
       "variantPrice": 1199000,
       "image": "/t-shirt.jpg",
@@ -470,7 +489,7 @@
     {
       "id": "16",
       "productId": "3",
-      "color": "pink",
+      "color": "hotpink",
       "size": "s",
       "sku": "3-PINK-S",
       "variantPrice": 499000,
@@ -480,7 +499,7 @@
     {
       "id": "17",
       "productId": "3",
-      "color": "pink",
+      "color": "hotpink",
       "size": "m",
       "sku": "3-PINK-M",
       "variantPrice": 499000,
@@ -490,7 +509,7 @@
     {
       "id": "18",
       "productId": "3",
-      "color": "pink",
+      "color": "hotpink",
       "size": "l",
       "sku": "3-PINK-L",
       "variantPrice": 499000,
@@ -1141,7 +1160,7 @@
     {
       "id": "81",
       "productId": "14",
-      "color": "pink",
+      "color": "hotpink",
       "size": "s",
       "sku": "14-PINK-S",
       "variantPrice": 359000,
@@ -1151,7 +1170,7 @@
     {
       "id": "82",
       "productId": "14",
-      "color": "pink",
+      "color": "hotpink",
       "size": "m",
       "sku": "14-PINK-M",
       "variantPrice": 359000,
@@ -1161,7 +1180,7 @@
     {
       "id": "83",
       "productId": "14",
-      "color": "pink",
+      "color": "hotpink",
       "size": "l",
       "sku": "14-PINK-L",
       "variantPrice": 359000,
@@ -1263,7 +1282,7 @@
     {
       "id": "93",
       "productId": "16",
-      "color": "pink",
+      "color": "hotpink",
       "size": "s",
       "sku": "16-PINK-S",
       "variantPrice": 199000,
@@ -1273,7 +1292,7 @@
     {
       "id": "94",
       "productId": "16",
-      "color": "pink",
+      "color": "hotpink",
       "size": "m",
       "sku": "16-PINK-M",
       "variantPrice": 199000,
@@ -1283,7 +1302,7 @@
     {
       "id": "95",
       "productId": "16",
-      "color": "pink",
+      "color": "hotpink",
       "size": "l",
       "sku": "16-PINK-L",
       "variantPrice": 199000,
@@ -1324,7 +1343,7 @@
     {
       "id": "99",
       "productId": "17",
-      "color": "pink",
+      "color": "hotpink",
       "size": "xs",
       "sku": "17-PINK-XS",
       "variantPrice": 279000,
@@ -1334,7 +1353,7 @@
     {
       "id": "100",
       "productId": "17",
-      "color": "pink",
+      "color": "hotpink",
       "size": "s",
       "sku": "17-PINK-S",
       "variantPrice": 279000,
@@ -1344,7 +1363,7 @@
     {
       "id": "101",
       "productId": "17",
-      "color": "pink",
+      "color": "hotpink",
       "size": "m",
       "sku": "17-PINK-M",
       "variantPrice": 279000,
@@ -1385,7 +1404,7 @@
     {
       "id": "105",
       "productId": "18",
-      "color": "pink",
+      "color": "hotpink",
       "size": "s",
       "sku": "18-PINK-S",
       "variantPrice": 219000,
@@ -1395,7 +1414,7 @@
     {
       "id": "106",
       "productId": "18",
-      "color": "pink",
+      "color": "hotpink",
       "size": "m",
       "sku": "18-PINK-M",
       "variantPrice": 219000,
@@ -1405,7 +1424,7 @@
     {
       "id": "107",
       "productId": "18",
-      "color": "pink",
+      "color": "hotpink",
       "size": "l",
       "sku": "18-PINK-L",
       "variantPrice": 219000,
@@ -1507,7 +1526,7 @@
     {
       "id": "117",
       "productId": "20",
-      "color": "pink",
+      "color": "hotpink",
       "size": "s",
       "sku": "20-PINK-S",
       "variantPrice": 179000,
@@ -1517,7 +1536,7 @@
     {
       "id": "118",
       "productId": "20",
-      "color": "pink",
+      "color": "hotpink",
       "size": "m",
       "sku": "20-PINK-M",
       "variantPrice": 179000,
@@ -1527,7 +1546,7 @@
     {
       "id": "119",
       "productId": "20",
-      "color": "pink",
+      "color": "hotpink",
       "size": "l",
       "sku": "20-PINK-L",
       "variantPrice": 179000,
