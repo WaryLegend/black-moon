@@ -16,6 +16,6 @@ export const useMenuStore = create((set) => ({
       return { activeLink: link, isOpen: true };
     }),
   setActiveLink: (link) => set({ activeLink: link }),
-  //use for click outside
+  openMenu: (link) => set({ isOpen: true, activeLink: link }),
   closeMenu: () => set({ isOpen: false, activeLink: "" }),
 }));

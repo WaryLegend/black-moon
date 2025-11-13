@@ -6,7 +6,10 @@ export const metadata = {
   title: "Sign up",
 };
 
-export default function UserSignup() {
+export default async function UserSignupPage({ searchParams }) {
+  const search = await searchParams;
+  const { returnUrl } = search;
+
   return (
     <div className="flex h-full items-center justify-center p-5">
       <div className="bg-primary-50 max-h-full max-w-lg overflow-y-auto rounded-lg p-8 shadow-lg">
@@ -39,7 +42,7 @@ export default function UserSignup() {
           <span className="text-primary-500">Đã có tài khoản?</span>
           <span>
             <Link
-              href="/auth/login"
+              href={`/auth/login${returnUrl ? `?returnUrl=${encodeURIComponent(returnUrl)}` : ""}`}
               replace={true}
               className="text-primary-800 hover:underline"
             >

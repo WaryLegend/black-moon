@@ -1,12 +1,4 @@
 import bg from "@/public/authbg.jpg";
-
-import { Josefin_Sans } from "next/font/google";
-const josefin = Josefin_Sans({
-  subsets: ["latin"],
-  display: "swap",
-});
-
-import "@/app/_styles/globals.css";
 import Image from "next/image";
 
 export const metadata = {
@@ -16,7 +8,7 @@ export const metadata = {
   },
 };
 
-export default function LoginLayout({ children }) {
+export default function AdminAuthLayout({ children }) {
   return (
     <div className="bg-primary-100 relative flex min-h-screen flex-col">
       <div className="bg-primary-600 absolute top-0 left-0 h-screen w-screen">

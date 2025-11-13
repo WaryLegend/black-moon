@@ -25,7 +25,7 @@ function ProductItem({ product }) {
           />
         </div>
 
-        {/* Info section */}
+        {/* Product info section */}
         <div className="flex flex-col gap-1 p-2">
           {/* Color swatches */}
           <div className="flex justify-between">

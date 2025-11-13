@@ -75,7 +75,7 @@ export default function LoginForm({ noForgot }) {
         <Link
           tabIndex={-1}
           href="/forgot-password"
-          className="text-primary-800 text-sm hover:underline"
+          className="text-accent-800 text-sm hover:underline"
         >
           Quên mật khẩu?
         </Link>

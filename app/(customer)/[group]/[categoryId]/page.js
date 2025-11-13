@@ -41,7 +41,7 @@ export default async function Page({ params }) {
           />
         }
       >
-        <ProductSection categoryId={categoryId} />
+        <ProductSection category={category} />
       </Suspense>
     </div>
   );

@@ -112,7 +112,7 @@ export async function getProducts({ filters, page, sortBy }) {
     if (filters.group && filters.group !== "all") {
       filteredData = filteredData.filter((p) => p.group === filters.group);
     }
-    // --- category (multi-select)
+    // category (multi-select)
     if (filters.category?.length) {
       filteredData = filteredData.filter((p) =>
         filters.category.includes(p.categoryId),
@@ -168,7 +168,7 @@ export async function getProductById(id) {
   }
 }
 
-export async function getProductsByCategory(categoryId) {
+export async function getProductsByCategoryId(categoryId) {
   try {
     // 1. Simulate network latency
     await new Promise((res) => setTimeout(res, 300));
@@ -308,4 +308,19 @@ export async function searchProducts(query = "") {
     value: p.id,
     basePrice: p.basePrice,
   }));
+}
+
+// get cart by userId
+export async function getCartByUserId(userId) {
+  // const res = await fetch(`/api/cart/${userId}`, { cache: "no-store" });
+  // return res.ok ? res.json() : [];
+  return [];
+}
+
+// update/save cart to database
+export async function updateCart(userId, items) {
+  // await fetch(`/api/cart/${userId}`, {
+  //   method: "POST",
+  //   body: JSON.stringify(items),
+  // });
 }

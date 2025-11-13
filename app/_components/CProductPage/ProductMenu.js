@@ -1,5 +1,3 @@
-"use client";
-
 import { formatCurrency } from "@/app/_utils/helpers";
 import { FaRegHeart } from "react-icons/fa";
 import ProductAvgRates from "@/app/_components/CProductPage/ProductAvgRates";

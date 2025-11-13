@@ -6,9 +6,8 @@ import { useRouter } from "next/navigation";
 
 function ContinuteShoppingBtn() {
   const router = useRouter();
-  const { activeLink } = useMenuStore();
-
-  // Determine where to go when clicking "Continue shopping"
+  const { activeLink, openMenu } = useMenuStore();
+  // Determine where to go back when clicking "Continue shopping"
   const destination = activeLink || "/";
 
   return (
@@ -16,7 +15,10 @@ function ContinuteShoppingBtn() {
       type="button"
       variant="secondary"
       className="w-full lg:text-2xl"
-      onClick={() => router.push(destination)}
+      onClick={() => {
+        openMenu(destination);
+        router.push(destination);
+      }}
     >
       Tiếp tục mua sắm
     </Button>

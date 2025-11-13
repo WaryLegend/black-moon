@@ -12,7 +12,6 @@ export default function Page() {
       <section className="grid grid-cols-[2fr_1fr] gap-5">
         {/* LEFT: List products in cart*/}
         <CartList />
-
         {/* RIGHT: Total price, vouchers, order now,...*/}
         <CartMenu />
       </section>

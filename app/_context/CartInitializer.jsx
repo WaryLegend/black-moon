@@ -3,16 +3,38 @@
 import { useEffect } from "react";
 import { useCartStore } from "@/app/_context/CartStore";
 
-export default function CartInitializer({ initialItems }) {
-  const setCart = useCartStore((state) => state.setCart);
+export default function CartInitializer({ user, cart }) {
+  const { items, setCart, setCartId } = useCartStore();
 
   useEffect(() => {
-    if (initialItems && initialItems.length > 0) {
-      setCart(initialItems);
+    // Guest (no user)
+    if (!user) return;
+
+    // Logged in user with a cart
+    if (cart) {
+      // merge guest cart with server cart
+      const merged = mergeCarts(items, cart.items);
+
+      setCart(merged);
+      setCartId(cart.id);
     }
-    // Nếu có backend → gọi sync
-    // useCartStore.getState().syncWithServer();
-  }, [initialItems, setCart]);
+  }, [user, cart]);
 
   return null;
+}
+
+function mergeCarts(localItems, serverItems) {
+  const merged = [...serverItems];
+  if (localItems?.length) {
+    for (const local of localItems) {
+      const found = merged.find((item) => item.variantId === local.variantId);
+
+      if (found) {
+        found.quantity += local.quantity;
+      } else {
+        merged.push(local);
+      }
+    }
+  }
+  return merged;
 }

@@ -1,28 +1,19 @@
 "use client";
 
-import { useState } from "react";
 import { formatCurrency } from "@/app/_utils/helpers";
 import Image from "next/image";
 import Button from "@/app/_components/Button";
 import { FaHeart } from "react-icons/fa";
+import { useWishListStore } from "@/app/_context/WishListStore";
 
 function WishItem({ item }) {
-  const {
-    id,
-    name,
-    color,
-    size,
-    price,
-    quantity: initialQty,
-    image,
-    isNew,
-    sale,
-  } = item;
+  const { id, name, color, size, variantPrice, image } = item;
+  const { removeItem } = useWishListStore();
 
-  // test Local state for quantity
-  const [quantity, setQuantity] = useState(initialQty);
-
-  const finalPrice = price * (1 - sale / 100);
+  // test
+  const isNew = false;
+  const sale = 1; // %
+  const finalPrice = variantPrice * (1 - sale / 100);
 
   return (
     <li className="relative flex flex-col gap-4 px-2 py-6 sm:flex-row md:gap-6">
@@ -55,7 +46,8 @@ function WishItem({ item }) {
         <Button
           aria-label="Remove from wishlist"
           icon
-          className="hover:text-accent-700 font-bold"
+          className="hover:text-accent-700 rounded-full font-bold"
+          onClick={() => removeItem(id)}
         >
           <FaHeart className="h-6 w-6" />
         </Button>

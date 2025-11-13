@@ -1,40 +1,96 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-// API functions (sẽ dùng sau)
-const api = {
-  // Sau này sẽ fetch từ /api/cart
-  fetch: async () => {
-    // return await fetch("/api/cart").then(r => r.json());
-    return null; // tạm thời
-  },
-  save: async (items) => {
-    // await fetch("/api/cart", { method: "POST", body: JSON.stringify(items) });
-  },
-  merge: async (localItems) => {
-    // await fetch("/api/cart/merge", { method: "POST", body: JSON.stringify(localItems) });
-  },
-};
-
 export const useCartStore = create(
   persist(
     (set, get) => ({
       items: [],
+      cartId: null,
+      isSynced: false,
+      isPending: true,
 
       // === ACTIONS ===
       setCart: (items) => set({ items }),
+      setCartId: (id) => set({ cartId: id }),
+      // flag for hydrating state (loading, pending,...)
+      setIsPending: () => set({ isPending: false }),
+      // Add or increase quantity
+      addItem: async (variant) => {
+        const { cartId, items } = get();
+        // find if variant already exists
+        const existing = items.find((i) => i.variantId === variant.variantId);
+        // Build updated list (optimistic update)
+        const updatedItems = existing
+          ? items.map((i) =>
+              i.variantId === variant.variantId
+                ? { ...i, quantity: i.quantity + (variant.quantity || 1) }
+                : i,
+            )
+          : [
+              ...items,
+              {
+                id: crypto.randomUUID(),
+                variantId: variant.variantId,
+                name: variant.name,
+                variantPrice: variant.variantPrice,
+                color: variant.color,
+                size: variant.size,
+                sku: variant.sku,
+                quantity: 1,
+                image: variant.image,
+              },
+            ];
+        // Update local first (optimistic UI)
+        set({ items: updatedItems });
 
-      updateQuantity: (id, quantity) =>
-        set((state) => ({
-          items: state.items.map((item) =>
+        // If cartId exists → sync with server
+        if (cartId) {
+          try {
+            // Example: send to API (implement your own data-service)
+            // const serverCart = await addCartItem(cartId, variant);
+            // set({ items: serverCart, isSynced: true });
+          } catch (error) {
+            console.error("Cart sync failed:", error);
+            set({ items }); // rollback
+          }
+        }
+      },
+
+      // Update
+      updateQuantity: async (id, quantity) => {
+        const { items, cartId } = get();
+        set({
+          items: items.map((item) =>
             item.id === id ? { ...item, quantity } : item,
           ),
-        })),
+        });
 
-      removeItem: (id) =>
-        set((state) => ({
-          items: state.items.filter((item) => item.id !== id),
-        })),
+        if (cartId) {
+          try {
+            // await updateCartItem(cartId, variantId, quantity);
+          } catch (error) {
+            console.error("Update quantity failed:", error);
+            set({ items }); // rollback
+          }
+        }
+      },
+      // remove
+      removeItem: async (id) => {
+        const { items, cartId } = get();
+        set({
+          items: items.filter((item) => item.id !== id),
+        });
+        if (cartId) {
+          try {
+            // await removeCartItem(cartId, variantId);
+          } catch (error) {
+            console.error("Remove item failed:", error);
+            set({ items }); // rollback
+          }
+        }
+      },
+      // user log out
+      resetCart: () => set({ items: [], cartId: null, isSynced: false }),
 
       // === DERIVED ===
       // Số loại sản phẩm
@@ -46,29 +102,19 @@ export const useCartStore = create(
       getTotalPrice: () =>
         get().items.reduce((total, item) => {
           const price = item.sale
-            ? item.price * (1 - item.sale / 100)
-            : item.price;
+            ? item.variantPrice * (1 - item.sale / 100)
+            : item.variantPrice;
           return total + price * item.quantity;
         }, 0),
-
-      // === FUTURE: SYNC WITH SERVER ===
-      syncWithServer: async () => {
-        const serverCart = await api.fetch();
-        if (serverCart) {
-          set({ items: serverCart });
-        } else {
-          // Nếu chưa có cart trên server → push local lên
-          await api.save(get().items);
-        }
-      },
-
-      mergeLocalToServer: async () => {
-        await api.merge(get().items);
-      },
     }),
     {
-      name: "cart-storage", // key trong localStorage
-      partialize: (state) => ({ items: state.items }),
+      name: "cart-storage",
+      partialize: (state) => ({ items: state.items, cartId: state.cartId }),
+      onRehydrateStorage: () => (state) => {
+        if (state) {
+          state.setIsPending();
+        }
+      },
     },
   ),
 );

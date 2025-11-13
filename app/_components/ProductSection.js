@@ -1,17 +1,16 @@
-import { getProductsByCategory } from "@/app/_lib/data-service";
-import test from "@/public/test-product.jpg";
+import { getProductsByCategoryId } from "@/app/_lib/data-service";
 import ProductList from "@/app/_components/ProductList";
 import Image from "next/image";
 import ViewProductLink from "@/app/_components/ViewProductLink";
 import SortBy from "@/app/_components/SortBy";
 import NoProductsFound from "@/app/_components/NoProductsFound";
 
-async function ProductSection({ categoryId }) {
-  const { products } = await getProductsByCategory(categoryId);
+async function ProductSection({ category }) {
+  const { products } = await getProductsByCategoryId(category?.id);
 
   if (!products) return <NoProductsFound />;
 
-  const firstProductId = products?.[0].id;
+  const firstProductId = products?.[0]?.id;
 
   return (
     <div className="grid">
@@ -31,13 +30,15 @@ async function ProductSection({ categoryId }) {
         />
       </div>
       <div className="flex justify-center">
-        <div className="relative h-100 max-h-200 w-full max-w-7xl lg:h-150">
+        <div className="relative aspect-[3/4] w-full max-w-7xl px-10 lg:h-150">
           <Image
-            src={test} // get the category image
+            src={category.image} // get the category image
             fill
-            placeholder="blur"
-            alt="product"
-            className="aspect-[3/4] rounded-sm object-cover"
+            // placeholder="blur"
+            // blurDataURL="..."
+            loading="eager"
+            alt={`${category.name}'s img`}
+            className="rounded-sm object-cover"
           />
           <ViewProductLink
             productId={firstProductId}

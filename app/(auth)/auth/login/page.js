@@ -7,7 +7,12 @@ export const metadata = {
   title: "Log in",
 };
 
-export default function UserLogin() {
+export default async function UserLoginPage({ searchParams }) {
+  const search = await searchParams;
+  const { returnUrl } = search;
+
+  console.log(returnUrl);
+
   return (
     <div className="flex h-full items-center justify-center p-5">
       <div className="bg-primary-50 max-h-full max-w-lg overflow-y-auto rounded-lg p-8 shadow-lg">
@@ -16,7 +21,7 @@ export default function UserLogin() {
           Đăng nhập
         </h2>
         <p className="text-primary-700 mb-6 text-center">
-          Đăng nhập để nhận nhiều ưu đãi hơn tại cửa hàng
+          Chào mừng quý khách quay trở lại với cửa hàng
         </p>
 
         {/* Login Form */}
@@ -40,9 +45,9 @@ export default function UserLogin() {
           <span className="text-primary-500">Chưa có tài khoản?</span>
           <span>
             <Link
-              href="/auth/signup"
+              href={`/auth/signup${returnUrl ? `?returnUrl=${encodeURIComponent(returnUrl)}` : ""}`}
               replace={true}
-              className="text-primary-800 hover:underline"
+              className="text-accent-800 hover:underline"
             >
               Đăng ký ngay
             </Link>
