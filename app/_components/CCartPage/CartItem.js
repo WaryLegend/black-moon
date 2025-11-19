@@ -5,9 +5,10 @@ import { capitalizeFirst, formatCurrency } from "@/app/_utils/helpers";
 import { HiXMark } from "react-icons/hi2";
 import Image from "next/image";
 import Button from "@/app/_components/Button";
+import Link from "next/link";
 
 function CartItem({ item }) {
-  const { id, name, color, size, variantPrice, quantity, image } = item;
+  const { id, name, color, size, variantPrice, quantity, image, url } = item;
   const { updateQuantity, removeItem } = useCartStore();
   //test
   const isNew = false;
@@ -18,14 +19,16 @@ function CartItem({ item }) {
   return (
     <li className="relative flex flex-col gap-4 px-2 py-6 md:flex-row md:gap-6">
       {/* Image */}
-      <div className="relative aspect-square w-50 shrink-0 self-center md:aspect-[5/6] md:h-auto md:self-auto">
-        <Image
-          src={image}
-          alt={name}
-          fill
-          className="rounded-md object-cover"
-        />
-      </div>
+      <Link href={url} className="group rounded-md transition hover:shadow-md">
+        <div className="relative aspect-square w-50 shrink-0 self-center overflow-hidden rounded-md md:aspect-[5/6] md:h-auto md:self-auto">
+          <Image
+            src={image}
+            alt={name}
+            fill
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        </div>
+      </Link>
 
       {/* Product Info */}
       <div className="flex flex-1 flex-col justify-between gap-2">

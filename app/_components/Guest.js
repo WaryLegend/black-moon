@@ -12,7 +12,7 @@ function Guest() {
 
   return (
     <Link
-      href={`/auth/login?returnUrl=${encodeURIComponent(returnUrl)}`}
+      href={`/user/login?returnUrl=${encodeURIComponent(returnUrl)}`}
       className="hover:text-accent-700 flex items-center gap-1 p-1 hover:underline"
     >
       <FaRegUserCircle className="h-5 w-5" />

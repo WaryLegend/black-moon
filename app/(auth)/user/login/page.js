@@ -11,8 +11,6 @@ export default async function UserLoginPage({ searchParams }) {
   const search = await searchParams;
   const { returnUrl } = search;
 
-  console.log(returnUrl);
-
   return (
     <div className="flex h-full items-center justify-center p-5">
       <div className="bg-primary-50 max-h-full max-w-lg overflow-y-auto rounded-lg p-8 shadow-lg">
@@ -45,7 +43,7 @@ export default async function UserLoginPage({ searchParams }) {
           <span className="text-primary-500">Chưa có tài khoản?</span>
           <span>
             <Link
-              href={`/auth/signup${returnUrl ? `?returnUrl=${encodeURIComponent(returnUrl)}` : ""}`}
+              href={`/user/signup${returnUrl ? `?returnUrl=${encodeURIComponent(returnUrl)}` : ""}`}
               replace={true}
               className="text-accent-800 hover:underline"
             >

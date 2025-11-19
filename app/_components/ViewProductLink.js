@@ -9,7 +9,7 @@ function ViewProductLink({ productId, prop }) {
   return (
     <Link
       href={`${pathname}/${productId}`}
-      className="bg-primary-50 hover:bg-primary-200 absolute right-2.5 bottom-2.5 rounded-full px-2 py-1 shadow-2xl transition-all"
+      className="bg-primary-50 hover:bg-primary-200 border-accent-600 absolute right-2.5 bottom-2.5 rounded-full px-2 py-1 shadow-md transition-all"
       {...prop}
     >
       Xem sản phẩm

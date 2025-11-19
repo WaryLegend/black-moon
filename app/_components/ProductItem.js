@@ -1,16 +1,34 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import { FaHeart, FaRegHeart, FaStar } from "react-icons/fa";
 import { capitalizeFirst, formatCurrency } from "@/app/_utils/helpers";
+import { usePathname } from "next/navigation";
+import { FaStar } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
-import test_img from "@/public/t-shirt.jpg";
+import AddToWishList from "@/app/_components/AddToWishList";
 
 function ProductItem({ product }) {
   const pathname = usePathname();
-  const { id, name, colors, sizes, basePrice, image, reviews } = product;
-  const isLiked = false; // test
+  const {
+    id,
+    name,
+    group,
+    colors,
+    sizes,
+    basePrice,
+    image,
+    reviews,
+    previewVariant,
+  } = product;
+
+  const variant = previewVariant
+    ? {
+        ...previewVariant,
+        variantId: previewVariant.id,
+        name,
+        url: `${pathname}/${id}?color=${previewVariant.color}&size=${previewVariant.size}`,
+      }
+    : null;
 
   return (
     <li className="group border-primary-200 bg-primary-0 flex cursor-pointer flex-col overflow-hidden rounded-md border shadow-sm transition hover:shadow-md">
@@ -18,7 +36,7 @@ function ProductItem({ product }) {
         {/* Image wrapper */}
         <div className="relative aspect-[3/4] w-full overflow-hidden">
           <Image
-            src={test_img}
+            src={image}
             alt={`${name}'s image`}
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -44,22 +62,19 @@ function ProductItem({ product }) {
                 </span>
               )}
             </div>
-            <button
-              className="hover:text-accent-700 flex items-center justify-center p-1 transition-all hover:scale-105"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                // console.log("Liked!");
-              }}
-            >
-              {isLiked ? <FaHeart /> : <FaRegHeart />}
-            </button>
+            <AddToWishList item={variant} />
           </div>
 
-          {/* Gender + Size */}
-          <div className="text-primary-500 flex justify-between text-xs">
-            <span>Nữ</span>
-            <span>XS-XXL</span>
+          {/* Group + Size */}
+          <div className="text-primary-500 flex justify-between text-xs uppercase">
+            <span>{group}</span>
+            <span>
+              {sizes && sizes.length > 0
+                ? sizes.length === 1
+                  ? sizes[0]
+                  : `${sizes[0]} - ${sizes.at(-1)}`
+                : "—"}
+            </span>
           </div>
 
           {/* Product name */}
@@ -69,7 +84,7 @@ function ProductItem({ product }) {
 
           {/* Price */}
           <div className="text-accent-600 text-lg font-semibold">
-            {formatCurrency(293000)}
+            {formatCurrency(basePrice)}
           </div>
 
           {/* Rating */}

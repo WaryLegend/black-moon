@@ -37,6 +37,7 @@ const AllButtons = styled.div`
 
 function VariantRow({ variant }) {
   const { id, sku, name, color, size, stock, variantPrice, image } = variant;
+  console.log(color, size);
 
   return (
     <Table.Row className="text-primary-600">

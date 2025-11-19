@@ -93,7 +93,15 @@
       "basePrice": 799000,
       "images": ["/t-shirt.jpg"],
       "reviews": [],
-      "variants": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+      "previewVariant": {
+        "id": "1",
+        "productId": "1",
+        "color": "black",
+        "size": "s",
+        "sku": "1-BLACK-S",
+        "variantPrice": 799000,
+        "image": "/t-shirt.jpg"
+      }
     },
     {
       "id": "2",
@@ -105,7 +113,15 @@
       "basePrice": 1199000,
       "images": ["/t-shirt.jpg"],
       "reviews": [],
-      "variants": ["10", "11", "12", "13", "14", "15"]
+      "previewVariant": {
+        "id": "10",
+        "productId": "2",
+        "color": "orange",
+        "size": "xs",
+        "sku": "2-ORANGE-XS",
+        "variantPrice": 1199000,
+        "image": "/t-shirt.jpg"
+      }
     },
 
     {
@@ -118,7 +134,15 @@
       "basePrice": 499000,
       "images": ["/t-shirt.jpg"],
       "reviews": [],
-      "variants": ["16", "17", "18", "19", "20", "21"]
+      "previewVariant": {
+        "id": "16",
+        "productId": "3",
+        "color": "hotpink",
+        "size": "s",
+        "sku": "3-PINK-S",
+        "variantPrice": 499000,
+        "image": "/t-shirt.jpg"
+      }
     },
     {
       "id": "4",
@@ -130,7 +154,15 @@
       "basePrice": 350000,
       "images": ["/t-shirt.jpg"],
       "reviews": [],
-      "variants": ["22", "23", "24", "25", "26"]
+      "previewVariant": {
+        "id": "22",
+        "productId": "4",
+        "color": "black",
+        "size": "m",
+        "sku": "4-BLACK-M",
+        "variantPrice": 350000,
+        "image": "/t-shirt.jpg"
+      }
     },
     {
       "id": "5",
@@ -142,7 +174,15 @@
       "basePrice": 599000,
       "images": ["/t-shirt.jpg"],
       "reviews": [],
-      "variants": ["27", "28", "29", "30", "31", "32"]
+      "previewVariant": {
+        "id": "27",
+        "productId": "5",
+        "color": "blue",
+        "size": "s",
+        "sku": "5-BLUE-S",
+        "variantPrice": 599000,
+        "image": "/t-shirt.jpg"
+      }
     },
     {
       "id": "6",
@@ -154,7 +194,15 @@
       "basePrice": 450000,
       "images": ["/t-shirt.jpg"],
       "reviews": [],
-      "variants": ["33", "34", "35", "36", "37", "38"]
+      "previewVariant": {
+        "id": "33",
+        "productId": "6",
+        "color": "brown",
+        "size": "xs",
+        "sku": "6-BROWN-XS",
+        "variantPrice": 450000,
+        "image": "/t-shirt.jpg"
+      }
     },
 
     {
@@ -167,7 +215,15 @@
       "basePrice": 1299000,
       "images": ["/t-shirt.jpg"],
       "reviews": [],
-      "variants": ["39", "40", "41", "42", "43", "44"]
+      "previewVariant": {
+        "id": "39",
+        "productId": "7",
+        "color": "black",
+        "size": "m",
+        "sku": "7-BLACK-M",
+        "variantPrice": 1299000,
+        "image": "/t-shirt.jpg"
+      }
     },
     {
       "id": "8",
@@ -179,7 +235,15 @@
       "basePrice": 999000,
       "images": ["/t-shirt.jpg"],
       "reviews": [],
-      "variants": ["45", "46", "47", "48", "49", "50"]
+      "previewVariant": {
+        "id": "45",
+        "productId": "8",
+        "color": "green",
+        "size": "l",
+        "sku": "8-GREEN-L",
+        "variantPrice": 999000,
+        "image": "/t-shirt.jpg"
+      }
     },
 
     {
@@ -192,7 +256,15 @@
       "basePrice": 699000,
       "images": ["/t-shirt.jpg"],
       "reviews": [],
-      "variants": ["51", "52", "53", "54", "55", "56"]
+      "previewVariant": {
+        "id": "51",
+        "productId": "9",
+        "color": "blue",
+        "size": "m",
+        "sku": "9-BLUE-M",
+        "variantPrice": 699000,
+        "image": "/t-shirt.jpg"
+      }
     },
     {
       "id": "10",
@@ -204,7 +276,15 @@
       "basePrice": 550000,
       "images": ["/t-shirt.jpg"],
       "reviews": [],
-      "variants": ["57", "58", "59", "60", "61", "62"]
+      "previewVariant": {
+        "id": "57",
+        "productId": "10",
+        "color": "brown",
+        "size": "s",
+        "sku": "10-BROWN-S",
+        "variantPrice": 550000,
+        "image": "/t-shirt.jpg"
+      }
     },
 
     {
@@ -217,7 +297,15 @@
       "basePrice": 399000,
       "images": ["/t-shirt.jpg"],
       "reviews": [],
-      "variants": ["63", "64", "65", "66", "67", "68"]
+      "previewVariant": {
+        "id": "63",
+        "productId": "11",
+        "color": "white",
+        "size": "m",
+        "sku": "11-WHITE-M",
+        "variantPrice": 399000,
+        "image": "/t-shirt.jpg"
+      }
     },
     {
       "id": "12",
@@ -229,7 +317,15 @@
       "basePrice": 329000,
       "images": ["/t-shirt.jpg"],
       "reviews": [],
-      "variants": ["69", "70", "71", "72", "73", "74"]
+      "previewVariant": {
+        "id": "69",
+        "productId": "12",
+        "color": "black",
+        "size": "s",
+        "sku": "12-BLACK-S",
+        "variantPrice": 329000,
+        "image": "/t-shirt.jpg"
+      }
     },
 
     {
@@ -242,7 +338,15 @@
       "basePrice": 399000,
       "images": ["/t-shirt.jpg"],
       "reviews": [],
-      "variants": ["75", "76", "77", "78", "79", "80"]
+      "previewVariant": {
+        "id": "75",
+        "productId": "13",
+        "color": "blue",
+        "size": "xs",
+        "sku": "13-BLUE-XS",
+        "variantPrice": 399000,
+        "image": "/t-shirt.jpg"
+      }
     },
     {
       "id": "14",
@@ -254,7 +358,15 @@
       "basePrice": 359000,
       "images": ["/t-shirt.jpg"],
       "reviews": [],
-      "variants": ["81", "82", "83", "84", "85", "86"]
+      "previewVariant": {
+        "id": "81",
+        "productId": "14",
+        "color": "hotpink",
+        "size": "s",
+        "sku": "14-PINK-S",
+        "variantPrice": 359000,
+        "image": "/t-shirt.jpg"
+      }
     },
 
     {
@@ -267,7 +379,15 @@
       "basePrice": 299000,
       "images": ["/t-shirt.jpg"],
       "reviews": [],
-      "variants": ["87", "88", "89", "90", "91", "92"]
+      "previewVariant": {
+        "id": "87",
+        "productId": "15",
+        "color": "blue",
+        "size": "xs",
+        "sku": "15-BLUE-XS",
+        "variantPrice": 299000,
+        "image": "/t-shirt.jpg"
+      }
     },
     {
       "id": "16",
@@ -279,7 +399,15 @@
       "basePrice": 199000,
       "images": ["/t-shirt.jpg"],
       "reviews": [],
-      "variants": ["93", "94", "95", "96", "97", "98"]
+      "previewVariant": {
+        "id": "93",
+        "productId": "16",
+        "color": "hotpink",
+        "size": "s",
+        "sku": "16-PINK-S",
+        "variantPrice": 199000,
+        "image": "/t-shirt.jpg"
+      }
     },
 
     {
@@ -292,7 +420,15 @@
       "basePrice": 279000,
       "images": ["/t-shirt.jpg"],
       "reviews": [],
-      "variants": ["99", "100", "101", "102", "103", "104"]
+      "previewVariant": {
+        "id": "99",
+        "productId": "17",
+        "color": "hotpink",
+        "size": "xs",
+        "sku": "17-PINK-XS",
+        "variantPrice": 279000,
+        "image": "/t-shirt.jpg"
+      }
     },
     {
       "id": "18",
@@ -304,7 +440,15 @@
       "basePrice": 219000,
       "images": ["/t-shirt.jpg"],
       "reviews": [],
-      "variants": ["105", "106", "107", "108", "109", "110"]
+      "previewVariant": {
+        "id": "105",
+        "productId": "18",
+        "color": "hotpink",
+        "size": "s",
+        "sku": "18-PINK-S",
+        "variantPrice": 219000,
+        "image": "/t-shirt.jpg"
+      }
     },
 
     {
@@ -317,7 +461,15 @@
       "basePrice": 189000,
       "images": ["/t-shirt.jpg"],
       "reviews": [],
-      "variants": ["111", "112", "113", "114", "115", "116"]
+      "previewVariant": {
+        "id": "111",
+        "productId": "19",
+        "color": "blue",
+        "size": "xs",
+        "sku": "19-BLUE-XS",
+        "variantPrice": 189000,
+        "image": "/t-shirt.jpg"
+      }
     },
     {
       "id": "20",
@@ -329,7 +481,15 @@
       "basePrice": 179000,
       "images": ["/t-shirt.jpg"],
       "reviews": [],
-      "variants": ["117", "118", "119", "120", "121", "122"]
+      "previewVariant": {
+        "id": "117",
+        "productId": "20",
+        "color": "hotpink",
+        "size": "s",
+        "sku": "20-PINK-S",
+        "variantPrice": 179000,
+        "image": "/t-shirt.jpg"
+      }
     }
   ],
 
@@ -424,7 +584,6 @@
       "image": "/t-shirt.jpg",
       "stock": 28
     },
-
     {
       "id": "10",
       "productId": "2",
@@ -485,7 +644,6 @@
       "image": "/t-shirt.jpg",
       "stock": 10
     },
-
     {
       "id": "16",
       "productId": "3",
@@ -546,7 +704,6 @@
       "image": "/t-shirt.jpg",
       "stock": 25
     },
-
     {
       "id": "22",
       "productId": "4",
@@ -673,8 +830,8 @@
       "id": "33",
       "productId": "6",
       "color": "brown",
-      "size": "xs",
-      "sku": "6-BROWN-XS",
+      "size": "s",
+      "sku": "6-BROWN-S",
       "variantPrice": 450000,
       "image": "/t-shirt.jpg",
       "stock": 18

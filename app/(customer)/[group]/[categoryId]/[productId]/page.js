@@ -1,32 +1,20 @@
+import { getCategoryById, getProductById } from "@/app/_lib/data-service";
+import { notFound } from "next/navigation";
 import Image from "next/image";
 import BreadCrumbNav from "@/app/_components/BreadCrumbNav";
 import ProductDetails from "@/app/_components/CProductPage/ProductDetails";
 import ProductRates from "@/app/_components/CProductPage/ProductRates";
-import ProductList from "@/app/_components/ProductList";
 import ProductMenu from "@/app/_components/CProductPage/ProductMenu";
-import { getCategoryById, getProductById } from "@/app/_lib/data-service";
-import { notFound } from "next/navigation";
+import ProductInitializer from "@/app/_context/ProductInitializer";
 
 export async function generateMetadata({ params }) {
-  const Params = await params;
-  const { productId } = Params;
+  const { productId } = await params;
   const { product } = await getProductById(productId);
 
   return {
-    title: `${product?.name}` ?? "Not Found",
+    title: product?.name ?? "Not Found",
   };
 }
-
-// testing
-const recommended = [
-  { id: 1, name: "ĐỒ MẶC NGOÀI" },
-  { id: 2, name: "QUẦN" },
-  { id: 3, name: "HEATTECH" },
-  { id: 4, name: "ĐỒ BẦU" },
-  { id: 5, name: "ÁO THUN, ÁO NI & ÁO GIẢ LÔNG CỪU" },
-  { id: 6, name: "AIRism" },
-  { id: 7, name: "Đồ mặc nhà" },
-];
 
 // fake reviews data (testing)
 const mockReviews = [
@@ -53,17 +41,21 @@ const mockReviews = [
   },
 ];
 
-export default async function Page({ params }) {
-  const Params = await params;
-  const { group, categoryId, productId } = Params;
-  const { category } = await getCategoryById(categoryId);
-  const { product } = await getProductById(productId);
+export default async function Page({ params, searchParams }) {
+  const [_params, _searchs] = await Promise.all([params, searchParams]);
+
+  const { group, categoryId, productId } = _params;
+  const [{ category }, { product }] = await Promise.all([
+    getCategoryById(categoryId),
+    getProductById(productId),
+  ]);
   if (!product) notFound();
 
   const imgLength = 6; // amount of image that product has
 
   return (
     <div className="flex flex-col gap-1 md:gap-4">
+      <ProductInitializer product={product} />
       <BreadCrumbNav
         paths={{
           group,
@@ -103,8 +95,7 @@ export default async function Page({ params }) {
         <h1 className="text-center text-2xl font-semibold lg:text-3xl">
           Sản phẩm được quan tâm
         </h1>
-        {/* testing this is fake recommend list*/}
-        <ProductList products={recommended} />
+        {/* Recommend List */}
       </section>
     </div>
   );

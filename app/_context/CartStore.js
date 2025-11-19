@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -36,8 +37,9 @@ export const useCartStore = create(
                 color: variant.color,
                 size: variant.size,
                 sku: variant.sku,
-                quantity: 1,
+                quantity: variant.quantity || 1,
                 image: variant.image,
+                url: variant.url,
               },
             ];
         // Update local first (optimistic UI)
@@ -50,10 +52,13 @@ export const useCartStore = create(
             // const serverCart = await addCartItem(cartId, variant);
             // set({ items: serverCart, isSynced: true });
           } catch (error) {
-            console.error("Cart sync failed:", error);
             set({ items }); // rollback
+            console.error("Cart sync failed:", error);
+            toast.error("Không thể thêm vào giỏ hàng. Thử lại sau.");
+            return;
           }
         }
+        toast.success("Đã thêm vào giỏ hàng", { icon: "🛒" });
       },
 
       // Update
@@ -84,10 +89,13 @@ export const useCartStore = create(
           try {
             // await removeCartItem(cartId, variantId);
           } catch (error) {
-            console.error("Remove item failed:", error);
             set({ items }); // rollback
+            console.error("Remove item failed:", error);
+            toast.error("Không thể thêm vào giỏ hàng. Thử lại sau.");
+            return;
           }
         }
+        toast.success("Đã gỡ khỏi giỏ hàng");
       },
       // user log out
       resetCart: () => set({ items: [], cartId: null, isSynced: false }),

@@ -34,8 +34,7 @@ async function ProductSection({ category }) {
           <Image
             src={category.image} // get the category image
             fill
-            // placeholder="blur"
-            // blurDataURL="..."
+            priority
             loading="eager"
             alt={`${category.name}'s img`}
             className="rounded-sm object-cover"

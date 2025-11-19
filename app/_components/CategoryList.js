@@ -1,18 +1,21 @@
-import Link from "next/link";
+import { getCategoryByGroup } from "@/app/_lib/data-service";
 import CategoryItem from "@/app/_components/CategoryItem";
+import Link from "next/link";
 
-function CategoryList({ categories = [], group, children }) {
+async function CategoryList({ group, children }) {
+  const { categories } = await getCategoryByGroup(group);
+
   if (!categories.length)
     return (
       <div className="border-accent-300 border-b-1">
-        <p className="text-center">Chưa có danh mục để hiển thị...</p>;
+        <p className="text-center">Chưa có danh mục nào để hiển thị...</p>
       </div>
     );
 
   return (
     <ul className="border-accent-300 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-5 border-b-1 pb-5 uppercase sm:px-10 lg:px-20">
       {categories.map((cat) => (
-        <CategoryItem key={cat.id} category={cat} group={group} />
+        <CategoryItem key={cat.id} category={cat} />
       ))}
 
       {/* additional li if has*/}

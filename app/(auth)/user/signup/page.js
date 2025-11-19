@@ -42,7 +42,7 @@ export default async function UserSignupPage({ searchParams }) {
           <span className="text-primary-500">Đã có tài khoản?</span>
           <span>
             <Link
-              href={`/auth/login${returnUrl ? `?returnUrl=${encodeURIComponent(returnUrl)}` : ""}`}
+              href={`/user/login${returnUrl ? `?returnUrl=${encodeURIComponent(returnUrl)}` : ""}`}
               replace={true}
               className="text-primary-800 hover:underline"
             >

@@ -6,7 +6,7 @@ export default function CartListSkeleton() {
           key={i}
           className="relative flex animate-pulse items-center gap-4 py-4"
         >
-          <div className="h-25 w-25 rounded-xl border-2 border-dashed border-gray-400 bg-gray-200" />
+          <div className="h-25 w-25 rounded-xl border-gray-400 bg-gray-200" />
           <div className="flex-1 space-y-3">
             <div className="h-4 w-3/4 rounded bg-gray-200" />
             <div className="h-3 w-1/2 rounded bg-gray-200" />

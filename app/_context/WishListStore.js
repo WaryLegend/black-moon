@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import toast from "react-hot-toast";
 
 export const useWishListStore = create(
   persist(
@@ -28,28 +29,70 @@ export const useWishListStore = create(
             size: variant.size,
             sku: variant.sku,
             image: variant.image,
+            url: variant.url,
           },
         ];
         // Update local first (optimistic UI)
         set({ items: updatedItems });
-
         // If userId exists → sync with server
         if (userId) {
           try {
             // Example: send to API (implement your own data-service)
-            // const serveruser = await adduserItem(userId, variant);
+            // const serveruser = await addToWishList(userId, variant);
             // set({ items: serveruser, isSynced: true });
           } catch (error) {
-            console.error("user sync failed:", error);
             set({ items }); // rollback
+            console.error("Sync failed:", error);
+            toast.error("Không thể thêm vào yêu thích. Thử lại sau.");
+            return;
           }
         }
+        toast.success("Đã thêm vào yêu thích", { icon: "🖤" });
       },
-      // remove
-      removeItem: (id) =>
+
+      // remove by id
+      removeItem: async (id) => {
+        const { items, userId } = get();
         set((state) => ({
           items: state.items.filter((item) => item.id !== id),
-        })),
+        }));
+        // If userId exists → sync with server
+        if (userId) {
+          try {
+            // Example: send to API (implement your own data-service)
+            // const serveruser = await addToWishList(userId, variant);
+            // set({ items: serveruser, isSynced: true });
+          } catch (error) {
+            set({ items }); // rollback
+            console.error("Sync failed:", error);
+            toast.error("Không thể xóa khỏi yêu thích. Thử lại sau.");
+            return;
+          }
+        }
+        toast.success("Đã xóa khỏi yêu thích");
+      },
+
+      // remove by variantId
+      removeItemByVariantId: async (id) => {
+        const { items, userId } = get();
+        set((state) => ({
+          items: state.items.filter((item) => item.variantId !== id),
+        }));
+        // If userId exists → sync with server
+        if (userId) {
+          try {
+            // Example: send to API (implement your own data-service)
+            // const serveruser = await addToWishList(userId, variant);
+            // set({ items: serveruser, isSynced: true });
+          } catch (error) {
+            set({ items }); // rollback
+            console.error("Sync failed:", error);
+            toast.error("Không thể xóa khỏi yêu thích. Thử lại sau.");
+            return;
+          }
+        }
+        toast.success("Đã xóa khỏi yêu thích");
+      },
 
       // === DERIVED ===
       // Số loại sản phẩm

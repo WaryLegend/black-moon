@@ -20,12 +20,7 @@ function VariantTable({ variants, total }) {
         </Table.Header>
         <Table.Body
           data={variants}
-          render={(vari) => (
-            <VariantRow
-              variant={vari}
-              key={`${vari.productId}-${vari.color}-${vari.size}`}
-            />
-          )}
+          render={(vari) => <VariantRow variant={vari} key={`${vari.sku}`} />}
         />
         <Table.Footer>
           <Pagination count={total} />

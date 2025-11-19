@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import Button from "@/app/_components/Button";
+// import { useProductStore } from "@/app/_context/ProductStore";
 
 // Fake product details
 const productDetails = [
@@ -45,14 +46,15 @@ const productDetails = [
   },
 ];
 
-export default function ProductDetails({ productId }) {
+export default function ProductDetails() {
+  // const details = useProductStore((p) => p.product?.description) || [];
   const [openIndices, setOpenIndices] = useState([]);
 
-  const toggle = (index) => {
+  const toggle = useCallback((index) => {
     setOpenIndices((prev) =>
       prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index],
     );
-  };
+  }, []);
 
   return (
     <div className="grid gap-3">

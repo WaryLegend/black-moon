@@ -21,9 +21,6 @@ export async function getCategoryById(id) {
     const categories = testdata.categories || [];
 
     const category = categories.find((c) => c.id === id);
-    if (!category) {
-      return [];
-    }
 
     return { category };
   } catch (err) {
@@ -36,10 +33,7 @@ export async function getCategoryByGroup(group) {
     await new Promise((res) => setTimeout(res, 300));
     const categories = testdata.categories || [];
 
-    const result = categories.filter((c) => c.group === group);
-    if (!result) {
-      return [];
-    }
+    const result = categories.filter((c) => c.group === group) || [];
 
     return { categories: result };
   } catch (err) {
@@ -152,17 +146,42 @@ export async function getProducts({ filters, page, sortBy }) {
   }
 }
 
-export async function getProductById(id) {
+// get product and its variant by productId
+export async function getProductById(productId) {
   try {
+    // 1. Simulate network latency
     await new Promise((res) => setTimeout(res, 300));
-    const products = testdata.products || [];
-
-    const product = products.find((p) => p.id === id);
+    const { products, variants } = testdata;
+    // 2. Find the base product
+    const product = products.find((p) => p.id === productId);
     if (!product) {
-      return [];
+      return { product: null };
     }
+    // 3. Get all variants for this product
+    const productVariants = variants
+      .filter((vari) => vari.productId === productId)
+      .map((v) => ({
+        id: v.id,
+        color: v.color,
+        size: v.size,
+        sku: v.sku,
+        variantPrice: v.variantPrice,
+        image: v.image,
+        stock: v.stock,
+      }));
+    // 4. Build final enriched product
+    const enrichedProduct = {
+      id: product.id,
+      name: product.name,
+      description: product.description || "",
+      colors: product.colors,
+      sizes: product.sizes,
+      images: product.images,
+      reviews: product.reviews || [],
+      variants: productVariants,
+    };
 
-    return { product };
+    return { product: enrichedProduct };
   } catch (err) {
     console.error("Error loading product:", err);
   }
@@ -172,21 +191,25 @@ export async function getProductsByCategoryId(categoryId) {
   try {
     // 1. Simulate network latency
     await new Promise((res) => setTimeout(res, 300));
-    const { products } = testdata;
+    const { products, categories } = testdata;
 
     // 2. Enrich every product that matches the categoryId
     const enriched = products
-      .filter((prod) => prod.categoryId === categoryId)
+      .filter((p) => p.categoryId === categoryId)
       .map((prod) => {
+        const category = categories.find((c) => c.id === prod.categoryId);
+        const groupDisplay = groupLabels[category.group] ?? category.group;
         return {
           id: prod.id,
           name: prod.name,
           categoryId: prod.categoryId,
+          group: groupDisplay,
           colors: prod.colors,
           sizes: prod.sizes,
           basePrice: prod.basePrice ?? 0,
           image: prod.images?.[0] ?? null,
           reviews: prod.reviews,
+          previewVariant: prod.previewVariant,
         };
       });
 
@@ -230,12 +253,14 @@ export async function getVariants({ filters, page, sortBy }) {
     // --- color (multi-select)
     if (filters.color?.length) {
       filteredData = filteredData.filter((p) =>
-        filters.color.includes(p.color),
+        filters.color.includes(p.color.id),
       );
     }
     // --- size (multi-select)
     if (filters.size?.length) {
-      filteredData = filteredData.filter((p) => filters.size.includes(p.size));
+      filteredData = filteredData.filter((p) =>
+        filters.size.includes(p.size.id),
+      );
     }
     // price range
     if (filters.variantPrice && filters.variantPrice !== "all") {

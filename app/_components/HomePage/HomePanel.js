@@ -2,11 +2,11 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useMenuStore } from "@/app/_context/HomeMenuStore";
-import { Suspense } from "react";
-import Spinner from "@/app/_components/Spinner";
+import { usePathname } from "next/navigation";
 
 function HomePanel({ panels }) {
-  const { isOpen, activeLink, closeMenu } = useMenuStore();
+  const pathname = usePathname();
+  const { isOpen, closeMenu } = useMenuStore();
 
   return (
     <div className="pointer-events-none absolute top-0 right-0 left-0 z-10 h-screen">
@@ -41,27 +41,17 @@ function HomePanel({ panels }) {
         {/* Fade animation for content */}
         <div className="w-full overflow-y-auto px-10">
           <AnimatePresence mode="wait">
-            <motion.div
-              key={activeLink}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Suspense
-                fallback={
-                  <div className="mt-10 flex justify-center">
-                    <Spinner
-                      type="bar"
-                      color="var(--color-accent-600)"
-                      className="my-0.5"
-                    />
-                  </div>
-                }
+            {isOpen && (
+              <motion.div
+                key={pathname}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
               >
-                {panels[activeLink]}
-              </Suspense>
-            </motion.div>
+                {panels[pathname]}
+              </motion.div>
+            )}
           </AnimatePresence>
         </div>
       </motion.div>
