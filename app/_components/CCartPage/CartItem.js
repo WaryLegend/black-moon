@@ -37,9 +37,7 @@ function CartItem({ item }) {
           <p className="text-primary-600 text-sm">
             Màu sắc: {capitalizeFirst(color)}
           </p>
-          <p className="text-primary-600 text-sm">
-            Kích cỡ: {capitalizeFirst(size)}
-          </p>
+          <p className="text-primary-600 text-sm">Kích cỡ: {size}</p>
           {sale > 0 && <p className="text-sm text-red-600">Sale</p>}
           <p className={`${sale > 0 ? "text-red-600" : ""} mt-1 font-medium`}>
             {formatCurrency(finalPrice)}

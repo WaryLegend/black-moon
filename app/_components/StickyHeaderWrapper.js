@@ -34,7 +34,7 @@ export default function StickyHeaderWrapper({ children }) {
   return (
     <div
       ref={headerRef}
-      className="bg-primary-0 border-primary-400 sticky top-0 z-10 border-b-1"
+      className="bg-primary-0 border-primary-400 sticky top-0 z-10 shadow-sm"
     >
       {children}
     </div>

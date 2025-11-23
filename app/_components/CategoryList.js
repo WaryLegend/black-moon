@@ -13,7 +13,7 @@ async function CategoryList({ group, children }) {
     );
 
   return (
-    <ul className="border-accent-300 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-5 border-b-1 pb-5 uppercase sm:px-10 lg:px-20">
+    <ul className="border-accent-300 grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-5 border-b-1 pb-5 uppercase sm:px-10 lg:px-20">
       {categories.map((cat) => (
         <CategoryItem key={cat.id} category={cat} />
       ))}

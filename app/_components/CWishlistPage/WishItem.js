@@ -1,4 +1,4 @@
-import { formatCurrency } from "@/app/_utils/helpers";
+import { capitalizeFirst, formatCurrency } from "@/app/_utils/helpers";
 import Link from "next/link";
 import Image from "next/image";
 import RemoveFromWishList from "./RemoveFromWishList";
@@ -30,7 +30,9 @@ function WishItem({ item }) {
         <div className="flex flex-1 flex-col justify-between gap-2">
           <div>
             <h2 className="pr-5 text-lg font-semibold">{name}</h2>
-            <p className="text-primary-600 max-sm:text-sm">Màu sắc: {color}</p>
+            <p className="text-primary-600 max-sm:text-sm">
+              Màu sắc: {capitalizeFirst(color)}
+            </p>
             <p className="text-primary-600 max-sm:text-sm">Kích cỡ: {size}</p>
             {sale > 0 && <p className="text-sm text-red-600">Sale</p>}
             <p className={`${sale > 0 ? "text-red-600" : ""} mt-1 font-medium`}>

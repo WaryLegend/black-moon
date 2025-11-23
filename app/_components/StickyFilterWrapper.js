@@ -2,46 +2,40 @@
 
 import { useEffect, useRef } from "react";
 
-function StickyFilterWrapper({ children }) {
+export default function StickyFilterWrapper({ children }) {
   const filterRef = useRef(null);
 
   useEffect(() => {
-    const filterElement = filterRef.current;
-    if (!filterElement) return;
+    const el = filterRef.current;
+    if (!el) return;
 
-    const sentinel = document.createElement("div");
-    sentinel.style.display = "contents";
-    filterElement.parentNode.insertBefore(sentinel, filterElement);
+    const headerHeight =
+      document.documentElement.style.getPropertyValue("--header-height") ||
+      "0px";
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        filterElement.dataset.sticky = entry.isIntersecting ? "false" : "true";
+        const isSticky = entry.isIntersecting;
+        el.dataset.sticky = isSticky ? "true" : "false";
       },
       {
+        rootMargin: `-${parseInt(headerHeight) + 1}px 0px -100% 0px`,
         threshold: 0,
-        rootMargin: `-${
-          document.documentElement.style.getPropertyValue("--header-height") ||
-          "0px"
-        } 0px 0px 0px`,
       },
     );
 
-    observer.observe(sentinel);
+    observer.observe(el);
 
-    return () => {
-      observer.disconnect();
-      sentinel.remove();
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
     <div
       ref={filterRef}
-      className="md:data-[sticky=true]:bg-primary-50/80 sticky top-[var(--header-height)] z-10"
+      className="data-[sticky=true]:md:bg-primary-0/90 sticky top-[calc(var(--header-height)_+_1px)] z-10 rounded-md transition duration-200 md:size-fit md:px-2 data-[sticky=true]:md:self-center data-[sticky=true]:md:shadow-sm"
+      data-sticky="false"
     >
       {children}
     </div>
   );
 }
-
-export default StickyFilterWrapper;

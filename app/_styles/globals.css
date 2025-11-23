@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+/* 2. Custom theme variables*/
 @theme {
   --color-primary-0: #fff;
   --color-primary-50: #f9fafb;
@@ -27,33 +28,38 @@
   --color-accent-950: #141e2e;
 }
 
-button {
-  cursor: pointer;
+/* 3. Global base styles (apply to elements) */
+@layer base {
+  button {
+    cursor: pointer;
+  }
+
+  *:disabled {
+    cursor: not-allowed;
+  }
+
+  select:disabled,
+  input:disabled {
+    background-color: var(--color-primary-300);
+    color: var(--color-primary-700);
+  }
+
+  input:focus,
+  button:focus,
+  textarea:focus,
+  select:focus {
+    outline: 2px solid var(--color-accent-600);
+    outline-offset: -1px;
+  }
+
+  button:has(svg) {
+    line-height: 0;
+  }
 }
 
-*:disabled {
-  cursor: not-allowed;
-}
-
-select:disabled,
-input:disabled {
-  background-color: var(--color-primary-300);
-  color: var(--color-primary-700);
-}
-
-input:focus,
-button:focus,
-textarea:focus,
-select:focus {
-  outline: 2px solid var(--color-accent-600);
-  outline-offset: -1px;
-}
-
-button:has(svg) {
-  line-height: 0;
-}
-
+/* 4. Reusable components */
 @layer components {
+  /* loading spinner styles */
   .spinner {
     margin: 0;
     width: var(--spinner-size, 50px);
@@ -118,6 +124,34 @@ button:has(svg) {
         50% 50%,
         100% 100%;
     }
+  }
+
+  /* waiting state for chatbot while loading */
+  .typing-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-primary-700);
+    border-radius: 9999px;
+  }
+  @keyframes wave {
+    0%,
+    60%,
+    100% {
+      transform: translateY(0);
+    }
+    30% {
+      transform: translateY(-4px);
+    }
+  }
+  .wave-dot {
+    animation: wave 1.2s infinite ease-in-out;
+  }
+  .delay-100 {
+    animation-delay: 0.15s;
+  }
+  .delay-200 {
+    animation-delay: 0.3s;
   }
 }
 

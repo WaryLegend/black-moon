@@ -36,7 +36,7 @@ function HomePanel({ panels }) {
           stiffness: 350,
           damping: 30,
         }}
-        className="bg-primary-100/95 pointer-events-auto absolute top-0 right-0 left-0 z-10 flex h-[calc(100%-150px)] justify-center rounded-b-sm py-10 pt-20 shadow-lg"
+        className="bg-primary-100/95 pointer-events-auto absolute top-0 right-0 left-0 z-10 flex h-4/5 justify-center rounded-b-sm py-10 pt-30 shadow-lg md:pt-20"
       >
         {/* Fade animation for content */}
         <div className="w-full overflow-y-auto px-10">

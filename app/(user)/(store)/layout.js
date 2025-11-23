@@ -1,11 +1,11 @@
+import { ColorsAndSizesProvider } from "@/app/_context/ColorsAndSizesContext";
+import { getColors, getSizes } from "@/app/_lib/apiSettings";
 import Header from "@/app/_components/Header";
 import LogoLink from "@/app/_components/LogoLink";
 import User from "@/app/_components/User";
 import Cart from "@/app/_components/CartIcon";
 import WishList from "@/app/_components/WishlistIcon";
 import StickyHeaderWrapper from "@/app/_components/StickyHeaderWrapper";
-import { ColorsAndSizesProvider } from "@/app/_context/ColorsAndSizesContext";
-import { getColors, getSizes } from "@/app/_lib/apiSettings";
 
 export const metadata = {
   title: {
@@ -16,7 +16,7 @@ export const metadata = {
     "Black & Moon is a modern fashion brand offering stylish, high-quality clothing. Discover the latest collections of shirts, dresses, pants, and accessories for men, women and kids.",
 };
 
-export default async function CustomerLayout({ children }) {
+export default async function StoreLayout({ children }) {
   const [colors, sizes] = await Promise.all([getColors(), getSizes()]);
 
   return (
@@ -24,7 +24,11 @@ export default async function CustomerLayout({ children }) {
       <StickyHeaderWrapper>
         <Header>
           <LogoLink />
-          <div className="flex items-center gap-2.5 sm:gap-4">
+          <div
+            role="toolbar"
+            className="flex items-center gap-2.5 sm:gap-4"
+            aria-label="User actions"
+          >
             <WishList />
             <Cart />
             <User />
@@ -39,6 +43,7 @@ export default async function CustomerLayout({ children }) {
           </ColorsAndSizesProvider>
         </div>
       </main>
+      <footer>Footer</footer>
     </div>
   );
 }

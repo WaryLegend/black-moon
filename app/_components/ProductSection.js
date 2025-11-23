@@ -1,9 +1,9 @@
 import { getProductsByCategoryId } from "@/app/_lib/data-service";
 import ProductList from "@/app/_components/ProductList";
-import Image from "next/image";
 import ViewProductLink from "@/app/_components/ViewProductLink";
 import SortBy from "@/app/_components/SortBy";
 import NoProductsFound from "@/app/_components/NoProductsFound";
+import ImageCarousel from "@/app/_components/ImageCarousel";
 
 async function ProductSection({ category }) {
   const { products } = await getProductsByCategoryId(category?.id);
@@ -29,21 +29,14 @@ async function ProductSection({ category }) {
           ]}
         />
       </div>
-      <div className="flex justify-center">
-        <div className="relative aspect-[3/4] w-full max-w-7xl px-10 lg:h-150">
-          <Image
-            src={category.image} // get the category image
-            fill
-            priority
-            loading="eager"
-            alt={`${category.name}'s img`}
-            className="rounded-sm object-cover"
-          />
-          <ViewProductLink
-            productId={firstProductId}
-            disabled={!products?.length}
-          />
-        </div>
+      <div className="relative w-full">
+        <ImageCarousel
+          images={[category?.image, category?.image, category?.image]}
+        />
+        <ViewProductLink
+          productId={firstProductId}
+          disabled={!products?.length}
+        />
       </div>
       {/* products of a category */}
       <ProductList products={products} />

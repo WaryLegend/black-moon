@@ -83,7 +83,8 @@ function SideFilter({ filters }) {
     <>
       <Button
         icon
-        className="bg-primary-0 border-accent-400 hover:border-accent-700 group relative m-1 ml-auto !inline-flex rounded-full border-1 md:m-0"
+        type="button"
+        className="bg-primary-0 border-accent-400 hover:border-accent-700 group relative m-1 !inline-flex rounded-full border-1 md:m-0"
         title="Bộ lọc"
         onClick={() => setIsOpenSideFilter(true)}
       >
@@ -103,20 +104,21 @@ function SideFilter({ filters }) {
         />
 
         {/* Sidebar */}
-        <div
-          className={`fixed inset-0 z-10 flex h-full w-full transform flex-col bg-white shadow-lg transition-transform sm:w-md ${isOpenSideFilter ? "translate-x-0" : "-translate-x-full"}`}
+        <aside
+          className={`fixed inset-0 z-10 flex h-full w-full transform flex-col bg-white shadow-lg transition-transform sm:w-md sm:rounded-r-lg ${isOpenSideFilter ? "translate-x-0" : "-translate-x-full"}`}
         >
           {/* Header */}
           <div className="border-primary-400 flex items-center justify-between border-b px-4 py-3">
             <h2 className="text-xl font-semibold">
               Bộ lọc {activeFilters ? `(${activeFilters})` : ""}
             </h2>
-            <button
+            <Button
+              icon
               onClick={() => setIsOpenSideFilter(false)}
-              className="flex items-center justify-center p-1"
+              className="rounded-full"
             >
-              <IoClose className="hover:text-accent-700 h-5 w-5" />
-            </button>
+              <IoClose className="hover:text-accent-700 h-6 w-6" />
+            </Button>
           </div>
 
           {/* Filters */}
@@ -136,7 +138,7 @@ function SideFilter({ filters }) {
               Áp dụng
             </Button>
           </div>
-        </div>
+        </aside>
       </div>
     </>
   );

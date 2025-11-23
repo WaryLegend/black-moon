@@ -41,8 +41,8 @@ const mockReviews = [
   },
 ];
 
-export default async function Page({ params, searchParams }) {
-  const [_params, _searchs] = await Promise.all([params, searchParams]);
+export default async function Page({ params }) {
+  const _params = await params;
 
   const { group, categoryId, productId } = _params;
   const [{ category }, { product }] = await Promise.all([
