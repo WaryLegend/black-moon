@@ -6,7 +6,7 @@ import NestedFilter from "@/app/_components/Filters/NestedFilter";
 import SideFilter from "@/app/_components/SideFilter";
 
 const priceFilters = {
-  filterField: "variantPrice",
+  filterField: "basePrice",
   options: PRICES_RANGE,
   selectProps: {
     minWidth: "16rem",
@@ -17,7 +17,7 @@ const priceFilters = {
 function ProductFilter() {
   const { colors, sizes } = useColorsAndSizes();
 
-  const variantfilters = [
+  const productsfilters = [
     {
       filterField: "color",
       options: colors,
@@ -44,7 +44,7 @@ function ProductFilter() {
     },
   ];
 
-  const filters = [...variantfilters, priceFilters];
+  const filters = [...productsfilters, priceFilters];
 
   return (
     <div className="flex items-center gap-1">

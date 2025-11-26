@@ -7,13 +7,13 @@ async function CategoryList({ group, children }) {
 
   if (!categories.length)
     return (
-      <div className="border-accent-300 border-b-1">
+      <div className="border-primary-300 border-b-1">
         <p className="text-center">Chưa có danh mục nào để hiển thị...</p>
       </div>
     );
 
   return (
-    <ul className="border-accent-300 grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-5 border-b-1 pb-5 uppercase sm:px-10 lg:px-20">
+    <ul className="border-primary-300 grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-5 border-b-1 pb-5 uppercase sm:px-10 lg:px-20">
       {categories.map((cat) => (
         <CategoryItem key={cat.id} category={cat} />
       ))}
@@ -25,7 +25,7 @@ async function CategoryList({ group, children }) {
       <li key="limited">
         <Link
           href={`/${group}/limited`}
-          className="hover:bg-primary-200 flex cursor-pointer items-center gap-2 p-2 transition-all hover:shadow"
+          className="hover:bg-primary-200 flex cursor-pointer items-center gap-2 rounded-md p-2 transition-all hover:shadow"
         >
           <div className="bg-primary-100 flex h-10 w-10 flex-col items-center justify-center border-2 text-[8px] font-semibold text-red-600">
             <span>LIMITED</span>
@@ -38,7 +38,7 @@ async function CategoryList({ group, children }) {
       <li key="new">
         <Link
           href={`${group}/new`}
-          className="hover:bg-primary-200 flex cursor-pointer items-center gap-2 p-2 transition-all hover:shadow"
+          className="hover:bg-primary-200 flex cursor-pointer items-center gap-2 rounded-md p-2 transition-all hover:shadow"
         >
           <div className="bg-primary-100 flex h-10 w-10 items-center justify-center border-2 text-xs font-semibold">
             NEW

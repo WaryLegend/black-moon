@@ -16,7 +16,7 @@ function SortBy({ options, label = "Sort by", className }) {
     if (e.target.value) {
       params.set("sortBy", e.target.value);
     }
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
   }
 
   return (

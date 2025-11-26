@@ -3,21 +3,32 @@
 import { useRouter } from "next/navigation";
 import { useMenuStore } from "@/app/_context/HomeMenuStore";
 
-function NoProductsFound() {
+function NoProductsFound({ hasActiveFilters }) {
   const router = useRouter();
   const { activeLink } = useMenuStore();
 
-  const destination = activeLink || "/";
+  // Trường hợp 1: Có sản phẩm nhưng filter ra []
+  if (hasActiveFilters) {
+    return (
+      <div className="bg-accent-50 rounded-md p-10 text-center">
+        <p className="text-2xl leading-relaxed font-semibold">
+          Không tìm thấy sản phẩm nào phù hợp với bộ lọc của bạn.
+          <br className="sm:hidden" />
+        </p>
+      </div>
+    );
+  }
 
+  // Trường hợp 2: Danh mục trống từ đầu
   return (
-    <div className="bg-accent-100 rounded-md p-10 text-center">
+    <div className="bg-accent-50 rounded-md p-10 text-center">
       <p className="text-2xl font-semibold">
-        Chưa có sản phẩm nào.{" "}
+        Hiện chưa có sản phẩm nào trong mục này.{" "}
         <button
-          onClick={() => router.push(destination)}
-          className="text-accent-600 hover:text-accent-700 text-lg font-normal underline"
+          onClick={() => router.push(activeLink || "/")}
+          className="text-accent-600 hover:text-accent-700 underline"
         >
-          Quay lại
+          Quay lại.
         </button>
       </p>
     </div>

@@ -17,7 +17,7 @@ function LogoLink({ linkTo, className = "" }) {
         className="rounded-full shadow-sm"
       />
 
-      <span className="text-primary-300 text-sm font-bold uppercase text-shadow-sm">
+      <span className="text-primary-500 text-sm font-bold uppercase text-shadow-sm">
         <span className="text-primary-800 text-xl">Black</span>&
         <span className="text-accent-500 text-xl">Moon</span>
       </span>

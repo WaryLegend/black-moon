@@ -20,13 +20,13 @@ function NavItem({ link }) {
   return (
     <li>
       <Link href={link.href} className="group relative" onClick={handleClick}>
-        <p
-          className={`group-hover:text-accent-700 transition-all ${
+        <span
+          className={`group-hover:text-accent-700 transition-all${
             isActive ? "" : "hover:scale-105"
           }`}
         >
           {link.label}
-        </p>
+        </span>
 
         {isActive && (
           <motion.div

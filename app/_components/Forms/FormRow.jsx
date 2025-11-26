@@ -9,7 +9,7 @@ function FormRow({ label, error, helper, children }) {
         </label>
       )}
       {children}
-      {error && <span className="text-sm text-red-700">{error}</span>}
+      {error && <span className="text-sm text-red-600">{error}</span>}
       {!error && helper && (
         <span className="text-primary-500 text-sm">{helper}</span>
       )}

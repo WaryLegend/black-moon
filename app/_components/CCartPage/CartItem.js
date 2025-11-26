@@ -17,10 +17,13 @@ function CartItem({ item }) {
   const finalPrice = variantPrice * (1 - sale / 100);
 
   return (
-    <li className="relative flex flex-col gap-4 px-2 py-6 md:flex-row md:gap-6">
+    <li className="relative flex flex-row items-center gap-4 px-2 py-6 md:gap-6">
       {/* Image */}
-      <Link href={url} className="group rounded-md transition hover:shadow-md">
-        <div className="relative aspect-square w-50 shrink-0 self-center overflow-hidden rounded-md md:aspect-[5/6] md:h-auto md:self-auto">
+      <Link
+        href={url}
+        className="group w-35 rounded-md transition hover:shadow-md"
+      >
+        <div className="relative aspect-[5/6] w-full shrink-0 self-center overflow-hidden rounded-md md:h-auto">
           <Image
             src={image}
             alt={name}
@@ -39,7 +42,9 @@ function CartItem({ item }) {
           </p>
           <p className="text-primary-600 text-sm">Kích cỡ: {size}</p>
           {sale > 0 && <p className="text-sm text-red-600">Sale</p>}
-          <p className={`${sale > 0 ? "text-red-600" : ""} mt-1 font-medium`}>
+          <p
+            className={`${sale > 0 ? "text-red-600" : "text-accent-600"} mt-1 font-medium`}
+          >
             {formatCurrency(finalPrice)}
           </p>
           {isNew && <p className="text-primary-600 text-sm">New</p>}
@@ -55,17 +60,23 @@ function CartItem({ item }) {
               id={`quantity-${id}`}
               value={quantity}
               onChange={(e) => updateQuantity(id, Number(e.target.value))}
-              className="border-primary-400 rounded-sm border px-2 py-1"
+              className="border-primary-400 bg-primary-0 rounded-md border px-2 py-1 text-sm font-medium transition-all"
             >
               {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-                <option key={n} value={n}>
+                <option
+                  key={n}
+                  value={n}
+                  className="checked:bg-accent-600 hover:bg-accent-500 bg-primary-50 text-primary-800 checked:text-primary-0"
+                >
                   {n}
                 </option>
               ))}
             </select>
             <p className="font-semibold">
               TỔNG:{" "}
-              <span className={`${sale > 0 ? "text-red-600" : ""} font-bold`}>
+              <span
+                className={`${sale > 0 ? "text-red-600" : "text-accent-600"} font-bold`}
+              >
                 {formatCurrency(finalPrice * quantity)}
               </span>
             </p>

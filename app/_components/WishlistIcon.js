@@ -21,7 +21,7 @@ function WishlistIcon() {
   return (
     <Link
       href="/wishlist"
-      className="group hover:text-accent-700 relative flex items-center justify-center p-1 transition-all"
+      className="group hover:text-accent-700 hover:bg-primary-100 relative flex items-center justify-center rounded-full p-1 transition-all"
     >
       <FaRegHeart className="h-5 w-5 group-hover:hidden" />
       <FaHeart className="hidden h-5 w-5 group-hover:block" />

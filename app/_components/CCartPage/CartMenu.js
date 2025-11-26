@@ -1,27 +1,27 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { formatCurrency } from "@/app/_utils/helpers";
 import { FaGift, FaTicketAlt } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
+import { formatCurrency } from "@/app/_utils/helpers";
 import { useCartStore } from "@/app/_context/CartStore";
 import CartMenuSkeleton from "@/app/_components/Skeletons/CartMenuSkeleton";
-import Button from "@/app/_components/Button";
 import ContinuteShoppingBtn from "./ContinuteShoppingBtn";
+import CheckoutBtn from "./CheckoutBtn";
 
 function CartMenu() {
   const isPending = useCartStore((state) => state.isPending);
   const totalItems = useCartStore((state) => state.getTotalItems());
   const totalPrice = useCartStore((state) => state.getTotalPrice());
-  const voucher = 5; // %
-  const discount = (totalPrice * voucher) / 100;
   if (isPending) {
     return <CartMenuSkeleton />;
   }
 
+  const voucher = 5; // %
+  const discount = (totalPrice * voucher) / 100;
+
   return (
-    <div className="bg-primary-0 rounded-md">
-      <div className="sticky top-[var(--header-height)] p-3">
+    <aside>
+      <div className="bg-primary-0 sticky top-[calc(var(--header-height)_+_1px)] rounded-md p-3 shadow-md">
         <div className="grid gap-[2vh]">
           {/* Order info */}
           <div className="border-primary-400 grid gap-5 rounded-md border p-5 lg:gap-8">
@@ -47,7 +47,9 @@ function CartMenu() {
             {/* Final total of all (discount, tax, ...) */}
             <div className="flex items-center justify-between text-lg font-bold uppercase lg:text-xl">
               <p>Tổng đơn</p>
-              <span>{formatCurrency(totalPrice - discount)}</span>
+              <span className="text-accent-600">
+                {formatCurrency(totalPrice - discount)}
+              </span>
             </div>
           </div>
 
@@ -75,17 +77,11 @@ function CartMenu() {
             </button>
           </div>
           {/* Check out and continute shopping button */}
-          <Button
-            type="button"
-            className="w-full lg:text-2xl"
-            disabled={!totalItems}
-          >
-            Thanh toán
-          </Button>
+          <CheckoutBtn disabled={!totalItems} />
           <ContinuteShoppingBtn />
         </div>
       </div>
-    </div>
+    </aside>
   );
 }
 

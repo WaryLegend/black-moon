@@ -50,12 +50,19 @@ export function getQuantityTextColor(value) {
 
 export function getTextColor(name) {
   const base = colord(name);
-  // Special case: WHITE
-  if (base.isEqual(colord("#ffffff"))) {
+  if (!base.isValid()) {
     return {
-      color: "#777",
-      backgroundColor: "#ececec",
-      style: { color: "#777", backgroundColor: "#ececec" },
+      color: "",
+      backgroundColor: "",
+      style: { color: "", backgroundColor: "" },
+    };
+  }
+  // Special case: WHITE
+  if (base.isEqual(colord("#fff"))) {
+    return {
+      color: "#fff",
+      backgroundColor: "#e8e8e8",
+      style: { color: "#fff", backgroundColor: "#e8e8e8" },
     };
   }
   // Special case: BLACK
@@ -112,4 +119,37 @@ export function sortData(data, field, direction = "asc", locale = "vi") {
     if (aVal > bVal) return direction === "asc" ? 1 : -1;
     return 0;
   });
+}
+
+// Price-filter logic
+export function priceFilter(items, priceFilterValue) {
+  if (!priceFilterValue || priceFilterValue === "all") {
+    return items;
+  }
+  const price = (p) => p.basePrice ?? 0;
+  // under-X
+  if (priceFilterValue.startsWith("under-")) {
+    const max = Number(priceFilterValue.replace("under-", ""));
+    if (!isNaN(max)) {
+      return items.filter((p) => price(p) < max);
+    }
+  }
+  // above-X
+  else if (priceFilterValue.startsWith("above-")) {
+    const min = Number(priceFilterValue.replace("above-", ""));
+    if (!isNaN(min)) {
+      return items.filter((p) => price(p) > min);
+    }
+  }
+  // X-Y range
+  else {
+    const [minStr, maxStr] = priceFilterValue.split("-");
+    const min = Number(minStr);
+    const max = Number(maxStr);
+
+    if (!isNaN(min) && !isNaN(max)) {
+      return items.filter((p) => price(p) >= min && price(p) <= max);
+    }
+  }
+  return items;
 }

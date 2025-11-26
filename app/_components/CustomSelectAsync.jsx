@@ -3,6 +3,7 @@
 import ReactSelectAsync from "react-select/async";
 import makeAnimated from "react-select/animated";
 import { useMemo, useState } from "react";
+import { color } from "framer-motion";
 
 export default function CustomSelectAsync({
   filterField,
@@ -47,6 +48,8 @@ export default function CustomSelectAsync({
       fontSize: "0.875rem", // text-sm
       fontWeight: 500, // font-medium
       boxShadow: state.isFocused ? "0 0 0 1px var(--color-accent-600)" : "none",
+      backgroundColor: "var(--color-primary-0)",
+      cursor: state.isDisabled ? "not-allowed" : "pointer",
       borderColor: state.isFocused
         ? "var(--color-accent-300)"
         : type === "white"
@@ -66,12 +69,17 @@ export default function CustomSelectAsync({
           ? "var(--color-accent-600)"
           : state.isFocused
             ? "var(--color-accent-100)"
-            : "white",
+            : "var(--color-primary-50)",
         color: state.isSelected
-          ? "white"
+          ? "var(--color-primary-50)"
           : state.isFocused && "var(--color-primary-700)",
       };
     },
+    input: (provided, state) => ({
+      ...provided,
+      color: "var(--color-primary-900)",
+      cursor: state.isDisabled ? "not-allowed" : "text",
+    }),
     singleValue: (provided) => {
       return {
         ...provided,
@@ -83,14 +91,29 @@ export default function CustomSelectAsync({
       borderRadius: "0.375rem",
       boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
       zIndex: 20,
+      backgroundColor: "var(--color-primary-50)",
     }),
-
+    menuList: (provided) => ({
+      ...provided,
+      borderRadius: "0.375rem",
+    }),
+    multiValueRemove: (provided) => {
+      return {
+        ...provided,
+        transition: "all 120ms ease",
+        color: "var(--color-gray-600)",
+      };
+    },
     dropdownIndicator: (provided, state) => ({
       ...provided,
       color: state.isFocused
         ? "var(--color-accent-600)"
         : "var(--color-accent-400)",
       "&:hover": { color: "var(--color-accent-600)" },
+      transition: "transform 150ms ease",
+      transform: state.selectProps.menuIsOpen
+        ? "rotate(180deg)"
+        : "rotate(0deg)",
     }),
     indicatorSeparator: () => ({ display: "none" }),
   };

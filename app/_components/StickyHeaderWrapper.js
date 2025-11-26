@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-export default function StickyHeaderWrapper({ children }) {
+export default function StickyHeaderWrapper({ children, className = "" }) {
   const headerRef = useRef(null);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function StickyHeaderWrapper({ children }) {
   return (
     <div
       ref={headerRef}
-      className="bg-primary-0 border-primary-400 sticky top-0 z-10 shadow-sm"
+      className={`bg-primary-0 border-primary-400 sticky top-0 z-10 shadow-sm ${className}`}
     >
       {children}
     </div>

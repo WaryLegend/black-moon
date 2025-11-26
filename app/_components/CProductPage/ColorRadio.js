@@ -27,7 +27,7 @@ function ColorRadio({ availableColors, selectedColor, onChange }) {
               checked={selectedColor === value}
             />
             <span
-              className="border-primary-800 peer-checked:ring-accent-700 peer-hover:outline-accent-700 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border transition-all peer-checked:ring-2 peer-checked:ring-offset-2"
+              className="border-primary-800 peer-checked:ring-accent-700 peer-hover:outline-accent-700 ring-offset-primary-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border transition-all peer-checked:ring-2 peer-checked:ring-offset-2"
               style={{
                 backgroundColor: value,
               }}

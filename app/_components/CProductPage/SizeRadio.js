@@ -23,7 +23,7 @@ function SizeRadio({ availableSizes, selectedSize, onChange }) {
                 checked={selectedSize === value}
               />
               <span
-                className={`border-accent-700 peer-checked:bg-accent-600 peer-checked:ring-accent-600 inline-flex h-8 w-16 items-center justify-center rounded-sm border-2 text-sm transition-all select-none peer-checked:text-white peer-checked:ring-2 peer-checked:ring-offset-2 ${isAvailable ? "cursor-pointer" : "opacity-40"}`}
+                className={`border-accent-700 ring-offset-primary-0 peer-checked:bg-accent-600 peer-checked:ring-accent-600 inline-flex h-8 w-16 items-center justify-center rounded-sm border-2 text-sm transition-all select-none peer-checked:text-white peer-checked:ring-2 peer-checked:ring-offset-2 ${isAvailable ? "cursor-pointer" : "opacity-40"}`}
               >
                 {label}
               </span>

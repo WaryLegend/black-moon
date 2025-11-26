@@ -36,7 +36,7 @@ export default function AddToCart() {
   return (
     <Button
       type="button"
-      className="w-full !rounded-full ring-offset-4 lg:text-2xl"
+      className="w-full !rounded-full lg:text-2xl"
       aria-label="Add to cart"
       onClick={handleAdd}
     >

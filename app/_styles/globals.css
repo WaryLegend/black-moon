@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
-/* 2. Custom theme variables*/
+/* Custom theme variables*/
 @theme {
-  --color-primary-0: #fff;
+  --color-primary-0: #ffffff;
   --color-primary-50: #f9fafb;
   --color-primary-100: #f3f4f6;
   --color-primary-200: #e5e7eb;
@@ -12,7 +12,7 @@
   --color-primary-600: #4b5563;
   --color-primary-700: #374151;
   --color-primary-800: #1f2937;
-  --color-primary-900: #111827;
+  --color-primary-900: #161e30;
   --color-primary-950: #0f141f;
 
   --color-accent-50: #e6eaf0;
@@ -26,11 +26,98 @@
   --color-accent-800: #2c4050;
   --color-accent-900: #1a2a44;
   --color-accent-950: #141e2e;
+
+  --default: #000000;
+
+  /* customized scroll */
+  --scroll-track: transparent;
+  --scroll-thumb: rgba(0, 0, 0, 0.3);
+  --scroll-thumb-hover: rgba(0, 0, 0, 0.4);
+
+  /* image in light mode */
+  --image-grayscale: 0;
+  --image-opacity: 100%;
 }
 
-/* 3. Global base styles (apply to elements) */
+:root.dark-mode {
+  --color-primary-0: #0c1424;
+  --color-primary-50: #111827;
+  --color-primary-100: #1f2937;
+  --color-primary-200: #374151;
+  --color-primary-300: #4b5563;
+  --color-primary-400: #6b7280;
+  --color-primary-500: #9ca3af;
+  --color-primary-600: #d1d5db;
+  --color-primary-700: #e5e7eb;
+  --color-primary-800: #f3f4f6;
+  --color-primary-900: #f9fafb;
+  --color-primary-950: #ffffff;
+
+  --color-accent-50: #1e1b4b;
+  --color-accent-100: #312e81;
+  --color-accent-200: #3730a3;
+  --color-accent-300: #4338ca;
+  --color-accent-400: #6366f1;
+  --color-accent-500: #818cf8;
+  --color-accent-600: #a5b4fc;
+  --color-accent-700: #c7d2fe;
+  --color-accent-800: #e0e7ff;
+  --color-accent-900: #eef2ff;
+
+  --color-gray-600: #101828; /*-gray-900*/
+
+  --color-red-100: #82181a; /*-red-900*/
+  --color-red-600: #ff6467; /*-red-400*/
+
+  --color-green-100: #0d542b; /*-green-900*/
+  --color-green-600: #05df72; /*-green-400*/
+
+  --default: #ffffff;
+
+  /* customized scroll */
+  --scroll-track: rgba(22, 22, 22, 0.9);
+  --scroll-thumb: var(--color-accent-500);
+  --scroll-thumb-hover: var(--color-accent-400);
+
+  /* image in dark mode */
+  --image-grayscale: 10%;
+  --image-opacity: 90%;
+}
+
+:root {
+  transition:
+    background-color 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    fill 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    stroke 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* shadow, border, font-style, ...*/
+@layer utilities {
+  .shadow-md-reversed {
+    box-shadow:
+      0 -4px 6px -1px rgb(0 0 0 / 0.1),
+      0 -2px 4px -2px rgb(0 0 0 / 0.1);
+  }
+  .shadow-lg-reversed {
+    box-shadow:
+      0 -10px 15px -3px rgb(0 0 0 / 0.1),
+      0 -4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+  .shadow-xl-reversed {
+    box-shadow: 0 -25px 50px -12px rgb(0 0 0 / 0.25);
+  }
+}
+
+/* Global base styles (apply to elements) */
 @layer base {
-  button {
+  button,
+  select,
+  a {
     cursor: pointer;
   }
 
@@ -44,6 +131,7 @@
     color: var(--color-primary-700);
   }
 
+  a:focus,
   input:focus,
   button:focus,
   textarea:focus,
@@ -55,9 +143,14 @@
   button:has(svg) {
     line-height: 0;
   }
+
+  img {
+    /* For dark mode */
+    filter: grayscale(var(--image-grayscale)) opacity(var(--image-opacity));
+  }
 }
 
-/* 4. Reusable components */
+/* Reusable components */
 @layer components {
   /* loading spinner styles */
   .spinner {
@@ -65,7 +158,7 @@
     width: var(--spinner-size, 50px);
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 8px solid var(--spinner-color, #000);
+    border: 8px solid var(--spinner-color, var(--default));
     border-right-color: var(--color-primary-200);
     animation: rotate 1s infinite linear;
   }
@@ -75,7 +168,7 @@
     width: var(--spinner-size, 20px);
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 2px solid var(--spinner-color, #000);
+    border: 2px solid var(--spinner-color, var(--default));
     border-right-color: transparent;
     animation: rotate 1s infinite linear;
   }
@@ -90,7 +183,7 @@
     margin: 0;
     width: var(--spinner-size, 45px);
     aspect-ratio: 0.75;
-    --c: no-repeat linear-gradient(var(--spinner-color, #000) 0 0);
+    --c: no-repeat linear-gradient(var(--spinner-color, var(--default)) 0 0);
     background:
       var(--c) 0% 50%,
       var(--c) 50% 50%,
@@ -126,7 +219,7 @@
     }
   }
 
-  /* waiting state for chatbot while loading */
+  /* typing state for chatbot while loading */
   .typing-dot {
     display: inline-block;
     width: 6px;
@@ -152,6 +245,33 @@
   }
   .delay-200 {
     animation-delay: 0.3s;
+  }
+
+  /* scroll bar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+  }
+  /* WebKit (Chrome, Edge, Safari) */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--scroll-track);
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--scroll-thumb);
+    border-radius: 6px;
+    border: 2px solid var(--scroll-track); /* creates padding effect */
+    transition: background 0.2s ease;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scroll-thumb-hover);
+  }
+  ::-webkit-scrollbar-corner {
+    background: var(--scroll-track);
   }
 }
 

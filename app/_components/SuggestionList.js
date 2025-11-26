@@ -7,11 +7,11 @@ function SuggestionList({ suggestions = [] }) {
       <h2 className="mt-10 mb-4 flex justify-center text-xl font-bold">
         Gợi ý mỗi tuần
       </h2>
-      <ul className="border-accent-300 grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-5 border-b-1 pb-5 sm:px-10 lg:px-20">
+      <ul className="border-primary-300 grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] gap-5 border-b-1 pb-5 sm:px-10 lg:px-20">
         {suggestions.map((suggest, index) => (
           <li
             key={index}
-            className="group flex cursor-pointer flex-col overflow-hidden rounded-md border border-gray-200 bg-white shadow-sm transition hover:shadow-md"
+            className="group border-primary-200 bg-primary-0 flex cursor-pointer flex-col overflow-hidden rounded-md border shadow-sm transition hover:shadow-md"
           >
             {/* Image wrapper */}
             <div className="relative aspect-[4/3] w-full overflow-hidden">

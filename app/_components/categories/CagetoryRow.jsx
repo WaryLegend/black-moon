@@ -32,61 +32,53 @@ function CategoryRow({ category }) {
   }
 
   return (
-    <Table.Row className="text-primary-600">
-      <td>
-        <Image
-          src={image}
-          alt={`image of ${name}`}
-          width={50}
-          height={40}
-          className="block aspect-[3/2] max-w-[2rem] scale-150 rounded-xs object-cover object-center lg:max-w-[3.5rem]"
-        />
-      </td>
-      <td>
-        <Field>{name}</Field>
-      </td>
-      <td>
-        <Field>{groupDisplay}</Field>
-      </td>
-      <td>
-        <AllButtons>
-          <Modal>
-            <Menus.Menu>
-              <Menus.Toggle id={categoryId} />
-              <Menus.List id={categoryId}>
-                {/* duplicate btn */}
-                <Menus.Button
-                  icon={<HiSquare2Stack />}
-                  // onClick={handleDuplicate}
-                  onClick={() => alert("Copy thành công")}
-                  // disabled={isCreating}
-                >
-                  Duplicate
-                </Menus.Button>
-                {/* edit btn */}
-                <Modal.Open opens="edit">
-                  <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
-                </Modal.Open>
-                {/* delete btn */}
-                <Modal.Open opens="delete">
-                  <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
-                </Modal.Open>
-              </Menus.List>
-              <Modal.Window name="edit">
-                {/* <CreateCabinForm cabinToEdit={category} /> */}
-              </Modal.Window>
-              <Modal.Window name="delete">
-                <ConfirmDelete
-                  resourceName={category.name}
-                  // disabled={isDeleting}
-                  // onConfirm={() => deleteCabin(categoryId)}
-                  onConfirm={() => alert("Mimic xóa thành công")}
-                />
-              </Modal.Window>
-            </Menus.Menu>
-          </Modal>
-        </AllButtons>
-      </td>
+    <Table.Row>
+      <Image
+        src={image}
+        alt={`image of ${name}`}
+        width={50}
+        height={40}
+        className="block aspect-[3/2] max-w-[2rem] scale-150 rounded-xs object-cover object-center lg:max-w-[3.5rem]"
+      />
+      <Field>{name}</Field>
+      <Field>{groupDisplay}</Field>
+      <AllButtons>
+        <Modal>
+          <Menus.Menu>
+            <Menus.Toggle id={categoryId} />
+            <Menus.List id={categoryId}>
+              {/* duplicate btn */}
+              <Menus.Button
+                icon={<HiSquare2Stack />}
+                // onClick={handleDuplicate}
+                onClick={() => alert("Copy thành công")}
+                // disabled={isCreating}
+              >
+                Duplicate
+              </Menus.Button>
+              {/* edit btn */}
+              <Modal.Open opens="edit">
+                <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+              </Modal.Open>
+              {/* delete btn */}
+              <Modal.Open opens="delete">
+                <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+              </Modal.Open>
+            </Menus.List>
+            <Modal.Window name="edit">
+              {/* <CreateCabinForm cabinToEdit={category} /> */}
+            </Modal.Window>
+            <Modal.Window name="delete">
+              <ConfirmDelete
+                resourceName={category.name}
+                // disabled={isDeleting}
+                // onConfirm={() => deleteCabin(categoryId)}
+                onConfirm={() => alert("Mimic xóa thành công")}
+              />
+            </Modal.Window>
+          </Menus.Menu>
+        </Modal>
+      </AllButtons>
     </Table.Row>
   );
 }

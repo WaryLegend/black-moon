@@ -10,10 +10,10 @@ function CategoryTable({ categories, total }) {
     <Menus>
       <Table columns="0.8fr 2.2fr 1.8fr 1fr">
         <Table.Header>
-          <th></th>
-          <th>Name</th>
-          <th>Group</th>
-          <th></th>
+          <div></div>
+          <div>Name</div>
+          <div>Group</div>
+          <div></div>
         </Table.Header>
         <Table.Body
           data={categories}

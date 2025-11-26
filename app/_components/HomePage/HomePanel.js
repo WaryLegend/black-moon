@@ -9,11 +9,11 @@ function HomePanel({ panels }) {
   const { isOpen, closeMenu } = useMenuStore();
 
   return (
-    <div className="pointer-events-none absolute top-0 right-0 left-0 z-10 h-screen">
+    <div className="pointer-events-none absolute top-0 right-0 left-0 z-5 h-screen">
       {/* Overlay */}
       <motion.div
         key="overlay"
-        className="bg-accent-900/30 pointer-events-auto inset-0 h-full"
+        className="pointer-events-auto inset-0 h-full backdrop-blur-sm"
         initial={false}
         animate={{ opacity: isOpen ? 1 : 0 }}
         transition={{ duration: 0.2 }}

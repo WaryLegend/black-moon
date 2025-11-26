@@ -17,11 +17,13 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function Page({ params }) {
+export default async function Page({ params, searchParams }) {
   const Params = await params;
   const { group, categoryId } = Params;
   const { category } = await getCategoryById(categoryId);
   if (!category) notFound();
+
+  const filterParams = await searchParams;
 
   return (
     <div className="flex flex-col gap-1 md:gap-4">
@@ -41,7 +43,7 @@ export default async function Page({ params }) {
           />
         }
       >
-        <ProductSection category={category} />
+        <ProductSection category={category} searchParams={filterParams} />
       </Suspense>
     </div>
   );

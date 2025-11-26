@@ -1,6 +1,6 @@
 import testdata from "@/app/_data/testdata.JSON";
 import { groupLabels, PAGE_SIZE } from "@/app/_utils/constants";
-import { sortData } from "@/app/_utils/helpers";
+import { priceFilter, sortData } from "@/app/_utils/helpers";
 
 export async function getAllCategories() {
   try {
@@ -113,23 +113,8 @@ export async function getProducts({ filters, page, sortBy }) {
       );
     }
     // price range
-    if (filters.basePrice && filters.basePrice !== "all") {
-      const price = (p) => p.basePrice ?? 0;
-
-      if (filters.basePrice.startsWith("under-")) {
-        const max = Number(filters.basePrice.replace("under-", ""));
-        filteredData = filteredData.filter((p) => price(p) < max);
-      } else if (filters.basePrice.startsWith("above-")) {
-        const min = Number(filters.basePrice.replace("above-", ""));
-        filteredData = filteredData.filter((p) => price(p) > min);
-      } else {
-        const [minStr, maxStr] = filters.basePrice.split("-");
-        const min = Number(minStr);
-        const max = Number(maxStr);
-        filteredData = filteredData.filter(
-          (p) => price(p) >= min && price(p) <= max,
-        );
-      }
+    if (filters.basePrice) {
+      filteredData = priceFilter(filteredData, filters.basePrice);
     }
     // 4. SORT
     if (sortBy.field) {
@@ -187,7 +172,7 @@ export async function getProductById(productId) {
   }
 }
 
-export async function getProductsByCategoryId(categoryId) {
+export async function getProductsByCategoryId({ categoryId, filters, sortBy }) {
   try {
     // 1. Simulate network latency
     await new Promise((res) => setTimeout(res, 300));
@@ -212,8 +197,30 @@ export async function getProductsByCategoryId(categoryId) {
           previewVariant: prod.previewVariant,
         };
       });
+    // 3. ------------------- FILTERING -------------------
+    let filteredData = enriched;
+    // --- color (multi-select)
+    if (filters.color?.length) {
+      filteredData = filteredData.filter((p) =>
+        p.colors.some((color) => filters.color.includes(color)),
+      );
+    }
+    // --- size (multi-select)
+    if (filters.size?.length) {
+      filteredData = filteredData.filter((p) =>
+        p.sizes.some((size) => filters.size.includes(size)),
+      );
+    }
+    // price range
+    if (filters.basePrice) {
+      filteredData = priceFilter(filteredData, filters.basePrice);
+    }
+    // 4. SORT
+    if (sortBy.field) {
+      filteredData = sortData(filteredData, sortBy.field, sortBy.direction);
+    }
 
-    return { products: enriched };
+    return { products: filteredData };
   } catch (err) {
     console.error("Error loading product:", err);
   }
@@ -263,23 +270,8 @@ export async function getVariants({ filters, page, sortBy }) {
       );
     }
     // price range
-    if (filters.variantPrice && filters.variantPrice !== "all") {
-      const price = (p) => p.variantPrice ?? 0;
-
-      if (filters.variantPrice.startsWith("under-")) {
-        const max = Number(filters.variantPrice.replace("under-", ""));
-        filteredData = filteredData.filter((p) => price(p) < max);
-      } else if (filters.variantPrice.startsWith("above-")) {
-        const min = Number(filters.variantPrice.replace("above-", ""));
-        filteredData = filteredData.filter((p) => price(p) > min);
-      } else {
-        const [minStr, maxStr] = filters.variantPrice.split("-");
-        const min = Number(minStr);
-        const max = Number(maxStr);
-        filteredData = filteredData.filter(
-          (p) => price(p) >= min && price(p) <= max,
-        );
-      }
+    if (filters.variantPrice) {
+      filteredData = priceFilter(filteredData, filters.variantPrice);
     }
     // 4. SORT
     if (sortBy.field) {

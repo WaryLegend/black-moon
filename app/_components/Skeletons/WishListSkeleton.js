@@ -10,21 +10,21 @@ export default function WishListSkeleton() {
         >
           {/* Image placeholder */}
           <div className="relative aspect-square w-25 shrink-0 self-center md:h-auto md:self-auto lg:w-50">
-            <div className="h-full w-full rounded-md bg-gray-200" />
+            <div className="bg-primary-200 h-full w-full rounded-md" />
           </div>
 
           {/* Info placeholder */}
           <div className="flex flex-1 flex-col justify-between gap-2">
             <div className="space-y-2">
-              <div className="h-5 w-3/4 rounded bg-gray-300" />
-              <div className="h-4 w-1/2 rounded bg-gray-200" />
-              <div className="h-4 w-1/3 rounded bg-gray-200" />
-              <div className="h-4 w-1/4 rounded bg-gray-200" />
+              <div className="bg-primary-300 h-5 w-3/4 rounded" />
+              <div className="bg-primary-200 h-4 w-1/2 rounded" />
+              <div className="bg-primary-200 h-4 w-1/3 rounded" />
+              <div className="bg-primary-200 h-4 w-1/4 rounded" />
             </div>
           </div>
 
           {/* Heart icon placeholder */}
-          <div className="absolute top-5 right-1 h-6 w-6 rounded bg-gray-300" />
+          <div className="bg-primary-300 absolute top-5 right-1 h-6 w-6 rounded" />
         </li>
       ))}
     </ul>

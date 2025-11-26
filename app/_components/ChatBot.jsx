@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiMessageCircle, FiSend, FiX } from "react-icons/fi";
+import Button from "@/app/_components/Button";
 
 const mockMessages = [
   { from: "bot", text: "Chào bạn 👋, mình là trợ lý Black & Moon." },
@@ -36,7 +37,7 @@ export default function ChatBot() {
     setTimeout(() => {
       setMessages((prev) => [
         ...prev,
-        { from: "bot", text: "Đây là màu trắng nè bạn 😄" },
+        { from: "bot", text: "Đây là màu trắng nè bạn 🐻‍❄️" },
       ]);
       setTyping(false);
     }, 2000);
@@ -48,7 +49,7 @@ export default function ChatBot() {
       <button
         type="button"
         onClick={() => setOpen((open) => !open)}
-        className="bg-accent-800 text-primary-0 hover:bg-accent-600 fixed right-6 bottom-6 z-40 flex h-10 w-10 items-center justify-center rounded-full shadow-xl transition"
+        className="bg-accent-800 text-primary-0 hover:bg-accent-600 fixed right-6 bottom-24 z-40 flex h-10 w-10 items-center justify-center rounded-full shadow-xl transition lg:bottom-6"
         title={open ? "Close chat" : "Open chat"}
         aria-label="ChatBot assistance"
       >
@@ -63,10 +64,10 @@ export default function ChatBot() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 40 }}
             transition={{ duration: 0.25 }}
-            className="bg-primary-0 fixed right-6 bottom-24 z-40 w-80 overflow-hidden rounded-xl shadow-md sm:w-96"
+            className="bg-primary-50 border-primary-50 fixed right-6 bottom-38 z-40 w-80 overflow-hidden rounded-xl border-1 shadow-md sm:w-96 lg:bottom-20"
           >
             {/* Header */}
-            <header className="bg-accent-800 text-primary-0 p-4">
+            <header className="bg-accent-800 text-primary-0 p-4 shadow-md">
               <h3 className="text-lg font-semibold">Trợ lý Black & Moon</h3>
               <p className="text-sm opacity-70">Sẵn sàng hỗ trợ ✨</p>
             </header>
@@ -84,7 +85,7 @@ export default function ChatBot() {
                   }`}
                 >
                   <div
-                    className={`max-w-[75%] px-3 py-2 text-sm leading-relaxed shadow ${
+                    className={`max-w-[75%] px-3 py-2 text-sm leading-relaxed break-words shadow ${
                       msg.from === "user"
                         ? "bg-accent-700 text-primary-0 rounded-se-lg rounded-l-lg"
                         : "bg-primary-200 text-primary-900 rounded-ss-lg rounded-r-lg"
@@ -108,20 +109,26 @@ export default function ChatBot() {
             </div>
 
             {/* Input section */}
-            <div className="border-primary-200 flex items-center border-t p-3">
-              <input
-                className="border-primary-300 focus:border-accent-700 flex-1 rounded-md border px-3 py-2 text-sm outline-none"
+            <div className="border-primary-200 bg-primary-100 flex items-center border-t p-3">
+              <textarea
+                className="bg-primary-50 border-primary-300 focus:border-accent-700 placeholder:text-primary-500 scrollbar-hidden field-sizing-content max-h-32 min-h-10 flex-1 resize-none overflow-y-auto rounded-md border px-3 py-2 text-sm break-words whitespace-pre-wrap outline-none"
                 placeholder="Nhập tin nhắn..."
                 value={input}
-                onKeyDown={(e) => e.key === "Enter" && sendMessage()}
                 onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) =>
+                  e.key === "Enter" &&
+                  !e.shiftKey &&
+                  (e.preventDefault(), sendMessage())
+                }
+                rows={1}
               />
-              <button
+              <Button
+                icon
                 onClick={sendMessage}
-                className="bg-accent-700 text-primary-0 hover:bg-accent-600 ml-2 rounded-md p-2"
+                className="bg-accent-700 text-primary-50 hover:!bg-accent-600 ml-2 rounded-md p-2"
               >
                 <FiSend size={18} />
-              </button>
+              </Button>
             </div>
           </motion.div>
         )}

@@ -21,7 +21,7 @@ export default function AuthLayout({ children }) {
 
       <main className="absolute top-0 left-0 h-full w-full">
         <div className="relative flex flex-col">
-          <div className="bg-primary-600 pointer-events-none absolute top-0 left-0 h-screen w-screen select-none">
+          <div className="pointer-events-none absolute top-0 left-0 h-screen w-screen bg-gray-950 select-none">
             <Image
               src={bg}
               fill
@@ -34,7 +34,7 @@ export default function AuthLayout({ children }) {
 
           {/* Content */}
           <div className="relative z-10 mx-auto grid w-full max-w-7xl lg:grid-cols-2">
-            <div className="text-primary-50 hidden flex-col items-start justify-center px-4 sm:pl-10 md:pl-20 lg:flex lg:pl-30">
+            <div className="hidden flex-col items-start justify-center px-4 text-gray-50 sm:pl-10 md:pl-20 lg:flex lg:pl-30">
               <h1 className="mt-30 text-5xl font-bold">Xin chào!</h1>
               <p className="mt-4 max-w-md text-xl leading-relaxed">
                 Chào mừng bạn đến với{" "}

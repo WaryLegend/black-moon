@@ -10,11 +10,11 @@ function ProductTable({ products, total }) {
     <Menus>
       <Table columns="0.8fr 2.2fr 1.4fr 1.4fr 1fr">
         <Table.Header>
-          <th></th>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Category</th>
-          <th></th>
+          <div></div>
+          <div>Name</div>
+          <div>Price</div>
+          <div>Category</div>
+          <div></div>
         </Table.Header>
         <Table.Body
           data={products}

@@ -6,6 +6,7 @@ import User from "@/app/_components/User";
 import Cart from "@/app/_components/CartIcon";
 import WishList from "@/app/_components/WishlistIcon";
 import StickyHeaderWrapper from "@/app/_components/StickyHeaderWrapper";
+import ThemeToggleBtn from "@/app/_components/ThemeToggleBtn";
 
 export const metadata = {
   title: {
@@ -20,7 +21,7 @@ export default async function StoreLayout({ children }) {
   const [colors, sizes] = await Promise.all([getColors(), getSizes()]);
 
   return (
-    <div className="bg-primary-50 relative flex min-h-screen flex-col">
+    <div className="bg-primary-100 relative flex min-h-screen flex-col">
       <StickyHeaderWrapper>
         <Header>
           <LogoLink />
@@ -29,6 +30,7 @@ export default async function StoreLayout({ children }) {
             className="flex items-center gap-2.5 sm:gap-4"
             aria-label="User actions"
           >
+            <ThemeToggleBtn />
             <WishList />
             <Cart />
             <User />
@@ -43,7 +45,7 @@ export default async function StoreLayout({ children }) {
           </ColorsAndSizesProvider>
         </div>
       </main>
-      <footer>Footer</footer>
+      {/* <footer>Footer</footer> */}
     </div>
   );
 }

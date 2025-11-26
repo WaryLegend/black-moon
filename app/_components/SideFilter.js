@@ -84,13 +84,13 @@ function SideFilter({ filters }) {
       <Button
         icon
         type="button"
-        className="bg-primary-0 border-accent-400 hover:border-accent-700 group relative m-1 !inline-flex rounded-full border-1 md:m-0"
+        className="hover:border-accent-700 group relative m-1 !inline-flex rounded-full border-1 md:m-0"
         title="Bộ lọc"
         onClick={() => setIsOpenSideFilter(true)}
       >
         <IoFilter className="group-hover:text-accent-700 h-5 w-5 transition-all" />
         {activeFilters > 0 && (
-          <span className="bg-accent-500 absolute top-0 -right-1 flex h-4 w-4 items-center justify-center rounded-full text-[10px] font-bold text-white">
+          <span className="bg-accent-500 absolute top-0 -right-1 flex h-4 w-4 items-center justify-center rounded-full text-[10px] font-bold">
             {activeFilters}
           </span>
         )}
@@ -100,15 +100,15 @@ function SideFilter({ filters }) {
         {/* Faded Overlayer */}
         <div
           onClick={() => setIsOpenSideFilter(false)}
-          className={`bg-primary-800/50 fixed inset-0 transition-opacity ${isOpenSideFilter ? "visible opacity-100" : "invisible opacity-0"}`}
+          className={`fixed inset-0 bg-black/30 backdrop-blur-xs transition-opacity ${isOpenSideFilter ? "visible opacity-100" : "invisible opacity-0"}`}
         />
 
         {/* Sidebar */}
         <aside
-          className={`fixed inset-0 z-10 flex h-full w-full transform flex-col bg-white shadow-lg transition-transform sm:w-md sm:rounded-r-lg ${isOpenSideFilter ? "translate-x-0" : "-translate-x-full"}`}
+          className={`bg-primary-100 fixed inset-0 flex h-full w-full transform flex-col shadow-lg transition-all sm:w-md sm:rounded-r-lg ${isOpenSideFilter ? "translate-x-0" : "-translate-x-full"}`}
         >
           {/* Header */}
-          <div className="border-primary-400 flex items-center justify-between border-b px-4 py-3">
+          <div className="border-primary-400 bg-primary-0 flex items-center justify-between border-b px-4 py-3">
             <h2 className="text-xl font-semibold">
               Bộ lọc {activeFilters ? `(${activeFilters})` : ""}
             </h2>

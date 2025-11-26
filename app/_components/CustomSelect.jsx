@@ -28,6 +28,8 @@ function CustomSelect({
       fontSize: "0.875rem", // text-sm
       fontWeight: 500, // font-medium
       boxShadow: state.isFocused ? "0 0 0 1px var(--color-accent-600)" : "none",
+      backgroundColor: "var(--color-primary-0)",
+      cursor: state.isDisabled ? "not-allowed" : "pointer",
       borderColor: state.isFocused
         ? "var(--color-accent-300)"
         : type === "white"
@@ -47,16 +49,16 @@ function CustomSelect({
         backgroundColor: state.isSelected
           ? "var(--color-accent-600)"
           : state.isFocused
-            ? custom.backgroundColor || "var(--color-accent-100)"
-            : "white",
+            ? custom.color || "var(--color-accent-100)"
+            : custom.backgroundColor || "var(--color-primary-50)",
+
         color: state.isSelected
-          ? "white"
+          ? "var(--color-primary-50)"
           : state.isFocused
             ? state.data.value === "black"
               ? "white"
-              : custom.color
-            : (state.data.value !== "white" && custom.color) ||
-              "var(--color-primary-700)",
+              : custom.backgroundColor
+            : custom.color || "var(--color-primary-700)",
       };
     },
     singleValue: (provided) => {
@@ -70,15 +72,17 @@ function CustomSelect({
       borderRadius: "0.375rem",
       boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
       zIndex: 20,
+      backgroundColor: "var(--color-primary-50)",
+    }),
+    menuList: (provided) => ({
+      ...provided,
+      borderRadius: "0.375rem",
     }),
     multiValueLabel: (provided, state) => {
       const custom = getOptionStyle?.(state.data.value) || {};
       return {
         ...provided,
-        color:
-          state.data.value === "black"
-            ? "white"
-            : custom.color || provided.color,
+        color: custom.color || provided.color,
         backgroundColor: custom.backgroundColor,
       };
     },
@@ -87,9 +91,12 @@ function CustomSelect({
       if (!custom)
         return {
           ...provided,
+          transition: "all 120ms ease",
+          color: "var(--color-gray-600)",
         };
       return {
         ...provided,
+        transition: "all 120ms ease",
         color: custom.color,
         backgroundColor: custom.backgroundColor,
         ":hover": {
@@ -105,6 +112,10 @@ function CustomSelect({
         ? "var(--color-accent-600)"
         : "var(--color-accent-400)",
       "&:hover": { color: "var(--color-accent-600)" },
+      transition: "transform 150ms ease",
+      transform: state.selectProps.menuIsOpen
+        ? "rotate(180deg)"
+        : "rotate(0deg)",
     }),
     indicatorSeparator: () => ({ display: "none" }),
   };

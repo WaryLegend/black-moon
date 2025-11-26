@@ -99,6 +99,8 @@ export const useCartStore = create(
       },
       // user log out
       resetCart: () => set({ items: [], cartId: null, isSynced: false }),
+      // clear cart
+      clearCart: () => set({ items: [] }),
 
       // === DERIVED ===
       // Số loại sản phẩm

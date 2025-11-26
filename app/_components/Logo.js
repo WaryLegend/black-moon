@@ -13,7 +13,7 @@ function Logo({ className = "" }) {
         className="rounded-full shadow-sm"
       />
 
-      <span className="text-primary-300 text-3xl font-bold uppercase text-shadow-sm">
+      <span className="text-primary-600 text-3xl font-bold uppercase text-shadow-sm">
         <span className="text-primary-800 text-4xl">Black</span>&
         <span className="text-accent-500 text-4xl">Moon</span>
       </span>

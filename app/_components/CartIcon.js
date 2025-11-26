@@ -21,7 +21,7 @@ function CartIcon() {
   return (
     <Link
       href="/cart"
-      className="group hover:text-accent-700 relative flex items-center justify-center p-1 transition-all"
+      className="group hover:text-accent-700 hover:bg-primary-100 relative flex items-center justify-center rounded-full p-1 transition-all"
     >
       <MdOutlineShoppingCart className="h-5 w-5 group-hover:hidden" />
       <MdShoppingCart className="hidden h-5 w-5 group-hover:block" />
