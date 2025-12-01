@@ -31,10 +31,10 @@ export default function ProductCost() {
       {/* Sale? */}
       {sale > 0 && (
         <div>
-          <span className="text-xl font-bold text-red-600 lg:text-2xl">
+          <span className="text-xl font-bold text-green-600 lg:text-2xl">
             {formatCurrency(finalPrice)}
           </span>
-          <span className="ml-3 text-red-600">Sale</span>
+          <span className="ml-3 text-green-600">Sale</span>
         </div>
       )}
       {/*New? */}

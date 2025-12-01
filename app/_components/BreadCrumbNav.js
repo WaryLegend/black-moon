@@ -15,7 +15,7 @@ function BreadCrumbNav({ paths }) {
   const { label: groupLabel, href: groupHref } = GROUPS[group];
 
   return (
-    <h1 className="inline-flex text-2xl font-semibold lg:text-3xl">
+    <h1 className="inline-flex text-xl font-semibold md:text-2xl lg:text-3xl">
       <Link
         href={groupHref}
         className="hover:text-accent-700 text-accent-600 flex hover:underline"

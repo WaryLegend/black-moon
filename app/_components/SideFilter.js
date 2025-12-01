@@ -75,7 +75,7 @@ function SideFilter({ filters }) {
       params.set("page", "1");
     }
 
-    router.push(`?${params.toString()}`);
+    router.replace(`?${params.toString()}`, { scroll: false });
     setIsOpenSideFilter(false);
   }, [localFilters, searchParams, filters, router]);
 

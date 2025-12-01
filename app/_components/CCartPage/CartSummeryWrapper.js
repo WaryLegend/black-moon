@@ -1,10 +1,9 @@
 "use client";
-
 import { useIsMobile } from "@/app/_hooks/useIsMobile";
-import SummaryCheckoutBtn from "./SummaryCheckoutBtn";
-import OrderSummary from "./OrderSummary";
+import SummaryCartBtn from "./SummaryCartBtn";
+import CartMenu from "./CartMenu";
 
-function OrderSummaryWrapper() {
+function CartSummeryWrapper() {
   const isMobile = useIsMobile();
 
   return (
@@ -12,13 +11,13 @@ function OrderSummaryWrapper() {
       {/* Desktop  */}
       {!isMobile && (
         <aside>
-          <OrderSummary />
+          <CartMenu />
         </aside>
       )}
       {/* Mobile fixed button */}
-      {isMobile && <SummaryCheckoutBtn />}
+      {isMobile && <SummaryCartBtn />}
     </>
   );
 }
 
-export default OrderSummaryWrapper;
+export default CartSummeryWrapper;

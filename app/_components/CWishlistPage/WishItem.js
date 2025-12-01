@@ -11,7 +11,7 @@ function WishItem({ item }) {
   const finalPrice = variantPrice * (1 - sale / 100);
 
   return (
-    <li className="group rounded-md transition hover:shadow-md">
+    <li className="group hover:bg-primary-100 rounded-md transition hover:shadow-md">
       <Link
         href={url}
         className="relative flex flex-col gap-4 px-2 py-6 sm:flex-row md:gap-6"
@@ -34,8 +34,10 @@ function WishItem({ item }) {
               Màu sắc: {capitalizeFirst(color)}
             </p>
             <p className="text-primary-600 max-sm:text-sm">Kích cỡ: {size}</p>
-            {sale > 0 && <p className="text-sm text-red-600">Sale</p>}
-            <p className={`${sale > 0 ? "text-red-600" : ""} mt-1 font-medium`}>
+            {sale > 0 && <p className="text-sm text-green-600">Sale</p>}
+            <p
+              className={`${sale > 0 ? "text-green-600" : ""} mt-1 font-medium`}
+            >
               {formatCurrency(finalPrice)}
             </p>
             {isNew && <p className="text-primary-600 text-sm">New</p>}

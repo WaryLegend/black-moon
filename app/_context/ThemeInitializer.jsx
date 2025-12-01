@@ -1,10 +1,9 @@
-// app/_components/InitializeDarkMode.tsx
 "use client";
 
 import { useEffect } from "react";
 import { useDarkModeStore } from "@/app/_context/DarkModeStore";
 
-export default function InitializeDarkMode() {
+export default function ThemeInitializer() {
   const { setDarkMode } = useDarkModeStore();
 
   useEffect(() => {

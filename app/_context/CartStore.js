@@ -40,6 +40,7 @@ export const useCartStore = create(
                 quantity: variant.quantity || 1,
                 image: variant.image,
                 url: variant.url,
+                stock: variant.stock,
               },
             ];
         // Update local first (optimistic UI)
@@ -79,6 +80,49 @@ export const useCartStore = create(
           }
         }
       },
+      // get real time stock of an item in cart
+      getItemStock: (id) => {
+        const { items } = get();
+        if (items.length === 0) return;
+        const item = items.find((i) => i.id === id);
+        return item?.stock ?? 0;
+      },
+
+      refreshAllStocks: async () => {
+        const { items } = get();
+        if (items.length === 0) return;
+
+        const variantIds = items.map((i) => i.variantId).join(",");
+
+        try {
+          // const res = await fetch(`/api/products/stock?ids=${variantIds}`);
+          // if (!res.ok) throw new Error("Stock fetch failed");
+          // const stockMap = await res.json();
+
+          let adjusted = false;
+
+          set({
+            items: items.map((item) => {
+              const newStock = stockMap[item.variantId] ?? item.stock;
+              if (newStock < item.stock) adjusted = true;
+
+              if (item.quantity > newStock) {
+                adjusted = true;
+                return { ...item, stock: newStock, quantity: newStock };
+              }
+              return { ...item, stock: newStock };
+            }),
+          });
+
+          if (adjusted) {
+            toast.warn("Một số sản phẩm gần hết hàng, đã điều chỉnh số lượng");
+          }
+        } catch (err) {
+          console.error("refreshAllStocks failed:", err);
+          toast.error("Không thể cập nhật tồn kho");
+        }
+      },
+
       // remove
       removeItem: async (id) => {
         const { items, cartId } = get();
@@ -108,7 +152,13 @@ export const useCartStore = create(
       // Tổng số lượng sản phẩm
       getTotalItems: () =>
         get().items.reduce((sum, item) => sum + item.quantity, 0),
-
+      // Tìm lỗi về số lượng có vượt limit hay stock
+      getHasIssue: (orderLimit = Infinity) =>
+        get().items.some(
+          (item) =>
+            item.quantity > orderLimit || item.quantity > (item.stock || 0),
+        ),
+      // Tổng tiền của giỏ hàng
       getTotalPrice: () =>
         get().items.reduce((total, item) => {
           const price = item.sale

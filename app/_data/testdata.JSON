@@ -1,4 +1,8 @@
 {
+  "settings": {
+    "order_limit": 10
+  },
+
   "sizes": [
     { "id": "xs", "label": "XS" },
     { "id": "s", "label": "S" },
@@ -1433,7 +1437,7 @@
       "sku": "15-BLACK-M",
       "variantPrice": 299000,
       "image": "/t-shirt.jpg",
-      "stock": 20
+      "stock": 9
     },
 
     {

@@ -55,7 +55,7 @@ function Filter({
     // If page param exists
     if (params.get("page")) params.set("page", "1");
 
-    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   }
 
   if (selectProps?.isAsync) {

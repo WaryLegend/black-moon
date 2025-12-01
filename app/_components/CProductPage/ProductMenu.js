@@ -1,4 +1,4 @@
-import QuantityInput from "@/app/_components/QuantityInput";
+import QuantityInput from "@/app/_components/CProductPage/QuantityInput";
 import ProductAvgRates from "./ProductAvgRates";
 import ColorAndSizeRadio from "./ColorAndSizeRadio";
 import AddToWishListWrapper from "./AddToWishListWrapper";
@@ -9,9 +9,9 @@ export default function ProductMenu({ product }) {
   const { name: productName, reviews } = product;
 
   return (
-    <aside className="bg-primary-0 rounded-md">
-      <div className="sticky top-[var(--header-height)] p-5">
-        <div className="grid gap-[4vh]">
+    <aside>
+      <div className="bg-primary-0 sticky top-[var(--header-height)] rounded-md p-5 shadow-md">
+        <div className="grid gap-3 md:gap-4 lg:gap-5">
           <header className="flex items-center">
             <h1 className="mr-auto text-xl font-semibold lg:text-2xl">
               {productName}

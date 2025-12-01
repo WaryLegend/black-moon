@@ -16,7 +16,7 @@ export default function OrderSummary() {
   const finalTotal = totalPrice - discount + shippingFee;
 
   return (
-    <div className="bg-primary-0 rounded-lg p-3 lg:shadow-md">
+    <div className="bg-primary-0 sticky top-[calc(var(--header-height)_+_1px)] rounded-lg p-3 lg:shadow-md">
       <h2 className="mb-4 text-xl font-bold">
         Đơn hàng ({totalItems} sản phẩm)
       </h2>

@@ -2,6 +2,10 @@ import CheckoutHeader from "@/app/_components/CCheckoutPage/CheckoutHeader";
 import CheckoutForm from "@/app/_components/CCheckoutPage/CheckoutForm";
 import OrderSummaryWrapper from "@/app/_components/CCheckoutPage/OrderSummaryWrapper";
 
+export const metadata = {
+  title: "Checkout",
+};
+
 export default function CheckoutPage() {
   // later will be middleware or something handle if user is log in to be able to use /checkout.
   // useEffect(() => {

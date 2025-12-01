@@ -48,7 +48,7 @@ export default function ImageCarousel({ images = [] }) {
       {/* Left Button */}
       <button
         onClick={prevSlide}
-        className="text-primary-0 bg-accent-900/40 absolute top-1/2 left-4 -translate-y-1/2 rounded-full px-3 py-2 transition hover:bg-black/60"
+        className="text-primary-0 bg-accent-700/40 hover:bg-accent-800/60 absolute top-1/2 left-4 -translate-y-1/2 rounded-full px-3 py-2 transition"
         aria-label="Next image"
       >
         ❮
@@ -57,7 +57,7 @@ export default function ImageCarousel({ images = [] }) {
       {/* Right Button */}
       <button
         onClick={nextSlide}
-        className="text-primary-0 bg-accent-900/40 absolute top-1/2 right-4 -translate-y-1/2 rounded-full px-3 py-2 transition hover:bg-black/60"
+        className="text-primary-0 bg-accent-700/40 hover:bg-accent-800/60 absolute top-1/2 right-4 -translate-y-1/2 rounded-full px-3 py-2 transition"
         aria-label="Previous image"
       >
         ❯
@@ -68,9 +68,10 @@ export default function ImageCarousel({ images = [] }) {
         {images.map((_, index) => (
           <button
             key={index}
+            type="button"
             onClick={() => goToSlide(index)}
             className={`h-3 w-3 rounded-full transition-all ${
-              current === index ? "scale-125 bg-white" : "bg-white/50"
+              current === index ? "bg-primary-50 scale-125" : "bg-primary-50/50"
             }`}
             aria-label={`Go to slide ${index + 1}`}
           />

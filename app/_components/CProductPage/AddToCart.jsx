@@ -39,6 +39,7 @@ export default function AddToCart() {
       className="w-full !rounded-full lg:text-2xl"
       aria-label="Add to cart"
       onClick={handleAdd}
+      disabled={!variant?.stock}
     >
       Thêm vào giỏ hàng
     </Button>

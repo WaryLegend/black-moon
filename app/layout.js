@@ -7,12 +7,17 @@ const josefin = Josefin_Sans({
 import "@/app/_styles/globals.css";
 import { Toaster } from "react-hot-toast";
 import ThemeInitializer from "@/app/_context/ThemeInitializer";
+import SettingInitializer from "@/app/_context/SettingInitializer";
+import { getSettings } from "@/app/_lib/apiSettings";
 
 export default async function RootLayout({ children }) {
+  const settings = await getSettings();
+
   return (
     <html lang="vi">
       <body className={`${josefin.className} text-primary-900 antialiased`}>
         <ThemeInitializer />
+        <SettingInitializer settings={settings} />
         {children}
         <Toaster
           position="bottom-center"
@@ -21,7 +26,7 @@ export default async function RootLayout({ children }) {
               duration: 3000,
             },
             error: {
-              duration: 3000,
+              duration: 6000,
             },
             style: {
               fontSize: "16px",
