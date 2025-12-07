@@ -10,7 +10,7 @@ function NoProductsFound({ hasActiveFilters }) {
   // Trường hợp 1: Có sản phẩm nhưng filter ra []
   if (hasActiveFilters) {
     return (
-      <div className="bg-accent-50 rounded-md p-10 text-center">
+      <div className="bg-accent-50 rounded-lg p-10 text-center">
         <p className="text-2xl leading-relaxed font-semibold">
           Không tìm thấy sản phẩm nào phù hợp với bộ lọc của bạn.
           <br className="sm:hidden" />
@@ -21,7 +21,7 @@ function NoProductsFound({ hasActiveFilters }) {
 
   // Trường hợp 2: Danh mục trống từ đầu
   return (
-    <div className="bg-accent-50 rounded-md p-10 text-center">
+    <div className="bg-accent-50 rounded-lg p-10 text-center">
       <p className="text-2xl font-semibold">
         Hiện chưa có sản phẩm nào trong mục này.{" "}
         <button

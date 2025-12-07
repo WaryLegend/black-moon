@@ -4,7 +4,7 @@ import SortBy from "@/app/_components/SortBy";
 
 function CategoryTableOperations() {
   return (
-    <div className="flex items-center gap-6 lg:gap-8">
+    <div className="flex flex-wrap items-center gap-3 md:gap-6 lg:gap-8">
       <TabFilter
         filterField="group"
         options={[{ value: "all", label: "All" }, ...groupOptions]}

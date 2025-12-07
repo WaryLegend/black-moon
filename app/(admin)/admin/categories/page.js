@@ -1,7 +1,7 @@
 import { Suspense } from "react";
-import CategoryTableOperations from "@/app/_components/categories/CategoryTableOperations";
+import CategoryTableOperations from "@/app/_components/Acategories/CategoryTableOperations";
 import Spinner from "@/app/_components/Spinner";
-import CategoryTableAndBtns from "@/app/_components/categories/CategoryTableAndBtns";
+import CategoryTableAndBtns from "@/app/_components/Acategories/CategoryTableAndBtns";
 
 export const metadata = {
   title: "Categories",
@@ -12,10 +12,10 @@ export default async function Page({ searchParams }) {
 
   return (
     <>
-      <div className="flex items-center justify-between">
+      <header className="flex flex-col items-center justify-between lg:flex-row">
         <h1 className="text-3xl font-semibold">All Categories</h1>
         <CategoryTableOperations />
-      </div>
+      </header>
       <div className="flex flex-col gap-4">
         <Suspense
           fallback={

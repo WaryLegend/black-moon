@@ -1,5 +1,5 @@
-import ProductTableAndBtns from "@/app/_components/products/ProductTableAndBtns";
-import ProductTableOperations from "@/app/_components/products/ProductTableOperations";
+import ProductTableAndBtns from "@/app/_components/Aproducts/ProductTableAndBtns";
+import ProductTableOperations from "@/app/_components/Aproducts/ProductTableOperations";
 import SortBy from "@/app/_components/SortBy";
 import Spinner from "@/app/_components/Spinner";
 import { Suspense } from "react";
@@ -13,7 +13,7 @@ export default async function Page({ searchParams }) {
 
   return (
     <>
-      <div>
+      <header>
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-semibold">All products</h1>
           <SortBy
@@ -31,7 +31,7 @@ export default async function Page({ searchParams }) {
         </div>
 
         <ProductTableOperations />
-      </div>
+      </header>
 
       <div className="flex flex-col gap-4">
         <Suspense

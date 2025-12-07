@@ -1744,5 +1744,466 @@
       "image": "/t-shirt.jpg",
       "stock": 55
     }
+  ],
+
+  "users": [
+    {
+      "id": 1,
+      "fullName": "Nguyễn Văn An",
+      "username": "nguyenvanan",
+      "email": "an.nguyen@example.com",
+      "avatar": null,
+      "role": "admin",
+      "mobile": "0901234567",
+      "status": "active",
+      "createdAt": "2025-03-15T08:30:00.000Z",
+      "updatedAt": "2025-11-28T10:22:15.000Z"
+    },
+    {
+      "id": 2,
+      "fullName": "Trần Thị Bé",
+      "username": "tranthibe",
+      "email": "be.tran@company.vn",
+      "avatar": null,
+      "role": "admin",
+      "mobile": "0912345678",
+      "status": "active",
+      "createdAt": "2025-06-20T14:20:00.000Z",
+      "updatedAt": "2025-11-20T09:11:33.000Z"
+    },
+    {
+      "id": 3,
+      "fullName": "Lê Hoàng Công",
+      "username": "lehoangcong",
+      "email": "cong.le@gmail.com",
+      "avatar": null,
+      "role": "staff",
+      "mobile": "0987654321",
+      "status": "disabled",
+      "createdAt": "2024-11-10T09:15:00.000Z",
+      "updatedAt": "2025-10-05T16:45:22.000Z",
+      "disabledReason": "Vi phạm chính sách sử dụng (spam)"
+    },
+    {
+      "id": 4,
+      "fullName": "Phạm Minh Duy",
+      "username": "phamduy99",
+      "email": "duy.pham@outlook.com",
+      "avatar": null,
+      "role": "customer",
+      "mobile": null,
+      "status": "active",
+      "createdAt": "2025-01-05T11:45:00.000Z",
+      "updatedAt": "2025-11-01T13:07:50.000Z"
+    },
+    {
+      "id": 5,
+      "fullName": "Vũ Ngọc Lan",
+      "username": "vulann",
+      "email": "lan.vu@startup.io",
+      "avatar": null,
+      "role": "customer",
+      "mobile": "0938123456",
+      "status": "disabled",
+      "createdAt": "2025-08-01T16:00:00.000Z",
+      "updatedAt": "2025-12-01T08:30:00.000Z",
+      "disabledReason": "Yêu cầu tự khóa tài khoản"
+    },
+    {
+      "id": 6,
+      "fullName": "Đỗ Quang Minh",
+      "username": "doquangminh",
+      "email": "minh.dq@freelancer.com",
+      "avatar": null,
+      "role": "customer",
+      "mobile": "0923456789",
+      "status": "active",
+      "createdAt": "2025-09-12T07:10:00.000Z",
+      "updatedAt": "2025-11-30T22:18:44.000Z"
+    }
+  ],
+
+  "orders": [
+    {
+      "id": "ORD-001",
+      "user": {
+        "id": 6,
+        "username": "doquangminh"
+      },
+      "createdAt": "2025-12-06T10:30:00.000Z",
+      "status": "delivered",
+      "totalAmount": 2097000,
+      "items": [
+        {
+          "variantId": "1",
+          "productId": "1",
+          "productName": "Áo khoác bomber lót lông",
+          "categoryId": "1",
+          "categoryName": "Áo khoác ngoài",
+          "color": "black",
+          "size": "s",
+          "quantity": 2,
+          "price": 799000,
+          "subtotal": 1598000
+        },
+        {
+          "variantId": "16",
+          "productId": "3",
+          "productName": "Đầm midi hoa nhí",
+          "categoryId": "2",
+          "categoryName": "Chân váy & đầm",
+          "color": "hotpink",
+          "size": "s",
+          "quantity": 1,
+          "price": 499000,
+          "subtotal": 499000
+        }
+      ]
+    },
+    {
+      "id": "ORD-002",
+      "user": {
+        "id": 6,
+        "username": "doquangminh"
+      },
+      "createdAt": "2025-12-05T14:20:00.000Z",
+      "status": "delivered",
+      "totalAmount": 1498000,
+      "items": [
+        {
+          "variantId": "10",
+          "productId": "2",
+          "productName": "Áo khoác trench dài",
+          "categoryId": "1",
+          "categoryName": "Áo khoác ngoài",
+          "color": "orange",
+          "size": "xs",
+          "quantity": 1,
+          "price": 1199000,
+          "subtotal": 1199000
+        },
+        {
+          "variantId": "25",
+          "productId": "5",
+          "productName": "Quần âu nữ",
+          "categoryId": "3",
+          "categoryName": "Quần",
+          "color": "black",
+          "size": "m",
+          "quantity": 1,
+          "price": 299000,
+          "subtotal": 299000
+        }
+      ]
+    },
+    {
+      "id": "ORD-003",
+      "user": { "id": 4, "username": "phamduy99" },
+      "createdAt": "2025-12-04T09:15:00.000Z",
+      "status": "shipping",
+      "totalAmount": 899000,
+      "items": [
+        {
+          "variantId": "16",
+          "productId": "3",
+          "productName": "Đầm midi hoa nhí",
+          "categoryId": "2",
+          "categoryName": "Chân váy & đầm",
+          "color": "blue",
+          "size": "m",
+          "quantity": 1,
+          "price": 499000,
+          "subtotal": 499000
+        },
+        {
+          "variantId": "40",
+          "productId": "8",
+          "productName": "Sơ mi nam linen",
+          "categoryId": "6",
+          "categoryName": "Áo sơ mi & áo polo",
+          "color": "white",
+          "size": "l",
+          "quantity": 1,
+          "price": 400000,
+          "subtotal": 400000
+        }
+      ]
+    },
+    {
+      "id": "ORD-004",
+      "user": {
+        "id": 6,
+        "username": "doquangminh"
+      },
+      "createdAt": "2025-12-03T16:45:00.000Z",
+      "status": "packing",
+      "totalAmount": 1597000,
+      "items": [
+        {
+          "variantId": "1",
+          "productId": "1",
+          "productName": "Áo khoác bomber lót lông",
+          "categoryId": "1",
+          "categoryName": "Áo khoác ngoài",
+          "color": "brown",
+          "size": "m",
+          "quantity": 1,
+          "price": 799000,
+          "subtotal": 799000
+        },
+        {
+          "variantId": "50",
+          "productId": "10",
+          "productName": "Áo len cổ lọ",
+          "categoryId": "1",
+          "categoryName": "Áo khoác ngoài",
+          "color": "hotpink",
+          "size": "s",
+          "quantity": 1,
+          "price": 599000,
+          "subtotal": 599000
+        },
+        {
+          "variantId": "25",
+          "productId": "5",
+          "productName": "Quần âu nữ",
+          "categoryId": "3",
+          "categoryName": "Quần",
+          "color": "white",
+          "size": "s",
+          "quantity": 1,
+          "price": 199000,
+          "subtotal": 199000
+        }
+      ]
+    },
+    {
+      "id": "ORD-005",
+      "user": { "id": 4, "username": "phamduy99" },
+      "createdAt": "2025-12-02T11:20:00.000Z",
+      "status": "delivered",
+      "totalAmount": 2297000,
+      "items": [
+        {
+          "variantId": "10",
+          "productId": "2",
+          "productName": "Áo khoác trench dài",
+          "categoryId": "1",
+          "categoryName": "Áo khoác ngoài",
+          "color": "white",
+          "size": "m",
+          "quantity": 1,
+          "price": 1199000,
+          "subtotal": 1199000
+        },
+        {
+          "variantId": "16",
+          "productId": "3",
+          "productName": "Đầm midi hoa nhí",
+          "categoryId": "2",
+          "categoryName": "Chân váy & đầm",
+          "color": "hotpink",
+          "size": "l",
+          "quantity": 1,
+          "price": 499000,
+          "subtotal": 499000
+        },
+        {
+          "variantId": "30",
+          "productId": "6",
+          "productName": "Quần jeans nam",
+          "categoryId": "5",
+          "categoryName": "Quần",
+          "color": "blue",
+          "size": "l",
+          "quantity": 1,
+          "price": 599000,
+          "subtotal": 599000
+        }
+      ]
+    },
+    {
+      "id": "ORD-006",
+      "user": { "id": 4, "username": "phamduy99" },
+      "createdAt": "2025-12-01T13:50:00.000Z",
+      "status": "pending",
+      "totalAmount": 699000,
+      "items": [
+        {
+          "variantId": "50",
+          "productId": "10",
+          "productName": "Áo len cổ lọ",
+          "categoryId": "1",
+          "categoryName": "Áo khoác ngoài",
+          "color": "brown",
+          "size": "m",
+          "quantity": 1,
+          "price": 599000,
+          "subtotal": 599000
+        },
+        {
+          "variantId": "60",
+          "productId": "12",
+          "productName": "Khăn quàng cổ",
+          "categoryId": "1",
+          "categoryName": "Áo khoác ngoài",
+          "color": "black",
+          "size": "onesize",
+          "quantity": 1,
+          "price": 100000,
+          "subtotal": 100000
+        }
+      ]
+    },
+    {
+      "id": "ORD-007",
+      "user": {
+        "id": 6,
+        "username": "doquangminh"
+      },
+      "createdAt": "2025-11-30T08:30:00.000Z",
+      "status": "delivered",
+      "totalAmount": 1398000,
+      "items": [
+        {
+          "variantId": "40",
+          "productId": "8",
+          "productName": "Sơ mi nam linen",
+          "categoryId": "6",
+          "categoryName": "Áo sơ mi & áo polo",
+          "color": "white",
+          "size": "m",
+          "quantity": 2,
+          "price": 400000,
+          "subtotal": 800000
+        },
+        {
+          "variantId": "30",
+          "productId": "6",
+          "productName": "Quần jeans nam",
+          "categoryId": "5",
+          "categoryName": "Quần",
+          "color": "black",
+          "size": "m",
+          "quantity": 1,
+          "price": 598000,
+          "subtotal": 598000
+        }
+      ]
+    },
+    {
+      "id": "ORD-008",
+      "user": {
+        "id": 6,
+        "username": "doquangminh"
+      },
+      "createdAt": "2025-11-29T15:10:00.000Z",
+      "status": "cancelled",
+      "totalAmount": 899000,
+      "items": [
+        {
+          "variantId": "16",
+          "productId": "3",
+          "productName": "Đầm midi hoa nhí",
+          "categoryId": "2",
+          "categoryName": "Chân váy & đầm",
+          "color": "blue",
+          "size": "s",
+          "quantity": 1,
+          "price": 499000,
+          "subtotal": 499000
+        },
+        {
+          "variantId": "50",
+          "productId": "10",
+          "productName": "Áo len cổ lọ",
+          "categoryId": "1",
+          "categoryName": "Áo khoác ngoài",
+          "color": "hotpink",
+          "size": "l",
+          "quantity": 1,
+          "price": 400000,
+          "subtotal": 400000
+        }
+      ]
+    },
+    {
+      "id": "ORD-009",
+      "user": { "id": 4, "username": "phamduy99" },
+      "createdAt": "2025-11-28T10:05:00.000Z",
+      "status": "delivered",
+      "totalAmount": 1297000,
+      "items": [
+        {
+          "variantId": "1",
+          "productId": "1",
+          "productName": "Áo khoác bomber lót lông",
+          "categoryId": "1",
+          "categoryName": "Áo khoác ngoài",
+          "color": "black",
+          "size": "l",
+          "quantity": 1,
+          "price": 799000,
+          "subtotal": 799000
+        },
+        {
+          "variantId": "25",
+          "productId": "5",
+          "productName": "Quần âu nữ",
+          "categoryId": "3",
+          "categoryName": "Quần",
+          "color": "black",
+          "size": "l",
+          "quantity": 1,
+          "price": 299000,
+          "subtotal": 299000
+        },
+        {
+          "variantId": "60",
+          "productId": "12",
+          "productName": "Khăn quàng cổ",
+          "categoryId": "1",
+          "categoryName": "Áo khoác ngoài",
+          "color": "brown",
+          "size": "onesize",
+          "quantity": 1,
+          "price": 100000,
+          "subtotal": 100000
+        }
+      ]
+    },
+    {
+      "id": "ORD-010",
+      "user": { "id": 4, "username": "phamduy99" },
+      "createdAt": "2025-11-27T12:40:00.000Z",
+      "status": "returned",
+      "totalAmount": 1498000,
+      "items": [
+        {
+          "variantId": "10",
+          "productId": "2",
+          "productName": "Áo khoác trench dài",
+          "categoryId": "1",
+          "categoryName": "Áo khoác ngoài",
+          "color": "orange",
+          "size": "m",
+          "quantity": 1,
+          "price": 1199000,
+          "subtotal": 1199000
+        },
+        {
+          "variantId": "40",
+          "productId": "8",
+          "productName": "Sơ mi nam linen",
+          "categoryId": "6",
+          "categoryName": "Áo sơ mi & áo polo",
+          "color": "white",
+          "size": "s",
+          "quantity": 1,
+          "price": 299000,
+          "subtotal": 299000
+        }
+      ]
+    }
   ]
 }

@@ -7,11 +7,11 @@ function CategoryItem({ category }) {
     <li>
       <Link
         href={`/${category.group}/${category.id}`}
-        className="hover:bg-primary-200 flex cursor-pointer items-center gap-2 rounded-md p-2 transition-all hover:shadow"
+        className="hover:bg-primary-200 flex cursor-pointer items-center gap-2 rounded-lg p-2 transition-all hover:shadow"
       >
         <Image
           src={test_img}
-          className="aspect-square rounded-md object-cover"
+          className="aspect-square rounded-lg object-cover"
           alt={`${category.name}'s image`}
           width={40}
           height={40}

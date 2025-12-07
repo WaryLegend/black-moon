@@ -18,7 +18,7 @@ export default function NotFound() {
   const message = getRandomMessage();
 
   return (
-    <div className="flex min-h-full flex-col items-center justify-center p-6 text-center">
+    <div className="bg-primary-100 flex min-h-full flex-col items-center justify-center p-6 text-center">
       <h1 className="text-primary-800 mb-8 text-5xl font-bold text-shadow-2xs">
         404 <span className="text-primary-400">-</span>{" "}
         <span className="text-accent-600">Page Not Found</span>

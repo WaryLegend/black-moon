@@ -11,7 +11,7 @@ export default function Page() {
       <div className="flex items-center justify-between">
         <WishListHeader />
       </div>
-      <section className="border-primary-400 bg-primary-0 rounded-md border-1 px-5 py-2">
+      <section className="border-primary-400 bg-primary-0 rounded-lg border-1 px-5 py-2">
         <WishList />
       </section>
     </div>

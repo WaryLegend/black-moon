@@ -58,3 +58,13 @@ export const PRICES_RANGE = [
 
 // Star ⭐ rating length 5/5, 10/10 ?
 export const STAR_LENGTH = 5;
+
+// Order status
+export const ORDER_STATUS = {
+  pending: { label: "Pending", color: "bg-yellow-100 text-yellow-800" },
+  packing: { label: "Packing", color: "bg-blue-100 text-blue-800" },
+  shipping: { label: "Shipping", color: "bg-purple-100 text-purple-800" },
+  delivered: { label: "Delivered", color: "bg-green-100 text-green-800" },
+  cancelled: { label: "Cancelled", color: "bg-red-100 text-red-800" },
+  returned: { label: "Returned", color: "bg-orange-100 text-orange-800" },
+};

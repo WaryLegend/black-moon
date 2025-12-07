@@ -1,6 +1,6 @@
 import { getCategories } from "@/app/_lib/data-service";
-import AddCategory from "@/app/_components/categories/AddCategory";
-import CategoryTable from "@/app/_components/categories/CategoryTable";
+import AddCategory from "@/app/_components/Acategories/AddCategory";
+import CategoryTable from "@/app/_components/Acategories/CategoryTable";
 
 async function CategoryTableAndBtns({ searchParams }) {
   const page = Number(searchParams.page) || 1;

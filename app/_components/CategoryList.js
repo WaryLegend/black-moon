@@ -25,7 +25,7 @@ async function CategoryList({ group, children }) {
       <li key="limited">
         <Link
           href={`/${group}/limited`}
-          className="hover:bg-primary-200 flex cursor-pointer items-center gap-2 rounded-md p-2 transition-all hover:shadow"
+          className="hover:bg-primary-200 flex cursor-pointer items-center gap-2 rounded-lg p-2 transition-all hover:shadow"
         >
           <div className="bg-primary-100 flex h-10 w-10 flex-col items-center justify-center border-2 text-[8px] font-semibold text-red-600">
             <span>LIMITED</span>
@@ -38,7 +38,7 @@ async function CategoryList({ group, children }) {
       <li key="new">
         <Link
           href={`${group}/new`}
-          className="hover:bg-primary-200 flex cursor-pointer items-center gap-2 rounded-md p-2 transition-all hover:shadow"
+          className="hover:bg-primary-200 flex cursor-pointer items-center gap-2 rounded-lg p-2 transition-all hover:shadow"
         >
           <div className="bg-primary-100 flex h-10 w-10 items-center justify-center border-2 text-xs font-semibold">
             NEW

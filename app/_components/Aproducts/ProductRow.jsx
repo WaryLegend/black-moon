@@ -10,14 +10,12 @@ import Image from "next/image";
 const Field = styled.div`
   font-size: 1rem;
   font-weight: 600;
-  font-family: "Sono";
 `;
 
 const Price = styled.div`
   font-size: 1rem;
   font-weight: 600;
   color: var(--color-accent-600);
-  font-family: "Sono";
 `;
 
 const AllButtons = styled.div`

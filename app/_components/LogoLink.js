@@ -2,12 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "@/public/logo.png";
 
-function LogoLink({ linkTo, className = "" }) {
+function LogoLink({ className = "" }) {
   return (
-    <Link
-      href={linkTo || "/"}
-      className={`z-10 flex items-center gap-2 ${className}`}
-    >
+    <Link href={"/"} className={`z-10 flex items-center ${className}`}>
       <Image
         src={logo}
         height="40"
@@ -17,7 +14,7 @@ function LogoLink({ linkTo, className = "" }) {
         className="rounded-full shadow-sm"
       />
 
-      <span className="text-primary-500 text-sm font-bold uppercase text-shadow-sm">
+      <span className="text-primary-500 ml-2 text-sm font-bold uppercase text-shadow-sm">
         <span className="text-primary-800 text-xl">Black</span>&
         <span className="text-accent-500 text-xl">Moon</span>
       </span>

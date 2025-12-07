@@ -1,5 +1,5 @@
-import VariantTableAndBtns from "@/app/_components/inventory/VariantTableAndBtns";
-import VariantTableOperations from "@/app/_components/inventory/VariantTableOperations";
+import VariantTableAndBtns from "@/app/_components/Ainventory/VariantTableAndBtns";
+import VariantTableOperations from "@/app/_components/Ainventory/VariantTableOperations";
 import SortBy from "@/app/_components/SortBy";
 import Spinner from "@/app/_components/Spinner";
 import { ColorsAndSizesProvider } from "@/app/_context/ColorsAndSizesContext";
@@ -19,7 +19,7 @@ export default async function Page({ searchParams }) {
 
   return (
     <ColorsAndSizesProvider value={{ colors, sizes }}>
-      <div>
+      <header>
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-semibold">All product variants</h1>
           <SortBy
@@ -37,7 +37,7 @@ export default async function Page({ searchParams }) {
         </div>
 
         <VariantTableOperations />
-      </div>
+      </header>
 
       <div className="flex flex-col gap-4">
         <Suspense

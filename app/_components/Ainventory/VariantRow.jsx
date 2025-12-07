@@ -1,5 +1,6 @@
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 import {
+  capitalizeFirst,
   formatCurrency,
   getQuantityTextColor,
   getTextColor,
@@ -14,20 +15,6 @@ import ConfirmDelete from "@/app/_components/ConfirmDelete";
 const Field = styled.div`
   font-size: 1rem;
   font-weight: 600;
-  font-family: "Sono";
-`;
-
-const Size = styled.div`
-  font-size: 1rem;
-  font-weight: 600;
-  text-transform: uppercase;
-`;
-
-const Price = styled.div`
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-accent-600);
-  font-family: "Sono";
 `;
 
 const AllButtons = styled.div`
@@ -49,17 +36,17 @@ function VariantRow({ variant }) {
       />
       <Field>{name}</Field>
       <Field>
-        <p
+        <div
           style={{
             ...getTextColor(color?.id).style,
           }}
-          className="inline rounded-sm px-1 py-0.5 uppercase"
+          className="inline rounded-sm px-2 py-1"
         >
-          {color?.label}
-        </p>
+          {capitalizeFirst(color?.label)}
+        </div>
       </Field>
-      <Size>{size?.label}</Size>
-      <Price>{formatCurrency(variantPrice)}</Price>
+      <Field className="uppercase">{size?.label}</Field>
+      <Field className="text-accent-600">{formatCurrency(variantPrice)}</Field>
       <Field style={{ color: getQuantityTextColor(stock) }}>{stock}</Field>
       <AllButtons>
         <Modal>

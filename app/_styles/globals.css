@@ -66,14 +66,36 @@
 
   --color-gray-600: #101828; /*-gray-900*/
 
+  --color-yellow-100: #733e0a; /*-yellow-900*/
+  --color-yellow-800: #fff085; /*-yellow-200*/
+
+  --color-orange-100: #7c2d12; /*-orange-900*/
+  --color-orange-800: #fed7aa; /*-orange-200*/
+
   --color-red-50: #460809; /*-red-950*/
   --color-red-100: #82181a; /*-red-900*/
   --color-red-200: #9f0712; /*-red-800*/
   --color-red-600: #ff6467; /*-red-400*/
+  --color-red-700: #fda4af; /*-red-300*/
+  --color-red-800: #fecaca; /*-red-200*/
 
   --color-green-100: #0d542b; /*-green-900*/
+  --color-green-200: #166534; /*-green-800*/
   --color-green-600: #05df72; /*-green-400*/
+  --color-green-700: #7bf1a8; /*-green-300*/
   --color-green-800: #b9f8cf; /*-green-200*/
+
+  --color-blue-50: #172554; /*-blue-950*/
+  --color-blue-100: #1e3a8a; /*-blue-900*/
+  --color-blue-200: #1e40af; /*-blue-800*/
+  --color-blue-700: #93c5fd; /*-blue-300*/
+  --color-blue-800: #bfdbfe; /*-blue-200*/
+
+  --color-purple-50: #3c0366; /*-purple-950*/
+  --color-purple-100: #59168b; /*-purple-900*/
+  --color-purple-200: #6e11b0; /*-purple-800*/
+  --color-purple-700: #d8b4fe; /*-purple-300*/
+  --color-purple-800: #f5d0fe; /*-purple-200*/
 
   --default: #ffffff;
 
@@ -141,6 +163,14 @@
   select:focus {
     outline: 2px solid var(--color-accent-600);
     outline-offset: -1px;
+  }
+
+  a:focus:not(:focus-visible),
+  input:focus:not(:focus-visible),
+  button:focus:not(:focus-visible),
+  textarea:focus:not(:focus-visible),
+  select:focus:not(:focus-visible) {
+    outline: none;
   }
 
   button:has(svg) {

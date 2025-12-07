@@ -11,7 +11,7 @@ function SuggestionList({ suggestions = [] }) {
         {suggestions.map((suggest, index) => (
           <li
             key={index}
-            className="group border-primary-200 bg-primary-0 flex cursor-pointer flex-col overflow-hidden rounded-md border shadow-sm transition hover:shadow-md"
+            className="group border-primary-200 bg-primary-0 flex cursor-pointer flex-col overflow-hidden rounded-lg border shadow-sm transition hover:shadow-md"
           >
             {/* Image wrapper */}
             <div className="relative aspect-[4/3] w-full overflow-hidden">

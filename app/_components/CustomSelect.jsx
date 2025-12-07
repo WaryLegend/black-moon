@@ -9,7 +9,6 @@ function CustomSelect({
   value,
   options,
   onChange,
-  type = "default",
   isDisabled = false,
   isClearable = false,
   isLoading = false,
@@ -24,17 +23,15 @@ function CustomSelect({
     control: (provided, state) => ({
       ...provided,
       minWidth: minWidth,
-      borderRadius: "0.375rem", // rounded-md
+      borderRadius: "0.5rem", // rounded-lg
       fontSize: "0.875rem", // text-sm
       fontWeight: 500, // font-medium
       boxShadow: state.isFocused ? "0 0 0 1px var(--color-accent-600)" : "none",
       backgroundColor: "var(--color-primary-0)",
       cursor: state.isDisabled ? "not-allowed" : "pointer",
       borderColor: state.isFocused
-        ? "var(--color-accent-300)"
-        : type === "white"
-          ? "var(--color-accent-200)"
-          : "var(--color-accent-300)",
+        ? "var(--color-accent-400)"
+        : "var(--color-accent-300)",
       "&:hover": {
         borderColor: "var(--color-accent-700)",
       },
@@ -69,14 +66,14 @@ function CustomSelect({
     },
     menu: (provided) => ({
       ...provided,
-      borderRadius: "0.375rem",
+      borderRadius: "0.5rem",
       boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
       zIndex: 20,
       backgroundColor: "var(--color-primary-50)",
     }),
     menuList: (provided) => ({
       ...provided,
-      borderRadius: "0.375rem",
+      borderRadius: "0.5rem",
     }),
     multiValueLabel: (provided, state) => {
       const custom = getOptionStyle?.(state.data.value) || {};

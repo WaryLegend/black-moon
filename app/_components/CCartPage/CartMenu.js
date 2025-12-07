@@ -20,10 +20,10 @@ function CartMenu() {
   const discount = (totalPrice * voucher) / 100;
 
   return (
-    <div className="bg-primary-0 sticky top-[calc(var(--header-height)_+_1px)] rounded-md p-3 lg:shadow-md">
+    <div className="bg-primary-0 sticky top-[calc(var(--header-height)_+_1px)] rounded-lg p-3 lg:shadow-md">
       <div className="grid gap-[2vh]">
         {/* Order info */}
-        <div className="border-primary-400 grid gap-5 rounded-md border p-5 lg:gap-8">
+        <div className="border-primary-400 grid gap-5 rounded-lg border p-5 lg:gap-8">
           {/* Order header */}
           <h1 className="text-lg font-bold uppercase lg:text-xl">
             Tổng đơn hàng | {totalItems} sản phẩm

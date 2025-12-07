@@ -13,7 +13,7 @@ export async function generateMetadata({ params }) {
   const { category } = await getCategoryById(categoryId);
 
   return {
-    title: `${category?.name}` ?? "Not Found",
+    title: category?.name ?? "Not Found",
   };
 }
 

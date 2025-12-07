@@ -26,7 +26,7 @@ export default function ImageCarousel({ images = [] }) {
   const prevSlide = () => goToSlide((current - 1 + length) % length);
 
   return (
-    <div className="relative aspect-square w-full overflow-hidden rounded-sm md:aspect-[16/7] lg:aspect-[8/4]">
+    <div className="relative aspect-square w-full overflow-hidden rounded-lg md:aspect-[16/7] lg:aspect-[8/4]">
       {/* Slides */}
       <div
         className="flex h-full w-full transition-transform duration-500 ease-in-out"

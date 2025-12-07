@@ -2,6 +2,7 @@ import testdata from "@/app/_data/testdata.JSON";
 import { groupLabels, PAGE_SIZE } from "@/app/_utils/constants";
 import { priceFilter, sortData } from "@/app/_utils/helpers";
 
+// get all categories (no conditions)
 export async function getAllCategories() {
   try {
     await new Promise((res) => setTimeout(res, 300));
@@ -15,6 +16,7 @@ export async function getAllCategories() {
   }
 }
 
+// get category by id
 export async function getCategoryById(id) {
   try {
     await new Promise((res) => setTimeout(res, 300));
@@ -28,6 +30,7 @@ export async function getCategoryById(id) {
   }
 }
 
+// get category by group
 export async function getCategoryByGroup(group) {
   try {
     await new Promise((res) => setTimeout(res, 300));
@@ -41,7 +44,7 @@ export async function getCategoryByGroup(group) {
   }
 }
 
-// get all categories by filters, order by and page
+// get categories by filters, order by and page
 export async function getCategories({ filters, page, sortBy }) {
   try {
     //1. Simulate network latency
@@ -68,6 +71,7 @@ export async function getCategories({ filters, page, sortBy }) {
   }
 }
 
+// get all products (no conditions)
 export async function getAllProducts() {
   try {
     await new Promise((res) => setTimeout(res, 300));
@@ -79,7 +83,7 @@ export async function getAllProducts() {
   }
 }
 
-// get all Products by filters, order by and page
+// get products by filters, order by and page
 export async function getProducts({ filters, page, sortBy }) {
   try {
     // 1. Simulate network latency
@@ -172,6 +176,7 @@ export async function getProductById(productId) {
   }
 }
 
+// get products by category
 export async function getProductsByCategoryId({ categoryId, filters, sortBy }) {
   try {
     // 1. Simulate network latency
@@ -226,7 +231,7 @@ export async function getProductsByCategoryId({ categoryId, filters, sortBy }) {
   }
 }
 
-// get all product's variants by filters, order by and page
+// get product's variants by filters, order by and page
 export async function getVariants({ filters, page, sortBy }) {
   try {
     // 1. Simulate network latency
@@ -327,6 +332,37 @@ export async function searchProducts(query = "") {
   }));
 }
 
+// get users by filters, order by and page
+export async function getUsers({ filters, page, sortBy }) {
+  try {
+    //1. Simulate network latency
+    await new Promise((res) => setTimeout(res, 300));
+    const users = testdata.users || [];
+    //2.------------------- FILTERING -------------------
+    let filteredData = users;
+    // role (single-select)
+    if (filters.role && filters.role !== "all") {
+      filteredData = filteredData.filter((c) => c.role === filters.role);
+    }
+    // status (single-select)
+    if (filters.status && filters.status !== "all") {
+      filteredData = filteredData.filter((c) => c.status === filters.status);
+    }
+    // 3. SORT
+    if (sortBy.field) {
+      filteredData = sortData(filteredData, sortBy.field, sortBy.direction);
+    }
+    // 3.------------------- PAGINATION -------------------
+    const total = filteredData.length;
+    const start = (page - 1) * PAGE_SIZE;
+    const pageData = filteredData.slice(start, start + PAGE_SIZE);
+
+    return { data: pageData, total };
+  } catch (err) {
+    console.error("Error loading users:", err);
+  }
+}
+
 // get cart by userId
 export async function getCartByUserId(userId) {
   // const res = await fetch(`/api/cart/${userId}`, { cache: "no-store" });
@@ -340,4 +376,58 @@ export async function updateCart(userId, items) {
   //   method: "POST",
   //   body: JSON.stringify(items),
   // });
+}
+
+// get all orders
+export async function getAllOrders() {
+  try {
+    await new Promise((res) => setTimeout(res, 300));
+    const orders = testdata.orders || [];
+    // later change to this
+    // const res = await fetch(`${process.env.API_URL}/orders`);
+    // const orders = await res.json();
+    return orders;
+  } catch (err) {
+    console.error("Error loading orders:", err);
+    return [];
+  }
+}
+
+// get orders after an ISO date (inclusive) - used by dashboard queries
+export async function getOrdersAfterDate(dateISO) {
+  try {
+    await new Promise((res) => setTimeout(res, 300));
+    const all = testdata.orders || [];
+    const start = new Date(dateISO);
+    const end = new Date();
+
+    const filtered = all.filter((o) => {
+      try {
+        const d = new Date(o.createdAt);
+        return d >= start && d <= end;
+      } catch (e) {
+        return false;
+      }
+    });
+
+    return filtered;
+  } catch (err) {
+    console.error("Error loading orders by date:", err);
+    return [];
+  }
+}
+
+// get most recent N orders (default 5)
+export async function getRecentOrdersApi(limit = 5) {
+  try {
+    await new Promise((res) => setTimeout(res, 300));
+    const all = testdata.orders || [];
+    const sorted = all
+      .slice()
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    return sorted.slice(0, limit);
+  } catch (err) {
+    console.error("Error loading recent orders:", err);
+    return [];
+  }
 }

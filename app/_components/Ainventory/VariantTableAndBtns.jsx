@@ -1,6 +1,6 @@
 import { getVariants } from "@/app/_lib/data-service";
-import AddVariant from "@/app/_components/inventory/AddVariant";
-import VariantTable from "@/app/_components/inventory/VariantTable";
+import AddVariant from "@/app/_components/Ainventory/AddVariant";
+import VariantTable from "@/app/_components/Ainventory/VariantTable";
 
 async function VariantTableAndBtns({ searchParams }) {
   const page = Number(searchParams.page) || 1;

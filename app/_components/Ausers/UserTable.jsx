@@ -2,25 +2,26 @@
 
 import Table from "@/app/_components/Table";
 import Menus from "@/app/_components/Menus";
-import VariantRow from "./VariantRow";
 import Pagination from "@/app/_components/Pagination";
+import UserRow from "./UserRow";
 
-function VariantTable({ variants, total }) {
+function UserTable({ users, total }) {
   return (
     <Menus>
-      <Table columns="0.8fr 1.5fr 0.8fr 0.5fr 1fr 1.2fr 1fr">
+      <Table columns="0.5fr 2fr 1.8fr 2.2fr 1.2fr 0.8fr 1.2fr 1fr">
         <Table.Header>
           <div></div>
           <div>Name</div>
-          <div>Color</div>
-          <div>Size</div>
-          <div>Price</div>
-          <div>Stock</div>
+          <div>Username</div>
+          <div>Email address</div>
+          <div>Mobile</div>
+          <div>Status</div>
+          <div>Created</div>
           <div></div>
         </Table.Header>
         <Table.Body
-          data={variants}
-          render={(vari) => <VariantRow variant={vari} key={`${vari.sku}`} />}
+          data={users}
+          render={(user) => <UserRow user={user} key={user.id} />}
         />
         <Table.Footer>
           <Pagination count={total} />
@@ -30,4 +31,4 @@ function VariantTable({ variants, total }) {
   );
 }
 
-export default VariantTable;
+export default UserTable;

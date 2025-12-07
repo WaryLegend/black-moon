@@ -4,6 +4,12 @@ import namesPlugin from "colord/plugins/names";
 import a11yPlugin from "colord/plugins/a11y";
 extend([mixPlugin, namesPlugin, a11yPlugin]);
 
+import { format, formatDistance, parseISO } from "date-fns";
+import { vi } from "date-fns/locale";
+import { toZonedTime } from "date-fns-tz";
+
+const TZ = "Asia/Ho_Chi_Minh";
+
 // set first letter to captital
 export function capitalizeFirst(str) {
   if (!str) return "";
@@ -27,6 +33,34 @@ export const formatCurrency = (value) =>
   new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(
     value,
   );
+
+export function fCurrencyShorten(value) {
+  if (!value) return "0 đ";
+  const abs = Math.abs(value);
+
+  if (abs >= 1e9) return (value / 1e9).toFixed(1).replace(".0", "") + " tỷ ₫";
+  if (abs >= 1e6)
+    return (value / 1e6).toFixed(abs >= 1e7 ? 0 : 1).replace(".0", "") + "tr ₫";
+  // if (abs >= 1e3) return Math.round(value / 1e3) + "k ₫";
+
+  return new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  }).format(value);
+}
+
+export const formatNumber = (num, suffix = "") => {
+  if (typeof num !== "number" || isNaN(num)) return "";
+
+  if (num >= 1e9)
+    return `${(num / 1e9).toFixed(2).replace(/\.?0+$/, "")}tỷ${suffix}`;
+  if (num >= 1e6)
+    return `${(num / 1e6).toFixed(2).replace(/\.?0+$/, "")}tr${suffix}`;
+  if (num >= 1e3)
+    return `${(num / 1e3).toFixed(2).replace(/\.?0+$/, "")}k${suffix}`;
+
+  return `${num}${suffix}`;
+};
 
 export function getQuantityTextColor(value) {
   const TEXT_COLORS = {
@@ -152,4 +186,46 @@ export function priceFilter(items, priceFilterValue) {
     }
   }
   return items;
+}
+
+// date formatter
+export const fDateTime = (dateString) =>
+  format(toZonedTime(parseISO(dateString), TZ), "dd-MM-yyyy HH:mm:ss", {
+    locale: vi,
+  });
+// get date distance (3 days ago, yesterday, 10 ngày trước,...)
+export const fDateDistance = (dateString) =>
+  formatDistance(toZonedTime(parseISO(dateString), TZ), new Date(), {
+    addSuffix: true,
+    locale: vi,
+  });
+
+// phone number format
+export const formatMobile = (mobile) => {
+  if (!mobile) return null;
+  // Xóa hết ký tự không phải số
+  const cleaned = mobile.replace(/\D/g, "");
+  // Trường hợp Việt Nam: 10 hoặc 11 số
+  if (cleaned.length === 10) {
+    return cleaned.replace(/(\d{4})(\d{3})(\d{3})/, "$1.$2.$3");
+    // 0901234567 → 0901.234.567
+  }
+  if (cleaned.length === 11) {
+    return cleaned.replace(/(\d{1})(\d{4})(\d{3})(\d{3})/, "$1 $2.$3.$4");
+    // 84901234567 → 84 901.234.567
+  }
+  // Nếu lạ quá thì trả nguyên bản có dấu chấm mỗi 3–4 số
+  return cleaned.replace(/(\d{3,4})(?=\d)/g, "$1.").replace(/\.$/, "");
+};
+
+// apply role style
+export function getRoleStyle(role) {
+  const roles = {
+    admin: "bg-purple-50 text-purple-800 border-purple-200",
+    staff: "bg-blue-50 text-blue-800 border-blue-200",
+  };
+  return (
+    roles[role?.toLowerCase()] ||
+    "bg-primary-200 text-primary-800 border-primary-300"
+  );
 }

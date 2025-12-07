@@ -29,7 +29,7 @@ function CartList() {
   return (
     <div className="flex flex-col gap-4">
       {problematicCount > 0 && (
-        <div className="sticky top-[calc(var(--header-height)_+_1px)] z-10 rounded-md border border-red-200 bg-red-50 p-4 text-red-600 shadow-md">
+        <div className="sticky top-[calc(var(--header-height)_+_1px)] z-10 rounded-lg border border-red-200 bg-red-50 p-4 text-red-600 shadow-md">
           <p className="font-medium">
             Có {problematicCount} sản phẩm không còn sẵn trong giỏ hàng của bạn.
           </p>

@@ -1,5 +1,5 @@
-import AddProduct from "@/app/_components/products/AddProduct";
-import ProductTable from "@/app/_components/products/ProductTable";
+import AddProduct from "@/app/_components/Aproducts/AddProduct";
+import ProductTable from "@/app/_components/Aproducts/ProductTable";
 import { getProducts } from "@/app/_lib/data-service";
 
 async function ProductTableAndBtns({ searchParams }) {

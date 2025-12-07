@@ -111,7 +111,7 @@ export default function ChatBot() {
             {/* Input section */}
             <div className="border-primary-200 bg-primary-100 flex items-center border-t p-3">
               <textarea
-                className="bg-primary-50 border-primary-300 focus:border-accent-700 placeholder:text-primary-500 scrollbar-hidden field-sizing-content max-h-32 min-h-10 flex-1 resize-none overflow-y-auto rounded-md border px-3 py-2 text-sm break-words whitespace-pre-wrap outline-none"
+                className="bg-primary-50 border-primary-300 focus:border-accent-700 placeholder:text-primary-500 scrollbar-hidden field-sizing-content max-h-32 min-h-10 flex-1 resize-none overflow-y-auto rounded-lg border px-3 py-2 text-sm break-words whitespace-pre-wrap outline-none"
                 placeholder="Nhập tin nhắn..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -125,7 +125,7 @@ export default function ChatBot() {
               <Button
                 icon
                 onClick={sendMessage}
-                className="bg-accent-700 text-primary-50 hover:!bg-accent-600 ml-2 rounded-md p-2"
+                className="bg-accent-700 text-primary-50 hover:!bg-accent-600 ml-2 rounded-lg p-2"
               >
                 <FiSend size={18} />
               </Button>

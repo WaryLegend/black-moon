@@ -10,7 +10,7 @@ export default function ProductMenu({ product }) {
 
   return (
     <aside>
-      <div className="bg-primary-0 sticky top-[var(--header-height)] rounded-md p-5 shadow-md">
+      <div className="bg-primary-0 sticky top-[var(--header-height)] rounded-lg p-5 shadow-md">
         <div className="grid gap-3 md:gap-4 lg:gap-5">
           <header className="flex items-center">
             <h1 className="mr-auto text-xl font-semibold lg:text-2xl">

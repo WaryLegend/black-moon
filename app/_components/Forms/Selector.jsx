@@ -7,7 +7,7 @@ export default function Selector({
 }) {
   return (
     <select
-      className={`border-primary-300 bg-primary-50 rounded-md border px-3 py-2 font-sans shadow-sm ${className}`}
+      className={`border-primary-300 bg-primary-50 rounded-lg border px-3 py-2 font-sans shadow-sm ${className}`}
       {...props}
     >
       <option value={type === "number" ? 0 : ""} className="text-primary-400">

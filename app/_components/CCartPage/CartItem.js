@@ -17,8 +17,8 @@ function CartItem({ item }) {
   return (
     <li className="[&:has(.group:hover)]:bg-primary-200 relative flex flex-row items-center gap-4 px-2 py-6 transition-all md:gap-6 [&:has(.group:hover)]:shadow-sm">
       {/* Image */}
-      <Link href={url} className="group w-35 rounded-md hover:shadow-md">
-        <div className="relative aspect-[5/6] w-full shrink-0 self-center overflow-hidden rounded-md md:h-auto">
+      <Link href={url} className="group w-35 rounded-lg hover:shadow-md">
+        <div className="relative aspect-[5/6] w-full shrink-0 self-center overflow-hidden rounded-lg md:h-auto">
           <Image
             src={image}
             alt={name}

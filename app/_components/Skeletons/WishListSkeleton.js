@@ -10,7 +10,7 @@ export default function WishListSkeleton() {
         >
           {/* Image placeholder */}
           <div className="relative aspect-square w-25 shrink-0 self-center md:h-auto md:self-auto lg:w-50">
-            <div className="bg-primary-200 h-full w-full rounded-md" />
+            <div className="bg-primary-200 h-full w-full rounded-lg" />
           </div>
 
           {/* Info placeholder */}

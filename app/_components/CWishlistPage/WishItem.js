@@ -11,13 +11,13 @@ function WishItem({ item }) {
   const finalPrice = variantPrice * (1 - sale / 100);
 
   return (
-    <li className="group hover:bg-primary-100 rounded-md transition hover:shadow-md">
+    <li className="group hover:bg-primary-100 rounded-lg transition hover:shadow-md">
       <Link
         href={url}
         className="relative flex flex-col gap-4 px-2 py-6 sm:flex-row md:gap-6"
       >
         {/* Image */}
-        <div className="relative aspect-square w-50 shrink-0 self-center overflow-hidden rounded-md md:aspect-[5/6] md:h-auto md:self-auto">
+        <div className="relative aspect-square w-50 shrink-0 self-center overflow-hidden rounded-lg md:aspect-[5/6] md:h-auto md:self-auto">
           <Image
             src={image}
             alt={name}

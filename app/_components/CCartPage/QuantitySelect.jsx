@@ -28,7 +28,7 @@ function QuantitySelect({ id, quantity }) {
         id={`quantity-${id}`}
         value={quantity}
         onChange={(e) => updateQuantity(id, Number(e.target.value))}
-        className="border-primary-400 bg-primary-0 rounded-md border px-2 py-1 text-sm font-medium transition-all"
+        className="border-primary-400 bg-primary-0 rounded-lg border px-2 py-1 text-sm font-medium transition-all"
       >
         {Array.from(
           { length: quantity > maxAllowed ? quantity : maxAllowed },

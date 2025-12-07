@@ -1,9 +1,3 @@
-"use client";
-
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
-
 import { FaTshirt, FaUsers, FaTicketAlt } from "react-icons/fa";
 import { LuLayoutDashboard } from "react-icons/lu";
 import {
@@ -11,6 +5,7 @@ import {
   MdOutlineInventory2,
   MdOutlineShoppingCart,
 } from "react-icons/md";
+import AdSideNavItem from "./AdSideNavItem";
 
 const ADMIN_ROOT = "/admin";
 
@@ -53,33 +48,12 @@ const navLinks = [
 ];
 
 function AdSideNavList() {
-  const pathname = usePathname();
-
   return (
-    <nav>
-      <ul className="text-primary-900 flex h-full shrink-0 flex-col gap-2 text-sm lg:text-lg">
-        {navLinks.map((link) => {
-          const isActive =
-            pathname === link.href || pathname.startsWith(link.href + "/");
-          return (
-            <li key={link.name} className="relative z-10">
-              <Link
-                className={`flex items-center gap-4 rounded-md border-2 border-transparent px-5 py-3 font-semibold transition-colors hover:underline ${isActive ? "text-primary-50" : "hover:scale-104"}`}
-                href={link.href}
-              >
-                {link.icon}
-                <p className="whitespace-nowrap">{link.name}</p>
-              </Link>
-              {isActive && (
-                <motion.div
-                  layoutId="activeLink" // smooth shared layout animation
-                  className="border-accent-500 bg-accent-600 absolute inset-0 -z-[1] rounded-md border-2 shadow-md"
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                />
-              )}
-            </li>
-          );
-        })}
+    <nav className="w-full flex-1">
+      <ul className="text-primary-900 flex h-full shrink-0 flex-col gap-2">
+        {navLinks.map((link) => (
+          <AdSideNavItem key={link.name} link={link} />
+        ))}
       </ul>
     </nav>
   );

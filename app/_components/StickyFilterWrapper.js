@@ -32,7 +32,7 @@ export default function StickyFilterWrapper({ children }) {
   return (
     <div
       ref={filterRef}
-      className="data-[sticky=true]:md:bg-primary-0/90 sticky top-[calc(var(--header-height)_+_1px)] z-10 rounded-md transition duration-200 md:size-fit md:px-2 data-[sticky=true]:md:self-center data-[sticky=true]:md:shadow-sm"
+      className="data-[sticky=true]:md:bg-primary-0/90 sticky top-[calc(var(--header-height)_+_1px)] z-10 rounded-lg transition duration-200 md:size-fit md:px-2 data-[sticky=true]:md:self-center data-[sticky=true]:md:shadow-sm"
       data-sticky="false"
     >
       {children}

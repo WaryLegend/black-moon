@@ -1,15 +1,22 @@
 import Button from "@/app/_components/Button";
 
-function ConfirmDelete({ resourceName, onConfirm, disabled, onCloseModal }) {
+function ConfirmDelete({
+  actionName,
+  resourceName,
+  onConfirm,
+  disabled,
+  onCloseModal,
+}) {
   return (
-    <div className="flex w-xl flex-col gap-3">
+    <div className="flex max-w-xl flex-col gap-3">
       <h3 className="text-2xl font-medium">
-        Xóa <span className="font-bold"> {resourceName}</span>
+        {actionName || "Xóa"} <span className="font-bold">{resourceName}</span>
       </h3>
 
-      <p className="text-grey-500 mb-3">
-        Bạn có chắc chắn muốn xóa <b>{resourceName}</b> vĩnh viễn không? Hành
-        động này không thể hoàn tác.
+      <p className="text-primary-800 mb-3">
+        Bạn có chắc chắn muốn{" "}
+        <span className="lowercase">{actionName || "xóa"}</span>{" "}
+        <b>{resourceName}</b> vĩnh viễn không? Hành động này không thể hoàn tác.
       </p>
 
       <div className="flex justify-end gap-3">

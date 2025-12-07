@@ -1,7 +1,7 @@
 export default function CartMenuSkeleton() {
   return (
     <div className="animate-pulse">
-      <div className="bg-primary-0 sticky top-[var(--header-height)] space-y-3 rounded-md p-3">
+      <div className="bg-primary-0 sticky top-[var(--header-height)] space-y-3 rounded-lg p-3">
         {/* Header */}
         <div className="bg-primary-300 h-6 w-[60%] rounded" />
         {/* Extras */}

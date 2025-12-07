@@ -31,7 +31,7 @@ function ProductItem({ product }) {
     : null;
 
   return (
-    <li className="group border-primary-200 bg-primary-0 flex cursor-pointer flex-col overflow-hidden rounded-md border shadow-sm transition hover:shadow-md">
+    <li className="group border-primary-200 bg-primary-0 flex cursor-pointer flex-col overflow-hidden rounded-lg border shadow-sm transition hover:shadow-md">
       <Link href={`${pathname}/${id}`}>
         {/* Image wrapper */}
         <div className="relative aspect-[3/4] w-full overflow-hidden">

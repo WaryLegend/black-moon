@@ -1,14 +1,8 @@
-"use client";
-
-import { useSidebar } from "@/app/_context/SidebarContext";
-
 function AdSideNavigation({ children }) {
-  const { isOpen } = useSidebar();
-
   return (
     <aside
       style={{ gridRow: "1 / -1" }}
-      className={`bg-primary-50 flex shrink-0 flex-col items-center gap-10 overflow-hidden py-5 transition-all duration-300 ease-in-out ${isOpen ? "w-54 lg:w-64" : "w-0 opacity-0"}`}
+      className={`bg-primary-50 z-1 flex flex-col items-center gap-10 px-2 py-5 shadow-md`}
     >
       {children}
     </aside>

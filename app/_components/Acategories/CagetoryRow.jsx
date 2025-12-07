@@ -10,7 +10,6 @@ import { groupLabels } from "@/app/_utils/constants";
 const Field = styled.div`
   font-size: 1rem;
   font-weight: 600;
-  font-family: "Sono";
 `;
 
 const AllButtons = styled.div`

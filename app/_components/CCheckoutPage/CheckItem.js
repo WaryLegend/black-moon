@@ -21,9 +21,9 @@ function CheckItem({ item }) {
       {/* Image */}
       <Link
         href={url}
-        className="group w-20 rounded-md transition hover:shadow-md"
+        className="group w-20 rounded-lg transition hover:shadow-md"
       >
-        <div className="relative aspect-[5/6] w-full shrink-0 self-center overflow-hidden rounded-md md:self-auto">
+        <div className="relative aspect-[5/6] w-full shrink-0 self-center overflow-hidden rounded-lg md:self-auto">
           <Image
             src={image}
             alt={name}
@@ -60,7 +60,7 @@ function CheckItem({ item }) {
               id={`quantity-${id}`}
               value={quantity}
               onChange={(e) => updateQuantity(id, Number(e.target.value))}
-              className="border-primary-400 bg-primary-0 rounded-md border px-2 py-1 text-sm font-medium transition-all"
+              className="border-primary-400 bg-primary-0 rounded-lg border px-2 py-1 text-sm font-medium transition-all"
             >
               {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
                 <option
