@@ -1,7 +1,7 @@
 "use client";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { useState, useRef, useEffect } from "react";
-import { useOrdersByDateRange } from "@/app/_hooks/useOrdersByDateRange";
+import { useOrdersByDateRange } from "@/app/_components/Adashboard/useOrdersByDateRange";
 import { useDarkModeStore } from "@/app/_context/DarkModeStore";
 import ChartTypeToggle from "./ChartTypeToggle";
 import CustomLegend from "./CustomLegend";

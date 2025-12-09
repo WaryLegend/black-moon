@@ -1,22 +1,30 @@
+"use client";
+
+import { useGetProducts } from "./useGetProducts";
 import AddProduct from "@/app/_components/Aproducts/AddProduct";
 import ProductTable from "@/app/_components/Aproducts/ProductTable";
-import { getProducts } from "@/app/_lib/data-service";
+import Spinner from "@/app/_components/Spinner";
 
-async function ProductTableAndBtns({ searchParams }) {
+function ProductTableAndBtns({ searchParams }) {
   const page = Number(searchParams.page) || 1;
   const { filters, sortBy } = parseQueryParams(searchParams);
 
-  const { data: products, total } = await getProducts({
+  const { isLoading, products, total } = useGetProducts({
     page,
     filters,
     sortBy,
   });
 
+  if (isLoading)
+    return (
+      <Spinner color="var(--color-accent-600)" className="my-10 self-center" />
+    );
+
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <ProductTable products={products} total={total} />
       <AddProduct />
-    </>
+    </div>
   );
 }
 
@@ -35,7 +43,7 @@ function parseQueryParams(searchParams) {
   if (basePrice) filters.basePrice = basePrice;
 
   // Sort by
-  const sort = searchParams.sortBy;
+  const sort = searchParams.sortBy || "createdAt-desc";
   if (sort) {
     const [field, direction] = sort.split("-");
     sortBy.field = field;

@@ -12,8 +12,8 @@ function CategoryTableOperations() {
 
       <SortBy
         options={[
-          { value: "createdDate-desc", label: "Date (recent first)" },
-          { value: "createdDate-asc", label: "Date (earlier first)" },
+          { value: "createdAt-desc", label: "Date (recent first)" },
+          { value: "createdAt-asc", label: "Date (earlier first)" },
           { value: "name-asc", label: "Name (A-Z)" },
           { value: "name-desc", label: "Name (Z-A)" },
           { value: "group-asc", label: "Group (A-Z)" },

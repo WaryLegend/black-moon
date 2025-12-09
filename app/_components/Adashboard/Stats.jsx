@@ -4,7 +4,7 @@ import { FaBoxOpen, FaUsers } from "react-icons/fa";
 import { HiOutlineBanknotes } from "react-icons/hi2";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { fCurrencyShorten, formatNumber } from "@/app/_utils/helpers";
-import { useOrdersByDateRange } from "@/app/_hooks/useOrdersByDateRange";
+import { useOrdersByDateRange } from "./useOrdersByDateRange";
 import Stat from "./Stat";
 
 const iconColors = {
@@ -70,7 +70,6 @@ function Stats() {
         icon={<FaUsers className="h-8 w-8 lg:h-10 lg:w-10" />}
         color={iconColors["default"]}
         formattingFn={(num) => formatNumber(num)}
-        isLoading={isLoading}
       />
     </div>
   );

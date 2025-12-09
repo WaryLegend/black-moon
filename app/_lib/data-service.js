@@ -418,7 +418,7 @@ export async function getOrdersAfterDate(dateISO) {
 }
 
 // get most recent N orders (default 5)
-export async function getRecentOrdersApi(limit = 5) {
+export async function getRecentOrders(limit = 5) {
   try {
     await new Promise((res) => setTimeout(res, 300));
     const all = testdata.orders || [];

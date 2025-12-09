@@ -1,8 +1,6 @@
 import ProductTableAndBtns from "@/app/_components/Aproducts/ProductTableAndBtns";
 import ProductTableOperations from "@/app/_components/Aproducts/ProductTableOperations";
 import SortBy from "@/app/_components/SortBy";
-import Spinner from "@/app/_components/Spinner";
-import { Suspense } from "react";
 
 export const metadata = {
   title: "Products",
@@ -18,8 +16,8 @@ export default async function Page({ searchParams }) {
           <h1 className="text-3xl font-semibold">All products</h1>
           <SortBy
             options={[
-              { value: "createdDate-desc", label: "Date (recent first)" },
-              { value: "createdDate-asc", label: "Date (earlier first)" },
+              { value: "createdAt-desc", label: "Date (recent first)" },
+              { value: "createdAt-asc", label: "Date (earlier first)" },
               { value: "name-asc", label: "Name (A-Z)" },
               { value: "name-desc", label: "Name (Z-A)" },
               { value: "category-asc", label: "Category (A-Z)" },
@@ -32,19 +30,7 @@ export default async function Page({ searchParams }) {
 
         <ProductTableOperations />
       </header>
-
-      <div className="flex flex-col gap-4">
-        <Suspense
-          fallback={
-            <Spinner
-              color="var(--color-accent-600)"
-              className="my-0.5 self-center"
-            />
-          }
-        >
-          <ProductTableAndBtns searchParams={filterParams} />
-        </Suspense>
-      </div>
+      <ProductTableAndBtns searchParams={filterParams} />
     </>
   );
 }

@@ -13,10 +13,10 @@ function FirstChosenFilter({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const initalValue = searchParams.get(filterField) || options[0]?.value;
+  const initialValue = searchParams.get(filterField) || options[0]?.value;
 
   function handleChange(e) {
-    if (e.target.value === initalValue) return;
+    if (e.target.value === initialValue) return;
 
     const params = new URLSearchParams(searchParams.toString());
 
@@ -36,7 +36,7 @@ function FirstChosenFilter({
           inputId={filterField}
           minWidth="10rem"
           options={options}
-          value={initalValue} // current active
+          value={initialValue}
           onChange={handleChange}
         />
       </div>

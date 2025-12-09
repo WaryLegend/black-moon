@@ -134,7 +134,7 @@ export function sortData(data, field, direction = "asc", locale = "vi") {
       bVal = Number(bVal);
     }
     // === 2. DATE FIELDS ===
-    else if (field === "createdDate") {
+    else if (field === "createdAt") {
       aVal = new Date(aVal).getTime();
       bVal = new Date(bVal).getTime();
     }

@@ -31,8 +31,8 @@ async function ProductSection({ category, searchParams }) {
           label="Sắp xếp theo"
           className="ml-auto"
           options={[
-            { value: "createdDate-desc", label: "Ngày (gần đây)" },
-            { value: "createdDate-asc", label: "Ngày (trước đây)" },
+            { value: "createdAt-desc", label: "Ngày (gần đây)" },
+            { value: "createdAt-asc", label: "Ngày (trước đây)" },
             { value: "name-asc", label: "Tên sản phẩm (A-Z)" },
             { value: "name-desc", label: "Tên sản phẩm (Z-A)" },
             { value: "basePrice-asc", label: "Giá bán (thấp → cao)" },
@@ -71,7 +71,7 @@ function parseQueryParams(searchParams) {
   if (basePrice) filters.basePrice = basePrice;
 
   // Sort by
-  const sort = searchParams.sortBy;
+  const sort = searchParams.sortBy || "createdAt-desc";
   if (sort) {
     const [field, direction] = sort.split("-");
     sortBy.field = field;

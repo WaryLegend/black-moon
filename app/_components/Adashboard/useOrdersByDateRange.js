@@ -9,7 +9,7 @@ import {
   calculateProductsSold as _calculateProductsSold,
   calculateSalesByCategory as _calculateSalesByCategory,
   calculateSalesByProduct as _calculateSalesByProduct,
-} from "./useOrdersHelpers";
+} from "../../_hooks/useOrdersHelpers";
 import { getOrdersAfterDate } from "@/app/_lib/data-service";
 
 function getQueryDate(numDays) {
@@ -24,7 +24,11 @@ export function useOrdersByDateRange(defaultDays = 7) {
 
   const queryDate = getQueryDate(numDays);
 
-  const { isLoading, data: orders = [] } = useQuery({
+  const {
+    isLoading,
+    data: orders = [],
+    error,
+  } = useQuery({
     queryFn: () => getOrdersAfterDate(queryDate),
     queryKey: ["orders", `last-${numDays}`],
     staleTime: 5 * 60 * 1000,
@@ -34,6 +38,7 @@ export function useOrdersByDateRange(defaultDays = 7) {
     isLoading,
     orders,
     numDays,
+    error,
     totalRevenue: _calculateTotalRevenue(orders, numDays),
     totalOrdersCount: _calculateTotalOrders(orders, numDays),
     productsSold: _calculateProductsSold(orders, numDays),

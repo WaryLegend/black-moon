@@ -1,6 +1,6 @@
 "use client";
 
-import { useRecentOrders } from "@/app/_hooks/useRecentOrders";
+import { useRecentOrders } from "./useRecentOrders";
 import Table from "@/app/_components/Table";
 import RecentOrderRow from "./RecentOrderRow";
 
