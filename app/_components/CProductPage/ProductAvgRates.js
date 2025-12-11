@@ -1,19 +1,9 @@
-import StarRatings from "@/app/_components/StarRatings";
+import StarRates from "@/app/_components/StarRates";
 
-function ProductAvgRates({ reviews, showRating }) {
-  // Calculate average rating and total reviews
-  const averageRating =
-    reviews.length > 0
-      ? (
-          reviews.reduce((sum, review) => sum + review.rates, 0) /
-          reviews.length
-        ).toFixed(1)
-      : 0;
-  const totalReviews = reviews.length;
-
+function ProductAvgRates({ totalReviews, avgRating, showRating }) {
   return (
-    <StarRatings
-      rates={averageRating}
+    <StarRates
+      rates={avgRating}
       showRating={showRating}
       totalReviews={totalReviews}
     />

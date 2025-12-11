@@ -96,7 +96,36 @@
       "sizes": ["s", "m", "l"],
       "basePrice": 799000,
       "images": ["/t-shirt.jpg"],
-      "reviews": [],
+      "reviews": {
+        "total": 3,
+        "avgRating": 4.3,
+        "latestReviews": [
+          {
+            "reviewId": "r1",
+            "userId": 2,
+            "userName": "tranthibe",
+            "rating": 5,
+            "comment": "Rất ưng, ấm và vừa vặn.",
+            "createdAt": "2025-11-28T10:00:00.000Z"
+          },
+          {
+            "reviewId": "r2",
+            "userId": 5,
+            "userName": "vulann",
+            "rating": 4,
+            "comment": "Chất liệu tốt, giao hàng nhanh.",
+            "createdAt": "2025-11-25T09:30:00.000Z"
+          },
+          {
+            "reviewId": "r3",
+            "userId": 3,
+            "userName": "lehoangcong",
+            "rating": 4,
+            "comment": "Kích cỡ hơi chật nhưng ấm.",
+            "createdAt": "2025-11-20T14:15:00.000Z"
+          }
+        ]
+      },
       "previewVariant": {
         "id": "1",
         "productId": "1",
@@ -116,7 +145,20 @@
       "sizes": ["xs", "m", "xl"],
       "basePrice": 1199000,
       "images": ["/t-shirt.jpg"],
-      "reviews": [],
+      "reviews": {
+        "total": 1,
+        "avgRating": 5.0,
+        "latestReviews": [
+          {
+            "reviewId": "r4",
+            "userId": 4,
+            "userName": "Phạm Minh Duy",
+            "rating": 5,
+            "comment": "Form đẹp, nên mua.",
+            "createdAt": "2025-10-12T11:00:00.000Z"
+          }
+        ]
+      },
       "previewVariant": {
         "id": "10",
         "productId": "2",
@@ -127,7 +169,6 @@
         "image": "/t-shirt.jpg"
       }
     },
-
     {
       "id": "3",
       "name": "Đầm midi hoa nhí",
@@ -137,7 +178,28 @@
       "sizes": ["s", "m", "l"],
       "basePrice": 499000,
       "images": ["/t-shirt.jpg"],
-      "reviews": [],
+      "reviews": {
+        "total": 2,
+        "avgRating": 4.5,
+        "latestReviews": [
+          {
+            "reviewId": "r5",
+            "userId": 6,
+            "userName": "doquangminh",
+            "rating": 5,
+            "comment": "Màu sắc như hình, dễ phối.",
+            "createdAt": "2025-09-30T08:20:00.000Z"
+          },
+          {
+            "reviewId": "r6",
+            "userId": 5,
+            "userName": "vulann",
+            "rating": 4,
+            "comment": "Vải mát, phù hợp mùa hè.",
+            "createdAt": "2025-09-15T16:45:00.000Z"
+          }
+        ]
+      },
       "previewVariant": {
         "id": "16",
         "productId": "3",
@@ -157,7 +219,11 @@
       "sizes": ["m", "l"],
       "basePrice": 350000,
       "images": ["/t-shirt.jpg"],
-      "reviews": [],
+      "reviews": {
+        "total": 0,
+        "avgRating": 0,
+        "latestReviews": []
+      },
       "previewVariant": {
         "id": "22",
         "productId": "4",
@@ -177,7 +243,20 @@
       "sizes": ["s", "m", "xl"],
       "basePrice": 599000,
       "images": ["/t-shirt.jpg"],
-      "reviews": [],
+      "reviews": {
+        "total": 1,
+        "avgRating": 5.0,
+        "latestReviews": [
+          {
+            "reviewId": "r7",
+            "userId": 5,
+            "userName": "vulann",
+            "rating": 5,
+            "comment": "Mẫu mã ổn, cổ áo đẹp.",
+            "createdAt": "2025-08-21T13:10:00.000Z"
+          }
+        ]
+      },
       "previewVariant": {
         "id": "27",
         "productId": "5",
@@ -197,7 +276,11 @@
       "sizes": ["xs", "m", "l"],
       "basePrice": 450000,
       "images": ["/t-shirt.jpg"],
-      "reviews": [],
+      "reviews": {
+        "total": 0,
+        "avgRating": 0,
+        "latestReviews": []
+      },
       "previewVariant": {
         "id": "33",
         "productId": "6",
@@ -208,7 +291,6 @@
         "image": "/t-shirt.jpg"
       }
     },
-
     {
       "id": "7",
       "name": "Áo khoác da nam",
@@ -218,7 +300,28 @@
       "sizes": ["m", "l", "xl"],
       "basePrice": 1299000,
       "images": ["/t-shirt.jpg"],
-      "reviews": [],
+      "reviews": {
+        "total": 2,
+        "avgRating": 4.5,
+        "latestReviews": [
+          {
+            "reviewId": "r8",
+            "userId": 4,
+            "userName": "phamduy99",
+            "rating": 4,
+            "comment": "Đóng gói cẩn thận.",
+            "createdAt": "2025-07-11T10:05:00.000Z"
+          },
+          {
+            "reviewId": "r9",
+            "userId": 2,
+            "userName": "tranthibe",
+            "rating": 5,
+            "comment": "Áo rất bền sau 3 lần giặt.",
+            "createdAt": "2025-07-01T09:00:00.000Z"
+          }
+        ]
+      },
       "previewVariant": {
         "id": "39",
         "productId": "7",
@@ -238,7 +341,20 @@
       "sizes": ["l", "xl", "xxl"],
       "basePrice": 999000,
       "images": ["/t-shirt.jpg"],
-      "reviews": [],
+      "reviews": {
+        "total": 1,
+        "avgRating": 3.0,
+        "latestReviews": [
+          {
+            "reviewId": "r10",
+            "userId": 3,
+            "userName": "lehoangcong",
+            "rating": 3,
+            "comment": "Vừa vặn nhưng hơi mỏng.",
+            "createdAt": "2025-06-20T12:00:00.000Z"
+          }
+        ]
+      },
       "previewVariant": {
         "id": "45",
         "productId": "8",
@@ -249,7 +365,6 @@
         "image": "/t-shirt.jpg"
       }
     },
-
     {
       "id": "9",
       "name": "Quần jeans slim fit",
@@ -259,7 +374,11 @@
       "sizes": ["m", "l", "xl"],
       "basePrice": 699000,
       "images": ["/t-shirt.jpg"],
-      "reviews": [],
+      "reviews": {
+        "total": 0,
+        "avgRating": 0,
+        "latestReviews": []
+      },
       "previewVariant": {
         "id": "51",
         "productId": "9",
@@ -279,7 +398,11 @@
       "sizes": ["s", "m", "xxl"],
       "basePrice": 550000,
       "images": ["/t-shirt.jpg"],
-      "reviews": [],
+      "reviews": {
+        "total": 0,
+        "avgRating": 0,
+        "latestReviews": []
+      },
       "previewVariant": {
         "id": "57",
         "productId": "10",
@@ -290,7 +413,6 @@
         "image": "/t-shirt.jpg"
       }
     },
-
     {
       "id": "11",
       "name": "Áo sơ mi oxford",
@@ -300,7 +422,28 @@
       "sizes": ["m", "l", "xl"],
       "basePrice": 399000,
       "images": ["/t-shirt.jpg"],
-      "reviews": [],
+      "reviews": {
+        "total": 2,
+        "avgRating": 4.5,
+        "latestReviews": [
+          {
+            "reviewId": "r11",
+            "userId": 6,
+            "userName": "doquangminh",
+            "rating": 5,
+            "comment": "Rất ưng, chất lượng tốt.",
+            "createdAt": "2025-05-05T14:30:00.000Z"
+          },
+          {
+            "reviewId": "r12",
+            "userId": 4,
+            "userName": "Phạm Minh Duy",
+            "rating": 4,
+            "comment": "Kích thước chuẩn, giao nhanh.",
+            "createdAt": "2025-04-28T10:00:00.000Z"
+          }
+        ]
+      },
       "previewVariant": {
         "id": "63",
         "productId": "11",
@@ -320,7 +463,20 @@
       "sizes": ["s", "m"],
       "basePrice": 329000,
       "images": ["/t-shirt.jpg"],
-      "reviews": [],
+      "reviews": {
+        "total": 1,
+        "avgRating": 5.0,
+        "latestReviews": [
+          {
+            "reviewId": "r13",
+            "userId": 1,
+            "userName": "Nguyễn Văn An",
+            "rating": 5,
+            "comment": "Mua tặng, bạn mình rất thích.",
+            "createdAt": "2025-03-14T09:00:00.000Z"
+          }
+        ]
+      },
       "previewVariant": {
         "id": "69",
         "productId": "12",
@@ -331,7 +487,6 @@
         "image": "/t-shirt.jpg"
       }
     },
-
     {
       "id": "13",
       "name": "Áo khoác bomber bé trai",
@@ -341,7 +496,36 @@
       "sizes": ["xs", "s", "m"],
       "basePrice": 399000,
       "images": ["/t-shirt.jpg"],
-      "reviews": [],
+      "reviews": {
+        "total": 16,
+        "avgRating": 4.9,
+        "latestReviews": [
+          {
+            "reviewId": "r14",
+            "userId": 6,
+            "userName": "doquangminh",
+            "rating": 5,
+            "comment": "Vải mềm, mặc thoải mái.",
+            "createdAt": "2025-02-25T11:11:00.000Z"
+          },
+          {
+            "reviewId": "r15",
+            "userId": 5,
+            "userName": "vulann",
+            "rating": 4,
+            "comment": "Màu hơi khác ảnh.",
+            "createdAt": "2025-02-10T08:00:00.000Z"
+          },
+          {
+            "reviewId": "r16",
+            "userId": 4,
+            "userName": "phamduy99",
+            "rating": 5,
+            "comment": "Tốc độ giao hàng rất tốt.",
+            "createdAt": "2025-01-30T15:00:00.000Z"
+          }
+        ]
+      },
       "previewVariant": {
         "id": "75",
         "productId": "13",
@@ -361,7 +545,11 @@
       "sizes": ["s", "m", "l"],
       "basePrice": 359000,
       "images": ["/t-shirt.jpg"],
-      "reviews": [],
+      "reviews": {
+        "total": 0,
+        "avgRating": 0,
+        "latestReviews": []
+      },
       "previewVariant": {
         "id": "81",
         "productId": "14",
@@ -372,7 +560,6 @@
         "image": "/t-shirt.jpg"
       }
     },
-
     {
       "id": "15",
       "name": "Quần jeans bé trai",
@@ -382,7 +569,11 @@
       "sizes": ["xs", "s", "m"],
       "basePrice": 299000,
       "images": ["/t-shirt.jpg"],
-      "reviews": [],
+      "reviews": {
+        "total": 0,
+        "avgRating": 0,
+        "latestReviews": []
+      },
       "previewVariant": {
         "id": "87",
         "productId": "15",
@@ -402,7 +593,11 @@
       "sizes": ["s", "m", "l"],
       "basePrice": 199000,
       "images": ["/t-shirt.jpg"],
-      "reviews": [],
+      "reviews": {
+        "total": 0,
+        "avgRating": 0,
+        "latestReviews": []
+      },
       "previewVariant": {
         "id": "93",
         "productId": "16",
@@ -413,7 +608,6 @@
         "image": "/t-shirt.jpg"
       }
     },
-
     {
       "id": "17",
       "name": "Đầm hoa bé gái",
@@ -423,7 +617,11 @@
       "sizes": ["xs", "s", "m"],
       "basePrice": 279000,
       "images": ["/t-shirt.jpg"],
-      "reviews": [],
+      "reviews": {
+        "total": 0,
+        "avgRating": 0,
+        "latestReviews": []
+      },
       "previewVariant": {
         "id": "99",
         "productId": "17",
@@ -443,7 +641,11 @@
       "sizes": ["s", "m", "l"],
       "basePrice": 219000,
       "images": ["/t-shirt.jpg"],
-      "reviews": [],
+      "reviews": {
+        "total": 0,
+        "avgRating": 0,
+        "latestReviews": []
+      },
       "previewVariant": {
         "id": "105",
         "productId": "18",
@@ -454,7 +656,6 @@
         "image": "/t-shirt.jpg"
       }
     },
-
     {
       "id": "19",
       "name": "Bộ pyjama cotton bé trai",
@@ -464,7 +665,11 @@
       "sizes": ["xs", "s", "m"],
       "basePrice": 189000,
       "images": ["/t-shirt.jpg"],
-      "reviews": [],
+      "reviews": {
+        "total": 0,
+        "avgRating": 0,
+        "latestReviews": []
+      },
       "previewVariant": {
         "id": "111",
         "productId": "19",
@@ -484,7 +689,11 @@
       "sizes": ["s", "m", "l"],
       "basePrice": 179000,
       "images": ["/t-shirt.jpg"],
-      "reviews": [],
+      "reviews": {
+        "total": 0,
+        "avgRating": 0,
+        "latestReviews": []
+      },
       "previewVariant": {
         "id": "117",
         "productId": "20",
@@ -1748,9 +1957,9 @@
 
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "fullName": "Nguyễn Văn An",
-      "username": "nguyenvanan",
+      "userName": "nguyenvanan",
       "email": "an.nguyen@example.com",
       "avatar": null,
       "role": "admin",
@@ -1760,9 +1969,9 @@
       "updatedAt": "2025-11-28T10:22:15.000Z"
     },
     {
-      "id": 2,
+      "id": "2",
       "fullName": "Trần Thị Bé",
-      "username": "tranthibe",
+      "userName": "tranthibe",
       "email": "be.tran@company.vn",
       "avatar": null,
       "role": "admin",
@@ -1772,9 +1981,9 @@
       "updatedAt": "2025-11-20T09:11:33.000Z"
     },
     {
-      "id": 3,
+      "id": "3",
       "fullName": "Lê Hoàng Công",
-      "username": "lehoangcong",
+      "userName": "lehoangcong",
       "email": "cong.le@gmail.com",
       "avatar": null,
       "role": "staff",
@@ -1785,9 +1994,9 @@
       "disabledReason": "Vi phạm chính sách sử dụng (spam)"
     },
     {
-      "id": 4,
+      "id": "4",
       "fullName": "Phạm Minh Duy",
-      "username": "phamduy99",
+      "userName": "phamduy99",
       "email": "duy.pham@outlook.com",
       "avatar": null,
       "role": "customer",
@@ -1797,9 +2006,9 @@
       "updatedAt": "2025-11-01T13:07:50.000Z"
     },
     {
-      "id": 5,
+      "id": "5",
       "fullName": "Vũ Ngọc Lan",
-      "username": "vulann",
+      "userName": "vulann",
       "email": "lan.vu@startup.io",
       "avatar": null,
       "role": "customer",
@@ -1810,9 +2019,9 @@
       "disabledReason": "Yêu cầu tự khóa tài khoản"
     },
     {
-      "id": 6,
+      "id": "6",
       "fullName": "Đỗ Quang Minh",
-      "username": "doquangminh",
+      "userName": "doquangminh",
       "email": "minh.dq@freelancer.com",
       "avatar": null,
       "role": "customer",
@@ -1827,8 +2036,8 @@
     {
       "id": "ORD-001",
       "user": {
-        "id": 6,
-        "username": "doquangminh"
+        "id": "6",
+        "userName": "doquangminh"
       },
       "createdAt": "2025-12-06T10:30:00.000Z",
       "status": "delivered",
@@ -1863,8 +2072,8 @@
     {
       "id": "ORD-002",
       "user": {
-        "id": 6,
-        "username": "doquangminh"
+        "id": "6",
+        "userName": "doquangminh"
       },
       "createdAt": "2025-12-05T14:20:00.000Z",
       "status": "delivered",
@@ -1898,7 +2107,7 @@
     },
     {
       "id": "ORD-003",
-      "user": { "id": 4, "username": "phamduy99" },
+      "user": { "id": "4", "userName": "phamduy99" },
       "createdAt": "2025-12-04T09:15:00.000Z",
       "status": "shipping",
       "totalAmount": 899000,
@@ -1932,8 +2141,8 @@
     {
       "id": "ORD-004",
       "user": {
-        "id": 6,
-        "username": "doquangminh"
+        "id": "6",
+        "userName": "doquangminh"
       },
       "createdAt": "2025-12-03T16:45:00.000Z",
       "status": "packing",
@@ -1979,7 +2188,7 @@
     },
     {
       "id": "ORD-005",
-      "user": { "id": 4, "username": "phamduy99" },
+      "user": { "id": "4", "userName": "phamduy99" },
       "createdAt": "2025-12-02T11:20:00.000Z",
       "status": "delivered",
       "totalAmount": 2297000,
@@ -2024,7 +2233,7 @@
     },
     {
       "id": "ORD-006",
-      "user": { "id": 4, "username": "phamduy99" },
+      "user": { "id": "4", "userName": "phamduy99" },
       "createdAt": "2025-12-01T13:50:00.000Z",
       "status": "pending",
       "totalAmount": 699000,
@@ -2058,8 +2267,8 @@
     {
       "id": "ORD-007",
       "user": {
-        "id": 6,
-        "username": "doquangminh"
+        "id": "6",
+        "userName": "doquangminh"
       },
       "createdAt": "2025-11-30T08:30:00.000Z",
       "status": "delivered",
@@ -2094,8 +2303,8 @@
     {
       "id": "ORD-008",
       "user": {
-        "id": 6,
-        "username": "doquangminh"
+        "id": "6",
+        "userName": "doquangminh"
       },
       "createdAt": "2025-11-29T15:10:00.000Z",
       "status": "cancelled",
@@ -2129,7 +2338,7 @@
     },
     {
       "id": "ORD-009",
-      "user": { "id": 4, "username": "phamduy99" },
+      "user": { "id": "4", "userName": "phamduy99" },
       "createdAt": "2025-11-28T10:05:00.000Z",
       "status": "delivered",
       "totalAmount": 1297000,
@@ -2174,7 +2383,7 @@
     },
     {
       "id": "ORD-010",
-      "user": { "id": 4, "username": "phamduy99" },
+      "user": { "id": "4", "userName": "phamduy99" },
       "createdAt": "2025-11-27T12:40:00.000Z",
       "status": "returned",
       "totalAmount": 1498000,
@@ -2204,6 +2413,241 @@
           "subtotal": 299000
         }
       ]
+    }
+  ],
+
+  "reviews": [
+    {
+      "reviewId": "r1",
+      "productId": "1",
+      "userId": "2",
+      "rating": 5,
+      "comment": "Rất ưng, ấm và vừa vặn.",
+      "createdAt": "2025-11-28T10:00:00.000Z"
+    },
+    {
+      "reviewId": "r2",
+      "productId": "1",
+      "userId": "5",
+      "rating": 4,
+      "comment": "Chất liệu tốt, giao hàng nhanh.",
+      "createdAt": "2025-11-25T09:30:00.000Z"
+    },
+    {
+      "reviewId": "r3",
+      "productId": "1",
+      "userId": "3",
+      "rating": 4,
+      "comment": "Kích cỡ hơi chật nhưng ấm.",
+      "createdAt": "2025-11-20T14:15:00.000Z"
+    },
+    {
+      "reviewId": "r4",
+      "productId": "2",
+      "userId": "4",
+      "rating": 5,
+      "comment": "Form đẹp, nên mua.",
+      "createdAt": "2025-10-12T11:00:00.000Z"
+    },
+    {
+      "reviewId": "r5",
+      "productId": "3",
+      "userId": "6",
+      "rating": 5,
+      "comment": "Màu sắc như hình, dễ phối.",
+      "createdAt": "2025-09-30T08:20:00.000Z"
+    },
+    {
+      "reviewId": "r6",
+      "productId": "3",
+      "userId": "1",
+      "rating": 4,
+      "comment": "Vải mát, phù hợp mùa hè.",
+      "createdAt": "2025-09-15T16:45:00.000Z"
+    },
+    {
+      "reviewId": "r7",
+      "productId": "5",
+      "userId": "3",
+      "rating": 5,
+      "comment": "Mẫu mã ổn, cổ áo đẹp.",
+      "createdAt": "2025-08-21T13:10:00.000Z"
+    },
+    {
+      "reviewId": "r8",
+      "productId": "7",
+      "userId": "2",
+      "rating": 4,
+      "comment": "Đóng gói cẩn thận.",
+      "createdAt": "2025-07-11T10:05:00.000Z"
+    },
+    {
+      "reviewId": "r9",
+      "productId": "7",
+      "userId": "2",
+      "rating": 5,
+      "comment": "Áo rất bền sau 3 lần giặt.",
+      "createdAt": "2025-07-01T09:00:00.000Z"
+    },
+    {
+      "reviewId": "r10",
+      "productId": "8",
+      "userId": "3",
+      "rating": 3,
+      "comment": "Vừa vặn nhưng hơi mỏng.",
+      "createdAt": "2025-06-20T12:00:00.000Z"
+    },
+    {
+      "reviewId": "r11",
+      "productId": "11",
+      "userId": "6",
+      "rating": 5,
+      "comment": "Rất ưng, chất lượng tốt.",
+      "createdAt": "2025-05-05T14:30:00.000Z"
+    },
+    {
+      "reviewId": "r12",
+      "productId": "11",
+      "userId": "4",
+      "rating": 4,
+      "comment": "Kích thước chuẩn, giao nhanh.",
+      "createdAt": "2025-04-28T10:00:00.000Z"
+    },
+    {
+      "reviewId": "r13",
+      "productId": "12",
+      "userId": "1",
+      "rating": 5,
+      "comment": "Mua tặng, bạn mình rất thích.",
+      "createdAt": "2025-03-14T09:00:00.000Z"
+    },
+    {
+      "reviewId": "r14",
+      "productId": "13",
+      "userId": "6",
+      "rating": 5,
+      "comment": "Vải mềm, mặc thoải mái.",
+      "createdAt": "2025-02-25T11:11:00.000Z"
+    },
+    {
+      "reviewId": "r15",
+      "productId": "13",
+      "userId": "5",
+      "rating": 4,
+      "comment": "Màu hơi khác ảnh.",
+      "createdAt": "2025-02-10T08:00:00.000Z"
+    },
+    {
+      "reviewId": "r16",
+      "productId": "13",
+      "userId": "4",
+      "rating": 5,
+      "comment": "Tốc độ giao hàng rất tốt.",
+      "createdAt": "2025-01-30T15:00:00.000Z"
+    },
+    {
+      "reviewId": "r17",
+      "productId": "13",
+      "userId": "4",
+      "rating": 5,
+      "comment": "Tốc độ giao hàng rất tốt.",
+      "createdAt": "2025-01-30T15:00:00.000Z"
+    },
+    {
+      "reviewId": "r18",
+      "productId": "13",
+      "userId": "4",
+      "rating": 5,
+      "comment": "Tốc độ giao hàng rất tốt.",
+      "createdAt": "2025-01-30T15:00:00.000Z"
+    },
+    {
+      "reviewId": "r19",
+      "productId": "13",
+      "userId": "4",
+      "rating": 5,
+      "comment": "Tốc độ giao hàng rất tốt.",
+      "createdAt": "2025-01-30T15:00:00.000Z"
+    },
+    {
+      "reviewId": "r20",
+      "productId": "13",
+      "userId": "4",
+      "rating": 5,
+      "comment": "Tốc độ giao hàng rất tốt.",
+      "createdAt": "2025-01-30T15:00:00.000Z"
+    },
+    {
+      "reviewId": "r21",
+      "productId": "13",
+      "userId": "4",
+      "rating": 5,
+      "comment": "Tốc độ giao hàng rất tốt.",
+      "createdAt": "2025-01-30T15:00:00.000Z"
+    },
+    {
+      "reviewId": "r22",
+      "productId": "13",
+      "userId": "4",
+      "rating": 5,
+      "comment": "Tốc độ giao hàng rất tốt.",
+      "createdAt": "2025-01-30T15:00:00.000Z"
+    },
+    {
+      "reviewId": "r23",
+      "productId": "13",
+      "userId": "4",
+      "rating": 5,
+      "comment": "Tốc độ giao hàng rất tốt.",
+      "createdAt": "2025-01-30T15:00:00.000Z"
+    },
+    {
+      "reviewId": "r24",
+      "productId": "13",
+      "userId": "4",
+      "rating": 5,
+      "comment": "Tốc độ giao hàng rất tốt.",
+      "createdAt": "2025-01-30T15:00:00.000Z"
+    },
+    {
+      "reviewId": "r25",
+      "productId": "13",
+      "userId": "4",
+      "rating": 5,
+      "comment": "Tốc độ giao hàng rất tốt.",
+      "createdAt": "2025-01-30T15:00:00.000Z"
+    },
+    {
+      "reviewId": "r26",
+      "productId": "13",
+      "userId": "4",
+      "rating": 5,
+      "comment": "Tốc độ giao hàng rất tốt.",
+      "createdAt": "2025-01-30T15:00:00.000Z"
+    },
+    {
+      "reviewId": "r27",
+      "productId": "13",
+      "userId": "4",
+      "rating": 5,
+      "comment": "Tốc độ giao hàng rất tốt.",
+      "createdAt": "2025-01-30T15:00:00.000Z"
+    },
+    {
+      "reviewId": "r28",
+      "productId": "13",
+      "userId": "4",
+      "rating": 5,
+      "comment": "Tốc độ giao hàng rất tốt.",
+      "createdAt": "2025-01-30T15:00:00.000Z"
+    },
+    {
+      "reviewId": "r29",
+      "productId": "13",
+      "userId": "4",
+      "rating": 5,
+      "comment": "Tốc độ giao hàng rất tốt.",
+      "createdAt": "2025-01-30T15:00:00.000Z"
     }
   ]
 }

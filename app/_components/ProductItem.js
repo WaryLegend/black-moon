@@ -21,6 +21,8 @@ function ProductItem({ product }) {
     previewVariant,
   } = product;
 
+  console.log(reviews);
+
   const variant = previewVariant
     ? {
         ...previewVariant,
@@ -90,8 +92,10 @@ function ProductItem({ product }) {
           {/* Rating */}
           <div className="flex items-center justify-end gap-1 text-sm">
             <FaStar />
-            <span className="font-semibold">4.9</span>
-            <span className="text-primary-500 text-xs">(999)</span>
+            <span className="font-semibold">{reviews?.avgRating || "–"}</span>
+            <span className="text-primary-500 text-xs">
+              ({reviews?.total <= 999 ? reviews?.total : "+999"})
+            </span>
           </div>
         </div>
       </Link>

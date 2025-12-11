@@ -52,7 +52,13 @@ function Window({ children, name }) {
   );
 }
 
+// allow to use the context outside the modal (via ReviewSection)
+function useModal() {
+  return useContext(ModalContext);
+}
+
 Modal.Open = Open;
 Modal.Window = Window;
+Modal.useContext = useModal;
 
 export default Modal;

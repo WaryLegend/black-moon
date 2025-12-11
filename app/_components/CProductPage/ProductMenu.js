@@ -25,7 +25,10 @@ export default function ProductMenu({ product }) {
             <ProductCost />
             {/* avg product rates */}
             <div className="ml-auto">
-              <ProductAvgRates reviews={reviews} />
+              <ProductAvgRates
+                avgRating={reviews?.avgRating}
+                totalReviews={reviews?.total}
+              />
             </div>
           </section>
           {/* set quantity section */}

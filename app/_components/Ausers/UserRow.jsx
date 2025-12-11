@@ -30,7 +30,7 @@ function UserRow({ user }) {
   const {
     id: userId,
     fullName,
-    username,
+    userName,
     email,
     mobile,
     role,
@@ -50,7 +50,7 @@ function UserRow({ user }) {
       />
       <Field>{fullName}</Field>
       <Field>
-        {username}
+        {userName}
         <br />
         <span className={`rounded-full border px-2 py-1 ${getRoleStyle(role)}`}>
           {capitalizeFirst(role)}
@@ -90,7 +90,7 @@ function UserRow({ user }) {
             <Modal.Window name="edit-status">
               <ConfirmChange
                 actionName={status === "active" ? "Khóa" : "Kích hoạt"}
-                resourceName={username || `user_${fullName}`}
+                resourceName={userName || `user_${fullName}`}
                 // disabled={isDeleting}
                 // onConfirm={() => deleteUser(userId)}
                 onConfirm={() =>
@@ -104,7 +104,7 @@ function UserRow({ user }) {
             <Modal.Window name="delete">
               <ConfirmDelete
                 actionName="Gỡ bỏ tài khoản"
-                resourceName={username}
+                resourceName={userName}
                 // disabled={isDeleting}
                 // onConfirm={() => deleteUser(userId)}
                 onConfirm={() => toast.success("Mimic xóa thành công")}

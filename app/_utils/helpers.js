@@ -189,6 +189,11 @@ export function priceFilter(items, priceFilterValue) {
 }
 
 // date formatter
+export const fDate = (dateString) =>
+  format(toZonedTime(parseISO(dateString), TZ), "dd-MM-yyyy", {
+    locale: vi,
+  });
+// date and time formatter
 export const fDateTime = (dateString) =>
   format(toZonedTime(parseISO(dateString), TZ), "dd-MM-yyyy HH:mm:ss", {
     locale: vi,

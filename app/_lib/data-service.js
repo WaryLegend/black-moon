@@ -143,9 +143,7 @@ export async function getProductById(productId) {
     const { products, variants } = testdata;
     // 2. Find the base product
     const product = products.find((p) => p.id === productId);
-    if (!product) {
-      return { product: null };
-    }
+
     // 3. Get all variants for this product
     const productVariants = variants
       .filter((vari) => vari.productId === productId)
@@ -156,23 +154,19 @@ export async function getProductById(productId) {
         sku: v.sku,
         variantPrice: v.variantPrice,
         image: v.image,
-        stock: v.stock,
+        stock: v.stock || 0,
       }));
+
     // 4. Build final enriched product
     const enrichedProduct = {
-      id: product.id,
-      name: product.name,
-      description: product.description || "",
-      colors: product.colors,
-      sizes: product.sizes,
-      images: product.images,
-      reviews: product.reviews || [],
+      ...product,
       variants: productVariants,
     };
 
     return { product: enrichedProduct };
   } catch (err) {
     console.error("Error loading product:", err);
+    return { product: null };
   }
 }
 
@@ -429,5 +423,57 @@ export async function getRecentOrders(limit = 5) {
   } catch (err) {
     console.error("Error loading recent orders:", err);
     return [];
+  }
+}
+
+// get reviews for a product, defaults to 10, expand + 10 per expand
+export async function getReviewsByProduct(productId, offset = 0, limit = 10) {
+  try {
+    await new Promise((res) => setTimeout(res, 300));
+    // Get product details
+    const product = testdata.products.find((p) => p.id === productId);
+    const productInfo = {
+      id: product.id,
+      name: product.name,
+      images: product.images,
+    };
+    // Filter all reviews for this product
+    const allReviews = testdata.reviews
+      .filter((r) => r.productId === productId)
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    const total = allReviews.length;
+
+    // Calculate avgRating from all reviews
+    const avgRating =
+      total > 0
+        ? Math.round(
+            (allReviews.reduce((sum, r) => sum + r.rating, 0) / total) * 10,
+          ) / 10
+        : 0;
+
+    // Paginate the sorted reviews
+    const paginatedReviews = allReviews.slice(offset, offset + limit);
+
+    // Add userName to each review in the page
+    paginatedReviews.forEach((review) => {
+      const user = testdata.users.find((u) => u.id === review.userId);
+      review.userName = user ? user.userName : "Khách hàng";
+    });
+
+    return {
+      product: productInfo,
+      reviews: {
+        total,
+        avgRating,
+        reviews: paginatedReviews,
+      },
+    };
+  } catch (err) {
+    console.error("Error loading reviews for product:", err);
+    return {
+      product: { id: "", name: "", images: null },
+      reviews: { total: 0, avgRating: 0, reviews: [] },
+    };
   }
 }

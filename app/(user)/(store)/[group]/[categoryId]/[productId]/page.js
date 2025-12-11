@@ -16,31 +16,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-// fake reviews data (testing)
-const mockReviews = [
-  {
-    title: "This shirt is nice, cosy and fit",
-    date: "26/09/2025",
-    rates: 5,
-    comment:
-      "Kích cỡ đã mua: S, Quần áo có vừa không: Hơi chật, Really comfortable and affordable pair that can be worn daily",
-  },
-  {
-    title: "Great quality, love the design",
-    date: "25/09/2025",
-    rates: 4,
-    comment:
-      "Kích cỡ đã mua: M, Quần áo có vừa không: Vừa vặn, Looks stylish and feels great for casual wear",
-  },
-  {
-    title: "Perfect for daily wear",
-    date: "24/09/2025",
-    rates: 5,
-    comment:
-      "Kích cỡ đã mua: L, Quần áo có vừa không: Rộng rãi, Super soft fabric, highly recommend!",
-  },
-];
-
 export default async function Page({ params }) {
   const _params = await params;
 
@@ -83,7 +58,7 @@ export default async function Page({ params }) {
           {/* Product details */}
           <ProductDetails />
           {/* Product average rates and reviews*/}
-          <ProductRates reviews={mockReviews} />
+          <ProductRates reviews={product.reviews} />
         </div>
 
         {/* RIGHT: sticky product info and add_to_cart button */}

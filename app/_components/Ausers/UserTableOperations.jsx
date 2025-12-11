@@ -29,8 +29,8 @@ function UserTableOperations() {
           { value: "createdAt-asc", label: "Date (earlier first)" },
           { value: "fullName-asc", label: "Full name (A-Z)" },
           { value: "fullName-desc", label: "Full name (Z-A)" },
-          { value: "username-asc", label: "Username (A-Z)" },
-          { value: "username-desc", label: "Username (Z-A)" },
+          { value: "userName-asc", label: "Username (A-Z)" },
+          { value: "userName-desc", label: "Username (Z-A)" },
         ]}
       />
     </div>

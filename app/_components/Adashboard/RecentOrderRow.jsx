@@ -13,7 +13,7 @@ function RecentOrderRow({ order }) {
     <Table.Row>
       <Field>{id}</Field>
       <Field className="text-primary-700 font-normal">
-        <a className="hover:text-accent-600 hover:underline">{user.username}</a>
+        <a className="hover:text-accent-600 hover:underline">{user.userName}</a>
       </Field>
       <Field>
         <span
