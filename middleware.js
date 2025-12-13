@@ -12,9 +12,13 @@ export function middleware(request) {
     return NextResponse.redirect(new URL("/admin/dashboard", request.url));
   }
 
+  if (pathname === "/profile") {
+    return NextResponse.redirect(new URL("/profile/info", request.url));
+  }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/admin", "/women", "/men", "/kids"],
+  matcher: ["/admin", "/women", "/men", "/kids", "/profile"],
 };

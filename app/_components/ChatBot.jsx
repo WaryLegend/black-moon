@@ -26,6 +26,7 @@ export default function ChatBot() {
   }, [messages, typing]);
 
   function sendMessage() {
+    if (typing) return;
     if (!input.trim()) return;
 
     const userMsg = { from: "user", text: input.trim() };
@@ -49,7 +50,7 @@ export default function ChatBot() {
       <button
         type="button"
         onClick={() => setOpen((open) => !open)}
-        className="bg-accent-800 text-primary-0 hover:bg-accent-600 fixed right-6 bottom-24 z-40 flex h-10 w-10 items-center justify-center rounded-full shadow-xl transition lg:bottom-6"
+        className="bg-accent-600 text-primary-0 hover:bg-accent-700 fixed right-6 bottom-24 z-40 flex h-10 w-10 items-center justify-center rounded-full shadow-xl transition lg:bottom-6"
         title={open ? "Close chat" : "Open chat"}
         aria-label="ChatBot assistance"
       >
@@ -64,10 +65,10 @@ export default function ChatBot() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 40 }}
             transition={{ duration: 0.25 }}
-            className="bg-primary-50 border-primary-50 fixed right-6 bottom-38 z-40 w-80 overflow-hidden rounded-xl border-1 shadow-md sm:w-96 lg:bottom-20"
+            className="bg-primary-50 border-accent-600 fixed right-6 bottom-38 z-40 w-80 overflow-hidden rounded-xl border-1 shadow-md sm:w-96 lg:bottom-20"
           >
             {/* Header */}
-            <header className="bg-accent-800 text-primary-0 p-4 shadow-md">
+            <header className="from-accent-600 to-accent-400 text-primary-0 bg-gradient-to-tr p-4 shadow-md">
               <h3 className="text-lg font-semibold">Trợ lý Black & Moon</h3>
               <p className="text-sm opacity-70">Sẵn sàng hỗ trợ ✨</p>
             </header>
@@ -87,7 +88,7 @@ export default function ChatBot() {
                   <div
                     className={`max-w-[75%] px-3 py-2 text-sm leading-relaxed break-words shadow ${
                       msg.from === "user"
-                        ? "bg-accent-700 text-primary-0 rounded-se-lg rounded-l-lg"
+                        ? "bg-accent-600 text-primary-0 rounded-se-lg rounded-l-lg"
                         : "bg-primary-200 text-primary-900 rounded-ss-lg rounded-r-lg"
                     }`}
                   >
@@ -111,7 +112,7 @@ export default function ChatBot() {
             {/* Input section */}
             <div className="border-primary-200 bg-primary-100 flex items-center border-t p-3">
               <textarea
-                className="bg-primary-50 border-primary-300 focus:border-accent-700 placeholder:text-primary-500 scrollbar-hidden field-sizing-content max-h-32 min-h-10 flex-1 resize-none overflow-y-auto rounded-lg border px-3 py-2 text-sm break-words whitespace-pre-wrap outline-none"
+                className="bg-primary-50 border-primary-300 focus:border-accent-600 placeholder:text-primary-500 scrollbar-hidden field-sizing-content max-h-32 min-h-10 flex-1 resize-none overflow-y-auto rounded-lg border px-3 py-2 text-sm break-words whitespace-pre-wrap outline-none"
                 placeholder="Nhập tin nhắn..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -124,8 +125,9 @@ export default function ChatBot() {
               />
               <Button
                 icon
+                disabled={typing}
                 onClick={sendMessage}
-                className="bg-accent-700 text-primary-50 hover:!bg-accent-600 ml-2 rounded-lg p-2"
+                className="bg-accent-600 text-primary-50 hover:!bg-accent-700 ml-2 rounded-lg p-2"
               >
                 <FiSend size={18} />
               </Button>

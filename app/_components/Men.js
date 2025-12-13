@@ -21,7 +21,7 @@ export default function Men() {
           <br />& Moon
         </h1>
         <p
-          className="mt-4 text-xl font-medium text-blue-200 drop-shadow-lg sm:text-2xl"
+          className="mt-4 text-2xl font-medium text-blue-200 drop-shadow-lg sm:text-2xl"
           style={{
             WebkitTextStroke: "1px", // viền chữ
             WebkitTextFillColor: "transparent", // chữ rỗng

@@ -25,7 +25,9 @@ export default function StarRates({
     <div className="flex items-center gap-1">
       {stars}
 
-      {showRating && <span className="ml-1">{rates.toFixed(1)}</span>}
+      {showRating && rates > 0 && (
+        <span className="ml-1">{rates.toFixed(1)}</span>
+      )}
 
       {totalReviews ? (
         <TextButton linkTo="reviews">({totalReviews})</TextButton>

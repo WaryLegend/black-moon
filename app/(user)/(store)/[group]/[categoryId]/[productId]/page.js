@@ -24,7 +24,7 @@ export default async function Page({ params }) {
     getCategoryById(categoryId),
     getProductById(productId),
   ]);
-  if (!product) notFound();
+  if (!category || !product) notFound();
 
   const imgLength = 6; // amount of image that product has
 

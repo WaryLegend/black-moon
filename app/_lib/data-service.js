@@ -426,6 +426,87 @@ export async function getRecentOrders(limit = 5) {
   }
 }
 
+// get order by userId
+// export async function getOrdersByUserId(userId) {
+//   try {
+//     // 1. Simulate network latency
+//     await new Promise((res) => setTimeout(res, 300));
+
+//     const { orders, users } = testdata;
+
+//     // 2. Find user
+//     const user = users.find((u) => u.id === userId);
+//     if (!user) {
+//       throw new Error("User not found");
+//     }
+
+//     // 3. Get & sort orders by newest first
+//     const userOrders = orders
+//       .filter((order) => order.user?.id === userId)
+//       .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+//       .map(({ user, ...rest }) => rest);
+
+//     // 4. Return desired structure
+//     return {
+//       user,
+//       orders: userOrders,
+//     };
+//   } catch (err) {
+//     console.error("Error loading orders:", err);
+//     throw err;
+//   }
+// }
+export async function getOrdersByUserId(userId) {
+  try {
+    // Simulate network latency
+    await new Promise((res) => setTimeout(res, 300));
+
+    const { orders } = testdata;
+
+    return orders
+      .filter((order) => order.user?.id === userId)
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      .map(({ user, items, ...rest }) => ({
+        ...rest,
+        totalItems: items?.length ?? 0,
+      }));
+  } catch (err) {
+    console.error("Error loading orders:", err);
+    throw err;
+  }
+}
+
+// get order by id (with enriched items including image)
+export async function getOrderById(orderId) {
+  try {
+    // 1. Simulate network latency
+    await new Promise((res) => setTimeout(res, 300));
+    const { orders, variants } = testdata;
+
+    // 2. Find the order
+    const order = orders.find((o) => o.id === orderId);
+    if (!order) {
+      throw new Error(`Order ${orderId} not found`);
+    }
+
+    // 3. Enrich items with image from matching variant
+    const enrichedItems = order.items.map((item) => {
+      const variant = variants.find((v) => v.id === item.variantId);
+      return {
+        ...item,
+        image: variant?.image ?? "/T-shirt.jpg", // Fallback image if missing
+        url: `/products/${item.productId}`, // Assuming product page route
+      };
+    });
+
+    // 4. Return enriched order
+    return { ...order, items: enrichedItems };
+  } catch (err) {
+    console.error("Error loading order:", err);
+    return null;
+  }
+}
+
 // get reviews for a product, defaults to 10, expand + 10 per expand
 export async function getReviewsByProduct(productId, offset = 0, limit = 10) {
   try {
