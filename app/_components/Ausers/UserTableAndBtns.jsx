@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetUsers } from "./useGetUsers";
+import { useUsers } from "./useUsers";
 import Spinner from "@/app/_components/Spinner";
 import UserTable from "./UserTable";
 // import AddUser from "./AddUser";
@@ -9,7 +9,7 @@ function UserTableAndBtns({ searchParams }) {
   const page = Number(searchParams.page) || 1;
   const { filters, sortBy } = parseQueryParams(searchParams);
 
-  const { isLoading, users, total } = useGetUsers({
+  const { isLoading, users, total } = useUsers({
     page,
     filters,
     sortBy,

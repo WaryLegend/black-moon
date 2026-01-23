@@ -4,7 +4,7 @@ import Link from "next/link";
 import { FiMail, FiLock } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 
-export default function LoginForm({ noForgot }) {
+export default function LoginForm({ noForgot, returnUrl }) {
   const {
     register,
     handleSubmit,
@@ -74,7 +74,7 @@ export default function LoginForm({ noForgot }) {
       <div className={`text-right ${noForgot ? "hidden" : ""}`}>
         <Link
           tabIndex={-1}
-          href="/forgot-password"
+          href={`/user/forgot-password${returnUrl ? `?returnUrl=${encodeURIComponent(returnUrl)}` : ""}`}
           className="text-accent-800 text-sm hover:underline"
         >
           Quên mật khẩu?
@@ -84,7 +84,7 @@ export default function LoginForm({ noForgot }) {
       {/* Login Button */}
       <button
         type="submit"
-        className="bg-accent-500 hover:bg-accent-600 hover:text-primary-100 w-full rounded-lg py-2 transition-all duration-200"
+        className="bg-accent-500 hover:bg-accent-600 hover:text-primary-100 w-full rounded-lg py-2 transition-colors duration-200"
       >
         Đăng nhập
       </button>

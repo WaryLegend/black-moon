@@ -2,6 +2,7 @@ import { Josefin_Sans } from "next/font/google";
 const josefin = Josefin_Sans({
   subsets: ["latin"],
   display: "swap",
+  weight: "400",
 });
 
 import "@/app/_styles/globals.css";

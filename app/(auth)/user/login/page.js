@@ -8,8 +8,7 @@ export const metadata = {
 };
 
 export default async function UserLoginPage({ searchParams }) {
-  const search = await searchParams;
-  const { returnUrl } = search;
+  const { returnUrl } = await searchParams;
 
   return (
     <div className="flex h-full items-center justify-center p-5">
@@ -23,7 +22,7 @@ export default async function UserLoginPage({ searchParams }) {
         </p>
 
         {/* Login Form */}
-        <LoginForm />
+        <LoginForm returnUrl={returnUrl} />
 
         {/* Or Login With */}
         <div className="my-4 flex items-center">

@@ -1,12 +1,9 @@
-import { getOrdersByUserId } from "@/app/_lib/data-service";
 import UserOrderItem from "./UserOrderItem";
 
-async function UserOrderList() {
-  const orders = await getOrdersByUserId("6"); // test userId = 6, must get from login user
-
+function UserOrderList({ orders }) {
   return (
     <>
-      {orders.length === 0 ? (
+      {orders?.length === 0 ? (
         <p className="text-primary-600 text-center">Chưa có đơn hàng nào.</p>
       ) : (
         <ul className="flex max-h-200 flex-col gap-4 overflow-auto max-lg:max-h-70">

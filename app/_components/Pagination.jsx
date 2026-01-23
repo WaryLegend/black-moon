@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  HiChevronDoubleLeft,
-  HiChevronDoubleRight,
-  HiChevronLeft,
-  HiChevronRight,
-} from "react-icons/hi2";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { PAGE_SIZE } from "@/app/_utils/constants";
 import Button from "@/app/_components/Button";
@@ -25,8 +20,7 @@ function Pagination({ count }) {
     params.set("page", page);
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
-  const goToFirst = () => setPage(1);
-  const goToLast = () => setPage(pageCount);
+
   const prevPage = () => {
     if (currentPage > 1) setPage(currentPage - 1);
   };
@@ -35,15 +29,40 @@ function Pagination({ count }) {
     if (currentPage < pageCount) setPage(currentPage + 1);
   };
 
-  // Generate page numbers to show (1-2 pages before and after current)
+  // Generate visible page numbers
   const getPageNumbers = () => {
-    const pages = [];
-    const start = Math.max(1, currentPage - 2);
-    const end = Math.min(pageCount, currentPage + 2);
+    if (pageCount <= 1) return [1];
 
-    for (let i = start; i <= end; i++) {
+    const delta = 2; // Show 2 pages before and after current
+    const pages = [];
+
+    // Always show page 1
+    pages.push(1);
+
+    // Calculate the range around current page (excluding 1 and last page)
+    const rangeStart = Math.max(2, currentPage - delta);
+    const rangeEnd = Math.min(pageCount - 1, currentPage + delta);
+
+    // Add left ellipsis if there's a gap after 1
+    if (rangeStart > 2) {
+      pages.push("...");
+    }
+
+    // Add the pages around current
+    for (let i = rangeStart; i <= rangeEnd; i++) {
       pages.push(i);
     }
+
+    // Add right ellipsis if there's a gap before last page
+    if (rangeEnd < pageCount - 1) {
+      pages.push("...");
+    }
+
+    // Always show last page (if more than 1)
+    if (pageCount > 1) {
+      pages.push(pageCount);
+    }
+
     return pages;
   };
 
@@ -64,79 +83,56 @@ function Pagination({ count }) {
         of <span className="font-semibold">{count}</span> results
       </p>
 
-      {/* Buttons */}
+      {/* Pagination buttons */}
       <div className="flex items-center gap-2">
-        {/* First Button - hidden if on first page */}
-        {currentPage > 1 && (
-          <Button
-            icon
-            onClick={goToFirst}
-            className="border-accent-200 hover:!bg-accent-600 bg-accent-50 hover:text-primary-0 gap-1 rounded-l-lg border text-sm font-medium lg:p-2"
-            type="button"
-            title="Go to first page"
-          >
-            <HiChevronDoubleLeft className="h-5 w-5" />
-            <span>First</span>
-          </Button>
-        )}
+        {/* Back button */}
+        <Button
+          icon
+          onClick={prevPage}
+          disabled={currentPage === 1}
+          className="not-disabled:hover:!bg-accent-600 text-accent-600 disabled:hover:bg-accent-50 disabled:text-primary-400 hover:text-primary-0 rounded-lg text-sm font-semibold lg:p-2"
+        >
+          <HiChevronLeft className="h-5 w-5" />
+          <span className="hidden md:inline">Back</span>
+        </Button>
 
-        {/* Prev Button - hidden if on first page */}
-        {currentPage > 1 && (
-          <Button
-            icon
-            onClick={prevPage}
-            className="border-accent-200 hover:!bg-accent-600 bg-accent-50 hover:text-primary-0 rounded-l-lg border text-sm font-medium lg:p-2"
-            type="button"
-            title="Previous page"
-          >
-            <HiChevronLeft className="h-5 w-5" />
-          </Button>
-        )}
-
-        {/* Page Numbers */}
-        <div className="flex">
-          {pageNumbers.map((page) => (
-            <Button
-              icon
-              key={page}
-              onClick={() => setPage(page)}
-              className={`border px-4 text-sm font-medium lg:p-2 lg:px-3 ${
-                page === currentPage
-                  ? "border-accent-500 bg-accent-500 text-primary-0"
-                  : "border-accent-200 bg-accent-50 hover:!bg-accent-600 hover:text-primary-0 hover:border-accent-600"
-              }`}
-            >
-              {page}
-            </Button>
-          ))}
+        {/* Page numbers */}
+        <div className="flex gap-2">
+          {pageNumbers.map((page, index) =>
+            page === "..." ? (
+              <span
+                key={`ellipsis-${index}`}
+                className="p-1 align-text-bottom text-sm font-medium lg:p-2"
+              >
+                ...
+              </span>
+            ) : (
+              <Button
+                key={page}
+                icon
+                onClick={() => setPage(page)}
+                className={`hover:!bg-accent-600 hover:text-primary-0 hover:border-accent-600 h-7 w-6 rounded-lg border text-sm font-medium lg:h-9 lg:w-8 ${
+                  page === currentPage
+                    ? "bg-accent-500 text-primary-0 border-accent-500"
+                    : "text-accent-600 border-accent-200 bg-accent-50"
+                }`}
+              >
+                {page}
+              </Button>
+            ),
+          )}
         </div>
 
-        {/* Next Button - hidden if on last page */}
-        {currentPage < pageCount && (
-          <Button
-            icon
-            onClick={nextPage}
-            className="border-accent-200 hover:!bg-accent-600 bg-accent-50 hover:text-primary-0 rounded-r-lg border text-sm font-medium lg:p-2"
-            type="button"
-            title="Next page"
-          >
-            <HiChevronRight className="h-5 w-5" />
-          </Button>
-        )}
-
-        {/* Last Button - hidden if on last page */}
-        {currentPage < pageCount && (
-          <Button
-            icon
-            onClick={goToLast}
-            className="border-accent-200 hover:!bg-accent-600 bg-accent-50 hover:text-primary-0 gap-1 rounded-r-lg border text-sm font-medium lg:p-2"
-            type="button"
-            title="Go to last page"
-          >
-            <span>Last</span>
-            <HiChevronDoubleRight className="h-5 w-5" />
-          </Button>
-        )}
+        {/* Next button */}
+        <Button
+          icon
+          onClick={nextPage}
+          disabled={currentPage === pageCount}
+          className="not-disabled:hover:!bg-accent-600 text-accent-600 disabled:hover:bg-accent-50 disabled:text-primary-400 hover:text-primary-0 rounded-lg text-sm font-semibold lg:p-2"
+        >
+          <span className="hidden md:inline">Next</span>
+          <HiChevronRight className="h-5 w-5" />
+        </Button>
       </div>
     </div>
   );

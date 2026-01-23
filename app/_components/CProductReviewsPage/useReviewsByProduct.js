@@ -3,7 +3,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getReviewsByProduct } from "@/app/_lib/data-service";
 
-export function useGetReviewsByProduct({ productId, limit = 10 }) {
+export function useReviewsByProduct({ productId, limit = 10 }) {
   const {
     data,
     error,
@@ -14,7 +14,7 @@ export function useGetReviewsByProduct({ productId, limit = 10 }) {
   } = useInfiniteQuery({
     queryKey: [`reviews-${productId}`], // No need for offset/limit in key; infinite handles pages
     queryFn: ({ pageParam = 0 }) =>
-      getReviewsByProduct(productId, pageParam, limit),
+      getReviewsByProduct({ productId, pageParam, limit }),
     getNextPageParam: (lastPage, allPages) => {
       // Calculate next offset as the total reviews fetched so far
       const fetchedCount = allPages.reduce(

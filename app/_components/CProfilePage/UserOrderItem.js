@@ -2,12 +2,16 @@
 
 import { fDate, formatCurrency } from "@/app/_utils/helpers";
 import { ORDER_STATUS } from "@/app/_utils/constants";
-import { useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 function UserOrderItem({ order }) {
-  const params = useParams();
-  const isActived = order.id === params.orderId;
+  const searchParams = useSearchParams();
+  const activeOrderId = searchParams.get("orderId");
+  const isActived = String(order.id) === activeOrderId;
+
+  const params = new URLSearchParams(searchParams.toString());
+  params.set("orderId", order.id);
 
   return (
     <li
@@ -19,7 +23,8 @@ function UserOrderItem({ order }) {
       )}
 
       <Link
-        href={`/profile/orders/${order.id}`}
+        href={`?${params.toString()}`}
+        scroll={false}
         className="flex flex-col p-5"
         title="Click to see details"
       >

@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCategories } from "@/app/_lib/data-service";
 import { PAGE_SIZE } from "@/app/_utils/constants";
 
-export function useGetCategories({ page, filters, sortBy }) {
+export function useCategories({ page, filters, sortBy }) {
   const queryClient = useQueryClient();
   const {
     isLoading,

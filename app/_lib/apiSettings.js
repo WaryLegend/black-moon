@@ -1,4 +1,4 @@
-import testdata from "@/app/_data/testdata.JSON";
+import testdata from "@/app/_data/testdata.json";
 
 //fetch all clothes colors variant
 async function fetchColors() {

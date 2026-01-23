@@ -2,14 +2,14 @@
 
 import AddVariant from "@/app/_components/Ainventory/AddVariant";
 import VariantTable from "@/app/_components/Ainventory/VariantTable";
-import { useGetVariants } from "./useGetVariants";
+import { useVariants } from "./useVariants";
 import Spinner from "@/app/_components/Spinner";
 
 function VariantTableAndBtns({ searchParams }) {
   const page = Number(searchParams.page) || 1;
   const { filters, sortBy } = parseQueryParams(searchParams);
 
-  const { isLoading, variants, total } = useGetVariants({
+  const { isLoading, variants, total } = useVariants({
     page,
     filters,
     sortBy,

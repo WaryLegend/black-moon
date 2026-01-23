@@ -1,4 +1,4 @@
-import testdata from "@/app/_data/testdata.JSON";
+import testdata from "@/app/_data/testdata.json";
 import { groupLabels, PAGE_SIZE } from "@/app/_utils/constants";
 import { priceFilter, sortData } from "@/app/_utils/helpers";
 
@@ -426,89 +426,74 @@ export async function getRecentOrders(limit = 5) {
   }
 }
 
-// get order by userId
-// export async function getOrdersByUserId(userId) {
-//   try {
-//     // 1. Simulate network latency
-//     await new Promise((res) => setTimeout(res, 300));
-
-//     const { orders, users } = testdata;
-
-//     // 2. Find user
-//     const user = users.find((u) => u.id === userId);
-//     if (!user) {
-//       throw new Error("User not found");
-//     }
-
-//     // 3. Get & sort orders by newest first
-//     const userOrders = orders
-//       .filter((order) => order.user?.id === userId)
-//       .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-//       .map(({ user, ...rest }) => rest);
-
-//     // 4. Return desired structure
-//     return {
-//       user,
-//       orders: userOrders,
-//     };
-//   } catch (err) {
-//     console.error("Error loading orders:", err);
-//     throw err;
-//   }
-// }
-export async function getOrdersByUserId(userId) {
+// get all orders by login user
+export async function getOrdersByUserId({ userId, filters, page }) {
   try {
-    // Simulate network latency
+    // 1. Simulate network latency
     await new Promise((res) => setTimeout(res, 300));
+    const orders = testdata.orders || [];
 
-    const { orders } = testdata;
+    // 2. ------------------- FILTERING -------------------
+    let filteredData = orders.filter((order) => order.user?.id === userId);
+    // status (single-select)
+    if (filters.status && filters.status !== "all") {
+      filteredData = filteredData.filter(
+        (order) => order.status === filters.status,
+      );
+    }
+    // 3. ------------------SORTING (fixed desc) -------------------
+    filteredData = filteredData.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+    );
+    // 4. ------------------- PAGINATION -------------------
+    const total = filteredData.length;
+    const start = (page - 1) * PAGE_SIZE;
+    const pageData = filteredData.slice(start, start + PAGE_SIZE);
+    // final
+    const data = pageData.map(({ user, items, ...rest }) => ({
+      ...rest,
+      totalItems: items?.length ?? 0,
+    }));
 
-    return orders
-      .filter((order) => order.user?.id === userId)
-      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-      .map(({ user, items, ...rest }) => ({
-        ...rest,
-        totalItems: items?.length ?? 0,
-      }));
+    return { data, total };
   } catch (err) {
     console.error("Error loading orders:", err);
     throw err;
   }
 }
 
-// get order by id (with enriched items including image)
-export async function getOrderById(orderId) {
-  try {
-    // 1. Simulate network latency
-    await new Promise((res) => setTimeout(res, 300));
-    const { orders, variants } = testdata;
+// get order by id
+export async function getUserOrderById({ orderId, userId }) {
+  // 1. Simulate network latency
+  await new Promise((res) => setTimeout(res, 300));
+  const { orders, variants } = testdata;
 
-    // 2. Find the order
-    const order = orders.find((o) => o.id === orderId);
-    if (!order) {
-      throw new Error(`Order ${orderId} not found`);
-    }
-
-    // 3. Enrich items with image from matching variant
-    const enrichedItems = order.items.map((item) => {
-      const variant = variants.find((v) => v.id === item.variantId);
-      return {
-        ...item,
-        image: variant?.image ?? "/T-shirt.jpg", // Fallback image if missing
-        url: `/products/${item.productId}`, // Assuming product page route
-      };
-    });
-
-    // 4. Return enriched order
-    return { ...order, items: enrichedItems };
-  } catch (err) {
-    console.error("Error loading order:", err);
-    return null;
+  // 2. Find the order
+  const order = orders.find((o) => o.id === orderId && o.user?.id === userId);
+  if (!order) {
+    throw new Error(`Order ${orderId} not found`);
   }
+
+  // 3. Enrich items with image from matching variant
+  const enrichedItems = order.items.map((item) => {
+    const variant = variants.find((v) => v.id === item.variantId);
+    return {
+      ...item,
+      image: variant?.image ?? "/T-shirt.jpg", // Fallback image if missing
+      url: `/products/${item.productId}`, // Assuming product page route
+    };
+  });
+
+  // 4. Return enriched order
+  return { ...order, items: enrichedItems };
 }
 
 // get reviews for a product, defaults to 10, expand + 10 per expand
-export async function getReviewsByProduct(productId, offset = 0, limit = 10) {
+export async function getReviewsByProduct({
+  productId,
+  offset = 0,
+  limit = 10,
+}) {
   try {
     await new Promise((res) => setTimeout(res, 300));
     // Get product details

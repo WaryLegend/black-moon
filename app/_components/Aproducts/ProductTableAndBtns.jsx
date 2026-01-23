@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetProducts } from "./useGetProducts";
+import { useProducts } from "./useProducts";
 import AddProduct from "@/app/_components/Aproducts/AddProduct";
 import ProductTable from "@/app/_components/Aproducts/ProductTable";
 import Spinner from "@/app/_components/Spinner";
@@ -9,7 +9,7 @@ function ProductTableAndBtns({ searchParams }) {
   const page = Number(searchParams.page) || 1;
   const { filters, sortBy } = parseQueryParams(searchParams);
 
-  const { isLoading, products, total } = useGetProducts({
+  const { isLoading, products, total } = useProducts({
     page,
     filters,
     sortBy,

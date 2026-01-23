@@ -165,7 +165,7 @@ export default function SignupForm() {
 
       <button
         type="submit"
-        className="bg-accent-500 hover:bg-accent-600 hover:text-primary-100 w-full rounded-lg py-2 transition-all duration-200"
+        className="bg-accent-500 hover:bg-accent-600 hover:text-primary-100 w-full rounded-lg py-2 transition-colors duration-200"
       >
         Đăng ký
       </button>

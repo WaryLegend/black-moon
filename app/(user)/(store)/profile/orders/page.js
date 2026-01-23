@@ -1,21 +1,28 @@
-import UserOrderList from "@/app/_components/CProfilePage/UserOrderList";
-import Spinner from "@/app/_components/Spinner";
-import { Suspense } from "react";
+import UserOrdersWrapper from "@/app/_components/CProfilePage/UserOrdersWrapper";
+import TabFilter from "@/app/_components/Filters/TabFilter";
 
-export default function OrdersPage() {
+export default async function OrdersPage({ searchParams }) {
+  const filterParams = await searchParams;
+
   return (
     <div className="sticky top-[calc(var(--header-height)_+_5px)] flex flex-col gap-4">
-      <h2 className="text-2xl font-bold">Đơn hàng của tôi</h2>
-      <Suspense
-        fallback={
-          <Spinner
-            color="var(--color-accent-600)"
-            className="my-0.5 self-center"
-          />
-        }
-      >
-        <UserOrderList />
-      </Suspense>
+      <div className="flex flex-wrap justify-between">
+        <h2 className="text-2xl font-bold">Đơn hàng của tôi</h2>
+        <TabFilter
+          filterField="status"
+          options={[
+            { value: "all", label: "Tất cả" },
+            { value: "pending", label: "Chờ xử lý" },
+            { value: "packing", label: "Đang đóng gói" },
+            { value: "shipping", label: "Đang giao" },
+            { value: "delivered", label: "Đã giao" },
+            { value: "cancelled", label: "Đã hủy" },
+            { value: "returned", label: "Đã trả" },
+          ]}
+        />
+      </div>
+
+      <UserOrdersWrapper searchParams={filterParams} />
     </div>
   );
 }

@@ -6,7 +6,7 @@ import {
   useRouter,
   useSearchParams,
 } from "next/navigation";
-import { useGetReviewsByProduct } from "./useGetReviewsByProduct";
+import { useReviewsByProduct } from "./useReviewsByProduct";
 import { useEffect } from "react";
 import { FaPencilAlt } from "react-icons/fa";
 import { HiChevronLeft } from "react-icons/hi2";
@@ -27,7 +27,7 @@ function ReviewsSection({ productId }) {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useGetReviewsByProduct({ productId });
+  } = useReviewsByProduct({ productId });
   if (!product && !isLoading) notFound();
 
   const searchParams = useSearchParams();

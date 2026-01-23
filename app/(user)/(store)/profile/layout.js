@@ -9,7 +9,9 @@ export default function ProfileLayout({ children }) {
     <div className="grid grid-rows-[auto_1fr]">
       <ProfileTabNav />
 
-      <div className="bg-primary-0 rounded-b-lg p-6 shadow-md">{children}</div>
+      <main className="bg-primary-0 rounded-b-lg p-6 shadow-md">
+        {children}
+      </main>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetCategories } from "./useGetCategories";
+import { useCategories } from "./useCategories";
 import AddCategory from "@/app/_components/Acategories/AddCategory";
 import CategoryTable from "@/app/_components/Acategories/CategoryTable";
 import Spinner from "@/app/_components/Spinner";
@@ -9,7 +9,7 @@ function CategoryTableAndBtns({ searchParams }) {
   const page = Number(searchParams.page) || 1;
   const { filters, sortBy } = parseQueryParams(searchParams);
 
-  const { isLoading, categories, total } = useGetCategories({
+  const { isLoading, categories, total } = useCategories({
     page,
     filters,
     sortBy,
