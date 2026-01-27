@@ -1,6 +1,6 @@
 "use client";
 
-import QueryProvider from "@/app/_components/QueryClientProvider";
+import QueryProvider from "@/components/QueryClientProvider";
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 

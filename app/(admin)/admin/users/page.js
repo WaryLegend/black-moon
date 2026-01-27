@@ -1,5 +1,5 @@
-import UserTableAndBtns from "@/app/_components/Ausers/UserTableAndBtns";
-import UserTableOperations from "@/app/_components/Ausers/UserTableOperations";
+import UserTableAndBtns from "@/components/admin/users/UserTableAndBtns";
+import UserTableOperations from "@/components/admin/users/UserTableOperations";
 
 export const metadata = {
   title: "Users",

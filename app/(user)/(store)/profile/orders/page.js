@@ -1,5 +1,5 @@
-import UserOrdersWrapper from "@/app/_components/CProfilePage/UserOrdersWrapper";
-import TabFilter from "@/app/_components/Filters/TabFilter";
+import TabFilter from "@/components/filters/TabFilter";
+import UserOrdersWrapper from "@/components/user/profile/UserOrdersWrapper";
 
 export default async function OrdersPage({ searchParams }) {
   const filterParams = await searchParams;

@@ -1,5 +1,5 @@
-import WishListHeader from "@/app/_components/CWishlistPage/WishListHeader";
-import WishList from "@/app/_components/CWishlistPage/WishList";
+import WishList from "@/components/store/wishlist/WishList";
+import WishListHeader from "@/components/store/wishlist/WishListHeader";
 
 export const metadata = {
   title: "Wishlist",

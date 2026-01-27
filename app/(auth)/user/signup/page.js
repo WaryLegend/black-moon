@@ -1,6 +1,6 @@
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
-import SignupForm from "@/app/_components/SignupForm";
+import SignupForm from "@/components/auth/SignupForm";
 
 export const metadata = {
   title: "Sign up",

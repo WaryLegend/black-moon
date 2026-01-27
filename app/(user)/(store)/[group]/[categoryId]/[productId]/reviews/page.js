@@ -1,6 +1,6 @@
-import ReviewsSection from "@/app/_components/CProductReviewsPage/ReviewsSection";
-import QueryProvider from "@/app/_components/QueryClientProvider";
-import { getProductById } from "@/app/_lib/data-service";
+import ReviewsSection from "@/components/store/product_review/ReviewsSection";
+import QueryProvider from "@/components/QueryClientProvider";
+import { getProductById } from "@/lib/data-service";
 
 export async function generateMetadata({ params }) {
   const { productId } = await params;

@@ -1,4 +1,4 @@
-import bg from "@/public/authbg.jpg";
+import bg from "@/public/bg/bg-auth.jpg";
 import Image from "next/image";
 
 export const metadata = {

@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Button from "@/app/_components/Button";
+import Button from "@/components/ui/Button";
 import default_user from "@/public/default-user.jpg";
-import { fDate } from "@/app/_utils/helpers";
-import AvatarMenu from "@/app/_components/CProfilePage/AvatarMenu";
+import { fDate } from "@/utils/helpers";
+import AvatarMenu from "@/components/user/profile/AvatarMenu";
 
 // Mock data (thay bằng auth sau)
 const mockUser = {

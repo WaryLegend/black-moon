@@ -1,11 +1,11 @@
-import StickyFilterWrapper from "@/app/_components/StickyFilterWrapper";
-import ProductFilter from "@/app/_components/ProductFilter";
-import ProductSection from "@/app/_components/ProductSection";
-import BreadCrumbNav from "@/app/_components/BreadCrumbNav";
-import { getCategoryById } from "@/app/_lib/data-service";
-import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import Spinner from "@/app/_components/Spinner";
+import { notFound } from "next/navigation";
+import { getCategoryById } from "@/lib/data-service";
+import StickyFilterWrapper from "@/common/layout/StickyFilterWrapper";
+import ProductFilter from "@/components/store/products_list/ProductFilter";
+import ProductSection from "@/components/store/products_list/ProductSection";
+import BreadCrumbNav from "@/common/navigation/BreadCrumbNav";
+import Spinner from "@/components/ui/Spinner";
 
 export async function generateMetadata({ params }) {
   const Params = await params;

@@ -1,7 +1,7 @@
 import { FcGoogle } from "react-icons/fc";
 import { FaInstagram, FaFacebook } from "react-icons/fa";
 import Link from "next/link";
-import LoginForm from "@/app/_components/LoginForm";
+import LoginForm from "@/components/auth/LoginForm";
 
 export const metadata = {
   title: "Log in",
