@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useMenuStore } from "@/context/HomeMenuStore";
+import { useMenuStore } from "@/contexts/HomeMenuStore";
 import { usePathname } from "next/navigation";
 
 function HomePanel({ panels }) {

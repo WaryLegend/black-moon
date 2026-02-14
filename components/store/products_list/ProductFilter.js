@@ -1,6 +1,6 @@
 "use client";
 
-import { useColorsAndSizes } from "@/context/ColorsAndSizesContext";
+import { useColorsAndSizes } from "@/contexts/ColorsAndSizesContext";
 import { PRICES_RANGE } from "@/utils/constants";
 import NestedFilter from "@/components/filters/NestedFilter";
 import SideFilter from "@/components/filters/SideFilter";

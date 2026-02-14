@@ -1,4 +1,4 @@
-import { SidebarProvider } from "@/context/SidebarContext";
+import { SidebarProvider } from "@/contexts/SidebarContext";
 import AdHeader from "./AdHeader";
 import AdSideNavigation from "./AdSideNavigation";
 import AdSideNavList from "@/components/admin/navigation/AdSideNavList";

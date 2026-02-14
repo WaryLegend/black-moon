@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { FaHeart } from "react-icons/fa";
-import { useMenuStore } from "@/context/HomeMenuStore";
+import { useMenuStore } from "@/contexts/HomeMenuStore";
 
 function NoWishlistFound() {
   const router = useRouter();

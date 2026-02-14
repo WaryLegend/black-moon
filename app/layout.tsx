@@ -7,9 +7,13 @@ const josefin = Josefin_Sans({
 
 import "@/styles/globals.css";
 import { Toaster } from "react-hot-toast";
-import ThemeInitializer from "@/context/ThemeInitializer";
-import SettingInitializer from "@/context/SettingInitializer";
+import ThemeInitializer from "@/contexts/ThemeInitializer";
+import SettingInitializer from "@/contexts/SettingInitializer";
+import { WebSocketProvider } from "@/contexts/websocket.context";
+import QueryProvider from "@/components/QueryClientProvider";
 import { getSettings } from "@/lib/apiSettings";
+import HydrateToken from "@/contexts/HydrateToken";
+import OverlayScreenLoader from "@/components/ui/OverlayScreenLoader";
 
 export default async function RootLayout({
   children,
@@ -20,10 +24,16 @@ export default async function RootLayout({
 
   return (
     <html lang="vi">
-      <body className={`${josefin.className} text-primary-900 antialiased`}>
+      <body
+        className={`${josefin.className} text-primary-900 bg-primary-50 antialiased`}
+      >
         <ThemeInitializer />
+        <HydrateToken />
         <SettingInitializer settings={settings} />
-        {children}
+        <QueryProvider>
+          <WebSocketProvider>{children}</WebSocketProvider>
+          <OverlayScreenLoader />
+        </QueryProvider>
         <Toaster
           position="bottom-center"
           toastOptions={{

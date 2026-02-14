@@ -5,7 +5,8 @@ import LogoLink from "@/common/navigation/LogoLink";
 import ThemeToggleBtn from "@/components/ui/ThemeToggleBtn";
 import WishlistIcon from "@/components/common/navigation/WishlistIcon";
 import CartIcon from "@/components/common/navigation/CartIcon";
-import User from "@/components/user/User";
+import User from "@/components/user-menu/User";
+import { cn } from "@/lib/utils/cn";
 
 export const metadata = {
   title: "Welcome | Black & Moon",
@@ -20,14 +21,14 @@ export default function HomeLayout({
 }) {
   return (
     <div className="bg-primary-100 relative flex min-h-screen flex-col">
-      <StickyHeaderWrapper className="!bg-primary-0/15">
+      <StickyHeaderWrapper className={cn("!bg-primary-0/15")}>
         <Header>
           <LogoLink />
           <Navigation />
           <div
             role="toolbar"
             aria-label="User actions"
-            className="order-2 flex items-center gap-2 md:order-3 md:gap-3 lg:gap-4"
+            className="order-2 flex items-center gap-2 md:order-3"
           >
             <ThemeToggleBtn />
             <WishlistIcon />

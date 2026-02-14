@@ -1,7 +1,7 @@
 "use client";
 
 import { useOrdersByDateRange } from "./useOrdersByDateRange";
-import { useDarkModeStore } from "@/context/DarkModeStore";
+import { useDarkModeStore } from "@/contexts/DarkModeStore";
 import {
   eachDayOfInterval,
   format,

@@ -1,8 +1,8 @@
 "use client";
 
 import { FaMinus, FaPlus } from "react-icons/fa";
-import { useProductStore } from "@/context/ProductStore";
-import { useSettingStore } from "@/context/SettingStore";
+import { useProductStore } from "@/contexts/ProductStore";
+import { useSettingStore } from "@/contexts/SettingStore";
 import { useRef } from "react";
 import Button from "@/components/ui/Button";
 import Spinner from "@/components/ui/Spinner";

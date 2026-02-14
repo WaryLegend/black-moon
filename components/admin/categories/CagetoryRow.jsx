@@ -21,14 +21,14 @@ function CategoryRow({ category }) {
   const { id: categoryId, name, group, image } = category;
   const groupDisplay = groupLabels[group] ?? group;
 
-  function handleDuplicate() {
-    createCategory({
-      id: crypto.randomUUID(),
-      name: `Copy of ${name}`,
-      group,
-      image,
-    });
-  }
+  // function handleDuplicate() {
+  //   createCategory({
+  //     id: crypto.randomUUID(),
+  //     name: `Copy of ${name}`,
+  //     group,
+  //     image,
+  //   });
+  // }
 
   return (
     <Table.Row>

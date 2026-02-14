@@ -1,7 +1,7 @@
 "use client";
 
-import { useCartStore } from "@/context/CartStore";
-import { useSettingStore } from "@/context/SettingStore";
+import { useCartStore } from "@/contexts/CartStore";
+import { useSettingStore } from "@/contexts/SettingStore";
 
 function QuantitySelect({ id, quantity }) {
   const { getItemStock, updateQuantity } = useCartStore();

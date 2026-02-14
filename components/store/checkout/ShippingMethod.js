@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import Button from "@/components/ui/Button";
-import useCheckoutStepStore from "@/context/CheckoutStepStore";
+import useCheckoutStepStore from "@/contexts/CheckoutStepStore";
 
 const shippingOptions = [
   {

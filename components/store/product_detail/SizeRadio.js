@@ -1,6 +1,6 @@
 "use client";
 
-import { useColorsAndSizes } from "@/context/ColorsAndSizesContext";
+import { useColorsAndSizes } from "@/contexts/ColorsAndSizesContext";
 
 function SizeRadio({ availableSizes, selectedSize, onChange }) {
   const { sizes: ALL_SIZES_LABELED } = useColorsAndSizes();

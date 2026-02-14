@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@/components/ui/Button";
-import { useMenuStore } from "@/context/HomeMenuStore";
+import { useMenuStore } from "@/contexts/HomeMenuStore";
 import { useRouter } from "next/navigation";
 
 function ContinuteShoppingBtn() {

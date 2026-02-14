@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils/cn";
 import { useLayoutEffect, useRef } from "react";
 
 type Props = {
@@ -42,7 +43,10 @@ export default function StickyHeaderWrapper({
   return (
     <div
       ref={headerRef}
-      className={`bg-primary-0 border-primary-400 sticky top-0 z-10 shadow-sm ${className}`}
+      className={cn(
+        `bg-primary-0 border-primary-400 sticky top-0 z-10 shadow-sm`,
+        className,
+      )}
     >
       {children}
     </div>

@@ -1,6 +1,6 @@
 import ChatBot from "@/components/ui/ChatBot";
-import CartInitializer from "@/context/CartInitializer";
-import WishListInitializer from "@/context/WishListInitializer";
+import CartInitializer from "@/contexts/CartInitializer";
+import WishListInitializer from "@/contexts/WishListInitializer";
 
 export default async function UserLayout({
   children,

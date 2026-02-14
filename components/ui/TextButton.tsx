@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ButtonHTMLAttributes, ReactNode } from "react";
 import type { LinkProps } from "next/link";
+import { cn } from "@/lib/utils/cn";
 
 type BaseProps = {
   children: ReactNode;
@@ -33,42 +34,38 @@ type TextButtonProps = BaseProps &
 
 export default function TextButton(props: TextButtonProps) {
   const pathname = usePathname();
-  const { children, className = "", onClick } = props;
+  const { children, className = "", ...rest } = props;
 
-  // LINK (absolute)
-  if (props.href) {
-    const { href, ...linkProps } = props;
+  const baseClass = cn("text-blue-700", className);
+
+  if ("href" in props && props.href) {
+    // Absolute link
+    const { href, ...linkProps } = rest as LinkButtonProps;
     return (
-      <Link
-        href={href}
-        className={`text-blue-700 hover:text-blue-800 ${className}`}
-        {...linkProps}
-      >
+      <Link href={href} className={baseClass} {...linkProps}>
         {children}
       </Link>
     );
   }
 
-  // LINK (relative)
-  if ("linkTo" in props) {
-    const { linkTo, ...linkProps } = props;
+  if ("linkTo" in props && props.linkTo) {
+    // Relative link
+    const { linkTo, ...linkProps } = rest as RelativeLinkButtonProps;
     return (
-      <Link
-        href={`${pathname}/${linkTo}`}
-        className={`text-blue-700 hover:text-blue-800 ${className}`}
-        {...linkProps}
-      >
+      <Link href={`${pathname}/${linkTo}`} className={baseClass} {...linkProps}>
         {children}
       </Link>
     );
   }
 
-  // BUTTON
+  // Action button
+  const { onClick, ...buttonProps } = rest as ActionButtonProps;
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`text-blue-700 hover:text-blue-800 ${className}`}
+      className={baseClass}
+      {...buttonProps}
     >
       {children}
     </button>

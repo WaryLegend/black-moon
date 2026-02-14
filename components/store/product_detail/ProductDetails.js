@@ -3,7 +3,7 @@
 import { useCallback, useState } from "react";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import Button from "@/components/ui/Button";
-// import { useProductStore } from "@/context/ProductStore";
+// import { useProductStore } from "@/contexts/ProductStore";
 
 // Fake product details
 const productDetails = [

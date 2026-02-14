@@ -1,8 +1,8 @@
 "use client";
 
 import { useCallback } from "react";
-import { useProductStore } from "@/context/ProductStore";
-import { useCartStore } from "@/context/CartStore";
+import { useProductStore } from "@/contexts/ProductStore";
+import { useCartStore } from "@/contexts/CartStore";
 import { usePathname, useSearchParams } from "next/navigation";
 import { groupLabels } from "@/utils/constants";
 import Button from "@/components/ui/Button";

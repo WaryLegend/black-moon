@@ -1,6 +1,6 @@
 "use client";
 
-import { useColorsAndSizes } from "@/context/ColorsAndSizesContext";
+import { useColorsAndSizes } from "@/contexts/ColorsAndSizesContext";
 import { useMemo } from "react";
 
 function ColorRadio({ availableColors, selectedColor, onChange }) {

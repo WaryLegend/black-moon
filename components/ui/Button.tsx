@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils/cn";
 import { ReactNode, ButtonHTMLAttributes } from "react";
 
 type ButtonSize = "small" | "medium" | "large";
@@ -34,13 +35,17 @@ export default function Button({
   if (icon)
     return (
       <button
-        className={`hover:bg-primary-100 flex items-center justify-center p-1 transition-all ${className}`}
+        className={cn(
+          "hover:bg-primary-100 flex items-center justify-center p-1 transition-all",
+          className,
+        )}
         {...props}
       >
         {children}
       </button>
     );
 
+  // text button
   const defaultSize = size ?? "medium";
   const defaultVariant = variant ?? "primary";
 
@@ -62,7 +67,10 @@ export default function Button({
   // base text button and shape
   return (
     <button
-      className={`transition-all ${sizeClasses[defaultSize]} ${variantClasses[defaultVariant]} ${className}`}
+      className={cn(
+        `transition-all ${sizeClasses[defaultSize]} ${variantClasses[defaultVariant]}`,
+        className,
+      )}
       {...props}
     >
       {children}

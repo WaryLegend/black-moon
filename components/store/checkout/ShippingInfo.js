@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import Button from "@/components/ui/Button";
-import useCheckoutStepStore from "@/context/CheckoutStepStore";
+import useCheckoutStepStore from "@/contexts/CheckoutStepStore";
 
 export default function ShippingInfo() {
   const {
@@ -33,7 +33,7 @@ export default function ShippingInfo() {
           className="w-full rounded border p-3"
         />
         {errors.fullName && (
-          <p className="mt-1 text-sm text-red-500">{errors.fullName.message}</p>
+          <p className="mt-1 text-sm text-red-600">{errors.fullName.message}</p>
         )}
       </div>
 
@@ -44,7 +44,7 @@ export default function ShippingInfo() {
           className="w-full rounded border p-3"
         />
         {errors.phone && (
-          <p className="mt-1 text-sm text-red-500">{errors.phone.message}</p>
+          <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>
         )}
       </div>
 

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { useMenuStore } from "@/context/HomeMenuStore";
+import { useMenuStore } from "@/contexts/HomeMenuStore";
 
 interface NavLink {
   href: string;

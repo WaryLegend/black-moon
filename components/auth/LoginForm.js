@@ -1,25 +1,31 @@
 "use client";
 
 import Link from "next/link";
-import { FiMail, FiLock } from "react-icons/fi";
+import { FiMail } from "react-icons/fi";
 import { useForm } from "react-hook-form";
+import { useLogin } from "./useLogin";
+import { useAdminLogin } from "./useAdminLogin";
+import Spinner from "@/components/ui/Spinner";
+import InputPassword from "@/components/forms/Input-password";
 
-export default function LoginForm({ noForgot, returnUrl }) {
+export default function LoginForm({ isAdmin = false, returnUrl = "" }) {
   const {
     register,
     handleSubmit,
-    reset,
+    watch,
     formState: { errors },
   } = useForm();
 
+  const { mutate: userLogin, isPending: isPendingUser } = useLogin(returnUrl);
+  const { mutate: adminLogin, isPending: isPendingAdmin } = useAdminLogin();
+
+  const isLoading = isPendingUser || isPendingAdmin;
+
   const onSubmitForm = async (data) => {
-    try {
-      // await loginAction(data); // server action call
-      reset(); // clear form
-      alert("Login successful!");
-    } catch (err) {
-      console.error(err);
-      alert("Login failed");
+    if (isAdmin) {
+      adminLogin(data);
+    } else {
+      userLogin(data);
     }
   };
 
@@ -29,53 +35,38 @@ export default function LoginForm({ noForgot, returnUrl }) {
       <div className="relative">
         <input
           type="email"
-          name="email"
           placeholder="Email*"
-          className="focus:ring-accent-600 border-accent-300 w-full rounded-lg border px-4 py-2 pl-10 focus:ring-2 focus:outline-none"
+          disabled={isLoading}
+          className="border-accent-300 w-full rounded-lg border px-4 py-2 pl-10"
           {...register("email", {
-            required: "Email is required",
+            required: "Vui lòng nhập email",
             pattern: {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: "Invalid email format",
+              message: "Email không hợp lệ",
             },
           })}
-          required
         />
-        <FiMail className="text-accent-500 absolute top-2.5 left-3" />
+        <FiMail className="text-accent-500 absolute top-3 left-3" />
         {errors?.email && (
-          <p className="mt-1 text-sm text-red-500">{errors?.email.message}</p>
+          <p className="mt-1 text-sm text-red-600">{errors?.email.message}</p>
         )}
       </div>
 
       {/* Password Field */}
-      <div className="relative">
-        <input
-          type="password"
-          name="password"
-          placeholder="Mật khẩu*"
-          className="focus:ring-accent-600 border-accent-300 w-full rounded-lg border px-4 py-2 pl-10 focus:ring-2 focus:outline-none"
-          {...register("password", {
-            required: "Password is required",
-            minLength: {
-              value: 8,
-              message: "Password must be at least 8 characters",
-            },
-          })}
-        />
-        <FiLock className="text-accent-500 absolute top-2.5 left-3" />
-        {errors?.password && (
-          <p className="mt-1 text-sm text-red-500">
-            {errors?.password?.message}
-          </p>
-        )}
-      </div>
+      <InputPassword
+        disabled={isLoading}
+        errors={errors}
+        watch={watch}
+        register={register}
+        autoComplete="current-password"
+      />
 
       {/* Forgot Password */}
-      <div className={`text-right ${noForgot ? "hidden" : ""}`}>
+      <div className={`text-right`}>
         <Link
           tabIndex={-1}
-          href={`/user/forgot-password${returnUrl ? `?returnUrl=${encodeURIComponent(returnUrl)}` : ""}`}
-          className="text-accent-800 text-sm hover:underline"
+          href={`/${isAdmin ? "admin" : "user"}/forgot-password${returnUrl ? `?returnUrl=${encodeURIComponent(returnUrl)}` : ""}`}
+          className="text-accent-600 text-sm hover:underline"
         >
           Quên mật khẩu?
         </Link>
@@ -84,9 +75,10 @@ export default function LoginForm({ noForgot, returnUrl }) {
       {/* Login Button */}
       <button
         type="submit"
-        className="bg-accent-500 hover:bg-accent-600 hover:text-primary-100 w-full rounded-lg py-2 transition-colors duration-200"
+        disabled={isLoading}
+        className="bg-accent-500 hover:bg-accent-600 hover:text-primary-100 flex w-full items-center justify-center rounded-lg py-2 transition-colors duration-200"
       >
-        Đăng nhập
+        {isLoading ? <Spinner type="mini" size={24} /> : "Đăng nhập"}
       </button>
     </form>
   );

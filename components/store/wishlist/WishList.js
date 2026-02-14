@@ -1,6 +1,6 @@
 "use client";
 
-import { useWishListStore } from "@/context/WishListStore";
+import { useWishListStore } from "@/contexts/WishListStore";
 import WishItem from "./WishItem";
 import NoWishlistFound from "./NoWishlistFound";
 import WishListSkeleton from "@/components/skeletons/WishListSkeleton";

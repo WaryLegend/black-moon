@@ -1,4 +1,4 @@
-import { useCartStore } from "@/context/CartStore";
+import { useCartStore } from "@/contexts/CartStore";
 import { HiXMark } from "react-icons/hi2";
 import Button from "@/components/ui/Button";
 

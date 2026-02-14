@@ -1,6 +1,6 @@
 "use client";
 
-import { useWishListStore } from "@/context/WishListStore";
+import { useWishListStore } from "@/contexts/WishListStore";
 import { FaHeart } from "react-icons/fa";
 import Button from "@/components/ui/Button";
 

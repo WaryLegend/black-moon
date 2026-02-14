@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { MdOutlineShoppingCart, MdShoppingCart } from "react-icons/md";
-import { useCartStore } from "@/context/CartStore";
+import { useCartStore } from "@/contexts/CartStore";
 
 function CartIcon() {
   const isPending = useCartStore((state) => state.isPending);

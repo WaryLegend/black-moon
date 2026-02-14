@@ -1,5 +1,5 @@
 import { formatCurrency } from "@/utils/helpers";
-import { useCartStore } from "@/context/CartStore";
+import { useCartStore } from "@/contexts/CartStore";
 import OrderSummarySkeleton from "@/components/skeletons/OrderSummarySkeletion";
 import CheckItemList from "./CheckItemList";
 

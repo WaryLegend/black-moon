@@ -2,7 +2,7 @@ import { getCategoryById, getProductById } from "@/lib/data-service";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import BreadCrumbNav from "@/common/navigation/BreadCrumbNav";
-import ProductInitializer from "@/context/ProductInitializer";
+import ProductInitializer from "@/contexts/ProductInitializer";
 import ProductDetails from "@/components/store/product_detail/ProductDetails";
 import ProductRates from "@/components/store/product_detail/ProductRates";
 import ProductMenu from "@/components/store/product_detail/ProductMenu";

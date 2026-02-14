@@ -1,4 +1,4 @@
-import { useCartStore } from "@/context/CartStore";
+import { useCartStore } from "@/contexts/CartStore";
 import CheckItem from "./CheckItem";
 
 function CheckItemList() {

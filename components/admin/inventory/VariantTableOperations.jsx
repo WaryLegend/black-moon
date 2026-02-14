@@ -1,7 +1,7 @@
 "use client";
 
 import NestedFilter from "@/components/filters/NestedFilter";
-import { useColorsAndSizes } from "@/context/ColorsAndSizesContext";
+import { useColorsAndSizes } from "@/contexts/ColorsAndSizesContext";
 import { searchProducts } from "@/lib/data-service";
 import { PRICES_RANGE } from "@/utils/constants";
 

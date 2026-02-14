@@ -1,4 +1,4 @@
-import Admin from "./Admin";
+import Admin from "@/components/user-menu/Admin";
 import ToggleSideBar from "./ToggleSideBar";
 import ThemeToggleBtn from "@/components/ui/ThemeToggleBtn";
 

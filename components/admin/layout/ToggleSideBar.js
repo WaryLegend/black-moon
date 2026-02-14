@@ -1,7 +1,7 @@
 "use client";
 
 import { TbLayoutSidebar, TbLayoutSidebarFilled } from "react-icons/tb";
-import { useSidebar } from "@/context/SidebarContext";
+import { useSidebar } from "@/contexts/SidebarContext";
 import Button from "@/components/ui/Button";
 
 function ToggleSideBar() {

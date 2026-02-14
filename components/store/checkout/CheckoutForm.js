@@ -4,7 +4,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import ShippingInfo from "./ShippingInfo";
 import ShippingMethod from "./ShippingMethod";
 import Payment from "./Payment";
-import useCheckoutStepStore from "@/context/CheckoutStepStore";
+import useCheckoutStepStore from "@/contexts/CheckoutStepStore";
 
 export default function CheckoutForm() {
   const { step } = useCheckoutStepStore();

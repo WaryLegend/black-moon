@@ -1,4 +1,4 @@
-import ProfileTabNav from "@/components/user/profile/ProfileTabNav";
+import ProfileTabNav from "@/components/user-menu/profile/ProfileTabNav";
 
 export const metadata = {
   title: "Profile",

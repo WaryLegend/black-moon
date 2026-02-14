@@ -25,11 +25,12 @@
       "@/components/*": ["components/*"],
       "@/common/*": ["components/common/*"],
       "@/features/*": ["features/*"],
-      "@/context/*": ["context/*"],
+      "@/contexts/*": ["contexts/*"],
       "@/hooks/*": ["hooks/*"],
       "@/lib/*": ["lib/*"],
       "@/utils/*": ["lib/utils/*"],
-      "@/styles/*": ["styles/*"]
+      "@/styles/*": ["styles/*"],
+      "@/services/*": ["services/*"]
     },
     "allowJs": true,
     "checkJs": true,

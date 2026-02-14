@@ -1,7 +1,7 @@
 import VariantTableAndBtns from "@/components/admin/inventory/VariantTableAndBtns";
 import VariantTableOperations from "@/components/admin/inventory/VariantTableOperations";
 import SortBy from "@/components/filters/SortBy";
-import { ColorsAndSizesProvider } from "@/context/ColorsAndSizesContext";
+import { ColorsAndSizesProvider } from "@/contexts/ColorsAndSizesContext";
 import { getColors, getSizes } from "@/lib/apiSettings";
 
 export const metadata = {

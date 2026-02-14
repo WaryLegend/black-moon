@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useMenuStore } from "@/context/HomeMenuStore";
+import { useMenuStore } from "@/contexts/HomeMenuStore";
 
 type Props = {
   hasActiveFilters: boolean;

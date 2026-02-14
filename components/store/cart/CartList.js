@@ -1,7 +1,7 @@
 "use client";
 
-import { useCartStore } from "@/context/CartStore";
-import { useSettingStore } from "@/context/SettingStore";
+import { useCartStore } from "@/contexts/CartStore";
+import { useSettingStore } from "@/contexts/SettingStore";
 import NoCartlistFound from "./NoCartlistFound";
 import CartListSkeleton from "@/components/skeletons/CartListSkeleton";
 import CartItem from "./CartItem";

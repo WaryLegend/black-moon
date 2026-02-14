@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { useWishListStore } from "@/context/WishListStore";
+import { useWishListStore } from "@/contexts/WishListStore";
 
 function WishlistIcon() {
   const isPending = useWishListStore((state) => state.isPending);

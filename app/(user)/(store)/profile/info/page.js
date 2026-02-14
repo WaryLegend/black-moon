@@ -5,7 +5,7 @@ import Image from "next/image";
 import Button from "@/components/ui/Button";
 import default_user from "@/public/default-user.jpg";
 import { fDate } from "@/utils/helpers";
-import AvatarMenu from "@/components/user/profile/AvatarMenu";
+import AvatarMenu from "@/components/user-menu/profile/AvatarMenu";
 
 // Mock data (thay bằng auth sau)
 const mockUser = {

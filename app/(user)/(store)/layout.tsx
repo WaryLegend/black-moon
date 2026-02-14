@@ -1,8 +1,8 @@
-import { ColorsAndSizesProvider } from "@/context/ColorsAndSizesContext";
+import { ColorsAndSizesProvider } from "@/contexts/ColorsAndSizesContext";
 import { getColors, getSizes } from "@/lib/apiSettings";
 import Header from "@/common/layout/Header";
 import LogoLink from "@/common/navigation/LogoLink";
-import User from "@/components/user/User";
+import User from "@/components/user-menu/User";
 import Cart from "@/common/navigation/CartIcon";
 import WishList from "@/common/navigation/WishlistIcon";
 import StickyHeaderWrapper from "@/common/layout/StickyHeaderWrapper";
@@ -31,7 +31,7 @@ export default async function StoreLayout({
           <LogoLink />
           <div
             role="toolbar"
-            className="flex items-center gap-2.5 sm:gap-4"
+            className="flex items-center gap-2"
             aria-label="User actions"
           >
             <ThemeToggleBtn />

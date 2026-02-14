@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useSearchParams } from "next/navigation";
-import { useProductStore } from "@/context/ProductStore";
+import { useProductStore } from "@/contexts/ProductStore";
 import { useMemo } from "react";
 import { groupLabels } from "@/utils/constants";
 import AddToWishList from "@/components/store/wishlist/AddToWishList";

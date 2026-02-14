@@ -6,7 +6,7 @@ import FileInput from "@/components/forms/FileInput";
 import Button from "@/components/ui/Button";
 import Radio from "@/components/forms/Radio";
 import { formatCurrency } from "@/utils/helpers";
-import { useColorsAndSizes } from "@/context/ColorsAndSizesContext";
+import { useColorsAndSizes } from "@/contexts/ColorsAndSizesContext";
 import { searchProducts } from "@/lib/data-service";
 import CustomSelectAsync from "@/components/filters/CustomSelectAsync";
 // import { useCreateVariant } from "./useCreateVariant";

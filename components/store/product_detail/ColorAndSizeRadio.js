@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef } from "react";
-import { useProductStore } from "@/context/ProductStore";
+import { useProductStore } from "@/contexts/ProductStore";
 import ColorAndSizeSkeleton from "@/components/skeletons/ColorAndSizeSkeleton";
 import ColorRadio from "./ColorRadio";
 import SizeRadio from "./SizeRadio";

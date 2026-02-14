@@ -1,7 +1,7 @@
 "use client";
 
 import { formatCurrency } from "@/utils/helpers";
-import { useCartStore } from "@/context/CartStore";
+import { useCartStore } from "@/contexts/CartStore";
 import Modal from "@/components/ui/Modal";
 import Button from "@/components/ui/Button";
 import CartMenu from "./CartMenu";

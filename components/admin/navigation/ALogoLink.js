@@ -1,6 +1,6 @@
 "use client";
 
-import { useSidebar } from "@/context/SidebarContext";
+import { useSidebar } from "@/contexts/SidebarContext";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@/public/logos/logo.png";

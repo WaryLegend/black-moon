@@ -1,6 +1,6 @@
 "use client";
 
-import useCheckoutStepStore from "@/context/CheckoutStepStore";
+import useCheckoutStepStore from "@/contexts/CheckoutStepStore";
 
 export default function CheckoutHeader() {
   const stepsLabel = ["Thông tin", "Vận chuyển", "Thanh toán"];

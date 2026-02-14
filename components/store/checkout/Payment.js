@@ -1,11 +1,11 @@
 import { useFormContext } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { useCartStore } from "@/context/CartStore";
+import { useCartStore } from "@/contexts/CartStore";
 import { formatCurrency } from "@/utils/helpers";
 import { RiBankCard2Fill } from "react-icons/ri";
 import { FaWallet, FaTruckFast } from "react-icons/fa6";
 import Button from "@/components/ui/Button";
-import useCheckoutStepStore from "@/context/CheckoutStepStore";
+import useCheckoutStepStore from "@/contexts/CheckoutStepStore";
 
 const paymentOptions = [
   {

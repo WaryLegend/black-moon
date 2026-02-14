@@ -1,6 +1,6 @@
 "use client";
 
-import { useProductStore } from "@/context/ProductStore";
+import { useProductStore } from "@/contexts/ProductStore";
 import { formatCurrency } from "@/utils/helpers";
 
 export default function ProductCost() {

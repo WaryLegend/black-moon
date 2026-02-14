@@ -79,6 +79,7 @@
   --color-red-700: #fda4af; /*-red-300*/
   --color-red-800: #fecaca; /*-red-200*/
 
+  --color-green-50: #032e15; /*-green-950*/
   --color-green-100: #0d542b; /*-green-900*/
   --color-green-200: #166534; /*-green-800*/
   --color-green-600: #05df72; /*-green-400*/
@@ -156,25 +157,28 @@
     color: var(--color-primary-700);
   }
 
-  a:focus,
-  input:focus,
-  button:focus,
-  textarea:focus,
-  select:focus {
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
     outline: 2px solid var(--color-accent-600);
-    outline-offset: -1px;
-  }
-
-  a:focus:not(:focus-visible),
-  input:focus:not(:focus-visible),
-  button:focus:not(:focus-visible),
-  textarea:focus:not(:focus-visible),
-  select:focus:not(:focus-visible) {
-    outline: none;
+    outline-offset: 2px;
   }
 
   button:has(svg) {
     line-height: 0;
+  }
+
+  /* remove browser eye icon reveal-hide password */
+  /* Edge / IE */
+  input::-ms-reveal,
+  input::-ms-clear {
+    display: none;
+  }
+  /* Chrome / Safari */
+  input[type="password"]::-webkit-textfield-decoration-container {
+    display: none;
   }
 
   img {
@@ -257,8 +261,8 @@
     display: inline-block;
     width: 6px;
     height: 6px;
-    background-color: var(--color-primary-700);
-    border-radius: 9999px;
+    background-color: var(--color-primary-600);
+    border-radius: 50%;
   }
   @keyframes wave {
     0%,

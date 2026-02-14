@@ -1,7 +1,7 @@
 "use client";
 
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { useWishListStore } from "@/context/WishListStore";
+import { useWishListStore } from "@/contexts/WishListStore";
 import Button from "@/components/ui/Button";
 
 export default function AddToWishList({ item: vari, className = "" }) {

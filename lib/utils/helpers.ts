@@ -230,11 +230,12 @@ export const formatMobile = (mobile?: string): string | null => {
 };
 
 // apply role style
-type Role = "admin" | "staff" | string;
+type Role = "admin" | "staff" | "manager" | string;
 
 export function getRoleStyle(role?: Role) {
   const roles: Record<string, string> = {
     admin: "bg-purple-50 text-purple-800 border-purple-200",
+    manager: "bg-green-50 text-green-800 border-green-200",
     staff: "bg-blue-50 text-blue-800 border-blue-200",
   };
   return (

@@ -4,8 +4,8 @@ import { fDate, formatCurrency } from "@/utils/helpers";
 import { ORDER_STATUS } from "@/utils/constants";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { useUserOrder } from "@/components/user/profile/useUserOrder";
-import OrderDetailItem from "@/components/user/profile/OrderDetailItem";
+import { useUserOrder } from "@/components/user-menu/profile/useUserOrder";
+import OrderDetailItem from "@/components/user-menu/profile/OrderDetailItem";
 import Spinner from "@/components/ui/Spinner";
 import toast from "react-hot-toast";
 

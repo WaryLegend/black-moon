@@ -1,6 +1,6 @@
 "use client";
 
-import { useWishListStore } from "@/context/WishListStore";
+import { useWishListStore } from "@/contexts/WishListStore";
 
 function WishListHeader() {
   const isPending = useWishListStore((state) => state.isPending);

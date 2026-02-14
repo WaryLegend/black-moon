@@ -1,6 +1,6 @@
 "use client";
 
-import { useCartStore } from "@/context/CartStore";
+import { useCartStore } from "@/contexts/CartStore";
 import { capitalizeFirst, formatCurrency } from "@/utils/helpers";
 import { HiTrash } from "react-icons/hi2";
 import Image from "next/image";

@@ -2,8 +2,8 @@
 
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
-import { useCartStore } from "@/context/CartStore";
-import { useSettingStore } from "@/context/SettingStore";
+import { useCartStore } from "@/contexts/CartStore";
+import { useSettingStore } from "@/contexts/SettingStore";
 
 function CheckoutBtn({ disabled }) {
   const router = useRouter();
