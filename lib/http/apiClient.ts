@@ -8,7 +8,7 @@ import { isPublicEndpoint } from "./publicEndpoints";
 // Create axios instance
 export function createApiClient(): AxiosInstance {
   const instance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_BACKEND,
+    baseURL: process.env.NEXT_PUBLIC_HOST_BACKEND,
     timeout: 10000,
     headers: { "Content-Type": "application/json" },
     withCredentials: true,
@@ -56,7 +56,7 @@ export function createApiClient(): AxiosInstance {
 
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_BACKEND}/api/v1/auth/refresh`,
+          `${process.env.HOST_BACKBEND}/api/v1/auth/refresh`,
           { withCredentials: true },
         );
 

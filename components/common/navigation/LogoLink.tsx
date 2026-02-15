@@ -14,7 +14,7 @@ function LogoLink({ className = "" }) {
         className="rounded-full shadow-sm"
       />
 
-      <span className="text-primary-500 ml-2 text-sm font-bold uppercase text-shadow-sm">
+      <span className="text-primary-500 ml-2 text-sm font-bold uppercase text-shadow-sm max-sm:hidden">
         <span className="text-primary-800 text-xl">Black</span>&
         <span className="text-accent-500 text-xl">Moon</span>
       </span>

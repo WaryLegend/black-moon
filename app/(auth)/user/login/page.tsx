@@ -1,8 +1,8 @@
-import { FcGoogle } from "react-icons/fc";
 import { FaInstagram, FaFacebook } from "react-icons/fa";
 import Link from "next/link";
 import LoginForm from "@/components/auth/LoginForm";
 import { ParamProps } from "@/types/param";
+import GoogleLoginBtn from "@/components/ui/GoogleLoginBtn";
 
 export const metadata = {
   title: "Log in",
@@ -39,10 +39,7 @@ export default async function UserLoginPage({
         </div>
 
         {/* Google Login */}
-        <button className="border-accent-300 hover:bg-accent-50 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border py-2 transition-colors">
-          <FcGoogle className="text-xl" />
-          Đăng nhập với Google
-        </button>
+        <GoogleLoginBtn />
 
         {/* No account yet? */}
         <div className="my-4 flex justify-center gap-1 text-center">

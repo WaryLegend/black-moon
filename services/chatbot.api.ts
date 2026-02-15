@@ -46,7 +46,7 @@ interface ApiResponse<T> {
 }
 
 // Base URL
-const BASE_URL = process.env.NEXT_PUBLIC_API_BACKEND || "http://localhost:8080";
+const BASE_URL = process.env.HOST_BACKBEND || "http://localhost:8080";
 
 // Helper function
 const generateSessionId = (): string => {

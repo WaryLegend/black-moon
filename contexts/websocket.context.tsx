@@ -56,7 +56,7 @@ const WebSocketContext = createContext<WebSocketContextValue | undefined>(
 
 let stompClient: Client | null = null;
 
-const API_URL = process.env.NEXT_PUBLIC_API_BACKEND;
+const API_URL = process.env.HOST_BACKBEND;
 
 /* -------------------- Provider -------------------- */
 

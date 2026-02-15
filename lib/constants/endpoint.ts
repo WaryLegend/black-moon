@@ -1,4 +1,4 @@
-export const PUBLIC_ENDPOINTS = [
+export const ENDPOINTS = [
   "/api/v1/auth/login",
   "/api/v1/auth/logout",
   "/api/v1/auth/register",

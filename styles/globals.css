@@ -220,39 +220,59 @@
     margin: 0;
     width: var(--spinner-size, 45px);
     aspect-ratio: 0.75;
+
     --c: no-repeat linear-gradient(var(--spinner-color, var(--default)) 0 0);
     background:
       var(--c) 0% 50%,
       var(--c) 50% 50%,
       var(--c) 100% 50%;
     background-size: 20% 50%;
-    animation: loading 1s infinite linear;
+
+    animation: loading 1.2s infinite linear;
   }
 
   @keyframes loading {
-    20% {
+    0% {
+      background-position:
+        0% 50%,
+        50% 50%,
+        100% 50%;
+    }
+    16% {
       background-position:
         0% 0%,
         50% 50%,
         100% 50%;
     }
-    40% {
+    33% {
       background-position:
         0% 100%,
         50% 0%,
         100% 50%;
     }
-    60% {
+    50% {
       background-position:
         0% 50%,
         50% 100%,
         100% 0%;
     }
-    80% {
+    66% {
       background-position:
         0% 50%,
         50% 50%,
         100% 100%;
+    }
+    83% {
+      background-position:
+        0% 50%,
+        50% 50%,
+        100% 50%;
+    }
+    100% {
+      background-position:
+        0% 50%,
+        50% 50%,
+        100% 50%;
     }
   }
 

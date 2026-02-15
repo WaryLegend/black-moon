@@ -46,7 +46,6 @@ export const authApi = {
         "/api/v1/auth/refresh",
       );
 
-      console.log(response);
       if (response?.data?.access_token) {
         tokenManager.setAccessToken(response.data.access_token);
         await setTokenCookie(response.data.access_token);
@@ -105,22 +104,23 @@ export const authApi = {
     return response;
   },
 
-  google: async (code: string) => {
-    const response = await httpClient.post<ApiResponse<AuthResponse>>(
-      `/api/v1/auth/google`,
-      { code },
-    );
+  // run in BE
+  // google: async (code: string) => {
+  //   const response = await httpClient.post<ApiResponse<AuthResponse>>(
+  //     `/api/v1/auth/google`,
+  //     { code },
+  //   );
 
-    console.log("📦 Google login response:", response);
+  //   console.log("📦 Google login response:", response);
 
-    if (response?.data?.access_token) {
-      tokenManager.setAccessToken(response.data.access_token);
-      await setTokenCookie(response.data.access_token);
-      console.log("🔐 Token saved in authApi.google");
-    }
+  //   if (response?.data?.access_token) {
+  //     tokenManager.setAccessToken(response.data.access_token);
+  //     await setTokenCookie(response.data.access_token);
+  //     console.log("🔐 Token saved in authApi.google");
+  //   }
 
-    return response;
-  },
+  //   return response;
+  // },
 
   verifyOtp: async (data: { email: string; activationCode: string }) => {
     const response = await httpClient.post<ApiResponse<AuthResponse>>(
