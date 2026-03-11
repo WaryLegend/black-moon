@@ -1,5 +1,5 @@
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
-import { formatCurrency } from "@/utils/helpers";
+import { formatCurrency } from "@/utils/currency";
 import Table from "@/components/ui/Table";
 import styled from "styled-components";
 import Modal from "@/components/ui/Modal";

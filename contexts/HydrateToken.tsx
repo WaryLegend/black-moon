@@ -6,11 +6,21 @@ import { useEffect } from "react";
 function HydrateToken() {
   useEffect(() => {
     async function hydrateToken() {
-      const res = await fetch("/api/auth/get-token");
-      const data = await res.json();
+      try {
+        const res = await fetch("/api/auth/get-token");
+        if (!res.ok) return;
 
-      if (data.access_token) {
-        tokenManager.setAccessToken(data.access_token);
+        const data = await res.json();
+        const token = data?.accessToken;
+
+        if (token) {
+          tokenManager.setAccessToken(token);
+        }
+      } catch (error) {
+        console.warn(
+          "Failed to hydrate access token:",
+          error instanceof Error ? error.message : error,
+        );
       }
     }
 

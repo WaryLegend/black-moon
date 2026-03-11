@@ -1,7 +1,7 @@
 import Table from "@/components/ui/Table";
 import styled from "styled-components";
 import { ORDER_STATUS } from "@/utils/constants";
-import { formatCurrency } from "@/utils/helpers";
+import { formatCurrency } from "@/utils/currency";
 
 const Field = styled.div`
   font-weight: 500; //medium

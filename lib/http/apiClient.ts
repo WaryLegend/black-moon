@@ -1,14 +1,39 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
-import { removeRefreshTokenCookie } from "@/lib/helpers/rmTokenCookie";
 
 import { tokenManager } from "@/lib/auth/tokenManager";
 import { refreshQueue } from "@/lib/auth/refreshQueue";
 import { isPublicEndpoint } from "./publicEndpoints";
+import { clearAccessTokenCookie } from "@/lib/auth/accessTokenCookie";
+import { persistAccessToken } from "@/lib/auth/persistAccessToken";
+
+const BACKEND_BASE_URL = (process.env.NEXT_PUBLIC_HOST_BACKEND || "").replace(
+  /\/$/,
+  "",
+);
+const REFRESH_ENDPOINT = "/api/v1/auth/refresh";
+
+const withBackendBase = (path: string) =>
+  BACKEND_BASE_URL ? `${BACKEND_BASE_URL}${path}` : path;
+
+const extractAccessToken = (payload: unknown): string | null => {
+  if (!payload || typeof payload !== "object") {
+    return null;
+  }
+
+  const container = payload as { data?: unknown; accessToken?: unknown };
+  const authPayload =
+    container.data && typeof container.data === "object"
+      ? (container.data as { accessToken?: unknown })
+      : (container as { accessToken?: unknown });
+  const token = authPayload.accessToken;
+
+  return typeof token === "string" && token.length > 0 ? token : null;
+};
 
 // Create axios instance
 export function createApiClient(): AxiosInstance {
   const instance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_HOST_BACKEND,
+    baseURL: BACKEND_BASE_URL || undefined,
     timeout: 10000,
     headers: { "Content-Type": "application/json" },
     withCredentials: true,
@@ -20,9 +45,6 @@ export function createApiClient(): AxiosInstance {
 
     if (token && !isPublicEndpoint(config.url || "", method)) {
       config.headers.Authorization = `Bearer ${token}`;
-      //   console.log("🔐 Adding token to:", method.toUpperCase(), config.url);
-      // } else {
-      //   console.log("🔓 Public endpoint:", method.toUpperCase(), config.url);
     }
 
     return config;
@@ -55,13 +77,19 @@ export function createApiClient(): AxiosInstance {
       refreshQueue.setRefreshing(true);
 
       try {
-        const response = await axios.get(
-          `${process.env.HOST_BACKBEND}/api/v1/auth/refresh`,
+        const response = await axios.post(
+          withBackendBase(REFRESH_ENDPOINT),
+          {},
           { withCredentials: true },
         );
 
-        const accessToken = response.data?.data?.access_token;
-        tokenManager.setAccessToken(accessToken);
+        const accessToken = extractAccessToken(response.data);
+
+        if (!accessToken) {
+          throw new Error("Refresh response missing access token");
+        }
+
+        await persistAccessToken(accessToken);
         refreshQueue.process(null, accessToken);
 
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
@@ -69,8 +97,10 @@ export function createApiClient(): AxiosInstance {
       } catch (err) {
         refreshQueue.process(err, null);
         tokenManager.clearTokens();
-        removeRefreshTokenCookie();
-        window.location.href = "/user/login";
+        await clearAccessTokenCookie();
+        if (typeof window !== "undefined") {
+          window.location.href = "/user/login";
+        }
         return Promise.reject(err);
       } finally {
         refreshQueue.setRefreshing(false);

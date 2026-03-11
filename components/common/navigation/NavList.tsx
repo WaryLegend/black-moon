@@ -1,6 +1,6 @@
 "use client";
 
-import { grouplinks } from "@/lib/utils/constants";
+import { grouplinks } from "@/utils/constants";
 import NavItem from "@/common/navigation/NavItem";
 import { motion } from "framer-motion";
 

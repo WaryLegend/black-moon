@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ButtonHTMLAttributes, ReactNode } from "react";
 import type { LinkProps } from "next/link";
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/utils/cn";
 
 type BaseProps = {
   children: ReactNode;

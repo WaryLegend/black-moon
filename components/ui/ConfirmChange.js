@@ -1,9 +1,9 @@
 import Button from "@/components/ui/Button";
-import { capitalizeFirst } from "@/lib/utils/helpers";
+import { capitalizeFirst } from "@/utils/capitalize";
 
 function ConfirmChange({
-  actionName,
-  resourceName,
+  actionName = "",
+  resourceName = "",
   onConfirm,
   disabled,
   onCloseModal,

@@ -1,5 +1,5 @@
 import LoginForm from "@/components/auth/LoginForm";
-import Logo from "@/components/Logo";
+import Logo from "@/components/ui/Logo";
 
 export default function AdminLogin() {
   return (

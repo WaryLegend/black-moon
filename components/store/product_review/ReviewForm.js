@@ -13,7 +13,7 @@ export default function ReviewForm({ productId, onCloseModal }) {
 
   const handleSubmit = async () => {
     if (rating === 0 || !comment.trim()) {
-      toast.error("Vui lòng chọn sao và viết bình luận");
+      toast.error("Vui lòng đánh sao và viết bình luận");
       return;
     }
     try {
@@ -42,9 +42,9 @@ export default function ReviewForm({ productId, onCloseModal }) {
         className="focus:border-accent-500 w-full rounded border p-3 focus:outline-none"
       />
 
-      <Button onClick={handleSubmit} className="w-full lg:text-xl">
-        Gửi đánh giá
-      </Button>
+      <div className="flex justify-end">
+        <Button onClick={handleSubmit}>Gửi đánh giá</Button>
+      </div>
     </div>
   );
 }

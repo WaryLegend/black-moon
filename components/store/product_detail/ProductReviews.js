@@ -1,5 +1,5 @@
 import StarRates from "@/components/ui/StarRates";
-import { fDateDistance } from "@/utils/helpers";
+import { fDateDistance } from "@/utils/date";
 
 function ProductReviews({ reviews, children }) {
   const hasReviews = !!reviews?.length;

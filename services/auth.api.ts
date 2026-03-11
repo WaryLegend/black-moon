@@ -1,138 +1,142 @@
 import type {
   LoginCredentials,
   RegisterCredentials,
+  ResetPasswordCredentials,
+  ChangePasswordCredentials,
+  ForgotPasswordCredentials,
   AuthResponse,
   RegisterResponse,
 } from "@/types/auth";
 import httpClient from "@/lib/http/httpClient";
 import { tokenManager } from "@/lib/auth/tokenManager";
+import { clearAccessTokenCookie } from "@/lib/auth/accessTokenCookie";
+import { persistAccessToken } from "@/lib/auth/persistAccessToken";
 
-interface ApiResponse<T> {
+export interface ApiResponse<T> {
   error?: string | null;
   message?: string;
   data: T;
 }
 
+const AUTH_BASE_PATH = "/api/v1/auth";
+
+const normalizeApiResponse = <T>(
+  payload: ApiResponse<T> | T,
+): ApiResponse<T> => {
+  if (payload !== null && typeof payload === "object" && "data" in payload) {
+    return payload as ApiResponse<T>;
+  }
+
+  return {
+    data: payload as T,
+  };
+};
+
+const extractAccessToken = (payload?: AuthResponse | null): string | null =>
+  payload?.accessToken ?? null;
+
 export const authApi = {
   login: async (data: LoginCredentials) => {
-    const response = await httpClient.post<ApiResponse<AuthResponse>>(
-      "/api/v1/auth/login",
+    const raw = await httpClient.post<AuthResponse>(
+      `${AUTH_BASE_PATH}/login`,
       data,
     );
-    console.log("🔐 Login response:", response.message);
+    const response = normalizeApiResponse(raw);
 
-    // Response structure is { status, data: { access_token, user } }
-    if (response?.data?.access_token) {
-      // Save in memory (for Bearer header)
-      tokenManager.setAccessToken(response.data.access_token);
-      // Save in cookie (for middleware)
-      await setTokenCookie(response.data.access_token);
-    }
+    await persistAccessToken(extractAccessToken(response.data));
+    return response;
+  },
+
+  adminLogin: async (data: LoginCredentials) => {
+    const raw = await httpClient.post<AuthResponse>(
+      `${AUTH_BASE_PATH}/workspace/login`,
+      data,
+    );
+    const response = normalizeApiResponse(raw);
+
+    await persistAccessToken(extractAccessToken(response.data));
     return response;
   },
 
   register: async (data: RegisterCredentials) => {
-    const response = await httpClient.post<ApiResponse<RegisterResponse>>(
-      "/api/v1/auth/register",
+    const raw = await httpClient.post<RegisterResponse>(
+      `${AUTH_BASE_PATH}/register`,
       data,
     );
-    return response;
+    return normalizeApiResponse(raw);
   },
 
-  refresh: async () => {
+  refresh: async (refreshToken?: string | null) => {
     try {
-      // Gọi refresh token endpoint, cookie sẽ được gửi tự động
-      const response = await httpClient.get<ApiResponse<Partial<AuthResponse>>>(
-        "/api/v1/auth/refresh",
+      const payload = refreshToken ? { refreshToken } : {};
+
+      const raw = await httpClient.post<AuthResponse>(
+        `${AUTH_BASE_PATH}/refresh`,
+        payload,
       );
+      const response = normalizeApiResponse(raw);
 
-      if (response?.data?.access_token) {
-        tokenManager.setAccessToken(response.data.access_token);
-        await setTokenCookie(response.data.access_token);
-      }
-
+      await persistAccessToken(extractAccessToken(response.data));
       return response;
     } catch (error) {
       tokenManager.clearTokens();
+      await clearAccessTokenCookie();
       throw error;
     }
   },
 
   sendVerificationEmail: async (email: string) => {
-    const response = await httpClient.get<ApiResponse<null>>(
-      `/api/v1/auth/send-activation-email?email=${email}`,
+    const raw = await httpClient.get<void>(
+      `${AUTH_BASE_PATH}/send-email-activation`,
+      {
+        params: { email },
+      },
     );
-    return response;
+    return normalizeApiResponse(raw);
   },
 
   activateAccount: async (key: string) => {
-    const response = await httpClient.post<ApiResponse<null>>(
-      `/api/v1/auth/activate?key=${key}`,
+    const raw = await httpClient.get<AuthResponse>(
+      `${AUTH_BASE_PATH}/activate`,
+      {
+        params: { key },
+      },
     );
+    const response = normalizeApiResponse(raw);
+
+    await persistAccessToken(extractAccessToken(response.data));
     return response;
   },
 
   logout: async () => {
     try {
-      // Clear tokens FIRST
+      const raw = await httpClient.post<{ success: boolean }>(
+        `${AUTH_BASE_PATH}/logout`,
+        {},
+      );
+      return normalizeApiResponse(raw);
+    } finally {
       tokenManager.clearTokens();
-
-      await fetch("/api/auth/clear-token", {
-        method: "POST",
-      });
-
-      const response = await httpClient.post<ApiResponse<null>>(
-        "/api/v1/auth/logout",
-        { refresh_token: null },
-      );
-
-      return response;
-    } catch (error) {
-      console.warn(
-        "Logout API failed (tokens already cleared):",
-        (error as any)?.message ?? error,
-      );
-      return null;
+      await clearAccessTokenCookie();
     }
   },
 
-  forgotPassword: async (data: { email: string }) => {
-    const response = await httpClient.post<ApiResponse<null>>(
-      "/api/v1/auth/recover-password-code",
+  forgotPassword: async (data: ForgotPasswordCredentials) => {
+    const raw = await httpClient.post<void>(
+      `${AUTH_BASE_PATH}/recover-password-code`,
       data,
     );
-    return response;
+    return normalizeApiResponse(raw);
   },
-
-  // run in BE
-  // google: async (code: string) => {
-  //   const response = await httpClient.post<ApiResponse<AuthResponse>>(
-  //     `/api/v1/auth/google`,
-  //     { code },
-  //   );
-
-  //   console.log("📦 Google login response:", response);
-
-  //   if (response?.data?.access_token) {
-  //     tokenManager.setAccessToken(response.data.access_token);
-  //     await setTokenCookie(response.data.access_token);
-  //     console.log("🔐 Token saved in authApi.google");
-  //   }
-
-  //   return response;
-  // },
 
   verifyOtp: async (data: { email: string; activationCode: string }) => {
-    const response = await httpClient.post<ApiResponse<AuthResponse>>(
-      "/api/v1/auth/activate-code",
+    const raw = await httpClient.post<AuthResponse>(
+      `${AUTH_BASE_PATH}/activate-code`,
       data,
     );
+    const response = normalizeApiResponse(raw);
 
-    if (response?.data?.access_token) {
-      tokenManager.setAccessToken(response.data.access_token);
-      await setTokenCookie(response.data.access_token);
-      console.log("🔐 Token saved in authApi.verifyOtp");
-    }
+    await persistAccessToken(extractAccessToken(response.data));
     return response;
   },
 
@@ -140,47 +144,26 @@ export const authApi = {
     email: string;
     resetCode: string;
   }) => {
-    const response = await httpClient.post<ApiResponse<null>>(
-      "/api/v1/auth/verify-reset-code",
+    const raw = await httpClient.post<void>(
+      `${AUTH_BASE_PATH}/verify-reset-code`,
       data,
     );
-    return response;
+    return normalizeApiResponse(raw);
   },
 
-  resetPassword: async (data: {
-    email: string;
-    resetCode: string;
-    newPassword: string;
-    confirmPassword: string;
-  }) => {
-    const response = await httpClient.post<ApiResponse<null>>(
-      "/api/v1/auth/reset-password-code",
+  resetPassword: async (data: ResetPasswordCredentials) => {
+    const raw = await httpClient.post<void>(
+      `${AUTH_BASE_PATH}/reset-password-code`,
       data,
     );
-    return response;
+    return normalizeApiResponse(raw);
   },
 
-  adminLogin: async (data: LoginCredentials) => {
-    const response = await httpClient.post<ApiResponse<AuthResponse>>(
-      "/api/v1/workspace/login",
+  changePassword: async (data: ChangePasswordCredentials) => {
+    const raw = await httpClient.post<void>(
+      `${AUTH_BASE_PATH}/change-password`,
       data,
     );
-
-    console.log("🔐 Admin login response:", response.message);
-
-    if (response?.data?.access_token) {
-      tokenManager.setAccessToken(response.data.access_token);
-      await setTokenCookie(response.data.access_token);
-    }
-
-    return response;
+    return normalizeApiResponse(raw);
   },
 };
-
-async function setTokenCookie(token: string) {
-  await fetch("/api/auth/set-token", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ access_token: token }),
-  });
-}

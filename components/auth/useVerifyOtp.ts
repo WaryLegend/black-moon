@@ -2,23 +2,14 @@ import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import { authApi } from "@/services/auth.api";
+import { authApi, type ApiResponse } from "@/services/auth.api";
 import type { AuthResponse } from "@/types/auth";
-import { useUserStore } from "@/contexts/UserStore";
 import { useWebSocket } from "@/contexts/websocket.context";
-import { tokenManager } from "@/lib/auth/tokenManager";
 
 export function useVerifyOtp(returnUrl?: string) {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { connect } = useWebSocket();
-  const setAuthenticated = useUserStore((s) => s.setAuthenticated);
-
-  type ApiResponse<T> = {
-    error?: string | null;
-    message?: string;
-    data: T;
-  };
 
   return useMutation<
     ApiResponse<AuthResponse>,
@@ -27,24 +18,14 @@ export function useVerifyOtp(returnUrl?: string) {
   >({
     mutationFn: authApi.verifyOtp,
 
-    onSuccess: (response) => {
-      const user = response?.data?.user;
-      const accessToken = response?.data?.access_token;
-
-      if (!user) {
-        toast.error("Không thể kích hoạt tài khoản");
-        return;
-      }
-
-      if (accessToken && !tokenManager.getAccessToken()) {
-        tokenManager.setAccessToken(accessToken);
-      }
-
-      setAuthenticated(user);
-
+    onSuccess: async () => {
       toast.success("Kích hoạt tài khoản thành công!");
 
-      queryClient.invalidateQueries({ queryKey: ["cart"] });
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["user", "me"] }),
+        queryClient.invalidateQueries({ queryKey: ["cart"] }),
+      ]);
+
       setTimeout(connect, 100);
 
       router.replace(returnUrl || "/");

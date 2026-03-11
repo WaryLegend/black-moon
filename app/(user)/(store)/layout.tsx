@@ -6,7 +6,6 @@ import User from "@/components/user-menu/User";
 import Cart from "@/common/navigation/CartIcon";
 import WishList from "@/common/navigation/WishlistIcon";
 import StickyHeaderWrapper from "@/common/layout/StickyHeaderWrapper";
-import ThemeToggleBtn from "@/components/ui/ThemeToggleBtn";
 
 export const metadata = {
   title: {
@@ -34,7 +33,6 @@ export default async function StoreLayout({
             className="flex items-center gap-2"
             aria-label="User actions"
           >
-            <ThemeToggleBtn />
             <WishList />
             <Cart />
             <User />

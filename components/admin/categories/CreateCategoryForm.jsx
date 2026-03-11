@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
-import Form from "@/components/forms/Form";
-import FormRow from "@/components/forms/FormRow";
-import Input from "@/components/forms/Input";
-import FileInput from "@/components/forms/FileInput";
-import Radio from "@/components/forms/Radio";
+import Form from "@/components/forms/admin/Form";
+import FormRow from "@/components/forms/admin/FormRow";
+import Input from "@/components/forms/admin/Input";
+import FileInput from "@/components/forms/admin/FileInput";
+import Radio from "@/components/forms/admin/Radio";
 import { groupOptions } from "@/utils/constants";
 import Button from "@/components/ui/Button";
 // import { useCreateCategory } from "./useCreateCategory";

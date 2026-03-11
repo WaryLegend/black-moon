@@ -1,7 +1,8 @@
 "use client";
 
 import { useCartStore } from "@/contexts/CartStore";
-import { capitalizeFirst, formatCurrency } from "@/utils/helpers";
+import { capitalizeFirst } from "@/utils/capitalize";
+import { formatCurrency } from "@/utils/currency";
 import { HiTrash } from "react-icons/hi2";
 import Image from "next/image";
 import Button from "@/components/ui/Button";

@@ -2,11 +2,10 @@ import StickyHeaderWrapper from "@/common/layout/StickyHeaderWrapper";
 import Header from "@/common/layout/Header";
 import Navigation from "@/common/layout/Navigation";
 import LogoLink from "@/common/navigation/LogoLink";
-import ThemeToggleBtn from "@/components/ui/ThemeToggleBtn";
 import WishlistIcon from "@/components/common/navigation/WishlistIcon";
 import CartIcon from "@/components/common/navigation/CartIcon";
 import User from "@/components/user-menu/User";
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/utils/cn";
 
 export const metadata = {
   title: "Welcome | Black & Moon",
@@ -30,7 +29,6 @@ export default function HomeLayout({
             aria-label="User actions"
             className="order-2 flex items-center gap-2 md:order-3"
           >
-            <ThemeToggleBtn />
             <WishlistIcon />
             <CartIcon />
             <User />

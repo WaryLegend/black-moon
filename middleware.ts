@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { decodeJwt } from "@/lib/utils/jwt";
+import { decodeJwt } from "@/utils/jwt";
 
 export async function middleware(request: NextRequest) {
   const url = request.nextUrl;
@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
   const payload = token ? decodeJwt(token) : null;
 
   const isLoggedIn = !!payload;
-  const role = payload?.scope; // "USER" | "ADMIN" | more
+  const role = (payload?.role ?? payload?.scope) as string | undefined;
 
   // ---------- ROUTE FLAGS ----------
   const isUserAuthRoute = pathname.startsWith("/user/");
@@ -51,6 +51,8 @@ export async function middleware(request: NextRequest) {
       if (isUserAuthRoute) {
         return NextResponse.redirect(new URL("/", request.url));
       }
+      if (isUserProtectedRoute && pathname === "/profile")
+        return NextResponse.redirect(new URL("/profile/info", request.url));
       if (isAdminProtectedRoute)
         return NextResponse.redirect(new URL("/admin/login", request.url));
     }

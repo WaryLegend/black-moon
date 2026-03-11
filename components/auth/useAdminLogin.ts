@@ -1,43 +1,22 @@
 "use client";
 
-import { useMutation } from "@tanstack/react-query";
-import { authApi } from "@/services/auth.api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { authApi, type ApiResponse } from "@/services/auth.api";
 import { useRouter } from "next/navigation";
-import { useAdminStore } from "@/contexts/AdminStore";
 import { AuthResponse, LoginCredentials } from "@/types/auth";
-import { tokenManager } from "@/lib/auth/tokenManager";
 import toast from "react-hot-toast";
 
 export function useAdminLogin() {
   const router = useRouter();
-  const setAdminAuth = useAdminStore((state) => state.setAuthenticated);
-
-  type ApiResponse<T> = {
-    error?: string | null;
-    message?: string;
-    data: T;
-  };
+  const queryClient = useQueryClient();
 
   return useMutation<ApiResponse<AuthResponse>, any, LoginCredentials>({
     mutationKey: ["admin", "login"],
     mutationFn: authApi.adminLogin,
 
-    onSuccess: (response) => {
-      const admin = response?.data?.user;
-      const accessToken = response?.data?.access_token;
-
-      if (accessToken && !tokenManager.getAccessToken()) {
-        tokenManager.setAccessToken(accessToken);
-      }
-
-      setAdminAuth(admin);
-
-      toast.success(
-        admin.firstName
-          ? `Chào mừng, ${admin.lastName || ""} ${admin.firstName}!`
-          : "Đăng nhập thành công",
-      );
-
+    onSuccess: async () => {
+      toast.success("Đăng nhập thành công");
+      await queryClient.invalidateQueries({ queryKey: ["user", "me"] });
       router.replace("/admin/dashboard");
     },
 
@@ -54,7 +33,7 @@ export function useAdminLogin() {
           break;
 
         case 403:
-          toast.error("Tài khoản không có quyền truy cập vào mục này");
+          toast.error("Tài khoản không tồn tại");
           break;
 
         case 500:

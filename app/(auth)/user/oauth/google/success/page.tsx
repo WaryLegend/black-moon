@@ -2,10 +2,9 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { FcGoogle } from "react-icons/fc";
 import { useGoogleCallback } from "@/components/auth/useGoogleCallback";
-import { useUserStore } from "@/contexts/UserStore";
-import { tokenManager } from "@/lib/auth/tokenManager";
 
 import toast from "react-hot-toast";
 import Spinner from "@/components/ui/Spinner";
@@ -13,37 +12,21 @@ import AnimatedCheck from "@/components/ui/AnimatedCheck";
 
 export default function GoogleCallbackPage() {
   const router = useRouter();
-  const setAuthenticated = useUserStore((s) => s.setAuthenticated);
-
-  const { data, isPending, isError } = useGoogleCallback();
+  const queryClient = useQueryClient();
+  const { isPending, isError, isSuccess } = useGoogleCallback();
 
   useEffect(() => {
-    if (!data) return;
+    if (!isSuccess) return;
 
-    const user = data?.data?.user;
-    const accessToken = data?.data?.access_token;
-
-    if (!user || !accessToken) {
-      toast.error("Đăng nhập Google thất bại");
-      router.replace("/user/login");
-      return;
-    }
-
-    tokenManager.setAccessToken(accessToken);
-    setAuthenticated(user);
-
-    toast.success(
-      user.firstName
-        ? `Chào mừng, ${user.lastName || ""} ${user.firstName}!`
-        : "Đăng nhập thành công",
-    );
+    toast.success("Đăng nhập Google thành công");
+    queryClient.invalidateQueries({ queryKey: ["user", "me"] });
 
     const timer = setTimeout(() => {
       router.replace("/");
     }, 800);
 
     return () => clearTimeout(timer);
-  }, [data, router, setAuthenticated]);
+  }, [isSuccess, queryClient, router]);
 
   useEffect(() => {
     if (isError) {

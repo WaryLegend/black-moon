@@ -1,6 +1,7 @@
 "use client";
 
-import { capitalizeFirst, formatCurrency } from "@/utils/helpers";
+import { capitalizeFirst } from "@/utils/capitalize";
+import { formatCurrency } from "@/utils/currency";
 import { usePathname } from "next/navigation";
 import { FaStar } from "react-icons/fa";
 import Image from "next/image";

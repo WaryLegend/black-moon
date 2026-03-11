@@ -1,5 +1,4 @@
 import ReviewsSection from "@/components/store/product_review/ReviewsSection";
-import QueryProvider from "@/components/QueryClientProvider";
 import { getProductById } from "@/lib/data-service";
 
 export async function generateMetadata({ params }) {
@@ -14,9 +13,5 @@ export async function generateMetadata({ params }) {
 export default async function Page({ params }) {
   const { productId } = await params;
 
-  return (
-    <QueryProvider>
-      <ReviewsSection productId={productId} />
-    </QueryProvider>
-  );
+  return <ReviewsSection productId={productId} />;
 }

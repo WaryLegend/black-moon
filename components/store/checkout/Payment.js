@@ -1,7 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/contexts/CartStore";
-import { formatCurrency } from "@/utils/helpers";
+import { formatCurrency } from "@/utils/currency";
 import { RiBankCard2Fill } from "react-icons/ri";
 import { FaWallet, FaTruckFast } from "react-icons/fa6";
 import Button from "@/components/ui/Button";

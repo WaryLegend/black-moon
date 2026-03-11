@@ -3,8 +3,9 @@
 import { FaBoxOpen, FaUsers } from "react-icons/fa";
 import { HiOutlineBanknotes } from "react-icons/hi2";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { fCurrencyShorten, formatNumber } from "@/utils/helpers";
+import { fNumberShorten } from "@/utils/number";
 import { useOrdersByDateRange } from "./useOrdersByDateRange";
+import { fCurrencyShorten } from "@/utils/currency";
 import Stat from "./Stat";
 
 const iconColors = {
@@ -57,19 +58,19 @@ function Stats() {
         dateUnit={`last ${dateUnitLabel?.[numDays] ?? `${numDays} days`}`}
         icon={<FaBoxOpen className="h-8 w-8 lg:h-10 lg:w-10" />}
         color={iconColors["purple"]}
-        formattingFn={(num) => formatNumber(num)}
+        formattingFn={(num) => fNumberShorten(num)}
         isLoading={isLoading}
       />
 
       {/* Active Customers */}
       <Stat
         title="Today's Visits"
-        value={formatNumber(573)}
+        value={fNumberShorten(573)}
         rates={102}
         dateUnit="yesterday"
         icon={<FaUsers className="h-8 w-8 lg:h-10 lg:w-10" />}
         color={iconColors["default"]}
-        formattingFn={(num) => formatNumber(num)}
+        formattingFn={(num) => fNumberShorten(num)}
       />
     </div>
   );

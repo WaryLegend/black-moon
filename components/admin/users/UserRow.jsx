@@ -1,10 +1,7 @@
 import { HiLockClosed, HiLockOpen, HiPencil, HiTrash } from "react-icons/hi2";
-import {
-  capitalizeFirst,
-  fDateTime,
-  formatMobile,
-  getRoleStyle,
-} from "@/utils/helpers";
+import { fDateTime } from "@/utils/date";
+import { formatMobile } from "@/utils/phone";
+import { getRoleStyle } from "@/utils/constants";
 import default_user from "@/public/default-user.jpg";
 import toast from "react-hot-toast";
 import Image from "next/image";
@@ -14,7 +11,8 @@ import Modal from "@/components/ui/Modal";
 import Menus from "@/components/ui/Menus";
 import ConfirmDelete from "@/components/ui/ConfirmDelete";
 import ConfirmChange from "@/components/ui/ConfirmChange";
-import TruncatedEmail from "@/components/TruncatedEmail";
+import TruncatedEmail from "@/components/ui/TruncatedEmail";
+import { capitalizeFirst } from "@/utils/capitalize";
 
 const Field = styled.div`
   font-size: 1rem;
@@ -56,7 +54,7 @@ function UserRow({ user }) {
           {capitalizeFirst(role)}
         </span>
       </Field>
-      <Field>{<TruncatedEmail email={email} /> || "—"}</Field>
+      <Field>{email ? <TruncatedEmail email={email} /> : "—"}</Field>
       <Field className="text-primary-500">{formatMobile(mobile) || "—"}</Field>
       <Field className="flex items-center">
         <div

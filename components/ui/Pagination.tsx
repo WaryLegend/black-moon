@@ -3,7 +3,7 @@
 import { JSX } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { PAGE_SIZE } from "@/lib/utils/constants";
+import { PAGE_SIZE } from "@/utils/constants";
 import Button from "@/components/ui/Button";
 
 type PaginationProps = {

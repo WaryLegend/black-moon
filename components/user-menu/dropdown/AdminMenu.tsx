@@ -1,6 +1,5 @@
 "use client";
 
-import { useAdminStore } from "@/contexts/AdminStore";
 import { FaRegUser, FaUser } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { FaGear, FaGears } from "react-icons/fa6";
@@ -10,11 +9,11 @@ import default_user from "@/public/default-user.jpg";
 import Menus from "@/components/ui/Menus";
 import Image from "next/image";
 import Spinner from "@/components/ui/Spinner";
+import { CurrentAccount } from "@/types/profile";
 
-function AdminMenu() {
-  const admin = useAdminStore((state) => state.admin);
-  const { firstName, lastName, email, avatar } = admin || {};
-  const name = `${lastName || ""} ${firstName || ""}`.trim();
+function AdminMenu({ admin }: { admin: CurrentAccount }) {
+  const { email } = admin || {};
+  const { fullName, avatarUrl } = admin?.profile || {};
 
   const pathname = usePathname();
 
@@ -29,7 +28,7 @@ function AdminMenu() {
       <div className="flex items-center gap-2 px-4 py-3">
         <div className="relative aspect-square size-[45px]">
           <Image
-            src={avatar || default_user}
+            src={avatarUrl || default_user}
             fill
             sizes="45px"
             alt="Admin's avatar"
@@ -37,7 +36,7 @@ function AdminMenu() {
           />
         </div>
         <div className="flex max-w-[25ch] flex-col">
-          <span className="truncate font-semibold">{name}</span>
+          <span className="truncate font-semibold">{fullName}</span>
           <span className="text-primary-600 truncate text-sm font-light">
             {email}
           </span>
@@ -48,7 +47,7 @@ function AdminMenu() {
       <div className="border-primary-300 bg-primary-300 mx-2 my-px h-px" />
 
       <Menus.Button
-        className="group gap-4"
+        className="group"
         onClick={() => router.push("profile")}
         icon={
           <>
@@ -61,21 +60,21 @@ function AdminMenu() {
       </Menus.Button>
 
       <Menus.Button
-        className="group gap-4"
+        className="group"
+        title="Cài đặt"
         icon={
           <>
             <FaGear className="group-hover:hidden" />
             <FaGears className="hidden group-hover:block" />
           </>
         }
-      >
-        Cài đặt
-      </Menus.Button>
+      />
 
       {/* divider */}
       <div className="border-primary-300 bg-primary-300 mx-2 my-px h-px" />
 
       <Menus.Button
+        title={isPending ? "Đang đăng xuất..." : "Đăng xuất"}
         disabled={isPending}
         icon={
           <>
@@ -86,11 +85,9 @@ function AdminMenu() {
             )}
           </>
         }
-        className="gap-4 text-red-600"
+        className="text-red-600"
         onClick={logout}
-      >
-        {isPending ? "Đang đăng xuất..." : "Đăng xuất"}
-      </Menus.Button>
+      />
     </>
   );
 }

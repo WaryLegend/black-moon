@@ -2,7 +2,7 @@
 
 import { FaGift, FaTicketAlt } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
-import { formatCurrency } from "@/utils/helpers";
+import { formatCurrency } from "@/utils/currency";
 import { useCartStore } from "@/contexts/CartStore";
 import CartMenuSkeleton from "@/components/skeletons/CartMenuSkeleton";
 import ContinuteShoppingBtn from "./ContinuteShoppingBtn";

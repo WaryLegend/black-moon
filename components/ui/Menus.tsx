@@ -1,95 +1,130 @@
 "use client";
 
 import {
+  Children,
   cloneElement,
   createContext,
+  isValidElement,
   useContext,
-  useEffect,
   useState,
 } from "react";
 import { createPortal } from "react-dom";
 import { HiEllipsisHorizontal } from "react-icons/hi2";
-import useOutsideClick from "@/hooks/useOutSideClick";
-import { cn } from "@/lib/utils/cn";
+import {
+  useFloating,
+  offset,
+  flip,
+  shift,
+  autoUpdate,
+  useInteractions,
+  useClick,
+  useDismiss,
+  useRole,
+} from "@floating-ui/react";
+import { cn } from "@/utils/cn";
 
-type Position = {
-  x: number;
-  y: number;
-};
-
-// Menus context
-type MenuContextValue = {
+// 1. Context quản lý ID nào đang mở (Toàn cục cho cả danh sách)
+type MenusContextValue = {
   openId: string | number;
   open: (id: string | number) => void;
   close: () => void;
-  position: Position | null;
-  setPosition: React.Dispatch<React.SetStateAction<Position | null>>;
 };
-const MenuContext = createContext<MenuContextValue | null>(null);
+const MenusContext = createContext<MenusContextValue | null>(null);
 
-function useMenuContext() {
-  const ctx = useContext(MenuContext);
-  if (!ctx) {
-    throw new Error("Menus components must be used within <Menus>");
-  }
+// 2. Context quản lý Tọa độ (Riêng biệt cho từng cụm Menu)
+type FloatingContextValue = {
+  refs: any;
+  floatingStyles: React.CSSProperties;
+  getReferenceProps: (userProps?: any) => any;
+  getFloatingProps: (userProps?: any) => any;
+};
+const FloatingContext = createContext<FloatingContextValue | null>(null);
+
+function useMenusContext() {
+  const ctx = useContext(MenusContext);
+  if (!ctx) throw new Error("Menus components must be used within <Menus>");
   return ctx;
 }
 
-// Menus (context wrapper)
+function useFloatingContext() {
+  const ctx = useContext(FloatingContext);
+  if (!ctx) throw new Error("Menu components must be used within <Menus.Menu>");
+  return ctx;
+}
+
+// Wrapper ngoài cùng
 function Menus({ children }: { children: React.ReactNode }) {
   const [openId, setOpenId] = useState<string | number>("");
-  const [position, setPosition] = useState<Position | null>(null);
-
   const close = () => setOpenId("");
-  const open = setOpenId;
+  const open = (id: string | number) => setOpenId(id);
+
   return (
-    <MenuContext.Provider
-      value={{ openId, open, close, position, setPosition }}
-    >
+    <MenusContext.Provider value={{ openId, open, close }}>
       {children}
-    </MenuContext.Provider>
+    </MenusContext.Provider>
   );
 }
 
-// Menu wrapper | window
+// 3. Menu wrapper (Bọc từng dòng/item - NƠI TÍNH TOÁN VỊ TRÍ)
 function Menu({ children }: { children: React.ReactNode }) {
-  return <div className="flex items-center justify-end">{children}</div>;
+  const { openId, close } = useMenusContext();
+
+  // Mỗi Menu (dòng) sẽ có một instance useFloating riêng
+  const { refs, floatingStyles, context } = useFloating({
+    open: openId !== "", // Floating UI cần biết trạng thái để autoUpdate
+    onOpenChange: (isOpen) => !isOpen && close(),
+    middleware: [offset(8), flip(), shift()],
+    whileElementsMounted: autoUpdate,
+  });
+
+  const click = useClick(context);
+  const dismiss = useDismiss(context);
+  const role = useRole(context);
+
+  const { getReferenceProps, getFloatingProps } = useInteractions([
+    click,
+    dismiss,
+    role,
+  ]);
+
+  return (
+    <FloatingContext.Provider
+      value={{ refs, floatingStyles, getReferenceProps, getFloatingProps }}
+    >
+      <div className="flex items-center justify-end">{children}</div>
+    </FloatingContext.Provider>
+  );
 }
 
-//Toggle
+// 4. Toggle
 interface ToggleProps {
   id: string | number;
   children?: React.ReactElement<any>;
 }
+
 function Toggle({ id, children }: ToggleProps) {
-  const { openId, open, close, setPosition } = useMenuContext();
+  const { openId, open, close } = useMenusContext();
+  const { refs, getReferenceProps } = useFloatingContext();
 
-  function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
-    e.stopPropagation(); // stop the event flow from coming further
-    // special tech: "closest("button")" --> find closest button to where click happened
-    // getBoundingClientRect() ---> get the coordinates of "button" on the screen
-    // const rect = e.target.closest("button").getBoundingClientRect();
-    const button = e.currentTarget;
-    const rect = button.getBoundingClientRect();
-    setPosition({
-      x: window.innerWidth - rect.width - rect.x,
-      y: rect.y + rect.height + 8,
-    });
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    openId === id ? close() : open(id);
+  };
 
-    openId === "" || openId !== id ? open(id) : close();
+  const commonProps = getReferenceProps({
+    ref: refs.setReference,
+    onClick: handleClick,
+    "data-menu-id": id,
+  });
+
+  // For custom toggle
+  if (children) {
+    return cloneElement(children, commonProps);
   }
-  // for customize button
-  if (children)
-    return cloneElement(children, {
-      onClick: handleClick,
-      "data-menu-id": id,
-    });
-
-  // default Ellipsis button '...'
+  // Default esclipse button
   return (
     <button
-      onClick={handleClick}
-      data-menu-id={id}
+      {...commonProps}
       className="hover:bg-primary-100 translate-x-3 cursor-pointer rounded-lg p-1.5 transition"
     >
       <HiEllipsisHorizontal className="text-primary-700 h-6 w-6" />
@@ -97,7 +132,7 @@ function Toggle({ id, children }: ToggleProps) {
   );
 }
 
-// Menus List
+// 5. List
 function List({
   id,
   children,
@@ -107,99 +142,78 @@ function List({
   children: React.ReactNode;
   className?: string;
 }) {
-  const { openId, position, close, setPosition } = useMenuContext();
-  // const ref = useOutsideClick(close); // by default true --> capturing mode
-  const ref = useOutsideClick<HTMLUListElement>(close, false);
+  const { openId } = useMenusContext();
+  const { refs, floatingStyles, getFloatingProps } = useFloatingContext();
 
-  // re-position on scroll/resize while open
-  useEffect(() => {
-    if (openId !== id) return;
-
-    const updatePosition = () => {
-      // Find the toggle button that opened this menu
-      // One reliable way: add data-id={id} to Toggle's button or wrapper
-      const trigger = document.querySelector(`[data-menu-id="${id}"]`);
-      if (!trigger) return;
-
-      const rect = trigger.getBoundingClientRect();
-      setPosition({
-        x: window.innerWidth - rect.width - rect.x,
-        y: rect.y + rect.height + 8,
-      });
-    };
-
-    updatePosition();
-
-    window.addEventListener("scroll", updatePosition, { passive: true });
-    window.addEventListener("resize", updatePosition, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", updatePosition);
-      window.removeEventListener("resize", updatePosition);
-    };
-  }, [openId, id, setPosition]);
-
-  if (openId !== id || position === null) return null;
+  if (openId !== id) return null;
 
   return createPortal(
     <ul
-      ref={ref}
-      style={{
-        right: position.x,
-        top: position.y,
-      }}
+      ref={refs.setFloating}
+      style={floatingStyles}
+      {...getFloatingProps()}
       className={cn(
-        "border-primary-200 bg-primary-0 absolute z-50 rounded-xl border p-px shadow-md",
+        "border-primary-200 bg-primary-0 absolute z-[9999] min-w-[12rem] rounded-xl border p-px shadow-md",
         className,
       )}
     >
-      {children}
+      {Children.map(children, (child) => {
+        if (!isValidElement(child)) return child;
+        if (child.type === "li") return child; // Tránh lồng li trong li
+        return <li>{child}</li>;
+      })}
     </ul>,
     document.body,
   );
 }
 
-// Button
+// 6. Button (Item bên trong menu)
 type MenuButtonProps = {
-  children: React.ReactNode;
+  title?: string;
   icon?: React.ReactNode;
   onClick?: () => void;
   disabled?: boolean;
   className?: string;
+  children?: React.ReactNode;
 };
+
 function Button({
-  children,
+  title,
   icon,
   onClick,
   disabled = false,
   className = "",
+  children,
 }: MenuButtonProps) {
-  const { close } = useMenuContext();
+  const { close } = useMenusContext();
+
   function handleClick() {
+    if (disabled) return;
     onClick?.();
     close();
   }
+
   return (
-    <li>
-      <button
-        onClick={handleClick}
-        disabled={disabled}
-        className={cn(
-          `text-primary-600 hover:bg-primary-100 flex w-full items-center gap-6 rounded-md px-6 py-2.5 text-left text-base transition disabled:cursor-not-allowed disabled:opacity-50`,
-          className,
-        )}
-      >
-        {icon && <span className="text-primary-400">{icon}</span>}
-        <span>{children}</span>
-      </button>
-    </li>
+    <button
+      onClick={handleClick}
+      disabled={disabled}
+      className={cn(
+        "text-primary-600 hover:bg-primary-100 flex w-full items-center gap-4 rounded-sm px-6 py-2.5 text-left text-base transition disabled:cursor-not-allowed disabled:opacity-50",
+        className,
+      )}
+    >
+      {icon && <span className="text-primary-400">{icon}</span>}
+      {title && <span>{title}</span>}
+      {children && <span>{children}</span>}
+    </button>
   );
 }
 
+// Gắn components
 Menus.Menu = Menu;
 Menus.Toggle = Toggle;
 Menus.List = List;
 Menus.Button = Button;
-Menus.useContext = useMenuContext;
+Menus.useContext = useMenusContext;
 
 export default Menus;

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { getTextColor } from "@/utils/helpers";
+import { getTextColorStyle } from "@/utils/text.color";
 import Select from "./CustomSelect";
 import AsyncSelect from "./CustomSelectAsync";
 
@@ -29,7 +29,7 @@ function Filter({
     ...selectProps,
     ...(filterField === "color" && {
       getOptionStyle: (option) => {
-        return getTextColor(option).style;
+        return getTextColorStyle(option).style;
       },
     }),
   };

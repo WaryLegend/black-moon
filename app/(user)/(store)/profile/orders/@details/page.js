@@ -1,11 +1,12 @@
 "use client";
 
-import { fDate, formatCurrency } from "@/utils/helpers";
+import { fDate } from "@/utils/date";
+import { formatCurrency } from "@/utils/currency";
 import { ORDER_STATUS } from "@/utils/constants";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { useUserOrder } from "@/components/user-menu/profile/useUserOrder";
-import OrderDetailItem from "@/components/user-menu/profile/OrderDetailItem";
+import { useUserOrder } from "@/components/user-menu/order-history/useUserOrder";
+import OrderDetailItem from "@/components/user-menu/order-history/OrderDetailItem";
 import Spinner from "@/components/ui/Spinner";
 import toast from "react-hot-toast";
 

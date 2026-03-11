@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { IoIosArrowBack } from "react-icons/io";
 import { GROUPS } from "@/utils/constants";
-import { capitalizeFirst } from "@/utils/helpers";
+import { capitalizeFirst } from "@/utils/capitalize";
 import { notFound } from "next/navigation";
 
 type Category =

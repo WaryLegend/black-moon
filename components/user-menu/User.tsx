@@ -1,14 +1,14 @@
 "use client";
 
 import Guest from "./Guest";
-import { useUserStore } from "@/contexts/UserStore";
 import Menus from "@/components/ui/Menus";
 import UserMenu from "./dropdown/UserMenu";
 import UserToggle from "./dropdown/UserToggle";
+import { useCurrentAccount } from "@/hooks/useCurrentAccount";
 
 export default function User() {
-  const isAuthenticated = useUserStore((s) => s.isAuthenticated);
-  if (!isAuthenticated) return <Guest />;
+  const { data: user, isPending } = useCurrentAccount();
+  if (!user || isPending) return <Guest />;
 
   const menuId = "user-menu";
   return (
@@ -16,11 +16,11 @@ export default function User() {
       <Menus>
         <Menus.Menu>
           <Menus.Toggle id={menuId}>
-            <UserToggle id={menuId} />
+            <UserToggle id={menuId} user={user} />
           </Menus.Toggle>
 
           <Menus.List id={menuId} className="rounded-lg">
-            <UserMenu />
+            <UserMenu user={user} />
           </Menus.List>
         </Menus.Menu>
       </Menus>

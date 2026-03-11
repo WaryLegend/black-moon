@@ -10,16 +10,17 @@ export default function useOutsideClick<T extends HTMLElement = HTMLElement>(
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
-      if (!ref.current) return;
-
-      if (!ref.current.contains(e.target as Node)) {
+      // Kiểm tra nếu click nằm ngoài phần tử đang ref
+      if (ref.current && !ref.current.contains(e.target as Node)) {
         handler();
       }
     }
 
-    document.addEventListener("click", handleClick, listenCapturing);
+    // Chuyển sang mousedown để xử lý lỗi "drag/copy text"
+    document.addEventListener("mousedown", handleClick, listenCapturing);
+
     return () =>
-      document.removeEventListener("click", handleClick, listenCapturing);
+      document.removeEventListener("mousedown", handleClick, listenCapturing);
   }, [handler, listenCapturing]);
 
   return ref;

@@ -2,17 +2,11 @@ import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import { authApi } from "@/services/auth.api";
+import { authApi, type ApiResponse } from "@/services/auth.api";
 import type { RegisterCredentials, RegisterResponse } from "@/types/auth";
 
 export function useRegister(returnUrl?: string) {
   const router = useRouter();
-
-  type ApiResponse<T> = {
-    error?: string | null;
-    message?: string;
-    data: T;
-  };
 
   return useMutation<ApiResponse<RegisterResponse>, any, RegisterCredentials>({
     mutationFn: authApi.register,

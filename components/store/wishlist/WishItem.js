@@ -1,4 +1,5 @@
-import { capitalizeFirst, formatCurrency } from "@/utils/helpers";
+import { capitalizeFirst } from "@/utils/capitalize";
+import { formatCurrency } from "@/utils/currency";
 import Link from "next/link";
 import Image from "next/image";
 import RemoveFromWishList from "./RemoveFromWishList";

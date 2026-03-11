@@ -1,4 +1,4 @@
-import { formatCurrency } from "@/utils/helpers";
+import { formatCurrency } from "@/utils/currency";
 
 function CustomLegend(props) {
   const { payload, data } = props;

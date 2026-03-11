@@ -2,18 +2,13 @@ import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import { authApi } from "@/services/auth.api";
+import { authApi, type ApiResponse } from "@/services/auth.api";
+import { ForgotPasswordCredentials } from "@/types/auth";
 
 export function useForgotPassword(returnUrl?: string) {
   const router = useRouter();
 
-  type ApiResponse<T> = {
-    error?: string | null;
-    message?: string;
-    data: T;
-  };
-
-  return useMutation<ApiResponse<null>, any, { email: string }>({
+  return useMutation<ApiResponse<void>, any, ForgotPasswordCredentials>({
     mutationFn: authApi.forgotPassword,
 
     onSuccess: (_, variables) => {

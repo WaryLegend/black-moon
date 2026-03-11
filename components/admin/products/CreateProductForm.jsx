@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
-import Form from "@/components/forms/Form";
-import FormRow from "@/components/forms/FormRow";
-import Input from "@/components/forms/Input";
-import FileInput from "@/components/forms/FileInput";
-import Textarea from "@/components/forms/Textarea";
+import Form from "@/components/forms/admin/Form";
+import FormRow from "@/components/forms/admin/FormRow";
+import Input from "@/components/forms/admin/Input";
+import FileInput from "@/components/forms/admin/FileInput";
+import Textarea from "@/components/forms/admin/Textarea";
 import Button from "@/components/ui/Button";
 // import { useCreateProduct } from "./useCreateProduct";
 // import { useEditProduct } from "./useEditProduct";

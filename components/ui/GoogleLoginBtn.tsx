@@ -1,7 +1,7 @@
 "use client";
 
 import { FcGoogle } from "react-icons/fc";
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/utils/cn";
 import { useRouter } from "next/navigation";
 import Button from "./Button";
 

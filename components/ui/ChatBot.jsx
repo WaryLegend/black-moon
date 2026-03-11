@@ -11,7 +11,7 @@ import {
 } from "react-icons/fi";
 import useChatbot from "@/hooks/useChatbot";
 import Button from "./Button";
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/utils/cn";
 import Spinner from "./Spinner";
 
 export default function ChatBot() {

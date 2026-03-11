@@ -1,28 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import { authApi } from "@/services/auth.api";
+import { authApi, type ApiResponse } from "@/services/auth.api";
 import { useRouter } from "next/navigation";
+import { ResetPasswordCredentials } from "@/types/auth";
 
 export function useResetPassword(returnUrl?: string) {
   const router = useRouter();
 
-  type ApiResponse<T> = {
-    error?: string | null;
-    message?: string;
-    data: T;
-  };
-
-  return useMutation<
-    ApiResponse<null>,
-    any,
-    {
-      email: string;
-      resetCode: string;
-      newPassword: string;
-      confirmPassword: string;
-    }
-  >({
+  return useMutation<ApiResponse<void>, any, ResetPasswordCredentials>({
     mutationFn: authApi.resetPassword,
 
     onSuccess: () => {

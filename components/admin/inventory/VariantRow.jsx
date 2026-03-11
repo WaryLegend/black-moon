@@ -1,10 +1,8 @@
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
-import {
-  capitalizeFirst,
-  formatCurrency,
-  getQuantityTextColor,
-  getTextColor,
-} from "@/utils/helpers";
+import { getTextColorStyle } from "@/utils/text.color";
+import { setQuantityColor } from "@/utils/constants";
+import { formatCurrency } from "@/utils/currency";
+import { capitalizeFirst } from "@/utils/capitalize";
 import Image from "next/image";
 import Table from "@/components/ui/Table";
 import styled from "styled-components";
@@ -38,7 +36,7 @@ function VariantRow({ variant }) {
       <Field>
         <div
           style={{
-            ...getTextColor(color?.id).style,
+            ...getTextColorStyle(color?.id).style,
           }}
           className="inline rounded-sm px-2 py-1"
         >
@@ -47,7 +45,7 @@ function VariantRow({ variant }) {
       </Field>
       <Field className="uppercase">{size?.label}</Field>
       <Field className="text-accent-600">{formatCurrency(variantPrice)}</Field>
-      <Field style={{ color: getQuantityTextColor(stock) }}>{stock}</Field>
+      <Field style={{ color: setQuantityColor(stock) }}>{stock}</Field>
       <AllButtons>
         <Modal>
           <Menus.Menu>

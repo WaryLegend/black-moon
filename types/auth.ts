@@ -1,14 +1,34 @@
-import {
-  loginSchema,
-  registerSchema,
-  resetPasswordSchema,
-} from "@/schemas/auth.schema";
-import { z } from "zod";
+export type LoginCredentials = {
+  email: string;
+  password: string;
+};
 
-// Derive types from schemas
-export type LoginCredentials = z.infer<typeof loginSchema>;
-export type RegisterCredentials = z.infer<typeof registerSchema>;
-export type ResetPasswordCredentials = z.infer<typeof resetPasswordSchema>;
+export type RegisterCredentials = {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber?: string;
+  birthDate?: string;
+  gender?: string;
+};
+
+export type ForgotPasswordCredentials = {
+  email: string;
+};
+
+export type ResetPasswordCredentials = {
+  email: string;
+  resetCode: string;
+  newPassword: string;
+  confirmPassword: string;
+};
+
+export type ChangePasswordCredentials = {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+};
 
 export interface AccountInfo {
   id: number;
@@ -24,20 +44,21 @@ export type Role = {
   name: string;
 };
 
-export interface User extends AccountInfo {
-  role: Role;
+export interface AuthUser extends AccountInfo {
+  role: Role | null;
 }
 
-export interface Admin extends AccountInfo {
-  role: Role;
-}
+export type User = AuthUser;
+export type Admin = AuthUser;
 
 export interface AuthResponse {
-  access_token: string;
-  refresh_token: string;
-  user: User | Admin;
+  accessToken: string | null;
+  refreshToken: string | null;
 }
 
 export interface RegisterResponse {
-  message: string;
+  id: number;
+  email: string;
+  firstName: string | null;
+  lastName: string | null;
 }

@@ -1,4 +1,4 @@
-import { formatCurrency } from "@/utils/helpers";
+import { formatCurrency } from "@/utils/currency";
 
 function CustomTooltip({ active, payload, label }) {
   if (!active || !payload || payload.length === 0) return null;

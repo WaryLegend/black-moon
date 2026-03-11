@@ -1,7 +1,7 @@
 "use client";
 
 import { useProductStore } from "@/contexts/ProductStore";
-import { formatCurrency } from "@/utils/helpers";
+import { formatCurrency } from "@/utils/currency";
 
 export default function ProductCost() {
   const variantPrice = useProductStore(

@@ -10,7 +10,7 @@ import { Toaster } from "react-hot-toast";
 import ThemeInitializer from "@/contexts/ThemeInitializer";
 import SettingInitializer from "@/contexts/SettingInitializer";
 import { WebSocketProvider } from "@/contexts/websocket.context";
-import QueryProvider from "@/components/QueryClientProvider";
+import QueryProvider from "@/contexts/QueryClientProvider";
 import { getSettings } from "@/lib/apiSettings";
 import HydrateToken from "@/contexts/HydrateToken";
 import OverlayScreenLoader from "@/components/ui/OverlayScreenLoader";

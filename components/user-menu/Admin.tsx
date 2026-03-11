@@ -1,13 +1,14 @@
 "use client";
 
-import { useAdminStore } from "@/contexts/AdminStore";
 import Menus from "@/components/ui/Menus";
 import AdminToggle from "./dropdown/AdminToggle";
 import AdminMenu from "./dropdown/AdminMenu";
+import { useCurrentAccount } from "@/hooks/useCurrentAccount";
 
 export default function Admin() {
-  const isAuthenticated = useAdminStore((state) => state.isAuthenticated);
-  if (!isAuthenticated) return null;
+  const { data: admin, isPending } = useCurrentAccount();
+
+  if (!admin || isPending) return;
 
   const menuId = "admin-menu";
   return (
@@ -15,11 +16,11 @@ export default function Admin() {
       <Menus>
         <Menus.Menu>
           <Menus.Toggle id={menuId}>
-            <AdminToggle id={menuId} />
+            <AdminToggle id={menuId} admin={admin} />
           </Menus.Toggle>
 
           <Menus.List id={menuId} className="rounded-lg">
-            <AdminMenu />
+            <AdminMenu admin={admin} />
           </Menus.List>
         </Menus.Menu>
       </Menus>
