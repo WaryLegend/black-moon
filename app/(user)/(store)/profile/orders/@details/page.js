@@ -1,12 +1,13 @@
 "use client";
 
-import { fDate, formatCurrency } from "@/app/_utils/helpers";
-import { ORDER_STATUS } from "@/app/_utils/constants";
+import { fDate } from "@/utils/date";
+import { formatCurrency } from "@/utils/currency";
+import { ORDER_STATUS } from "@/utils/constants";
 import { useSearchParams } from "next/navigation";
-import { useUserOrder } from "@/app/_components/CProfilePage/useUserOrder";
 import { useEffect } from "react";
-import OrderDetailItem from "@/app/_components/CProfilePage/OrderDetailItem";
-import Spinner from "@/app/_components/Spinner";
+import { useUserOrder } from "@/components/user-menu/order-history/useUserOrder";
+import OrderDetailItem from "@/components/user-menu/order-history/OrderDetailItem";
+import Spinner from "@/components/ui/Spinner";
 import toast from "react-hot-toast";
 
 export default function OrderDetailsPage() {

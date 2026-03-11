@@ -1,5 +1,5 @@
-import CartList from "@/app/_components/CCartPage/CartList";
-import CartSummeryWrapper from "@/app/_components/CCartPage/CartSummeryWrapper";
+import CartList from "@/components/store/cart/CartList";
+import CartSummeryWrapper from "@/components/store/cart/CartSummeryWrapper";
 
 export const metadata = {
   title: "Cart",

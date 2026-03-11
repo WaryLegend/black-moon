@@ -1,11 +1,11 @@
-import { getCategoryById, getProductById } from "@/app/_lib/data-service";
+import { getCategoryById, getProductById } from "@/lib/data-service";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import BreadCrumbNav from "@/app/_components/BreadCrumbNav";
-import ProductDetails from "@/app/_components/CProductPage/ProductDetails";
-import ProductRates from "@/app/_components/CProductPage/ProductRates";
-import ProductMenu from "@/app/_components/CProductPage/ProductMenu";
-import ProductInitializer from "@/app/_context/ProductInitializer";
+import BreadCrumbNav from "@/common/navigation/BreadCrumbNav";
+import ProductInitializer from "@/contexts/ProductInitializer";
+import ProductDetails from "@/components/store/product_detail/ProductDetails";
+import ProductRates from "@/components/store/product_detail/ProductRates";
+import ProductMenu from "@/components/store/product_detail/ProductMenu";
 
 export async function generateMetadata({ params }) {
   const { productId } = await params;

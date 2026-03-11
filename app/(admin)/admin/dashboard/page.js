@@ -1,8 +1,8 @@
-import DashboardOperations from "@/app/_components/Adashboard/DashboardOperations";
-import RecentOrderTable from "@/app/_components/Adashboard/RecentOrderTable";
-import TopSalesChart from "@/app/_components/Adashboard/TopSalesChart";
-import Stats from "@/app/_components/Adashboard/Stats";
-import SalesChart from "@/app/_components/Adashboard/SalesChart";
+import DashboardOperations from "@/components/admin/dashboard/DashboardOperations";
+import RecentOrderTable from "@/components/admin/dashboard/RecentOrderTable";
+import TopSalesChart from "@/components/admin/dashboard/TopSalesChart";
+import Stats from "@/components/admin/dashboard/Stats";
+import SalesChart from "@/components/admin/dashboard/SalesChart";
 
 export const metadata = {
   title: "Dashboard",

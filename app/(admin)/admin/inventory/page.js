@@ -1,8 +1,8 @@
-import VariantTableAndBtns from "@/app/_components/Ainventory/VariantTableAndBtns";
-import VariantTableOperations from "@/app/_components/Ainventory/VariantTableOperations";
-import SortBy from "@/app/_components/SortBy";
-import { ColorsAndSizesProvider } from "@/app/_context/ColorsAndSizesContext";
-import { getColors, getSizes } from "@/app/_lib/apiSettings";
+import VariantTableAndBtns from "@/components/admin/inventory/VariantTableAndBtns";
+import VariantTableOperations from "@/components/admin/inventory/VariantTableOperations";
+import SortBy from "@/components/filters/SortBy";
+import { ColorsAndSizesProvider } from "@/contexts/ColorsAndSizesContext";
+import { getColors, getSizes } from "@/lib/apiSettings";
 
 export const metadata = {
   title: "Inventory",

@@ -1,0 +1,341 @@
+@import "tailwindcss";
+
+/* Custom theme variables*/
+@theme {
+  --color-primary-0: #ffffff;
+  --color-primary-50: #f9fafb;
+  --color-primary-100: #f3f4f6;
+  --color-primary-200: #e5e7eb;
+  --color-primary-300: #d1d5db;
+  --color-primary-400: #9ca3af;
+  --color-primary-500: #6b7280;
+  --color-primary-600: #4b5563;
+  --color-primary-700: #374151;
+  --color-primary-800: #1f2937;
+  --color-primary-900: #161e30;
+  --color-primary-950: #0f141f;
+
+  --color-accent-50: #e6eaf0;
+  --color-accent-100: #cdd7e2;
+  --color-accent-200: #b3c2d3;
+  --color-accent-300: #99adc4;
+  --color-accent-400: #8098b5;
+  --color-accent-500: #6683a6;
+  --color-accent-600: #526d8a;
+  --color-accent-700: #3f566d;
+  --color-accent-800: #2c4050;
+  --color-accent-900: #1a2a44;
+  --color-accent-950: #141e2e;
+
+  --default: #000000;
+
+  /* customized scroll */
+  --scroll-track: transparent;
+  --scroll-thumb: rgba(0, 0, 0, 0.3);
+  --scroll-thumb-hover: rgba(0, 0, 0, 0.4);
+
+  /* image in light mode */
+  --image-grayscale: 0;
+  --image-opacity: 100%;
+}
+
+:root.dark-mode {
+  --color-primary-0: #0c1424;
+  --color-primary-50: #131a2a;
+  --color-primary-100: #1f2937;
+  --color-primary-200: #374151;
+  --color-primary-300: #4b5563;
+  --color-primary-400: #6b7280;
+  --color-primary-500: #9ca3af;
+  --color-primary-600: #d1d5db;
+  --color-primary-700: #e5e7eb;
+  --color-primary-800: #f3f4f6;
+  --color-primary-900: #f9fafb;
+  --color-primary-950: #ffffff;
+
+  --color-accent-50: #1e1b4b;
+  --color-accent-100: #312e81;
+  --color-accent-200: #3730a3;
+  --color-accent-300: #4338ca;
+  --color-accent-400: #6366f1;
+  --color-accent-500: #818cf8;
+  --color-accent-600: #a5b4fc;
+  --color-accent-700: #c7d2fe;
+  --color-accent-800: #e0e7ff;
+  --color-accent-900: #eef2ff;
+
+  --color-gray-600: #101828; /*-gray-900*/
+
+  --color-yellow-100: #733e0a; /*-yellow-900*/
+  --color-yellow-800: #fff085; /*-yellow-200*/
+
+  --color-orange-100: #7c2d12; /*-orange-900*/
+  --color-orange-800: #fed7aa; /*-orange-200*/
+
+  --color-red-50: #460809; /*-red-950*/
+  --color-red-100: #82181a; /*-red-900*/
+  --color-red-200: #9f0712; /*-red-800*/
+  --color-red-600: #ff6467; /*-red-400*/
+  --color-red-700: #fda4af; /*-red-300*/
+  --color-red-800: #fecaca; /*-red-200*/
+
+  --color-green-50: #032e15; /*-green-950*/
+  --color-green-100: #0d542b; /*-green-900*/
+  --color-green-200: #166534; /*-green-800*/
+  --color-green-600: #05df72; /*-green-400*/
+  --color-green-700: #7bf1a8; /*-green-300*/
+  --color-green-800: #b9f8cf; /*-green-200*/
+
+  --color-blue-50: #172554; /*-blue-950*/
+  --color-blue-100: #1e3a8a; /*-blue-900*/
+  --color-blue-200: #1e40af; /*-blue-800*/
+  --color-blue-700: #93c5fd; /*-blue-300*/
+  --color-blue-800: #bfdbfe; /*-blue-200*/
+
+  --color-purple-50: #3c0366; /*-purple-950*/
+  --color-purple-100: #59168b; /*-purple-900*/
+  --color-purple-200: #6e11b0; /*-purple-800*/
+  --color-purple-700: #d8b4fe; /*-purple-300*/
+  --color-purple-800: #f5d0fe; /*-purple-200*/
+
+  --default: #ffffff;
+
+  /* customized scroll */
+  --scroll-track: rgba(22, 22, 22, 0.9);
+  --scroll-thumb: var(--color-accent-500);
+  --scroll-thumb-hover: var(--color-accent-400);
+
+  /* image in dark mode */
+  --image-grayscale: 10%;
+  --image-opacity: 90%;
+}
+
+:root {
+  transition:
+    background-color 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    fill 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    stroke 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* shadow, border, font-style, ...*/
+@layer utilities {
+  .shadow-md-reversed {
+    box-shadow:
+      0 -4px 6px -1px rgb(0 0 0 / 0.1),
+      0 -2px 4px -2px rgb(0 0 0 / 0.1);
+  }
+  .shadow-lg-reversed {
+    box-shadow:
+      0 -10px 15px -3px rgb(0 0 0 / 0.1),
+      0 -4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+  .shadow-xl-reversed {
+    box-shadow: 0 -25px 50px -12px rgb(0 0 0 / 0.25);
+  }
+}
+
+/* Global base styles (apply to elements) */
+@layer base {
+  button,
+  select,
+  a {
+    cursor: pointer;
+  }
+
+  *:disabled {
+    cursor: not-allowed;
+  }
+
+  select:disabled,
+  input:disabled {
+    background-color: var(--color-primary-300);
+    color: var(--color-primary-700);
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid var(--color-accent-600);
+    outline-offset: 2px;
+  }
+
+  button:has(svg) {
+    line-height: 0;
+  }
+
+  /* remove browser eye icon reveal-hide password */
+  /* Edge / IE */
+  input::-ms-reveal,
+  input::-ms-clear {
+    display: none;
+  }
+  /* Chrome / Safari */
+  input[type="password"]::-webkit-textfield-decoration-container {
+    display: none;
+  }
+
+  img {
+    /* For dark mode */
+    filter: grayscale(var(--image-grayscale)) opacity(var(--image-opacity));
+  }
+}
+
+/* Reusable components */
+@layer components {
+  /* loading spinner styles */
+  .spinner {
+    margin: 0;
+    width: var(--spinner-size, 50px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 8px solid var(--spinner-color, var(--default));
+    border-right-color: var(--color-primary-200);
+    animation: rotate 1s infinite linear;
+  }
+
+  .spinner-mini {
+    margin: 0;
+    width: var(--spinner-size, 20px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 2px solid var(--spinner-color, var(--default));
+    border-right-color: transparent;
+    animation: rotate 1s infinite linear;
+  }
+
+  @keyframes rotate {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+
+  .spinnerbar {
+    margin: 0;
+    width: var(--spinner-size, 45px);
+    aspect-ratio: 0.75;
+
+    --c: no-repeat linear-gradient(var(--spinner-color, var(--default)) 0 0);
+    background:
+      var(--c) 0% 50%,
+      var(--c) 50% 50%,
+      var(--c) 100% 50%;
+    background-size: 20% 50%;
+
+    animation: loading 1.2s infinite linear;
+  }
+
+  @keyframes loading {
+    0% {
+      background-position:
+        0% 50%,
+        50% 50%,
+        100% 50%;
+    }
+    16% {
+      background-position:
+        0% 0%,
+        50% 50%,
+        100% 50%;
+    }
+    33% {
+      background-position:
+        0% 100%,
+        50% 0%,
+        100% 50%;
+    }
+    50% {
+      background-position:
+        0% 50%,
+        50% 100%,
+        100% 0%;
+    }
+    66% {
+      background-position:
+        0% 50%,
+        50% 50%,
+        100% 100%;
+    }
+    83% {
+      background-position:
+        0% 50%,
+        50% 50%,
+        100% 50%;
+    }
+    100% {
+      background-position:
+        0% 50%,
+        50% 50%,
+        100% 50%;
+    }
+  }
+
+  /* typing state for chatbot while loading */
+  .typing-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-primary-600);
+    border-radius: 50%;
+  }
+  @keyframes wave {
+    0%,
+    60%,
+    100% {
+      transform: translateY(0);
+    }
+    30% {
+      transform: translateY(-4px);
+    }
+  }
+  .wave-dot {
+    animation: wave 1.2s infinite ease-in-out;
+  }
+  .delay-100 {
+    animation-delay: 0.15s;
+  }
+  .delay-200 {
+    animation-delay: 0.3s;
+  }
+
+  /* scroll bar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+  }
+  /* WebKit (Chrome, Edge, Safari) */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--scroll-track);
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--scroll-thumb);
+    border-radius: 6px;
+    border: 2px solid var(--scroll-track); /* creates padding effect */
+    transition: background 0.2s ease;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scroll-thumb-hover);
+  }
+  ::-webkit-scrollbar-corner {
+    background: var(--scroll-track);
+  }
+}
+
+/* day picker
+.rdp {
+  --rdp-cell-size: 32px !important;
+  --rdp-primary-color: theme("colors.primary.500") !important;
+  --rdp-background-color: theme("colors.primary.600") !important;
+  margin: 0 !important;
+} */

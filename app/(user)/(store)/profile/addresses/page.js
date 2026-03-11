@@ -1,4 +1,4 @@
-import Button from "@/app/_components/Button";
+import Button from "@/components/ui/Button";
 
 // Mock addresses
 const mockAddresses = [
@@ -41,10 +41,8 @@ export default function AddressesPage() {
                 )}
               </div>
               <div className="mt-4 flex gap-4">
-                <Button variant="link" className="text-red-600">
-                  Chỉnh sửa
-                </Button>
-                <Button variant="link" className="text-gray-600">
+                <Button className="text-red-600">Chỉnh sửa</Button>
+                <Button variant="danger" className="text-gray-600">
                   Xóa
                 </Button>
               </div>

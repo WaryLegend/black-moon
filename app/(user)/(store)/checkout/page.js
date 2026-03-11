@@ -1,6 +1,6 @@
-import CheckoutHeader from "@/app/_components/CCheckoutPage/CheckoutHeader";
-import CheckoutForm from "@/app/_components/CCheckoutPage/CheckoutForm";
-import OrderSummaryWrapper from "@/app/_components/CCheckoutPage/OrderSummaryWrapper";
+import CheckoutHeader from "@/components/store/checkout/CheckoutHeader";
+import CheckoutForm from "@/components/store/checkout/CheckoutForm";
+import OrderSummaryWrapper from "@/components/store/checkout/OrderSummaryWrapper";
 
 export const metadata = {
   title: "Checkout",

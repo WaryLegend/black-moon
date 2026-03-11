@@ -1,6 +1,6 @@
-import ProductTableAndBtns from "@/app/_components/Aproducts/ProductTableAndBtns";
-import ProductTableOperations from "@/app/_components/Aproducts/ProductTableOperations";
-import SortBy from "@/app/_components/SortBy";
+import ProductTableAndBtns from "@/components/admin/products/ProductTableAndBtns";
+import ProductTableOperations from "@/components/admin/products/ProductTableOperations";
+import SortBy from "@/components/filters/SortBy";
 
 export const metadata = {
   title: "Products",

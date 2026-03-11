@@ -1,5 +1,5 @@
-import CategoryTableOperations from "@/app/_components/Acategories/CategoryTableOperations";
-import CategoryTableAndBtns from "@/app/_components/Acategories/CategoryTableAndBtns";
+import CategoryTableOperations from "@/components/admin/categories/CategoryTableOperations";
+import CategoryTableAndBtns from "@/components/admin/categories/CategoryTableAndBtns";
 
 export const metadata = {
   title: "Categories",

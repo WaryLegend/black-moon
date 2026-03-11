@@ -1,0 +1,29 @@
+.animated-check {
+  display: block;
+  stroke: currentColor;
+  stroke-width: 3;
+}
+
+.check-circle {
+  stroke-dasharray: 157;
+  stroke-dashoffset: 157;
+  animation: circle 0.4s ease-out forwards;
+}
+
+.check-mark {
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: check 0.3s 0.4s ease-out forwards;
+}
+
+@keyframes circle {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes check {
+  to {
+    stroke-dashoffset: 0;
+  }
+}

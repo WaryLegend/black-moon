@@ -1,13 +1,13 @@
-import Carousel from "@/app/_components/Carousel";
-import HomePanel from "@/app/_components/HomePage/HomePanel";
-import WomenPanel from "@/app/_components/HomePage/WomenPanel";
-import MenPanel from "@/app/_components/HomePage/MenPanel";
-import KidsPanel from "@/app/_components/HomePage/KidsPanel";
+import Carousel from "@/components/home/Carousel";
+import HomePanel from "@/components/home/HomePanel";
+import WomenPanel from "@/components/home/WomenPanel";
+import MenPanel from "@/components/home/MenPanel";
+import KidsPanel from "@/components/home/KidsPanel";
 
 import dynamic from "next/dynamic";
-const Women = dynamic(() => import("@/app/_components/Women"));
-const Men = dynamic(() => import("@/app/_components/Men"));
-const Kids = dynamic(() => import("@/app/_components/Kids"));
+const Women = dynamic(() => import("@/components/home/Women"));
+const Men = dynamic(() => import("@/components/home/Men"));
+const Kids = dynamic(() => import("@/components/home/Kids"));
 
 const sliders = ["women", "men", "kids"];
 const slideComponents = [Women, Men, Kids];

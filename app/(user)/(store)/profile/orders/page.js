@@ -1,5 +1,5 @@
-import UserOrdersWrapper from "@/app/_components/CProfilePage/UserOrdersWrapper";
-import TabFilter from "@/app/_components/Filters/TabFilter";
+import TabFilter from "@/components/filters/TabFilter";
+import UserOrdersWrapper from "@/components/user-menu/order-history/UserOrdersWrapper";
 
 export default async function OrdersPage({ searchParams }) {
   const filterParams = await searchParams;
@@ -13,7 +13,7 @@ export default async function OrdersPage({ searchParams }) {
           options={[
             { value: "all", label: "Tất cả" },
             { value: "pending", label: "Chờ xử lý" },
-            { value: "packing", label: "Đang đóng gói" },
+            { value: "processing", label: "Đang đóng gói" },
             { value: "shipping", label: "Đang giao" },
             { value: "delivered", label: "Đã giao" },
             { value: "cancelled", label: "Đã hủy" },
