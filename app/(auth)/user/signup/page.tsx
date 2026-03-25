@@ -1,19 +1,19 @@
-import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 import SignupForm from "@/components/auth/SignupForm";
-import { ParamProps } from "@/types/param";
+import { AppPageProps } from "@/types/page-props";
+import GoogleLoginBtn from "@/components/ui/GoogleLoginBtn";
 
 export const metadata = {
   title: "Sign up",
 };
 
-type UserSignupPageProps = {
+type UserSignupAppPageProps = {
   returnUrl?: string;
 };
 
 export default async function UserSignupPage({
   searchParams,
-}: ParamProps<{}, UserSignupPageProps>) {
+}: AppPageProps<{}, UserSignupAppPageProps>) {
   const { returnUrl } = await searchParams;
 
   return (
@@ -37,11 +37,8 @@ export default async function UserSignupPage({
           <div className="text-primary-500 flex-grow border-t"></div>
         </div>
 
-        {/* Google Signup */}
-        <button className="border-accent-300 hover:bg-accent-50 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border py-2 transition-colors">
-          <FcGoogle className="text-xl" />
-          Đăng nhập với Google
-        </button>
+        {/* Google Login */}
+        <GoogleLoginBtn />
 
         {/* Already has an account? */}
         <div className="my-4 flex justify-center gap-1 text-center">

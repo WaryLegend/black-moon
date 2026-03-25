@@ -1,6 +1,6 @@
 import ForgotPasswordForm from "@/components/auth/ForgotPasswordForm";
 import Link from "next/link";
-import type { ParamProps } from "@/types/param";
+import type { AppPageProps } from "@/types/page-props";
 
 export const metadata = {
   title: "Forgot password",
@@ -11,7 +11,7 @@ type ForgotPasswordQuery = {
 };
 export default async function ForgotPasswordPage({
   searchParams,
-}: ParamProps<{}, ForgotPasswordQuery>) {
+}: AppPageProps<{}, ForgotPasswordQuery>) {
   const { returnUrl } = await searchParams;
 
   return (

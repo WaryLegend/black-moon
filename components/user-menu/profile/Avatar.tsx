@@ -7,6 +7,7 @@ import Menus from "@/components/ui/Menus";
 import Modal from "@/components/ui/Modal";
 import AvatarToggle from "./AvatarToggle";
 import ChangeAvatarForm from "./ChangeAvatarForm";
+import ImageViewer from "@/components/ui/ImageViewer";
 
 function Avatar({ img }: { img?: string | null }) {
   return (
@@ -30,11 +31,17 @@ function Avatar({ img }: { img?: string | null }) {
               <Menus.List id="avatar-menu">
                 <AvatarMenu img={img} />
               </Menus.List>
-              {/* Modal for changing avatar */}
-              <Modal.Window name="change-avatar">
-                <ChangeAvatarForm currentAvatar={img} />
-              </Modal.Window>
             </Menus.Menu>
+            {/* Modal for viewing avatar */}
+            {img && (
+              <Modal.Window name="view-avatar">
+                <ImageViewer src={img} />
+              </Modal.Window>
+            )}
+            {/* Modal for changing avatar */}
+            <Modal.Window name="change-avatar">
+              <ChangeAvatarForm currentAvatar={img} />
+            </Modal.Window>
           </div>
         </Modal>
       </Menus>

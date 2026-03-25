@@ -48,7 +48,7 @@ function AdminMenu({ admin }: { admin: CurrentAccount }) {
 
       <Menus.Button
         className="group"
-        onClick={() => router.push("profile")}
+        onClick={() => router.push("/admin/profile")}
         icon={
           <>
             <FaRegUser className="group-hover:hidden" />

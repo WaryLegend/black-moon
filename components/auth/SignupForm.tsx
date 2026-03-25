@@ -129,7 +129,7 @@ export default function SignupForm({ returnUrl = "" }) {
         <FormField icon={<FaRegUser />} error={errors.gender}>
           <select
             disabled={isPending}
-            className="border-accent-300 h-[41.6px] w-full rounded-lg border px-4 py-2 pl-10"
+            className="border-accent-300 bg-primary-0 h-[41.6px] w-full rounded-lg border px-4 py-2 pl-10"
             {...register("gender")}
           >
             <option value="">Chọn giới tính</option>

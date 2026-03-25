@@ -54,7 +54,7 @@ function Stats() {
       <Stat
         title="Products Sold"
         value={productsSold}
-        rates={180}
+        rates={99}
         dateUnit={`last ${dateUnitLabel?.[numDays] ?? `${numDays} days`}`}
         icon={<FaBoxOpen className="h-8 w-8 lg:h-10 lg:w-10" />}
         color={iconColors["purple"]}
@@ -62,7 +62,7 @@ function Stats() {
         isLoading={isLoading}
       />
 
-      {/* Active Customers */}
+      {/* Active Users */}
       <Stat
         title="Today's Visits"
         value={fNumberShorten(573)}

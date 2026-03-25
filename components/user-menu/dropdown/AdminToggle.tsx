@@ -36,7 +36,7 @@ function AdminToggle({
         <span className="ml-1 truncate font-semibold">{fullName}</span>
       </div>
       <FiChevronDown
-        className={`transition-transform ${openId === id ? "rotate-180" : ""}`}
+        className={`transition-transform duration-300 ${openId === id ? "rotate-180" : ""}`}
       />
     </button>
   );

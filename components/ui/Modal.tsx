@@ -46,7 +46,9 @@ function Open({
   opens: string;
 }) {
   const { open } = useModalContext();
-  return cloneElement(children, { onClick: () => open(opensWindowName) });
+  return cloneElement(children, {
+    onClick: () => open(opensWindowName),
+  });
 }
 
 function Window({
@@ -83,13 +85,13 @@ function Window({
 
   return createPortal(
     <div
-      className="bg-primary-900/20 fixed inset-0 z-[1000] backdrop-blur-sm transition-all"
+      className="bg-primary-900/20 fixed inset-0 z-[100] backdrop-blur-sm transition-all"
       aria-modal="true"
       role="dialog"
     >
       <div
         ref={ref}
-        className="bg-primary-0 fixed right-0 bottom-0 left-0 max-h-[95vh] overflow-y-auto rounded-t-3xl rounded-b-none p-8 shadow-2xl transition-all ease-out md:inset-auto md:top-1/2 md:bottom-auto md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-2xl"
+        className="bg-primary-0 fixed right-0 bottom-0 left-0 max-h-[95vh] overflow-y-auto rounded-t-2xl rounded-b-none p-8 shadow-2xl transition-all ease-out md:inset-auto md:top-1/2 md:bottom-auto md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-2xl"
       >
         <button
           type="button"

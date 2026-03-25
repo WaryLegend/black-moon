@@ -1,5 +1,5 @@
 import VerifyOtpForm from "@/components/auth/VerifyOtpForm";
-import { ParamProps } from "@/types/param";
+import { AppPageProps } from "@/types/page-props";
 
 export const metadata = {
   title: "Verify OTP",
@@ -11,7 +11,7 @@ type VerifyOtpQuery = {
 
 export default async function VerifyOtpPage({
   searchParams,
-}: ParamProps<{}, VerifyOtpQuery>) {
+}: AppPageProps<{}, VerifyOtpQuery>) {
   const { returnUrl } = await searchParams;
 
   return (

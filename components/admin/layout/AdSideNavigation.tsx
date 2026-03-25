@@ -1,4 +1,6 @@
-function AdSideNavigation({ children }) {
+import { ReactNode } from "react";
+
+function AdSideNavigation({ children }: { children: ReactNode }) {
   return (
     <aside
       style={{ gridRow: "1 / -1" }}

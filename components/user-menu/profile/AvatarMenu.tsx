@@ -6,20 +6,13 @@ import Menus from "@/components/ui/Menus";
 import Modal from "@/components/ui/Modal";
 
 function AvatarMenu({ img }: { img?: string | null }) {
-  const handleViewImage = () => {
-    if (img) {
-      // Navigate to image view page or open in modal
-      window.open(img, "_blank");
-    }
-  };
-
   return (
     <>
       {/* View Image - only if avatar exists */}
       {img && (
-        <Menus.Button icon={<HiEye />} onClick={handleViewImage}>
-          Xem ảnh
-        </Menus.Button>
+        <Modal.Open opens="view-avatar">
+          <Menus.Button icon={<HiEye />}>Xem ảnh</Menus.Button>
+        </Modal.Open>
       )}
       {/* Change/Add Image */}
       <Modal.Open opens="change-avatar">

@@ -1,7 +1,7 @@
 import { FaInstagram, FaFacebook } from "react-icons/fa";
 import Link from "next/link";
 import LoginForm from "@/components/auth/LoginForm";
-import { ParamProps } from "@/types/param";
+import { AppPageProps } from "@/types/page-props";
 import GoogleLoginBtn from "@/components/ui/GoogleLoginBtn";
 
 export const metadata = {
@@ -14,7 +14,7 @@ type UserLoginQuery = {
 
 export default async function UserLoginPage({
   searchParams,
-}: ParamProps<{}, UserLoginQuery>) {
+}: AppPageProps<{}, UserLoginQuery>) {
   const { returnUrl } = await searchParams;
 
   return (

@@ -88,7 +88,7 @@ const ROLE_STYLES = {
   manager: "bg-green-50 text-green-800 border-green-200",
   staff: "bg-blue-50 text-blue-800 border-blue-200",
 } as const;
-const DEFAULT_ROLE_STYLE = "bg-primary-200 text-primary-800 border-primary-300";
+const DEFAULT_ROLE_STYLE = "bg-primary-100 text-primary-800 border-primary-300";
 
 export function getRoleStyle(role?: string) {
   if (!role) return DEFAULT_ROLE_STYLE;
