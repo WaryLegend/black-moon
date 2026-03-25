@@ -7,11 +7,7 @@ import Form from "@/components/forms/admin/Form";
 import FormRow from "@/components/forms/admin/FormRow";
 import Input from "@/components/forms/admin/Input";
 import Button from "@/components/ui/Button";
-import type {
-  CreateTargetGroupDto,
-  TargetGroupSummary,
-  UpdateTargetGroupDto,
-} from "@/types/groups";
+import type { CreateTargetGroupDto, TargetGroupSummary } from "@/types/groups";
 
 import { useCreateGroup } from "./useCreateGroup";
 import { useUpdateGroup } from "./useUpdateGroup";
@@ -45,12 +41,7 @@ const normalizeString = (value?: string | null) => {
   return normalized && normalized.length ? normalized : undefined;
 };
 
-const buildCreatePayload = (values: GroupFormValues): CreateTargetGroupDto => ({
-  name: values.name.trim(),
-  slug: normalizeString(values.slug),
-});
-
-const buildUpdatePayload = (values: GroupFormValues): UpdateTargetGroupDto => ({
+const buildPayload = (values: GroupFormValues): CreateTargetGroupDto => ({
   name: values.name.trim(),
   slug: normalizeString(values.slug),
 });
@@ -84,7 +75,7 @@ function CreateGroupForm({ groupToEdit, onCloseModal }: CreateGroupFormProps) {
       updateGroup(
         {
           groupId: groupToEdit.id,
-          payload: buildUpdatePayload(values),
+          payload: buildPayload(values),
         },
         {
           onSuccess: () => {
@@ -95,7 +86,7 @@ function CreateGroupForm({ groupToEdit, onCloseModal }: CreateGroupFormProps) {
       return;
     }
 
-    createGroup(buildCreatePayload(values), {
+    createGroup(buildPayload(values), {
       onSuccess: () => {
         reset(getEmptyValues());
         onCloseModal?.();

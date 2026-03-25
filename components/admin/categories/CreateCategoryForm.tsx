@@ -21,6 +21,22 @@ type CategoryFormValues = {
   targetGroupId: number | null;
 };
 
+// const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+const normalizeString = (value?: string | null) => {
+  const normalized = value?.trim();
+  return normalized && normalized.length ? normalized : undefined;
+};
+
+const buildCreatePayload = (
+  values: CategoryFormValues,
+  targetGroupId: number,
+) => ({
+  name: values.name.trim(),
+  slug: normalizeString(values.slug),
+  targetGroupId,
+});
+
 const getEmptyValues = (): CategoryFormValues => ({
   name: "",
   slug: "",
@@ -53,11 +69,7 @@ function CreateCategoryForm({ onCloseModal }: CategoryFormProps) {
 
     createCategory(
       {
-        payload: {
-          name: values.name.trim(),
-          slug: values.slug.trim(),
-          targetGroupId: Number(values.targetGroupId),
-        },
+        payload: buildCreatePayload(values, Number(values.targetGroupId)),
         imageFile: selectedFile,
       },
       {
@@ -98,21 +110,20 @@ function CreateCategoryForm({ onCloseModal }: CategoryFormProps) {
         />
       </FormRow>
 
-      <FormRow label="Slug*" id="slug" error={errors.slug?.message}>
+      <FormRow label="Slug" id="slug" error={errors.slug?.message}>
         <Input
           type="text"
           id="slug"
           disabled={isCreating}
-          placeholder="kebab-case"
+          placeholder="kebab-case (có thể để trống để tự tạo)"
           {...register("slug", {
-            required: "Slug là bắt buộc",
             maxLength: {
               value: 255,
-              message: "Slug must be <= 255 chars",
+              message: "Slug quá dài",
             },
             pattern: {
               value: /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
-              message: "Slug must be kebab-case",
+              message: "Slug phải ở dạng kebab-case",
             },
           })}
         />

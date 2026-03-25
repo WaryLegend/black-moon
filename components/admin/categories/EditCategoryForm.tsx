@@ -23,6 +23,11 @@ type CategoryFormValues = {
   targetGroupId: number | null;
 };
 
+const normalizeString = (value?: string | null) => {
+  const normalized = value?.trim();
+  return normalized && normalized.length ? normalized : undefined;
+};
+
 export default function EditCategoryForm({
   categoryToEdit,
   onCloseModal,
@@ -39,7 +44,7 @@ export default function EditCategoryForm({
   } = useForm<CategoryFormValues>({
     defaultValues: {
       name: categoryToEdit.name,
-      slug: categoryToEdit.slug,
+      slug: categoryToEdit.slug ?? "",
       targetGroupId: categoryToEdit.targetGroup?.id ?? null,
     },
   });
@@ -65,7 +70,7 @@ export default function EditCategoryForm({
         categoryId: categoryToEdit.id,
         payload: {
           name: values.name.trim(),
-          slug: values.slug.trim(),
+          slug: normalizeString(values.slug),
           targetGroupId: Number(lockedTargetGroupId),
         },
         imageFile: selectedFile,
@@ -79,7 +84,7 @@ export default function EditCategoryForm({
   const handleCancel = () => {
     reset({
       name: categoryToEdit.name,
-      slug: categoryToEdit.slug,
+      slug: categoryToEdit.slug ?? "",
       targetGroupId: categoryToEdit.targetGroup?.id ?? null,
     });
     setSelectedFile(null);
@@ -111,14 +116,13 @@ export default function EditCategoryForm({
         />
       </FormRow>
 
-      <FormRow label="Slug*" id="slug" error={errors.slug?.message}>
+      <FormRow label="Slug" id="slug" error={errors.slug?.message}>
         <Input
           id="slug"
           disabled={isPending}
           className={dirtyClass("slug")}
           placeholder="kebab-case"
           {...register("slug", {
-            required: "Vui lòng nhập slug",
             maxLength: {
               value: 255,
               message: "Slug quá dài",
