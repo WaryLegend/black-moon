@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { decodeJwt } from "@/utils/jwt";
+import { decodeJwt, isJwtExpired } from "@/utils/jwt";
 
 export async function middleware(request: NextRequest) {
   const url = request.nextUrl;
@@ -13,9 +13,12 @@ export async function middleware(request: NextRequest) {
 
   // ---------- TOKEN ----------
   const token = request.cookies.get("access_token")?.value;
+  const refreshToken = request.cookies.get("refresh_token")?.value;
   const payload = token ? decodeJwt(token) : null;
 
-  const isLoggedIn = !!payload;
+  const isLoggedIn = !!payload && !isJwtExpired(payload);
+  const hasRefreshToken = !!refreshToken;
+  const hasAuthSession = isLoggedIn || hasRefreshToken;
   const role = (payload?.role ?? payload?.scope) as string | undefined;
 
   // ---------- ROUTE FLAGS ----------
@@ -34,7 +37,7 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/admin") && !isAdminAuthRoute;
 
   // ---------- GUEST ----------
-  if (!isLoggedIn) {
+  if (!hasAuthSession) {
     if (isUserProtectedRoute) {
       return NextResponse.redirect(new URL("/user/login", request.url));
     }

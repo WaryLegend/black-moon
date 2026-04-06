@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosHeaders, AxiosInstance, AxiosResponse } from "axios";
 
 import { tokenManager } from "@/lib/auth/tokenManager";
 import { refreshQueue } from "@/lib/auth/refreshQueue";
@@ -14,6 +14,67 @@ const REFRESH_ENDPOINT = "/api/v1/auth/refresh";
 
 const withBackendBase = (path: string) =>
   BACKEND_BASE_URL ? `${BACKEND_BASE_URL}${path}` : path;
+
+const isFormDataPayload = (value: unknown) =>
+  typeof FormData !== "undefined" && value instanceof FormData;
+
+const hasContentTypeHeader = (headers: unknown) => {
+  if (!headers || typeof headers !== "object") return false;
+
+  const maybeAxiosHeaders = headers as {
+    get?: (name: string) => string | undefined;
+  };
+  if (typeof maybeAxiosHeaders.get === "function") {
+    return Boolean(
+      maybeAxiosHeaders.get("Content-Type") ||
+        maybeAxiosHeaders.get("content-type"),
+    );
+  }
+
+  const plain = headers as Record<string, unknown>;
+  return Boolean(plain["Content-Type"] || plain["content-type"]);
+};
+
+const removeContentTypeHeader = (headers: unknown) => {
+  if (!headers || typeof headers !== "object") return;
+
+  const maybeAxiosHeaders = headers as {
+    delete?: (name: string) => boolean;
+  };
+  if (typeof maybeAxiosHeaders.delete === "function") {
+    maybeAxiosHeaders.delete("Content-Type");
+    maybeAxiosHeaders.delete("content-type");
+    return;
+  }
+
+  const plain = headers as Record<string, unknown>;
+  delete plain["Content-Type"];
+  delete plain["content-type"];
+};
+
+const setJsonContentTypeHeader = (headers: unknown) => {
+  if (!headers || typeof headers !== "object") return;
+
+  const maybeAxiosHeaders = headers as {
+    set?: (name: string, value: string) => void;
+  };
+  if (typeof maybeAxiosHeaders.set === "function") {
+    maybeAxiosHeaders.set("Content-Type", "application/json");
+    return;
+  }
+
+  const plain = headers as Record<string, unknown>;
+  plain["Content-Type"] = "application/json";
+};
+
+const resolveLoginRedirectPath = () => {
+  if (typeof window === "undefined") {
+    return "/user/login";
+  }
+
+  const pathname = window.location.pathname || "";
+  return pathname.startsWith("/admin") ? "/admin/login" : "/user/login";
+};
 
 const extractAccessToken = (payload: unknown): string | null => {
   if (!payload || typeof payload !== "object") {
@@ -35,16 +96,31 @@ export function createApiClient(): AxiosInstance {
   const instance = axios.create({
     baseURL: BACKEND_BASE_URL || undefined,
     timeout: 10000,
-    headers: { "Content-Type": "application/json" },
     withCredentials: true,
   });
 
-  instance.interceptors.request.use((config) => {
-    const token = tokenManager.getAccessToken();
+  instance.interceptors.request.use(async (config) => {
     const method = config.method || "GET";
+    const isPublic = isPublicEndpoint(config.url || "", method);
 
-    if (token && !isPublicEndpoint(config.url || "", method)) {
+    if (!isPublic) {
+      await tokenManager.ensureTokenHydrated();
+    }
+
+    const token = tokenManager.getAccessToken();
+
+    if (token && !isPublic) {
       config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    if (isFormDataPayload(config.data)) {
+      // Let the browser attach multipart boundary automatically.
+      removeContentTypeHeader(config.headers);
+    } else if (config.data !== undefined && !hasContentTypeHeader(config.headers)) {
+      if (!config.headers) {
+        config.headers = new AxiosHeaders();
+      }
+      setJsonContentTypeHeader(config.headers);
     }
 
     return config;
@@ -99,7 +175,7 @@ export function createApiClient(): AxiosInstance {
         tokenManager.clearTokens();
         await clearAccessTokenCookie();
         if (typeof window !== "undefined") {
-          window.location.href = "/user/login";
+          window.location.href = resolveLoginRedirectPath();
         }
         return Promise.reject(err);
       } finally {

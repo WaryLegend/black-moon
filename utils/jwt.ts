@@ -6,3 +6,16 @@ export function decodeJwt(token: string) {
     return null;
   }
 }
+
+export function isJwtExpired(payload: unknown): boolean {
+  if (!payload || typeof payload !== "object") {
+    return true;
+  }
+
+  const exp = (payload as { exp?: unknown }).exp;
+  if (typeof exp !== "number") {
+    return true;
+  }
+
+  return exp <= Date.now() / 1000;
+}
