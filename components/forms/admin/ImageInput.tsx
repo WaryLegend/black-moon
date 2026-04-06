@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import Image from "next/image";
 import { HiPhotograph, HiX, HiLink } from "react-icons/hi";
 import { cn } from "@/utils/cn";
+import Button from "@/components/ui/Button";
 
 interface ImageInputProps {
   id?: string;
@@ -23,7 +24,7 @@ export default function ImageInput({
   const generatedId = useId();
   const inputId = id ?? `image-input-${generatedId}`;
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [isDragging, setIsDragging] = useState(false);
+  const [isOverDropZone, setIsOverDropzone] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -62,19 +63,20 @@ export default function ImageInput({
       {/* 1. KHU VỰC HIỂN THỊ / KÉO THẢ / CHỌN FILE */}
       <div
         className={cn(
-          "relative flex h-48 w-full flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-dashed transition-all",
-          isDragging
+          "relative flex h-70 w-full flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-dashed transition-all",
+          isOverDropZone
             ? "border-accent-500 bg-accent-50/10"
             : "border-primary-300 bg-primary-50/10",
+          disabled && "cursor-not-allowed opacity-60",
         )}
         onDragOver={(e) => {
           e.preventDefault();
-          setIsDragging(true);
+          setIsOverDropzone(true);
         }}
-        onDragLeave={() => setIsDragging(false)}
+        onDragLeave={() => setIsOverDropzone(false)}
         onDrop={(e) => {
           e.preventDefault();
-          setIsDragging(false);
+          setIsOverDropzone(false);
           handleFile(e.dataTransfer.files?.[0]);
         }}
       >
@@ -84,24 +86,28 @@ export default function ImageInput({
               src={previewUrl}
               alt="Preview"
               fill
+              sizes="500px"
               className="object-contain"
             />
             {!disabled && (
-              <button
+              <Button
+                icon
                 type="button"
                 onClick={() => {
                   onChange(null);
                   if (fileInputRef.current) fileInputRef.current.value = "";
                 }}
-                className="hover:bg-primary-100 text-primary-600 absolute top-2 right-2 z-10 rounded-full p-1"
+                className={cn(
+                  "hover:bg-primary-100 text-primary-600 absolute top-2 right-2 z-10 rounded-full hover:text-red-600",
+                )}
               >
                 <HiX className="h-4 w-4" />
-              </button>
+              </Button>
             )}
           </>
         ) : (
-          <div className="text-primary-400 flex flex-col items-center">
-            <HiPhotograph className="mb-2 h-12 w-12" />
+          <>
+            <HiPhotograph className="text-primary-400 mb-2 h-10 w-10" />
             <p className="text-sm">
               Kéo thả ảnh vào đây hoặc{" "}
               <span
@@ -117,17 +123,15 @@ export default function ImageInput({
                 chọn file ảnh
               </span>
             </p>
-          </div>
+          </>
         )}
       </div>
 
       <div className="flex items-center gap-2">
         <div className="bg-primary-300 h-px flex-1"></div>
-
         <span className="text-primary-600 text-xs font-medium whitespace-nowrap">
           HOẶC
         </span>
-
         <div className="bg-primary-300 h-px flex-1"></div>
       </div>
 

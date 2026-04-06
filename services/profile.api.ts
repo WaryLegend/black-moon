@@ -41,11 +41,7 @@ export const profileApi = {
 
     const raw = await httpClient.put<
       ApiResponse<CurrentAccount> | CurrentAccount
-    >(`${USERS_BASE_PATH}/me/avatar`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    >(`${USERS_BASE_PATH}/me/avatar`, formData);
 
     return normalizeApiResponse(raw);
   },

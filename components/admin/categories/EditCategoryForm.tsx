@@ -88,6 +88,7 @@ export default function EditCategoryForm({
       targetGroupId: categoryToEdit.targetGroup?.id ?? null,
     });
     setSelectedFile(null);
+    if (!isDirty) onCloseModal?.();
   };
 
   const dirtyClass = (field: keyof CategoryFormValues) =>
@@ -99,29 +100,34 @@ export default function EditCategoryForm({
       type="modal"
       className="flex flex-col gap-4"
     >
-      <h2 className="text-xl font-semibold">Chỉnh sửa thể loại</h2>
+      <h2 className="text-xl font-semibold">Chỉnh sửa danh mục</h2>
 
-      <FormRow label="Tên thể loại*" id="name" error={errors.name?.message}>
+      <FormRow label="Tên danh mục*" id="name" error={errors.name?.message}>
         <Input
           id="name"
           disabled={isPending}
           className={dirtyClass("name")}
           {...register("name", {
-            required: "Category name is required",
+            required: "Tên danh mục là bắt buộc",
             maxLength: {
               value: 255,
-              message: "Category name must be <= 255 chars",
+              message: "Tên danh mục quá dài",
             },
           })}
         />
       </FormRow>
 
-      <FormRow label="Slug" id="slug" error={errors.slug?.message}>
+      <FormRow
+        label="Slug"
+        id="slug"
+        error={errors.slug?.message}
+        helper="kebab-case, có thể để trống để tự tạo"
+      >
         <Input
           id="slug"
           disabled={isPending}
           className={dirtyClass("slug")}
-          placeholder="kebab-case"
+          placeholder="VD: ten-danh-mục"
           {...register("slug", {
             maxLength: {
               value: 255,
@@ -135,7 +141,7 @@ export default function EditCategoryForm({
         />
       </FormRow>
 
-      <FormRow label="Group*" helper="Group không thể chỉnh sửa">
+      <FormRow label="Nhóm đối tượng*">
         <Controller
           name="targetGroupId"
           control={control}

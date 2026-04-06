@@ -73,9 +73,7 @@ export const categoriesApi = {
 
   create(payload: CreateCategoryDto, imageFile?: File | null) {
     const formData = buildCategoryFormData(payload, imageFile);
-    return httpClient.post<CategorySummary>(CATEGORIES_BASE_PATH, formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    return httpClient.post<CategorySummary>(CATEGORIES_BASE_PATH, formData);
   },
 
   update(
@@ -87,9 +85,6 @@ export const categoriesApi = {
     return httpClient.patch<CategorySummary>(
       `${CATEGORIES_BASE_PATH}/${categoryId}`,
       formData,
-      {
-        headers: { "Content-Type": "multipart/form-data" },
-      },
     );
   },
 

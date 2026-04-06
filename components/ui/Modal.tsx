@@ -85,13 +85,13 @@ function Window({
 
   return createPortal(
     <div
-      className="bg-primary-900/20 fixed inset-0 z-[100] backdrop-blur-sm transition-all"
+      className="bg-primary-900/20 fixed inset-0 z-[900] flex items-center justify-center backdrop-blur-sm transition-all"
       aria-modal="true"
       role="dialog"
     >
       <div
         ref={ref}
-        className="bg-primary-0 fixed right-0 bottom-0 left-0 max-h-[95vh] overflow-y-auto rounded-t-2xl rounded-b-none p-8 shadow-2xl transition-all ease-out md:inset-auto md:top-1/2 md:bottom-auto md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-2xl"
+        className="bg-primary-0 fixed right-0 bottom-0 left-0 flex max-h-[95vh] rounded-t-2xl rounded-b-none p-8 shadow-2xl transition-all ease-out md:inset-auto md:bottom-auto md:rounded-2xl"
       >
         <button
           type="button"
@@ -102,8 +102,8 @@ function Window({
           <HiXMark className="h-6 w-6" />
         </button>
 
-        <div>
-          {/* Truyền close modal vào children để các form bên trong có thể tự đóng modal khi xong */}
+        <div className="flex-1 overflow-y-auto">
+          {/* Truyền close modal vào children để các có thể tự đóng modal khi xong */}
           {cloneElement(children, { onCloseModal: close })}
         </div>
       </div>

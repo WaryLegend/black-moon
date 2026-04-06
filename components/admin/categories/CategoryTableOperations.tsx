@@ -8,6 +8,8 @@ import { loadTargetGroupSlugOptions } from "./useTargetGroupOptions";
 function CategoryTableOperations() {
   return (
     <div className="flex flex-wrap items-center gap-3">
+      <SearchFilter placeholder="Search by name or slug" />
+
       <Filter
         filterField="groups"
         selectProps={{
@@ -19,8 +21,6 @@ function CategoryTableOperations() {
         }}
         loadOptions={loadTargetGroupSlugOptions}
       />
-
-      <SearchFilter placeholder="Search by name or slug" />
 
       <SortBy
         options={[

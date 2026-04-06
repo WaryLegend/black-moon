@@ -5,7 +5,7 @@ type FormRowProps = {
   label?: string;
   id?: string;
   error?: string;
-  helper?: string;
+  helper?: ReactNode;
   children: ReactNode;
   className?: string;
 };

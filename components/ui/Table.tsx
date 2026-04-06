@@ -51,13 +51,18 @@ function Header({ children }: { children: React.ReactNode }) {
 }
 
 //Row
-function Row({ children }: { children: React.ReactNode }) {
+type RowProps = React.HTMLAttributes<HTMLDivElement> & {
+  children: React.ReactNode;
+};
+
+function Row({ children, className = "", ...props }: RowProps) {
   const { columns } = useTableContext();
 
   return (
     <div
+      {...props}
       role="row"
-      className="text-primary-700 [&:not(:last-child)]:border-primary-300 even:bg-primary-100/50 grid items-center gap-x-6 px-6 py-3 [&:not(:last-child)]:border-b"
+      className={`text-primary-700 [&:not(:last-child)]:border-primary-300 even:bg-primary-100/50 grid items-center gap-x-6 px-6 py-3 [&:not(:last-child)]:border-b ${className}`}
       style={{ gridTemplateColumns: columns }}
     >
       {children}

@@ -57,7 +57,7 @@ function CreateGroupForm({ groupToEdit, onCloseModal }: CreateGroupFormProps) {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isDirty, dirtyFields },
   } = useForm<GroupFormValues>({
     defaultValues: initialValues,
   });
@@ -96,8 +96,11 @@ function CreateGroupForm({ groupToEdit, onCloseModal }: CreateGroupFormProps) {
 
   const handleCancel = () => {
     reset(initialValues);
-    onCloseModal?.();
+    if (!isDirty) onCloseModal?.();
   };
+
+  const dirtyClass = (field: keyof GroupFormValues) =>
+    dirtyFields[field] ? "border-amber-600" : "";
 
   return (
     <Form
@@ -119,7 +122,8 @@ function CreateGroupForm({ groupToEdit, onCloseModal }: CreateGroupFormProps) {
           id="group-name"
           type="text"
           disabled={isWorking}
-          placeholder="Ví dụ: Nữ"
+          placeholder="VD: Nữ, Nam,..."
+          className={isEditMode ? dirtyClass("name") : ""}
           {...register("name", {
             required: "Tên nhóm là bắt buộc",
             maxLength: {
@@ -130,12 +134,18 @@ function CreateGroupForm({ groupToEdit, onCloseModal }: CreateGroupFormProps) {
         />
       </FormRow>
 
-      <FormRow label="Slug" id="group-slug" error={errors.slug?.message}>
+      <FormRow
+        label="Slug"
+        id="group-slug"
+        error={errors.slug?.message}
+        helper="kebab-case, có thể để trống để tự tạo"
+      >
         <Input
           id="group-slug"
           type="text"
           disabled={isWorking}
-          placeholder="Ví dụ: women (kebab-case) hoặc để trống để tự tạo"
+          placeholder="VD: women-group, women, nhom-nu,..."
+          className={isEditMode ? dirtyClass("slug") : ""}
           {...register("slug", {
             maxLength: {
               value: 100,
@@ -143,7 +153,7 @@ function CreateGroupForm({ groupToEdit, onCloseModal }: CreateGroupFormProps) {
             },
             pattern: {
               value: /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
-              message: "Slug phải ở dạng kebab-case. VD: men-type, women,...",
+              message: "Slug phải ở dạng kebab-case",
             },
           })}
         />
@@ -158,7 +168,7 @@ function CreateGroupForm({ groupToEdit, onCloseModal }: CreateGroupFormProps) {
         >
           Hủy
         </Button>
-        <Button type="submit" disabled={isWorking}>
+        <Button type="submit" disabled={isWorking || !isDirty}>
           {isEditMode ? "Lưu thay đổi" : "Tạo nhóm"}
         </Button>
       </FormRow>

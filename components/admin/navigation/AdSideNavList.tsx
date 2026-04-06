@@ -29,7 +29,7 @@ const navLinks = [
     icon: <MdOutlineMenuBook className="h-5 w-5" />,
     children: [
       {
-        name: "Variants",
+        name: "Inventory",
         href: `${ADMIN_ROOT}/catalog/inventory`,
         icon: <MdOutlineInventory2 className="h-4 w-4" />,
       },

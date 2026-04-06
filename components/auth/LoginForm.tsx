@@ -59,11 +59,6 @@ export default function LoginForm({ isAdmin = false, returnUrl = "" }) {
           value={watch("password")}
           {...register("password", {
             required: "Vui lòng nhập mật khẩu",
-            pattern: {
-              value: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$/,
-              message:
-                "Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ, số và ký tự đặc biệt",
-            },
           })}
         />
       </FormField>

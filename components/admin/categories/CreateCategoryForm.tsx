@@ -89,33 +89,38 @@ function CreateCategoryForm({ onCloseModal }: CategoryFormProps) {
       className="flex flex-col gap-4"
     >
       <div className="space-y-1">
-        <h2 className="text-xl font-semibold">Thêm thể loại</h2>
+        <h2 className="text-xl font-semibold">Thêm danh mục mới</h2>
         <p className="text-primary-500 text-sm">
-          Thêm thể loại mới cho nhóm người dùng.
+          Thêm danh mục mới cho catalog.
         </p>
       </div>
 
-      <FormRow label="Tên thể loại*" id="name" error={errors.name?.message}>
+      <FormRow label="Tên danh mục*" id="name" error={errors.name?.message}>
         <Input
           type="text"
           id="name"
           disabled={isCreating}
           {...register("name", {
-            required: "Tên thể loại là bắt buộc",
+            required: "Tên danh mục là bắt buộc",
             maxLength: {
               value: 255,
-              message: "Tên thể loại quá dài",
+              message: "Tên danh mục quá dài",
             },
           })}
         />
       </FormRow>
 
-      <FormRow label="Slug" id="slug" error={errors.slug?.message}>
+      <FormRow
+        label="Slug"
+        id="slug"
+        error={errors.slug?.message}
+        helper="kebab-case, có thể để trống để tự tạo"
+      >
         <Input
           type="text"
           id="slug"
           disabled={isCreating}
-          placeholder="kebab-case (có thể để trống để tự tạo)"
+          placeholder="VD: ten-danh-muc"
           {...register("slug", {
             maxLength: {
               value: 255,
@@ -129,11 +134,11 @@ function CreateCategoryForm({ onCloseModal }: CategoryFormProps) {
         />
       </FormRow>
 
-      <FormRow label="Group*" error={errors.targetGroupId?.message}>
+      <FormRow label="Nhóm đối tượng*" error={errors.targetGroupId?.message}>
         <Controller
           name="targetGroupId"
           control={control}
-          rules={{ required: "Group là bắt buộc" }}
+          rules={{ required: "Nhóm là bắt buộc" }}
           render={({ field }) => (
             <CustomSelectAsync
               filterField="targetGroupId"
@@ -180,7 +185,7 @@ function CreateCategoryForm({ onCloseModal }: CategoryFormProps) {
           Hủy
         </Button>
         <Button type="submit" disabled={isCreating}>
-          Tạo thể loại
+          Tạo danh mục
         </Button>
       </FormRow>
     </Form>
