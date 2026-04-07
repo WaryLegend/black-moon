@@ -11,6 +11,7 @@ import type { CreateTargetGroupDto, TargetGroupSummary } from "@/types/groups";
 
 import { useCreateGroup } from "./useCreateGroup";
 import { useUpdateGroup } from "./useUpdateGroup";
+import { useFormDirtyStyle } from "@/components/forms/admin/useFormDirtyStyle";
 
 type CreateGroupFormProps = {
   groupToEdit?: TargetGroupSummary;
@@ -99,8 +100,7 @@ function CreateGroupForm({ groupToEdit, onCloseModal }: CreateGroupFormProps) {
     if (!isDirty) onCloseModal?.();
   };
 
-  const dirtyClass = (field: keyof GroupFormValues) =>
-    dirtyFields[field] ? "border-amber-600" : "";
+  const { getDirtyClass } = useFormDirtyStyle(dirtyFields);
 
   return (
     <Form
@@ -123,7 +123,7 @@ function CreateGroupForm({ groupToEdit, onCloseModal }: CreateGroupFormProps) {
           type="text"
           disabled={isWorking}
           placeholder="VD: Nữ, Nam,..."
-          className={isEditMode ? dirtyClass("name") : ""}
+          className={isEditMode ? getDirtyClass("name") : ""}
           {...register("name", {
             required: "Tên nhóm là bắt buộc",
             maxLength: {
@@ -145,7 +145,7 @@ function CreateGroupForm({ groupToEdit, onCloseModal }: CreateGroupFormProps) {
           type="text"
           disabled={isWorking}
           placeholder="VD: women-group, women, nhom-nu,..."
-          className={isEditMode ? dirtyClass("slug") : ""}
+          className={isEditMode ? getDirtyClass("slug") : ""}
           {...register("slug", {
             maxLength: {
               value: 100,

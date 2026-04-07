@@ -20,7 +20,7 @@ export function useUpdateCategory() {
     mutationFn: ({ categoryId, payload, imageFile }) =>
       categoriesApi.update(categoryId, payload, imageFile),
     onSuccess: () => {
-      toast.success("Cập nhật thể loại thành công");
+      toast.success("Cập nhật danh mục thành công");
       queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
     onError: (error: any) => {

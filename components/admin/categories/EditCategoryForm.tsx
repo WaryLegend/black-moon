@@ -6,6 +6,7 @@ import Form from "@/components/forms/admin/Form";
 import FormRow from "@/components/forms/admin/FormRow";
 import ImageInput from "@/components/forms/admin/ImageInput";
 import Input from "@/components/forms/admin/Input";
+import { useFormDirtyStyle } from "@/components/forms/admin/useFormDirtyStyle";
 import CustomSelectAsync from "@/components/filters/CustomSelectAsync";
 import Button from "@/components/ui/Button";
 import type { CategorySummary } from "@/types/categories";
@@ -90,9 +91,7 @@ export default function EditCategoryForm({
     setSelectedFile(null);
     if (!isDirty) onCloseModal?.();
   };
-
-  const dirtyClass = (field: keyof CategoryFormValues) =>
-    dirtyFields[field] ? "border-amber-600" : "";
+  const { getDirtyClass } = useFormDirtyStyle(dirtyFields);
 
   return (
     <Form
@@ -106,7 +105,7 @@ export default function EditCategoryForm({
         <Input
           id="name"
           disabled={isPending}
-          className={dirtyClass("name")}
+          className={getDirtyClass("name")}
           {...register("name", {
             required: "Tên danh mục là bắt buộc",
             maxLength: {
@@ -126,7 +125,7 @@ export default function EditCategoryForm({
         <Input
           id="slug"
           disabled={isPending}
-          className={dirtyClass("slug")}
+          className={getDirtyClass("slug")}
           placeholder="VD: ten-danh-mục"
           {...register("slug", {
             maxLength: {
