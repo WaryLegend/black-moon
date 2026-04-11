@@ -99,7 +99,7 @@ export function getRoleStyle(role?: string) {
 }
 
 // Apply color for quanity
-export function setQuantityColor(value: number): string {
+export function getQuantityColor(value: number): string {
   const TEXT_COLORS = {
     LOW: "#FF0000", // Red
     MEDIUM: "#DAA520", // Yellow
@@ -112,3 +112,16 @@ export function setQuantityColor(value: number): string {
   if (value <= 25) return TEXT_COLORS.MEDIUM;
   return TEXT_COLORS.GOOD;
 }
+
+// COLOR AND SIZES
+export const COLOR_VALUES = [
+  "BLACK",
+  "WHITE",
+  "BLUE",
+  "GREEN",
+  "BROWN",
+  "PINK",
+  "ORANGE",
+] as const;
+
+export const SIZE_VALUES = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"] as const;

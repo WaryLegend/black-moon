@@ -93,10 +93,16 @@ function CustomSelect({
             : state.isFocused
               ? custom.color || "var(--color-accent-100)"
               : custom.backgroundColor || "var(--color-primary-50)",
+          // khi giữ chuột trái vào option
+          "&:active": {
+            backgroundColor: state.isSelected
+              ? "var(--color-accent-800)"
+              : "var(--color-accent-200)",
+          },
           color: state.isSelected
             ? "var(--color-primary-50)"
             : state.isFocused
-              ? state.data.value === "black"
+              ? state.data.value?.toString().toLowerCase() === "black"
                 ? "white"
                 : custom.backgroundColor
               : custom.color || "var(--color-primary-700)",
@@ -109,7 +115,7 @@ function CustomSelect({
       menu: (provided) => ({
         ...provided,
         borderRadius: "0.5rem",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.35)",
         zIndex: 20,
         backgroundColor: "var(--color-primary-50)",
       }),
@@ -121,8 +127,20 @@ function CustomSelect({
         const custom = getOptionStyle?.(state.data.value) || {};
         return {
           ...provided,
-          color: custom.color || provided.color,
-          backgroundColor: custom.backgroundColor,
+          color: custom.color || "var(--color-primary-900)" || provided.color,
+          backgroundColor: "transparent",
+        };
+      },
+      multiValue: (provided, state) => {
+        const custom = getOptionStyle?.(state.data.value) || {};
+        return {
+          ...provided,
+          backgroundColor:
+            custom.backgroundColor ||
+            "var(--color-primary-200)" ||
+            provided.backgroundColor,
+          borderTopLeftRadius: "0.35rem",
+          borderBottomLeftRadius: "0.35rem",
         };
       },
       multiValueRemove: (provided, state) => {
@@ -131,16 +149,17 @@ function CustomSelect({
           return {
             ...provided,
             transition: "all 120ms ease",
-            color: "var(--color-gray-600)",
+            color: "var(--color-primary-600)",
           };
         return {
           ...provided,
           transition: "all 120ms ease",
           color: custom.color,
-          backgroundColor: custom.backgroundColor,
           ":hover": {
             backgroundColor:
-              state.data.value !== "white" ? custom.color : "#5b5b5b",
+              state.data.value?.toString().toLowerCase() !== "white"
+                ? custom.color
+                : "#5b5b5b",
             color: "white",
           },
         };

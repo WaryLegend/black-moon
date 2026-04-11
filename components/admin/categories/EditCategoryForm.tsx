@@ -91,7 +91,7 @@ export default function EditCategoryForm({
     setSelectedFile(null);
     if (!isDirty) onCloseModal?.();
   };
-  const { getDirtyClass } = useFormDirtyStyle(dirtyFields);
+  const { getDirtyClass } = useFormDirtyStyle<CategoryFormValues>(dirtyFields);
 
   return (
     <Form

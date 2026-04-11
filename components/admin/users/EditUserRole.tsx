@@ -1,15 +1,16 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { ROLE_OPTIONS, DEFAULT_ROLE } from "./userFormOptions";
 import { useUpdateUserRole } from "./useUpdateUserRole";
 import type { UserSummary } from "@/types/users";
 import Form from "@/components/forms/admin/Form";
 import FormRow from "@/components/forms/admin/FormRow";
-import Selector from "@/components/forms/admin/Selector";
+import CustomSelect from "@/components/filters/CustomSelect";
 import Button from "@/components/ui/Button";
 import Spinner from "@/components/ui/Spinner";
+import { useFormDirtyStyle } from "@/components/forms/admin/useFormDirtyStyle";
 
 type RoleFormValues = {
   roleName: string;
@@ -21,7 +22,7 @@ function EditUserRole({ user }: { user: UserSummary }) {
   const initialRole = (user.role?.name ?? DEFAULT_ROLE).toUpperCase();
 
   const {
-    register,
+    control,
     handleSubmit,
     reset,
     formState: { isDirty, dirtyFields },
@@ -48,6 +49,8 @@ function EditUserRole({ user }: { user: UserSummary }) {
     );
   };
 
+  const { getDirtyClass } = useFormDirtyStyle<RoleFormValues>(dirtyFields);
+
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow
@@ -55,13 +58,24 @@ function EditUserRole({ user }: { user: UserSummary }) {
         id="edit-role"
         helper="Thay đổi vai trò sẽ ảnh hưởng đến quyền truy cập!"
       >
-        <Selector
-          id="edit-role"
-          placeholder=""
-          className={dirtyFields.roleName ? "border-amber-600" : ""}
-          disabled={isPending}
-          options={ROLE_OPTIONS}
-          {...register("roleName", { required: true })}
+        <Controller
+          name="roleName"
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <CustomSelect
+              inputId="edit-role"
+              placeholder=""
+              className={getDirtyClass("roleName")}
+              isDisabled={isPending}
+              options={ROLE_OPTIONS}
+              value={field.value}
+              onChange={(event) => {
+                const next = event.target.value;
+                field.onChange(next === null ? "" : String(next));
+              }}
+            />
+          )}
         />
       </FormRow>
       {isDirty && (

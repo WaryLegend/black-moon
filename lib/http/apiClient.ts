@@ -5,12 +5,13 @@ import { refreshQueue } from "@/lib/auth/refreshQueue";
 import { isPublicEndpoint } from "./publicEndpoints";
 import { clearAccessTokenCookie } from "@/lib/auth/accessTokenCookie";
 import { persistAccessToken } from "@/lib/auth/persistAccessToken";
+import { joinApiPath } from "@/lib/constants/api";
 
 const BACKEND_BASE_URL = (process.env.NEXT_PUBLIC_HOST_BACKEND || "").replace(
   /\/$/,
   "",
 );
-const REFRESH_ENDPOINT = "/api/v1/auth/refresh";
+const REFRESH_ENDPOINT = joinApiPath("/auth/refresh");
 
 const withBackendBase = (path: string) =>
   BACKEND_BASE_URL ? `${BACKEND_BASE_URL}${path}` : path;
@@ -100,8 +101,7 @@ export function createApiClient(): AxiosInstance {
   });
 
   instance.interceptors.request.use(async (config) => {
-    const method = config.method || "GET";
-    const isPublic = isPublicEndpoint(config.url || "", method);
+    const isPublic = isPublicEndpoint(config.url || "", config.method || "GET");
 
     if (!isPublic) {
       await tokenManager.ensureTokenHydrated();
@@ -116,7 +116,10 @@ export function createApiClient(): AxiosInstance {
     if (isFormDataPayload(config.data)) {
       // Let the browser attach multipart boundary automatically.
       removeContentTypeHeader(config.headers);
-    } else if (config.data !== undefined && !hasContentTypeHeader(config.headers)) {
+    } else if (
+      config.data !== undefined &&
+      !hasContentTypeHeader(config.headers)
+    ) {
       if (!config.headers) {
         config.headers = new AxiosHeaders();
       }

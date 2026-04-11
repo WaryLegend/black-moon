@@ -1,4 +1,5 @@
 import httpClient from "@/lib/http/httpClient";
+import { joinApiPath } from "@/lib/constants/api";
 import type {
   BulkIdsTargetGroupsDto,
   BulkRestoreResponse,
@@ -10,7 +11,7 @@ import type {
   UpdateTargetGroupDto,
 } from "@/types/groups";
 
-const TARGET_GROUPS_BASE_PATH = "/api/v1/target-groups";
+const TARGET_GROUPS_BASE_PATH = joinApiPath("/target-groups");
 
 const buildListEndpoint = (params: ListTargetGroupsParams = {}) => {
   const query = new URLSearchParams();

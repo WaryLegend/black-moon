@@ -1,8 +1,9 @@
 import httpClient from "@/lib/http/httpClient";
 import type { CurrentAccount, ProfileDetails } from "@/types/profile";
 import type { ApiResponse } from "@/services/auth.api";
+import { joinApiPath } from "@/lib/constants/api";
 
-const USERS_BASE_PATH = "/api/v1/users";
+const USERS_BASE_PATH = joinApiPath("/users");
 
 export interface UpdateProfilePayload extends Partial<ProfileDetails> {}
 

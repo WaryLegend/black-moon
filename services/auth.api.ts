@@ -11,6 +11,7 @@ import httpClient from "@/lib/http/httpClient";
 import { tokenManager } from "@/lib/auth/tokenManager";
 import { clearAccessTokenCookie } from "@/lib/auth/accessTokenCookie";
 import { persistAccessToken } from "@/lib/auth/persistAccessToken";
+import { joinApiPath } from "@/lib/constants/api";
 
 export interface ApiResponse<T> {
   error?: string | null;
@@ -18,7 +19,7 @@ export interface ApiResponse<T> {
   data: T;
 }
 
-const AUTH_BASE_PATH = "/api/v1/auth";
+const AUTH_BASE_PATH = joinApiPath("/auth");
 
 const normalizeApiResponse = <T>(
   payload: ApiResponse<T> | T,

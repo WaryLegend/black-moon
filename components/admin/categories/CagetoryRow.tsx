@@ -7,6 +7,7 @@ import Menus from "@/components/ui/Menus";
 import SelectionCheckbox from "@/components/ui/SelectionCheckbox";
 import { CategorySummary } from "@/types/categories";
 import EditCategoryForm from "./EditCategoryForm";
+import Link from "next/link";
 
 const Field = styled.div`
   font-size: 1rem;
@@ -57,15 +58,22 @@ function CategoryRow({ category, isSelected, onSelect }: CategoryRowProps) {
         <Image
           src={imageUrl}
           alt={`image of ${name}`}
-          width={40}
+          width={56}
           height={40}
           className="block h-10 w-14 rounded-sm object-cover"
         />
       ) : (
-        <div className="bg-primary-200 h-10 w-14 rounded-sm" />
+        <div className="from-primary-200 to-primary-100 h-10 w-14 rounded-sm bg-gradient-to-tr" />
       )}
       <Field>{name}</Field>
-      <Field>{slug}</Field>
+      <Field>
+        <Link
+          href={`/admin/catalog/products?categories=${encodeURIComponent(slug)}`}
+          className="text-accent-600 hover:text-accent-700 underline-offset-2 hover:underline"
+        >
+          {slug}
+        </Link>
+      </Field>
       <Field>{groupDisplay}</Field>
       <Field className="flex items-center">
         <StatusDot $isDeleted={Boolean(isDeleted)} />

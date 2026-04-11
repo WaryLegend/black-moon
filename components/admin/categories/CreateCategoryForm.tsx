@@ -142,7 +142,7 @@ function CreateCategoryForm({ onCloseModal }: CategoryFormProps) {
           render={({ field }) => (
             <CustomSelectAsync
               filterField="targetGroupId"
-              minWidth={280}
+              minWidth={200}
               placeholder="Chọn nhóm"
               defaultOptions
               loadOptions={loadTargetGroupIdOptions}

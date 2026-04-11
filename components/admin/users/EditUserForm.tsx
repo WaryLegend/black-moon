@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useMemo } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 import Form from "@/components/forms/admin/Form";
 import FormRow from "@/components/forms/admin/FormRow";
 import Input from "@/components/forms/admin/Input";
-import Selector from "@/components/forms/admin/Selector";
+import CustomSelect from "@/components/filters/CustomSelect";
 import Button from "@/components/ui/Button";
 import type { UpdateUserProfileDto, UserSummary } from "@/types/users";
 
@@ -16,7 +16,8 @@ import {
   type GenderValue,
   normalizeGenderValue,
 } from "./userFormOptions";
-import EditUserRole from "./EditUserRole"; // Import component mới
+import EditUserRole from "./EditUserRole";
+import { useFormDirtyStyle } from "@/components/forms/admin/useFormDirtyStyle";
 
 type EditUserFormProps = {
   user: UserSummary;
@@ -61,6 +62,7 @@ function EditUserForm({ user, onCloseModal }: EditUserFormProps) {
 
   const {
     register,
+    control,
     handleSubmit,
     reset,
     formState: { isDirty, dirtyFields },
@@ -88,8 +90,7 @@ function EditUserForm({ user, onCloseModal }: EditUserFormProps) {
     );
   };
 
-  const dirtyClass = (field: keyof ProfileFormValues) =>
-    dirtyFields[field] ? "border-amber-600" : "";
+  const { getDirtyClass } = useFormDirtyStyle<ProfileFormValues>(dirtyFields);
 
   return (
     <div className="flex flex-col gap-6 p-1">
@@ -108,7 +109,7 @@ function EditUserForm({ user, onCloseModal }: EditUserFormProps) {
         <FormRow label="Họ" id="edit-last-name">
           <Input
             id="edit-last-name"
-            className={dirtyClass("lastName")}
+            className={getDirtyClass("lastName")}
             disabled={isUpdatingProfile}
             {...register("lastName")}
           />
@@ -117,7 +118,7 @@ function EditUserForm({ user, onCloseModal }: EditUserFormProps) {
         <FormRow label="Tên" id="edit-first-name">
           <Input
             id="edit-first-name"
-            className={dirtyClass("firstName")}
+            className={getDirtyClass("firstName")}
             disabled={isUpdatingProfile}
             {...register("firstName")}
           />
@@ -127,20 +128,32 @@ function EditUserForm({ user, onCloseModal }: EditUserFormProps) {
           <Input
             id="edit-phone"
             type="tel"
-            className={dirtyClass("phoneNumber")}
+            className={getDirtyClass("phoneNumber")}
             disabled={isUpdatingProfile}
             {...register("phoneNumber")}
           />
         </FormRow>
 
         <FormRow label="Giới tính" id="edit-gender">
-          <Selector
-            id="edit-gender"
-            placeholder=""
-            className={dirtyClass("gender")}
-            options={GENDER_OPTIONS}
-            disabled={isUpdatingProfile}
-            {...register("gender")}
+          <Controller
+            name="gender"
+            control={control}
+            render={({ field }) => (
+              <CustomSelect
+                inputId="edit-gender"
+                placeholder=""
+                className={getDirtyClass("gender")}
+                options={GENDER_OPTIONS}
+                isDisabled={isUpdatingProfile}
+                value={field.value}
+                onChange={(event) => {
+                  const next = event.target.value;
+                  field.onChange(
+                    next === null ? "" : (next as GenderValue | ""),
+                  );
+                }}
+              />
+            )}
           />
         </FormRow>
 
@@ -148,7 +161,7 @@ function EditUserForm({ user, onCloseModal }: EditUserFormProps) {
           <Input
             id="edit-birth-date"
             type="date"
-            className={dirtyClass("birthDate")}
+            className={getDirtyClass("birthDate")}
             disabled={isUpdatingProfile}
             {...register("birthDate")}
           />

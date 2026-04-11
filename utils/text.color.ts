@@ -26,21 +26,21 @@ export function getTextColorStyle(name: string): TextColorStyle {
   if (base.isEqual(colord("#fff"))) {
     return {
       color: "#fff",
-      backgroundColor: "#e8e8e8",
-      style: { color: "#fff", backgroundColor: "#e8e8e8" },
+      backgroundColor: "#9ca3af",
+      style: { color: "#fff", backgroundColor: "#9ca3af" },
     };
   }
   // Special case: BLACK
   if (base.isEqual(colord("#000000"))) {
     return {
       color: "#000",
-      backgroundColor: "#979797",
-      style: { color: "#000", backgroundColor: "#979797" },
+      backgroundColor: "#5A5C5E",
+      style: { color: "#000", backgroundColor: "#5A5C5E" },
     };
   }
   // Normal colors logic
   const bg = base
-    .mix("#ffffff", 0.75) // 75% white → pastel, not washed
+    .mix("#ffffff", 0.7) // 70% white → pastel, not washed
     .desaturate(0.05); // keep identity, but softer
 
   return {

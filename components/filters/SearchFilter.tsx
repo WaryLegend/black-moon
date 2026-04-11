@@ -3,17 +3,20 @@
 import { useEffect, useState, useId, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { HiMagnifyingGlass, HiXMark } from "react-icons/hi2";
+import { cn } from "@/utils/cn";
 
 type SearchFilterProps = {
   searchField?: string;
   placeholder?: string;
   debounceMs?: number;
+  className?: string;
 };
 
 function SearchFilter({
   searchField = "search",
   placeholder = "Tìm kiếm...",
   debounceMs = 500,
+  className = "",
 }: SearchFilterProps) {
   const id = useId(); // Sửa lỗi thiếu ID cho input
   const router = useRouter();
@@ -69,7 +72,10 @@ function SearchFilter({
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
-        className="border-accent-300 bg-primary-0 text-primary-700 focus:border-accent-500 focus:ring-accent-500 hover:border-accent-700 w-full rounded-lg border py-2 pr-10 pl-10 text-sm shadow-sm transition-all outline-none focus:ring-1 md:w-64"
+        className={cn(
+          "border-accent-300 bg-primary-0 text-primary-700 focus:border-accent-500 focus:ring-accent-500 hover:border-accent-700 rounded-lg border py-2 pr-10 pl-10 text-sm shadow-sm transition-all outline-none focus:ring-1",
+          className,
+        )}
       />
 
       {value && (

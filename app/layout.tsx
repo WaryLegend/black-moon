@@ -41,7 +41,7 @@ export default async function RootLayout({
               duration: 3000,
             },
             error: {
-              duration: 6000,
+              duration: 4000,
             },
             style: {
               fontSize: "16px",

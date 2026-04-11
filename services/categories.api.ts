@@ -1,4 +1,5 @@
 import httpClient from "@/lib/http/httpClient";
+import { joinApiPath } from "@/lib/constants/api";
 import type {
   CategoriesListResponse,
   CreateCategoryDto,
@@ -10,7 +11,7 @@ import type {
   BulkRestoreResponse,
 } from "@/types/categories";
 
-const CATEGORIES_BASE_PATH = "/api/v1/categories";
+const CATEGORIES_BASE_PATH = joinApiPath("/categories");
 
 const buildListEndpoint = (params: ListCategoriesParams = {}) => {
   const query = new URLSearchParams();

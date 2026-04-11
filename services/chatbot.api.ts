@@ -46,7 +46,9 @@ interface ApiResponse<T> {
 }
 
 // Base URL
-const BASE_URL = process.env.HOST_BACKBEND || "http://localhost:8080";
+const API_URL = (
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/api"
+).replace(/\/$/, "");
 
 // Helper function
 const generateSessionId = (): string => {
@@ -63,7 +65,7 @@ const chatbotApi = {
    * Send message to chatbot
    */
   async sendMessage(data: ChatMessageReq): Promise<ChatMessageRes> {
-    const response = await fetch(`${BASE_URL}/api/v1/chatbot/message`, {
+    const response = await fetch(`${API_URL}/chatbot/message`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -84,12 +86,9 @@ const chatbotApi = {
    * Clear conversation session
    */
   async clearSession(sessionId: string): Promise<void> {
-    const response = await fetch(
-      `${BASE_URL}/api/v1/chatbot/session/${sessionId}`,
-      {
-        method: "DELETE",
-      },
-    );
+    const response = await fetch(`${API_URL}/chatbot/session/${sessionId}`, {
+      method: "DELETE",
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -101,7 +100,7 @@ const chatbotApi = {
    */
   async healthCheck(): Promise<boolean> {
     try {
-      const response = await fetch(`${BASE_URL}/api/v1/chatbot/health`);
+      const response = await fetch(`${API_URL}/chatbot/health`);
       return response.ok;
     } catch {
       return false;

@@ -1,4 +1,3 @@
-// hooks/useFormDirtyStyle.ts
 import { FieldValues, FormState } from "react-hook-form";
 
 /**
@@ -22,7 +21,9 @@ export function useFormDirtyStyle<TFieldValues extends FieldValues>(
     return false;
   };
 
-  const getDirty = (fieldName: keyof TFieldValues | string): boolean => {
+  function getDirty<K extends keyof TFieldValues>(fieldName: K): boolean;
+  function getDirty(fieldName: string): boolean;
+  function getDirty(fieldName: keyof TFieldValues | string): boolean {
     if (!dirtyFields) return false;
 
     // Hỗ trợ path dạng dotted: "a.b.c"
@@ -38,10 +39,13 @@ export function useFormDirtyStyle<TFieldValues extends FieldValues>(
 
     const val = (dirtyFields as any)[fieldName as string];
     return hasTruthy(val);
-  };
+  }
 
-  const getDirtyClass = (fieldName: keyof TFieldValues | string): string =>
-    getDirty(fieldName) ? dirtyClassName : "";
+  function getDirtyClass<K extends keyof TFieldValues>(fieldName: K): string;
+  function getDirtyClass(fieldName: string): string;
+  function getDirtyClass(fieldName: keyof TFieldValues | string): string {
+    return getDirty(fieldName as any) ? dirtyClassName : "";
+  }
 
   return { getDirty, getDirtyClass };
 }

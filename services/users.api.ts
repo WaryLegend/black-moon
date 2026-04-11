@@ -1,4 +1,5 @@
 import httpClient from "@/lib/http/httpClient";
+import { joinApiPath } from "@/lib/constants/api";
 import type {
   CreateUserDto,
   ListUsersParams,
@@ -9,7 +10,7 @@ import type {
   UsersListResponse,
 } from "@/types/users";
 
-const USERS_BASE_PATH = "/api/v1/users";
+const USERS_BASE_PATH = joinApiPath("/users");
 
 const buildListEndpoint = (params: ListUsersParams = {}): string => {
   const query = new URLSearchParams();

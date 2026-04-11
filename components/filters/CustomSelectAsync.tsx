@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import type { CSSProperties } from "react";
 import ReactSelectAsync from "react-select/async";
 import makeAnimated from "react-select/animated";
 import type { MultiValue, SingleValue, StylesConfig } from "react-select";
@@ -19,6 +20,7 @@ type ForwardedAsyncProps = Partial<
 >;
 
 type LoadOptions = (inputValue: string) => Promise<FilterOption[]>;
+type OptionStyle = Partial<Pick<CSSProperties, "color" | "backgroundColor">>;
 
 type CustomSelectAsyncProps = ForwardedAsyncProps & {
   filterField: string;
@@ -28,6 +30,7 @@ type CustomSelectAsyncProps = ForwardedAsyncProps & {
   cacheOptions?: boolean;
   value?: FilterValue;
   onChange: (event: FilterChangeEvent) => void;
+  getOptionStyle?: (value: FilterOption["value"]) => OptionStyle | undefined;
   isAnimated?: boolean;
 };
 
@@ -46,6 +49,7 @@ export default function CustomSelectAsync({
   cacheOptions = true,
   value,
   onChange,
+  getOptionStyle,
   isAnimated = false,
   ...props
 }: CustomSelectAsyncProps) {
@@ -114,22 +118,33 @@ export default function CustomSelectAsync({
           borderColor: "var(--color-accent-700)",
         },
       }),
-      option: (provided, state) => ({
-        ...provided,
-        fontSize: "0.875rem",
-        fontWeight: 500,
-        cursor: "pointer",
-        backgroundColor: state.isSelected
-          ? "var(--color-accent-600)"
-          : state.isFocused
-            ? "var(--color-accent-100)"
-            : "var(--color-primary-50)",
-        color: state.isSelected
-          ? "var(--color-primary-50)"
-          : state.isFocused
-            ? "var(--color-primary-700)"
-            : provided.color,
-      }),
+      option: (provided, state) => {
+        const custom = getOptionStyle?.(state.data.value) || {};
+        return {
+          ...provided,
+          fontSize: "0.875rem",
+          fontWeight: 500,
+          cursor: "pointer",
+          backgroundColor: state.isSelected
+            ? "var(--color-accent-600)"
+            : state.isFocused
+              ? custom.color || "var(--color-accent-100)"
+              : custom.backgroundColor || "var(--color-primary-50)",
+          // khi giữ chuột trái vào option
+          "&:active": {
+            backgroundColor: state.isSelected
+              ? "var(--color-accent-800)"
+              : "var(--color-accent-200)",
+          },
+          color: state.isSelected
+            ? "var(--color-primary-50)"
+            : state.isFocused
+              ? state.data.value?.toString().toLowerCase() === "black"
+                ? "white"
+                : custom.backgroundColor
+              : custom.color || "var(--color-primary-700)",
+        };
+      },
       input: (provided, state) => ({
         ...provided,
         color: "var(--color-primary-900)",
@@ -142,7 +157,7 @@ export default function CustomSelectAsync({
       menu: (provided) => ({
         ...provided,
         borderRadius: "0.5rem",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.35)",
         zIndex: 20,
         backgroundColor: "var(--color-primary-50)",
       }),
@@ -150,11 +165,47 @@ export default function CustomSelectAsync({
         ...provided,
         borderRadius: "0.5rem",
       }),
-      multiValueRemove: (provided) => ({
-        ...provided,
-        transition: "all 120ms ease",
-        color: "var(--color-gray-600)",
-      }),
+      multiValueLabel: (provided, state) => {
+        const custom = getOptionStyle?.(state.data.value) || {};
+        return {
+          ...provided,
+          color: custom.color || "var(--color-primary-900)" || provided.color,
+          backgroundColor: "transparent",
+        };
+      },
+      multiValue: (provided, state) => {
+        const custom = getOptionStyle?.(state.data.value) || {};
+        return {
+          ...provided,
+          backgroundColor:
+            custom.backgroundColor ||
+            "var(--color-primary-200)" ||
+            provided.backgroundColor,
+          borderTopLeftRadius: "0.35rem",
+          borderBottomLeftRadius: "0.35rem",
+        };
+      },
+      multiValueRemove: (provided, state) => {
+        const custom = getOptionStyle?.(state.data.value);
+        if (!custom)
+          return {
+            ...provided,
+            transition: "all 120ms ease",
+            color: "var(--color-primary-600)",
+          };
+        return {
+          ...provided,
+          transition: "all 120ms ease",
+          color: custom.color,
+          ":hover": {
+            backgroundColor:
+              state.data.value?.toString().toLowerCase() !== "white"
+                ? custom.color
+                : "#5b5b5b",
+            color: "white",
+          },
+        };
+      },
       dropdownIndicator: (provided, state) => ({
         ...provided,
         color: state.isFocused
@@ -168,7 +219,7 @@ export default function CustomSelectAsync({
       }),
       indicatorSeparator: () => ({ display: "none" }),
     }),
-    [minWidth],
+    [getOptionStyle, minWidth],
   );
 
   const animatedComponents = useMemo(

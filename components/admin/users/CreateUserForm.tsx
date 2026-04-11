@@ -1,12 +1,12 @@
 "use client";
 
 import { useMemo } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 import Form from "@/components/forms/admin/Form";
 import FormRow from "@/components/forms/admin/FormRow";
 import Input from "@/components/forms/admin/Input";
-import Selector from "@/components/forms/admin/Selector";
+import CustomSelect from "@/components/filters/CustomSelect";
 import Button from "@/components/ui/Button";
 import type { CreateUserDto } from "@/types/users";
 
@@ -71,6 +71,7 @@ function CreateUserForm({ onCloseModal }: CreateUserFormProps) {
   const defaultValues = useMemo(() => getDefaultValues(), []);
   const {
     register,
+    control,
     handleSubmit,
     watch,
     reset,
@@ -197,12 +198,22 @@ function CreateUserForm({ onCloseModal }: CreateUserFormProps) {
       </FormRow>
 
       <FormRow label="Giới tính" id="create-gender">
-        <Selector
-          id="create-gender"
-          placeholder="Chọn giới tính"
-          disabled={isPending}
-          options={GENDER_OPTIONS}
-          {...register("gender")}
+        <Controller
+          name="gender"
+          control={control}
+          render={({ field }) => (
+            <CustomSelect
+              inputId="create-gender"
+              placeholder="Chọn giới tính"
+              isDisabled={isPending}
+              options={GENDER_OPTIONS}
+              value={field.value}
+              onChange={(event) => {
+                const next = event.target.value;
+                field.onChange(next === null ? "" : (next as GenderValue | ""));
+              }}
+            />
+          )}
         />
       </FormRow>
 
@@ -220,12 +231,23 @@ function CreateUserForm({ onCloseModal }: CreateUserFormProps) {
         id="create-role"
         error={errors.roleName?.message}
       >
-        <Selector
-          id="create-role"
-          placeholder="Chọn vai trò"
-          disabled={isPending}
-          options={ROLE_OPTIONS}
-          {...register("roleName", { required: "Vui lòng chọn vai trò" })}
+        <Controller
+          name="roleName"
+          control={control}
+          rules={{ required: "Vui lòng chọn vai trò" }}
+          render={({ field }) => (
+            <CustomSelect
+              inputId="create-role"
+              placeholder="Chọn vai trò"
+              isDisabled={isPending}
+              options={ROLE_OPTIONS}
+              value={field.value}
+              onChange={(event) => {
+                const next = event.target.value;
+                field.onChange(next === null ? "" : String(next));
+              }}
+            />
+          )}
         />
       </FormRow>
 

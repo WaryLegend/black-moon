@@ -36,6 +36,7 @@ function Filter({
 
   const { isMulti, isAsync, ...forwardedSelectProps } = selectProps;
   const resolvedOptions = options ?? [];
+  const isColorFilter = /colou?rs?$/i.test(filterField);
 
   // Use provided value if in deferred mode (onFilterChange), otherwise from params
   const currentFilter: FilterValue = onFilterChange
@@ -44,11 +45,11 @@ function Filter({
       ? (searchParams.get(filterField)?.split(",") ?? [])
       : searchParams.get(filterField) || "";
 
-  // Apply getOptionStyle only if filterField is "color"
+  // Apply option coloring for color-related filter fields.
   const enhancedSelectProps = {
     ...forwardedSelectProps,
     isMulti,
-    ...(filterField === "color" && {
+    ...(isColorFilter && {
       getOptionStyle: (option: FilterOption["value"]) => {
         return getTextColorStyle(String(option)).style;
       },

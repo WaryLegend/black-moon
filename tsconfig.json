@@ -53,6 +53,7 @@
     "**/*.tsx",
     "**/*.js",
     "**/*.jsx",
+    "global.d.ts",
     "next-env.d.ts",
     ".next/types/**/*.ts"
   ],
