@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { authApi, type ApiResponse } from "@/services/auth.api";
 import type { AuthResponse } from "@/types/auth";
 import { useWebSocket } from "@/contexts/websocket.context";
+import { resolveToastErrorMessage } from "@/lib/http/errorMessages";
 
 export function useVerifyOtp(returnUrl?: string) {
   const router = useRouter();
@@ -32,7 +33,7 @@ export function useVerifyOtp(returnUrl?: string) {
     },
 
     onError: (error: any) => {
-      toast.error(error?.response?.data?.message || "Mã OTP không hợp lệ");
+      toast.error(resolveToastErrorMessage(error, "Mã OTP không hợp lệ"));
     },
   });
 }

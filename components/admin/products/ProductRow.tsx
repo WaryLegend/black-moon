@@ -89,7 +89,7 @@ function ProductRow({ product, isSelected, onSelect }: ProductRowProps) {
                   </Modal.Open>
                 </Menus.List>
                 <Modal.Window name="edit">
-                  <EditProductForm productToEdit={product} />
+                  <EditProductForm productId={product.id} productSummary={product} />
                 </Modal.Window>
               </Menus.Menu>
             </Modal>

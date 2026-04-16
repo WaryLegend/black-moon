@@ -51,7 +51,7 @@ function CreateCategoryForm({ onCloseModal }: CategoryFormProps) {
     handleSubmit,
     control,
     reset,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm<CategoryFormValues>({
     defaultValues: getEmptyValues(),
   });
@@ -134,13 +134,21 @@ function CreateCategoryForm({ onCloseModal }: CategoryFormProps) {
         />
       </FormRow>
 
-      <FormRow label="Nhóm đối tượng*" error={errors.targetGroupId?.message}>
+      <FormRow
+        label={
+          <div id="select-group" className="cursor-default">
+            Nhóm đối tượng*
+          </div>
+        }
+        error={errors.targetGroupId?.message}
+      >
         <Controller
           name="targetGroupId"
           control={control}
           rules={{ required: "Nhóm là bắt buộc" }}
           render={({ field }) => (
             <CustomSelectAsync
+              aria-labelledby="select-group"
               filterField="targetGroupId"
               minWidth={200}
               placeholder="Chọn nhóm"
@@ -175,7 +183,7 @@ function CreateCategoryForm({ onCloseModal }: CategoryFormProps) {
         />
       </FormRow>
 
-      <FormRow className="flex justify-end gap-2">
+      <FormRow className="sticky bottom-0 flex justify-end gap-2 bg-inherit">
         <Button
           variant="secondary"
           type="button"
@@ -184,7 +192,7 @@ function CreateCategoryForm({ onCloseModal }: CategoryFormProps) {
         >
           Hủy
         </Button>
-        <Button type="submit" disabled={isCreating}>
+        <Button type="submit" disabled={isCreating || !isDirty}>
           Tạo danh mục
         </Button>
       </FormRow>

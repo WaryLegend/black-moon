@@ -42,7 +42,7 @@ type RichTextEditorProps = {
   disabled?: boolean;
   /**
    * Accept either a full tailwind class (min-h-[12rem]), a unit string ("12rem", "100px", "10em", "%")
-   * or a number (treated as pixels). The component builds the final `min-h-[...]` class.
+   * or a number (treated as pixels).
    */
   minHeight?: string | number;
   className?: string;
@@ -201,23 +201,47 @@ export default function RichTextEditor({
   minHeight = "12rem", // 160px
   className = "",
 }: RichTextEditorProps) {
-  const buildMinHeightClass = (v?: string | number) => {
-    if (v == null) return "";
-    if (typeof v === "number") return `min-h-[${v}px]`;
-    const s = String(v).trim();
-    // If caller already passed a Tailwind min-h- class, keep it as-is
-    if (s.startsWith("min-h-")) return s;
-    // If only digits, assume px
-    if (/^\d+$/.test(s)) return `min-h-[${s}px]`;
-    // If contains a unit (px, rem, em, %, vh, vw, etc.), use it directly
-    if (/\d+(px|rem|em|vh|vw|%)$/i.test(s) || /[a-z%]$/.test(s)) {
-      return `min-h-[${s}]`;
+  const resolveMinHeight = (v?: string | number) => {
+    if (v == null) {
+      return {
+        minHeightStyleValue: "12rem",
+        minHeightTailwindClass: "",
+      };
     }
-    // Fallback: wrap whatever was provided
-    return `min-h-[${s}]`;
+    if (typeof v === "number") {
+      return {
+        minHeightStyleValue: `${v}px`,
+        minHeightTailwindClass: "",
+      };
+    }
+    const s = String(v).trim();
+    if (!s) {
+      return {
+        minHeightStyleValue: "12rem",
+        minHeightTailwindClass: "",
+      };
+    }
+    if (s.startsWith("min-h-")) {
+      const arbitraryValueMatch = s.match(/^min-h-\[(.+)\]$/);
+      return {
+        minHeightStyleValue: arbitraryValueMatch?.[1],
+        minHeightTailwindClass: s,
+      };
+    }
+    if (/^\d+$/.test(s)) {
+      return {
+        minHeightStyleValue: `${s}px`,
+        minHeightTailwindClass: "",
+      };
+    }
+    return {
+      minHeightStyleValue: s,
+      minHeightTailwindClass: "",
+    };
   };
 
-  const minHeightClass = buildMinHeightClass(minHeight);
+  const { minHeightStyleValue, minHeightTailwindClass } =
+    resolveMinHeight(minHeight);
   const [openMenu, setOpenMenu] = useState<"text" | "list" | null>(null);
   const [isLinkPanelOpen, setIsLinkPanelOpen] = useState(false);
   const [linkInputValue, setLinkInputValue] = useState("");
@@ -239,7 +263,8 @@ export default function RichTextEditor({
     editable: !disabled,
     immediatelyRender: false,
     onUpdate: ({ editor: currentEditor }) => {
-      onChange(currentEditor.getHTML());
+      const nextValue = currentEditor.isEmpty ? "" : currentEditor.getHTML();
+      onChange(nextValue);
     },
   });
 
@@ -299,7 +324,7 @@ export default function RichTextEditor({
 
   useEffect(() => {
     if (!editor) return;
-    const currentHtml = editor.getHTML();
+    const currentHtml = editor.isEmpty ? "" : editor.getHTML();
     const nextHtml = value || "";
     if (currentHtml === nextHtml) return;
     editor.commands.setContent(nextHtml, { emitUpdate: false });
@@ -323,7 +348,13 @@ export default function RichTextEditor({
   if (!editor) {
     return (
       <div
-        className={`border-primary-300 bg-primary-50 rounded border px-3 py-2 text-sm ${minHeightClass}`}
+        className={cn(
+          "border-primary-300 bg-primary-50 rounded border px-3 py-2 text-sm",
+          minHeightTailwindClass,
+        )}
+        style={
+          minHeightStyleValue ? { minHeight: minHeightStyleValue } : undefined
+        }
       />
     );
   }
@@ -587,18 +618,25 @@ export default function RichTextEditor({
       <div className="max-h-[400px] overflow-y-auto">
         <EditorContent
           editor={editor}
+          style={
+            minHeightStyleValue
+              ? ({
+                  "--rte-min-height": minHeightStyleValue,
+                } as React.CSSProperties)
+              : undefined
+          }
           className={cn(
             "prose prose-sm text-primary-900 px-4 py-3",
             "prose-headings:text-primary-900 prose-p:text-primary-900 prose-li:text-primary-900 prose-strong:text-primary-900 prose-em:text-primary-900",
             "prose-a:text-accent-700 prose-a:no-underline hover:prose-a:underline",
             "prose-blockquote:not-italic",
-            "[&_.ProseMirror]:text-primary-900 [&_.ProseMirror]:min-h-[inherit] [&_.ProseMirror]:outline-none",
+            "[&_.ProseMirror]:text-primary-900 [&_.ProseMirror]:min-h-[var(--rte-min-height)] [&_.ProseMirror]:outline-none",
             "[&_.ProseMirror_>*]:text-primary-900 [&_.ProseMirror_>*:first-child]:mt-0",
             "[&_.ProseMirror_a]:pointer-events-none [&_.ProseMirror_a]:cursor-text!",
             "[&_.ProseMirror_blockquote]:border-primary-300 [&_.ProseMirror_blockquote]:text-primary-700 [&_.ProseMirror_blockquote]:border-l-4 [&_.ProseMirror_blockquote]:pl-3",
-            "[&_.ProseMirror_pre]:bg-primary-800 [&_.ProseMirror_pre]:text-primary-50",
+            "[&_.ProseMirror_pre]:bg-primary-700 [&_.ProseMirror_pre]:text-primary-50",
             "[&_blockquote_p::after]:content-none [&_blockquote_p::before]:content-none",
-            minHeightClass,
+            minHeightTailwindClass,
           )}
         />
       </div>

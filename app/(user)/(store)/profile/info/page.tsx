@@ -85,7 +85,10 @@ export default function UserInfoPage() {
       <div className="flex flex-col gap-6">
         {/* Profile header */}
         <section className="bg-primary-50 flex flex-col items-center gap-6 rounded-lg p-5 shadow-md sm:flex-row">
-          <Avatar img={profile?.avatarUrl} />
+          <Avatar
+            img={profile?.avatarUrl}
+            alt={`${profile?.firstName}'s avatar`}
+          />
 
           <div className="space-y-1">
             <h2 className="text-accent-600 text-lg font-bold">

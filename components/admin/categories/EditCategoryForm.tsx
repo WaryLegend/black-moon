@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import Form from "@/components/forms/admin/Form";
 import FormRow from "@/components/forms/admin/FormRow";
 import ImageInput from "@/components/forms/admin/ImageInput";
 import Input from "@/components/forms/admin/Input";
 import { useFormDirtyStyle } from "@/components/forms/admin/useFormDirtyStyle";
-import CustomSelectAsync from "@/components/filters/CustomSelectAsync";
 import Button from "@/components/ui/Button";
 import type { CategorySummary } from "@/types/categories";
 
@@ -39,7 +38,6 @@ export default function EditCategoryForm({
   const {
     register,
     handleSubmit,
-    control,
     reset,
     formState: { errors, isDirty, dirtyFields },
   } = useForm<CategoryFormValues>({
@@ -49,17 +47,6 @@ export default function EditCategoryForm({
       targetGroupId: categoryToEdit.targetGroup?.id ?? null,
     },
   });
-
-  const defaultGroupOption = categoryToEdit.targetGroup
-    ? [
-        {
-          value: categoryToEdit.targetGroup.id,
-          label: categoryToEdit.targetGroup.name,
-        },
-      ]
-    : [];
-
-  const loadLockedGroupOptions = async () => defaultGroupOption;
 
   const onSubmit = (values: CategoryFormValues) => {
     const lockedTargetGroupId =
@@ -140,44 +127,28 @@ export default function EditCategoryForm({
         />
       </FormRow>
 
-      <FormRow label="Nhóm đối tượng*">
-        <Controller
-          name="targetGroupId"
-          control={control}
-          render={({ field }) => (
-            <CustomSelectAsync
-              filterField="targetGroupId"
-              defaultOptions={defaultGroupOption}
-              loadOptions={loadLockedGroupOptions}
-              value={field.value}
-              onChange={(event) => {
-                const nextValue = event.target.value;
-                field.onChange(
-                  nextValue === null || nextValue === ""
-                    ? null
-                    : Number(nextValue),
-                );
-              }}
-              isDisabled
-            />
-          )}
+      <FormRow label="Nhóm đối tượng*" id="target-group">
+        <Input
+          id="target-group"
+          disabled
+          value={categoryToEdit.targetGroup?.name}
         />
       </FormRow>
 
       <FormRow
         label="Hình ảnh"
-        id="category-edit-image"
+        id="category-image"
         helper="PNG/JPG, tối đa 5MB"
       >
         <ImageInput
-          id="category-edit-image"
+          id="category-image"
           value={selectedFile || categoryToEdit.imageUrl}
           onChange={setSelectedFile}
           disabled={isPending}
         />
       </FormRow>
 
-      <FormRow className="flex justify-end gap-2">
+      <FormRow className="sticky bottom-0 flex justify-end gap-2 bg-inherit">
         <Button
           variant="secondary"
           type="button"

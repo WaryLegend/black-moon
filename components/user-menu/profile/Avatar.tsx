@@ -9,7 +9,7 @@ import AvatarToggle from "./AvatarToggle";
 import ChangeAvatarForm from "./ChangeAvatarForm";
 import ImageViewer from "@/components/ui/ImageViewer";
 
-function Avatar({ img }: { img?: string | null }) {
+function Avatar({ img, alt }: { img?: string | null; alt?: string }) {
   return (
     <div className="relative size-24">
       <Image
@@ -35,7 +35,7 @@ function Avatar({ img }: { img?: string | null }) {
             {/* Modal for viewing avatar */}
             {img && (
               <Modal.Window name="view-avatar">
-                <ImageViewer src={img} />
+                <ImageViewer src={img} alt={alt} />
               </Modal.Window>
             )}
             {/* Modal for changing avatar */}

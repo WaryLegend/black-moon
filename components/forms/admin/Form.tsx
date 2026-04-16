@@ -12,7 +12,7 @@ export default function Form({
   className = "",
   ...props
 }: FormProps) {
-  const base = "text-sm md:min-w-[700px]";
+  const base = "text-sm md:min-w-[700px] bg-inherit";
   const regular =
     "px-12 py-8 bg-primary-50 border border-primary-100 rounded-lg";
   const modal = "md:min-w-[650px] lg:w-[960px]";

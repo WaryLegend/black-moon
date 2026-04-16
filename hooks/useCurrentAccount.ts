@@ -19,7 +19,7 @@ export function useCurrentAccount() {
       return response.data;
     },
     enabled,
-    staleTime: 5 * 60 * 1000,
+    staleTime: Infinity,
     retry: (failureCount, error: any) => {
       const status = error?.response?.status;
       if (status === 401) return false;

@@ -56,8 +56,6 @@ const buildCategoryFormData = (
 
   appendIfPresent(formData, "name", payload.name);
   appendIfPresent(formData, "slug", payload.slug);
-  appendIfPresent(formData, "imageUrl", payload.imageUrl);
-  appendIfPresent(formData, "imageName", payload.imageName);
   appendIfPresent(formData, "targetGroupId", payload.targetGroupId);
 
   if (imageFile) {

@@ -16,7 +16,7 @@ const getHighResImage = (url: string): string => {
   return url;
 };
 
-function ImageViewer({ src }: { src: string }) {
+function ImageViewer({ src, alt }: { src: string; alt?: string }) {
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const isDragging = useRef(false);
@@ -132,7 +132,7 @@ function ImageViewer({ src }: { src: string }) {
         >
           <Image
             src={getHighResImage(src)}
-            alt="User profile"
+            alt={alt || "Enlarged image"}
             width={1200}
             height={1200}
             className="w-[500px] object-contain transition-shadow duration-300 select-none"

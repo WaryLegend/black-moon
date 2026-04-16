@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { authApi, type ApiResponse } from "@/services/auth.api";
 import { useRouter } from "next/navigation";
 import { ResetPasswordCredentials } from "@/types/auth";
+import { resolveToastErrorMessage } from "@/lib/http/errorMessages";
 
 export function useResetPassword(returnUrl?: string) {
   const router = useRouter();
@@ -22,7 +23,7 @@ export function useResetPassword(returnUrl?: string) {
 
     onError: (error: any) => {
       toast.error(
-        error?.response?.data?.message || "Không thể đặt lại mật khẩu",
+        resolveToastErrorMessage(error, "Không thể đặt lại mật khẩu"),
       );
     },
   });

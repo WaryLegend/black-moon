@@ -55,8 +55,6 @@ export type ListCategoriesParams = {
 export type CreateCategoryDto = {
   name: string;
   slug?: string;
-  imageUrl?: string;
-  imageName?: string;
   targetGroupId: number;
 };
 

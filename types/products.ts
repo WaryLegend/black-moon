@@ -24,8 +24,19 @@ export type ProductCategorySummary = {
 
 export type ProductImageSummary = {
   id: number;
-  imageUrl: string;
+  imageUrl: string | null;
   imageName?: string | null;
+};
+
+export type ProductDescriptionSummary = {
+  id: number;
+  title: string;
+  contentHtml: string;
+  plainText: string;
+  displayOrder: number;
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type ProductSummary = {
@@ -33,10 +44,10 @@ export type ProductSummary = {
   name: string;
   slug: string;
   baseSku: string;
-  description?: string | null;
   isDeleted?: boolean;
   isFeatured?: boolean;
   category: ProductCategorySummary;
+  descriptions?: ProductDescriptionSummary[];
   variants?: ProductVariantSummary[];
   images: ProductImageSummary[];
   createdAt: string;
@@ -83,19 +94,36 @@ export type CreateProductDto = {
   slug?: string;
   baseSku: string;
   categoryId: number;
-  description?: string;
+  descriptions?: CreateProductDescriptionDto[];
   variantMatrix?: {
     basePrice?: number;
     pairs: CreateProductVariantPair[];
   };
 };
 
+export type CreateProductDescriptionDto = {
+  title: string;
+  contentHtml: string;
+  plainText: string;
+  isDeleted?: boolean;
+};
+
 export type UpdateProductDto = {
   name?: string;
   slug?: string;
-  description?: string;
   imageIdsInOrder?: number[];
   newImageOrders?: number[];
+  descriptionIdsInOrder?: number[];
+  newDescriptions?: CreateProductDescriptionDto[];
+  newDescriptionOrders?: number[];
+};
+
+export type UpdateProductDescriptionDto = {
+  id: number;
+  title?: string;
+  contentHtml?: string;
+  plainText?: string;
+  isDeleted?: boolean;
 };
 
 export type BulkIdsProductsDto = {
@@ -118,9 +146,13 @@ export type ProductVariantSummary = {
   sku: string;
   color: string | null;
   size: string | null;
-  price: number;
-  quantity: number;
-  imageUrl?: string | null;
+  price: number | null;
+  quantity: number | null;
+  image: {
+    id: number;
+    imageUrl: string | null;
+    imageName: string | null;
+  } | null;
   isDeleted?: boolean;
 };
 

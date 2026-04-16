@@ -11,7 +11,6 @@ import ImagesInput, {
   revokeDragAndDropImgUrl,
 } from "@/components/forms/admin/ImagesInput.tsx";
 import Input from "@/components/forms/admin/Input";
-import RichTextEditor from "@/components/forms/admin/RichTextEditor";
 import CustomSelectAsync from "@/components/filters/CustomSelectAsync";
 import Button from "@/components/ui/Button";
 import type { CreateVariantMatrixItem } from "@/types/products";
@@ -19,6 +18,10 @@ import type { CreateVariantMatrixItem } from "@/types/products";
 import { loadCategoryIdOptions } from "./useCategoryOptions";
 import { useCreateProduct } from "./useCreateProduct";
 import VariantMatrixBuilder from "../inventory/VariantMatrixBuilder";
+import { formatCurrency } from "@/utils/currency";
+import ProductDescriptionsInput, {
+  type ProductDescriptionDraft,
+} from "./ProductDescriptionsInput";
 
 type CreateProductFormProps = {
   onCloseModal?: () => void;
@@ -29,7 +32,7 @@ type ProductFormValues = {
   slug: string;
   baseSku: string;
   categoryId: number | null;
-  description: string;
+  descriptions: ProductDescriptionDraft[];
 };
 
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -39,26 +42,12 @@ const getEmptyValues = (): ProductFormValues => ({
   slug: "",
   baseSku: "",
   categoryId: null,
-  description: "",
+  descriptions: [],
 });
 
 const normalizeString = (value?: string | null) => {
   const normalized = value?.trim();
   return normalized && normalized.length ? normalized : undefined;
-};
-
-const normalizeRichText = (value?: string | null) => {
-  if (!value) return undefined;
-
-  const normalized = value.trim();
-  if (!normalized) return undefined;
-
-  const plainText = normalized
-    .replace(/<[^>]+>/g, "")
-    .replace(/&nbsp;/g, " ")
-    .trim();
-
-  return plainText ? normalized : undefined;
 };
 
 function CreateProductForm({ onCloseModal }: CreateProductFormProps) {
@@ -75,7 +64,7 @@ function CreateProductForm({ onCloseModal }: CreateProductFormProps) {
     control,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm<ProductFormValues>({
     defaultValues: getEmptyValues(),
   });
@@ -112,6 +101,16 @@ function CreateProductForm({ onCloseModal }: CreateProductFormProps) {
   const onSubmit = (values: ProductFormValues) => {
     if (!values.categoryId) return;
 
+    const normalizedDescriptions = values.descriptions
+      .map((item) => ({
+        title: item.title.trim(),
+        contentHtml: item.contentHtml.trim(),
+        plainText: item.plainText.trim(),
+      }))
+      .filter((item) =>
+        Boolean(item.title && item.contentHtml && item.plainText),
+      );
+
     createProduct(
       {
         payload: {
@@ -119,7 +118,9 @@ function CreateProductForm({ onCloseModal }: CreateProductFormProps) {
           slug: normalizeString(values.slug),
           baseSku: values.baseSku.trim(),
           categoryId: values.categoryId,
-          description: normalizeRichText(values.description),
+          descriptions: normalizedDescriptions.length
+            ? normalizedDescriptions
+            : undefined,
           variantMatrix:
             enableVariants && matrixVariants.length
               ? {
@@ -218,13 +219,21 @@ function CreateProductForm({ onCloseModal }: CreateProductFormProps) {
         />
       </FormRow>
 
-      <FormRow label="Danh mục*" error={errors.categoryId?.message}>
+      <FormRow
+        label={
+          <div id="select-category" className="cursor-default">
+            Danh mục*
+          </div>
+        }
+        error={errors.categoryId?.message}
+      >
         <Controller
           name="categoryId"
           control={control}
           rules={{ required: "Danh mục là bắt buộc" }}
           render={({ field }) => (
             <CustomSelectAsync
+              aria-labelledby="select-category"
               filterField="categoryId"
               minWidth={200}
               placeholder="Chọn danh mục"
@@ -246,17 +255,14 @@ function CreateProductForm({ onCloseModal }: CreateProductFormProps) {
         />
       </FormRow>
 
-      <FormRow
-        label="Mô tả sản phẩm"
-        id="product-description"
-        error={errors.description?.message}
-      >
+      <FormRow label={<div className="cursor-default">Mô tả sản phẩm</div>}>
         <Controller
-          name="description"
+          name="descriptions"
           control={control}
           render={({ field }) => (
-            <RichTextEditor
-              value={field.value || ""}
+            <ProductDescriptionsInput
+              mode="create"
+              value={field.value || []}
               onChange={field.onChange}
               disabled={isPending}
             />
@@ -265,7 +271,7 @@ function CreateProductForm({ onCloseModal }: CreateProductFormProps) {
       </FormRow>
 
       <FormRow
-        label="Hình ảnh"
+        label={<div className="cursor-default">Hình ảnh</div>}
         helper={
           <>
             PNG/JPG, tối đa 5MB mỗi ảnh
@@ -288,27 +294,33 @@ function CreateProductForm({ onCloseModal }: CreateProductFormProps) {
           <Button
             type="button"
             variant="secondary"
+            size="small"
             onClick={() => setEnableVariants((prev) => !prev)}
             disabled={isPending}
           >
-            {enableVariants ? "Bỏ thêm biến thể" : "Thêm biến thể"}
+            {enableVariants ? "Đóng thêm biến thể" : "Thêm biến thể"}
           </Button>
 
           {enableVariants && (
-            <div className="space-y-3">
+            <div className="mt-4 space-y-3">
               <div>
                 <label className="text-primary-700 mb-1 block text-sm font-medium">
                   Giá mặc định
                 </label>
-                <Input
-                  type="number"
-                  min={0}
-                  value={basePrice}
-                  onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                    setBasePrice(Number(event.target.value || 0))
-                  }
-                  disabled={isPending}
-                />
+                <div className="flex flex-wrap items-center gap-2">
+                  <Input
+                    type="number"
+                    min={0}
+                    value={basePrice}
+                    onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                      setBasePrice(Number(event.target.value || 0))
+                    }
+                    disabled={isPending}
+                  />
+                  <span className="text-primary-500 text-sm">
+                    {formatCurrency(basePrice)}
+                  </span>
+                </div>
               </div>
 
               <VariantMatrixBuilder
@@ -320,7 +332,7 @@ function CreateProductForm({ onCloseModal }: CreateProductFormProps) {
         </div>
       </FormRow>
 
-      <FormRow className="flex justify-end gap-2">
+      <FormRow className="sticky bottom-0 flex justify-end gap-2 bg-inherit">
         <Button
           type="button"
           variant="secondary"
@@ -332,7 +344,7 @@ function CreateProductForm({ onCloseModal }: CreateProductFormProps) {
         >
           Hủy
         </Button>
-        <Button type="submit" disabled={isPending}>
+        <Button type="submit" disabled={isPending || !isDirty}>
           Tạo sản phẩm
         </Button>
       </FormRow>

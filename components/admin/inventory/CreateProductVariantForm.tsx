@@ -13,7 +13,7 @@ import type {
   ProductSummary,
   ProductVariantSummary,
 } from "@/types/products";
-import { useProduct } from "./useProduct";
+import { useProduct } from "../products/useProduct";
 
 import VariantMatrixBuilder, {
   toVariantCombinationKey,
@@ -101,13 +101,21 @@ export default function CreateProductVariantForm({
         </p>
       </div>
 
-      <FormRow label="Sản phẩm*" error={errors.productId?.message}>
+      <FormRow
+        label={
+          <div id="select-product" className="cursor-default">
+            Sản phẩm*
+          </div>
+        }
+        error={errors.productId?.message}
+      >
         <Controller
           name="productId"
           control={control}
           rules={{ required: "Sản phẩm là bắt buộc" }}
           render={({ field }) => (
             <CustomSelectAsync
+              aria-labelledby="select-product"
               filterField="productId"
               minWidth={320}
               placeholder="Chọn sản phẩm"
@@ -133,11 +141,11 @@ export default function CreateProductVariantForm({
         <>
           <FormRow
             label="Giá mặc định"
-            id="inventory-variant-base-price"
+            id="variant-base-price"
             error={errors.basePrice?.message}
           >
             <Input
-              id="inventory-variant-base-price"
+              id="variant-base-price"
               type="number"
               step="any"
               min={0}
@@ -150,7 +158,11 @@ export default function CreateProductVariantForm({
           </FormRow>
 
           <FormRow
-            label="Chọn màu và kích thước"
+            label={
+              <div id="variant-matrix-label" className="cursor-default">
+                Chọn màu và kích thước
+              </div>
+            }
             helper={
               <>
                 {isProductLoading && (
@@ -160,6 +172,7 @@ export default function CreateProductVariantForm({
             }
           >
             <VariantMatrixBuilder
+              aria-labelledby="create-variant-matrix"
               basePrice={basePrice}
               disabledKeys={disabledKeys}
               onChange={setMatrixVariants}
@@ -168,7 +181,7 @@ export default function CreateProductVariantForm({
         </>
       ) : null}
 
-      <FormRow className="flex justify-end gap-2">
+      <FormRow className="sticky bottom-0 flex justify-end gap-2 bg-inherit">
         <Button
           type="button"
           variant="secondary"

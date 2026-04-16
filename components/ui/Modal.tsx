@@ -87,11 +87,11 @@ function Window({
     <div
       className="bg-primary-900/20 fixed inset-0 z-[900] flex items-center justify-center backdrop-blur-sm transition-all"
       aria-modal="true"
-      role="dialog"
     >
       <div
         ref={ref}
-        className="bg-primary-0 fixed right-0 bottom-0 left-0 flex max-h-[95vh] rounded-t-2xl rounded-b-none p-8 shadow-2xl transition-all ease-out md:inset-auto md:bottom-auto md:rounded-2xl"
+        role="dialog"
+        className="bg-primary-0 fixed right-0 bottom-0 left-0 flex max-h-[95vh] rounded-t-2xl rounded-b-none py-6 shadow-2xl transition-all ease-out md:inset-auto md:bottom-auto md:rounded-2xl"
       >
         <button
           type="button"
@@ -102,7 +102,7 @@ function Window({
           <HiXMark className="h-6 w-6" />
         </button>
 
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto bg-inherit px-6">
           {/* Truyền close modal vào children để các có thể tự đóng modal khi xong */}
           {cloneElement(children, { onCloseModal: close })}
         </div>

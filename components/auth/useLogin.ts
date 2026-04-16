@@ -32,9 +32,10 @@ export function useLogin(returnUrl?: string) {
       const response = error?.response;
 
       if (!response) {
-        toast.error("Không thể kết nối đến server");
+        // Network/system errors are handled globally in QueryClientProvider.
         return;
       }
+
       switch (response.status) {
         case 401:
           toast.error("Email hoặc mật khẩu không chính xác");
@@ -42,10 +43,6 @@ export function useLogin(returnUrl?: string) {
 
         case 403:
           toast.error("Tài khoản không tồn tại");
-          break;
-
-        case 500:
-          toast.error("Lỗi hệ thống. Vui lòng thử lại sau");
           break;
 
         default:

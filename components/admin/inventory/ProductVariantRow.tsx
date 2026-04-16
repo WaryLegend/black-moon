@@ -42,8 +42,8 @@ export default function ProductVariantRow({
   isSelected,
   onSelect,
 }: ProductVariantRowProps) {
-  const { id, sku, color, size, price, quantity, imageUrl, isDeleted } =
-    variant;
+  const { id, sku, color, size, price, quantity, image, isDeleted } = variant;
+  const variantImageUrl = image?.imageUrl ?? null;
 
   return (
     <Table.Row>
@@ -55,9 +55,9 @@ export default function ProductVariantRow({
         />
       ) : null}
 
-      {imageUrl ? (
+      {variantImageUrl ? (
         <Image
-          src={imageUrl}
+          src={variantImageUrl}
           alt={sku}
           width={56}
           height={40}
@@ -81,9 +81,7 @@ export default function ProductVariantRow({
       </Field>
 
       <Field>{size ?? "−"}</Field>
-      <Field className="text-accent-600">
-        {price > 0 ? formatCurrency(price) : "−"}
-      </Field>
+      <Field className="text-accent-600">{formatCurrency(price ?? 0)}</Field>
       <Field style={{ color: getQuantityColor(quantity ?? 0) }}>
         {quantity ?? 0}
       </Field>

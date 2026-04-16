@@ -42,8 +42,8 @@ export default function EditProductVariantForm({
       sku: variant.sku,
       color: variant.color,
       size: variant.size,
-      price: variant.price,
-      quantity: variant.quantity,
+      price: variant.price ?? 0,
+      quantity: variant.quantity ?? 0,
     },
   });
 
@@ -128,16 +128,31 @@ export default function EditProductVariantForm({
         />
       </FormRow>
 
-      <FormRow label="Hình ảnh" id="variant-img" helper="PNG/JPG, tối đa 5MB">
+      <FormRow
+        label="Hình ảnh"
+        id="variant-img"
+        helper={
+          <>
+            PNG/JPG, tối đa 5MB
+            <br />
+            <u>
+              <strong>Tip:</strong>
+            </u>{" "}
+            Thêm ảnh theo màu sắc
+            <br />
+            Ảnh sẽ được áp dụng lên sản phẩm <strong>cùng màu</strong>
+          </>
+        }
+      >
         <ImageInput
           id="variant-img"
-          value={selectedFile || variant.imageUrl}
+          value={selectedFile || variant.image?.imageUrl}
           onChange={setSelectedFile}
           disabled={isPending}
         />
       </FormRow>
 
-      <FormRow className="flex justify-end gap-2">
+      <FormRow className="sticky bottom-0 flex justify-end gap-2 bg-inherit">
         <Button type="button" variant="secondary" onClick={onCloseModal}>
           Hủy
         </Button>

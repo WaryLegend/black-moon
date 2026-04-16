@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 
 import { authApi, type ApiResponse } from "@/services/auth.api";
 import { ForgotPasswordCredentials } from "@/types/auth";
+import { resolveToastErrorMessage } from "@/lib/http/errorMessages";
 
 export function useForgotPassword(returnUrl?: string) {
   const router = useRouter();
@@ -27,8 +28,10 @@ export function useForgotPassword(returnUrl?: string) {
 
     onError: (error: any) => {
       toast.error(
-        error?.response?.data?.message ||
-          "Lỗi! Không thể gửi yêu cầu đặt lại mật khẩu",
+        resolveToastErrorMessage(
+          error,
+          "Không thể gửi yêu cầu đặt lại mật khẩu",
+        ),
       );
     },
   });

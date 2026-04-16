@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 import { authApi, type ApiResponse } from "@/services/auth.api";
+import { resolveToastErrorMessage } from "@/lib/http/errorMessages";
 
 export function useVerifyResetPassword(returnUrl?: string) {
   const router = useRouter();
@@ -28,7 +29,7 @@ export function useVerifyResetPassword(returnUrl?: string) {
 
     onError: (error: any) => {
       toast.error(
-        error?.response?.data?.message || "Mã OTP không hợp lệ hoặc đã hết hạn",
+        resolveToastErrorMessage(error, "Mã OTP không hợp lệ hoặc đã hết hạn"),
       );
     },
   });

@@ -267,7 +267,7 @@ function CreateUserForm({ onCloseModal }: CreateUserFormProps) {
         </label>
       </FormRow>
 
-      <FormRow className="flex justify-end gap-2">
+      <FormRow className="sticky bottom-0 flex justify-end gap-2 bg-inherit">
         <Button
           type="button"
           variant="secondary"

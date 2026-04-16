@@ -13,6 +13,7 @@ import type {
   ProductVariantSummary,
   ProductVariantsListResponse,
   ProductsListResponse,
+  UpdateProductDescriptionDto,
   UpdateProductDto,
   UpdateProductVariantDto,
 } from "@/types/products";
@@ -22,11 +23,15 @@ const PRODUCT_VARIANTS_BASE_PATH = joinApiPath("/product-variants");
 
 const appendIfPresent = (formData: FormData, key: string, value?: unknown) => {
   if (value === undefined || value === null) return;
+  // Skip empty strings for plain scalar fields.
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    if (trimmed === "") return;
+    formData.append(key, trimmed);
+    return;
+  }
 
-  const normalized = typeof value === "string" ? value.trim() : value;
-  if (normalized === "") return;
-
-  formData.append(key, String(normalized));
+  formData.append(key, String(value));
 };
 
 const buildListEndpoint = (params: ListProductsParams = {}) => {
@@ -69,23 +74,46 @@ const buildProductFormData = (
   if ("categoryId" in payload) {
     appendIfPresent(formData, "categoryId", payload.categoryId);
   }
-  appendIfPresent(formData, "description", payload.description);
+  if ("descriptions" in payload && payload.descriptions !== undefined) {
+    formData.append("descriptions", JSON.stringify(payload.descriptions));
+  }
 
   if ("variantMatrix" in payload && payload.variantMatrix) {
     formData.append("variantMatrix", JSON.stringify(payload.variantMatrix));
   }
 
-  if ((payload as UpdateProductDto).imageIdsInOrder) {
+  if ((payload as UpdateProductDto).imageIdsInOrder !== undefined) {
     formData.append(
       "imageIdsInOrder",
       JSON.stringify((payload as UpdateProductDto).imageIdsInOrder),
     );
   }
 
-  if ((payload as UpdateProductDto).newImageOrders) {
+  if ((payload as UpdateProductDto).newImageOrders !== undefined) {
     formData.append(
       "newImageOrders",
       JSON.stringify((payload as UpdateProductDto).newImageOrders),
+    );
+  }
+
+  if ((payload as UpdateProductDto).descriptionIdsInOrder !== undefined) {
+    formData.append(
+      "descriptionIdsInOrder",
+      JSON.stringify((payload as UpdateProductDto).descriptionIdsInOrder),
+    );
+  }
+
+  if ((payload as UpdateProductDto).newDescriptions !== undefined) {
+    formData.append(
+      "newDescriptions",
+      JSON.stringify((payload as UpdateProductDto).newDescriptions),
+    );
+  }
+
+  if ((payload as UpdateProductDto).newDescriptionOrders !== undefined) {
+    formData.append(
+      "newDescriptionOrders",
+      JSON.stringify((payload as UpdateProductDto).newDescriptionOrders),
     );
   }
 
@@ -182,6 +210,13 @@ export const productsApi = {
     return httpClient.patch<ProductSummary>(
       `${PRODUCTS_BASE_PATH}/${productId}`,
       formData,
+    );
+  },
+
+  updateDescription(payload: UpdateProductDescriptionDto) {
+    return httpClient.patch<{ success: boolean }>(
+      `${PRODUCTS_BASE_PATH}/description/update`,
+      payload,
     );
   },
 

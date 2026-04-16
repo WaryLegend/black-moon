@@ -15,12 +15,13 @@ type VariantMatrixBuilderProps = {
   basePrice: number;
   disabledKeys?: string[];
   onChange: (variants: CreateVariantMatrixItem[]) => void;
-};
+} & Omit<React.HTMLAttributes<HTMLDivElement>, "onChange">;
 
 export default function VariantMatrixBuilder({
   basePrice,
   disabledKeys = EMPTY_DISABLED_KEYS,
   onChange,
+  ...props
 }: VariantMatrixBuilderProps) {
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
   const [hoveredColor, setHoveredColor] = useState<string | null>(null);
@@ -122,7 +123,7 @@ export default function VariantMatrixBuilder({
   );
 
   return (
-    <div className="space-y-2">
+    <div role="group" className="space-y-2" {...props}>
       <div className="flex items-center justify-between gap-2">
         <p className="text-primary-600 text-sm">Matrix (color x size)</p>
         <TextButton
@@ -134,11 +135,11 @@ export default function VariantMatrixBuilder({
         </TextButton>
       </div>
 
-      <div className="border-primary-300 bg-primary-0 overflow-x-auto rounded-lg border p-3">
+      <div className="border-primary-300 bg-primary-0 overflow-x-auto rounded-lg border p-3 shadow-lg">
         <table className="min-w-full border-separate border-spacing-1 text-sm">
           <thead>
             <tr>
-              <th className="sticky left-0 z-10 px-2 py-1 text-left">
+              <th className="sticky left-0 px-2 py-1 text-left">
                 <span className="text-primary-700">Color/Size</span>
               </th>
               {SIZE_VALUES.map((size) => {
@@ -176,7 +177,7 @@ export default function VariantMatrixBuilder({
 
               return (
                 <tr key={color}>
-                  <td className="sticky left-0 z-10 px-1 py-1">
+                  <td className="sticky left-0 px-1 py-1">
                     <button
                       type="button"
                       onClick={() =>
@@ -207,7 +208,7 @@ export default function VariantMatrixBuilder({
                       <td key={size} className="px-1 py-1 text-center">
                         <label
                           className={cn(
-                            "flex h-10 w-10 cursor-pointer items-center justify-center rounded-md border transition",
+                            "flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border transition sm:h-10 sm:w-10",
                             disabled
                               ? "bg-primary-100 border-primary-200 cursor-not-allowed opacity-45"
                               : checked
@@ -222,7 +223,7 @@ export default function VariantMatrixBuilder({
                             checked={checked}
                             disabled={disabled}
                             className={cn(
-                              "h-5 w-5 cursor-pointer accent-green-600",
+                              "h-4 w-4 cursor-pointer accent-green-600 sm:h-5 sm:w-5",
                               disabled && "cursor-not-allowed",
                             )}
                             onChange={(event) => {

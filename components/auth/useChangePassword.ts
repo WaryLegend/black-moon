@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 
 import { authApi, type ApiResponse } from "@/services/auth.api";
 import { ChangePasswordCredentials } from "@/types/auth";
+import { resolveToastErrorMessage } from "@/lib/http/errorMessages";
 
 export function useChangePassword() {
   return useMutation<ApiResponse<void>, any, ChangePasswordCredentials>({
@@ -14,9 +15,7 @@ export function useChangePassword() {
     },
 
     onError: (error: any) => {
-      toast.error(
-        error?.response?.data?.message || "Không thể đặt lại mật khẩu",
-      );
+      toast.error(resolveToastErrorMessage(error, "Không thể đổi mật khẩu"));
     },
   });
 }

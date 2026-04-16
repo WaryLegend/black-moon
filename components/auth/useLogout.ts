@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { authApi } from "@/services/auth.api";
 import { useWebSocket } from "@/contexts/websocket.context";
 import toast from "react-hot-toast";
+import { getUnexpectedErrorMessage } from "@/lib/http/errorMessages";
 
 export function useLogout({
   redirect,
@@ -31,7 +32,7 @@ export function useLogout({
       });
     },
     onError: (error, _, context) => {
-      toast.error("Có lỗi xảy ra khi đăng xuất", {
+      toast.error(getUnexpectedErrorMessage(error), {
         id: context?.toastId,
       });
 
