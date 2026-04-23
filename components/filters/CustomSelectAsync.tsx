@@ -4,7 +4,12 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import type { CSSProperties } from "react";
 import ReactSelectAsync from "react-select/async";
 import makeAnimated from "react-select/animated";
-import type { MultiValue, SingleValue, StylesConfig } from "react-select";
+import type {
+  CSSObjectWithLabel,
+  MultiValue,
+  SingleValue,
+  StylesConfig,
+} from "react-select";
 import type {
   BaseAsyncSelectProps,
   FilterChangeEvent,
@@ -23,8 +28,8 @@ type LoadOptions = (inputValue: string) => Promise<FilterOption[]>;
 type OptionStyle = Partial<Pick<CSSProperties, "color" | "backgroundColor">>;
 
 type CustomSelectAsyncProps = ForwardedAsyncProps & {
-  filterField: string;
   minWidth?: string | number;
+  controlStyle?: CSSProperties;
   loadOptions: LoadOptions;
   defaultOptions?: boolean | FilterOption[];
   cacheOptions?: boolean;
@@ -42,8 +47,8 @@ const isMultiSelection = (
 // so we can reconstruct the selected objects from just their primitive values.
 
 export default function CustomSelectAsync({
-  filterField,
   minWidth,
+  controlStyle,
   loadOptions,
   defaultOptions = true,
   cacheOptions = true,
@@ -111,12 +116,13 @@ export default function CustomSelectAsync({
           ? "var(--color-primary-300)"
           : "var(--color-primary-0)",
         cursor: state.isDisabled ? "not-allowed" : "pointer",
-        borderColor: state.isFocused
-          ? "var(--color-accent-400)"
-          : "var(--color-accent-300)",
+        borderColor: "var(--color-accent-300)",
         "&:hover": {
           borderColor: "var(--color-accent-700)",
         },
+        outline: state.isFocused ? "1px solid var(--color-accent-600)" : "none",
+        outlineOffset: "2px",
+        ...((controlStyle as CSSObjectWithLabel) || {}),
       }),
       option: (provided, state) => {
         const custom = getOptionStyle?.(state.data.value) || {};
@@ -229,7 +235,6 @@ export default function CustomSelectAsync({
 
   return (
     <ReactSelectAsync
-      instanceId={filterField}
       cacheOptions={cacheOptions}
       defaultOptions={defaultOptions}
       loadOptions={cachedLoadOptions}

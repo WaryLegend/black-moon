@@ -212,4 +212,5 @@ export type CreateProductVariantsResponse = {
 export type UpdateProductVariantDto = {
   price?: number;
   quantity?: number;
+  notes?: string;
 };

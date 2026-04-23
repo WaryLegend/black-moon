@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import type { CSSProperties } from "react";
 import ReactSelect, {
+  CSSObjectWithLabel,
   type ActionMeta,
   type MultiValue,
   type SingleValue,
@@ -23,10 +24,10 @@ type ForwardedSelectProps = Partial<
 type OptionStyle = Partial<Pick<CSSProperties, "color" | "backgroundColor">>;
 
 type CustomSelectProps = ForwardedSelectProps & {
-  inputId?: string;
   minWidth?: string | number;
   options: FilterOption[];
   value?: FilterValue;
+  controlStyle?: CSSProperties;
   onChange: (event: FilterChangeEvent) => void;
   getOptionStyle?: (value: FilterOption["value"]) => OptionStyle | undefined;
   isAnimated?: boolean;
@@ -43,10 +44,10 @@ function isMultiSelection(
 // same styling, typing, and change-event contract.
 
 function CustomSelect({
-  inputId,
   minWidth,
   value,
   options,
+  controlStyle,
   onChange,
   getOptionStyle,
   isAnimated = false,
@@ -74,12 +75,13 @@ function CustomSelect({
           : "none",
         backgroundColor: "var(--color-primary-0)",
         cursor: state.isDisabled ? "not-allowed" : "pointer",
-        borderColor: state.isFocused
-          ? "var(--color-accent-400)"
-          : "var(--color-accent-300)",
+        borderColor: "var(--color-accent-300)",
         "&:hover": {
           borderColor: "var(--color-accent-700)",
         },
+        outline: state.isFocused ? "1px solid var(--color-accent-600)" : "none",
+        outlineOffset: "2px",
+        ...((controlStyle as CSSObjectWithLabel) || {}),
       }),
       option: (provided, state) => {
         const custom = getOptionStyle?.(state.data.value) || {};
@@ -148,12 +150,12 @@ function CustomSelect({
         if (!custom)
           return {
             ...provided,
-            transition: "all 120ms ease",
+            transition: "all 200ms ease",
             color: "var(--color-primary-600)",
           };
         return {
           ...provided,
-          transition: "all 120ms ease",
+          transition: "all 200ms ease",
           color: custom.color,
           ":hover": {
             backgroundColor:
@@ -170,14 +172,14 @@ function CustomSelect({
           ? "var(--color-accent-600)"
           : "var(--color-accent-400)",
         "&:hover": { color: "var(--color-accent-600)" },
-        transition: "transform 150ms ease",
+        transition: "transform 200ms ease",
         transform: state.selectProps.menuIsOpen
           ? "rotate(180deg)"
           : "rotate(0deg)",
       }),
       indicatorSeparator: () => ({ display: "none" }),
     }),
-    [getOptionStyle, minWidth],
+    [getOptionStyle, minWidth, controlStyle],
   );
 
   const normalizedValue = useMemo(() => {
@@ -211,8 +213,6 @@ function CustomSelect({
 
   return (
     <ReactSelect
-      inputId={inputId}
-      instanceId={inputId}
       options={options}
       value={normalizedValue}
       onChange={emitChange}

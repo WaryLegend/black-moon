@@ -1,5 +1,6 @@
 import { HiPencil } from "react-icons/hi2";
 import Link from "next/link";
+import Image from "next/image";
 import styled from "styled-components";
 
 import Table from "@/components/ui/Table";
@@ -47,6 +48,17 @@ function GroupRow({ group, isSelected, onSelect }: GroupRowProps) {
         onChange={onSelect}
         ariaLabel={`Select group ${name}`}
       />
+      {group.imageUrl ? (
+        <Image
+          src={group.imageUrl}
+          alt={`image of ${name}`}
+          width={56}
+          height={40}
+          className="block h-10 w-14 rounded-sm object-cover"
+        />
+      ) : (
+        <div className="from-primary-200 to-primary-100 h-10 w-14 rounded-sm bg-gradient-to-tr" />
+      )}
       <Field>{name}</Field>
       <Field>
         <Link

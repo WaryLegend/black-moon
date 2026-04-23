@@ -13,6 +13,35 @@ import type {
 
 const TARGET_GROUPS_BASE_PATH = joinApiPath("/target-groups");
 
+const appendIfPresent = (formData: FormData, key: string, value?: unknown) => {
+  if (value === undefined || value === null) return;
+
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    if (trimmed === "") return;
+    formData.append(key, trimmed);
+    return;
+  }
+
+  formData.append(key, String(value));
+};
+
+const buildTargetGroupFormData = (
+  payload: CreateTargetGroupDto | UpdateTargetGroupDto,
+  imageFile?: File | null,
+) => {
+  const formData = new FormData();
+
+  appendIfPresent(formData, "name", payload.name);
+  appendIfPresent(formData, "slug", payload.slug);
+
+  if (imageFile) {
+    formData.append("image", imageFile);
+  }
+
+  return formData;
+};
+
 const buildListEndpoint = (params: ListTargetGroupsParams = {}) => {
   const query = new URLSearchParams();
 
@@ -36,17 +65,23 @@ export const targetGroupsApi = {
     return httpClient.get<TargetGroupsListResponse>(buildListEndpoint(params));
   },
 
-  create(payload: CreateTargetGroupDto) {
+  create(payload: CreateTargetGroupDto, imageFile?: File | null) {
+    const formData = buildTargetGroupFormData(payload, imageFile);
     return httpClient.post<TargetGroupSummary>(
       TARGET_GROUPS_BASE_PATH,
-      payload,
+      formData,
     );
   },
 
-  update(groupId: number, payload: UpdateTargetGroupDto) {
+  update(
+    groupId: number,
+    payload: UpdateTargetGroupDto,
+    imageFile?: File | null,
+  ) {
+    const formData = buildTargetGroupFormData(payload, imageFile);
     return httpClient.patch<TargetGroupSummary>(
       `${TARGET_GROUPS_BASE_PATH}/${groupId}`,
-      payload,
+      formData,
     );
   },
 

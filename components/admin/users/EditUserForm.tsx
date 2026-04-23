@@ -90,7 +90,8 @@ function EditUserForm({ user, onCloseModal }: EditUserFormProps) {
     );
   };
 
-  const { getDirtyClass } = useFormDirtyStyle<ProfileFormValues>(dirtyFields);
+  const { getDirtyClass, getDirtyStyle } =
+    useFormDirtyStyle<ProfileFormValues>(dirtyFields);
 
   return (
     <div className="flex flex-col gap-6 p-1">
@@ -142,7 +143,7 @@ function EditUserForm({ user, onCloseModal }: EditUserFormProps) {
               <CustomSelect
                 inputId="edit-gender"
                 placeholder=""
-                className={getDirtyClass("gender")}
+                controlStyle={getDirtyStyle("gender")}
                 options={GENDER_OPTIONS}
                 isDisabled={isUpdatingProfile}
                 value={field.value}

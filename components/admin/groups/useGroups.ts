@@ -13,7 +13,7 @@ type UseGroupsParams = {
 
 export function useGroups({ page, sortBy }: UseGroupsParams) {
   const queryClient = useQueryClient();
-  const queryKey = ["target-groups", sortBy, page] as const;
+  const queryKey = ["target-groups", { sortBy, page }] as const;
 
   const { data, isPending, error } = useQuery({
     queryKey,
@@ -36,7 +36,7 @@ export function useGroups({ page, sortBy }: UseGroupsParams) {
   if (totalPages && page < totalPages) {
     const nextPage = page + 1;
     queryClient.prefetchQuery({
-      queryKey: ["target-groups", sortBy, nextPage],
+      queryKey: ["target-groups", { sortBy, page: nextPage }],
       queryFn: () => targetGroupsApi.list({ page: nextPage, sortBy }),
     });
   }
@@ -44,7 +44,7 @@ export function useGroups({ page, sortBy }: UseGroupsParams) {
   if (page > 1) {
     const prevPage = page - 1;
     queryClient.prefetchQuery({
-      queryKey: ["target-groups", sortBy, prevPage],
+      queryKey: ["target-groups", { sortBy, page: prevPage }],
       queryFn: () => targetGroupsApi.list({ page: prevPage, sortBy }),
     });
   }

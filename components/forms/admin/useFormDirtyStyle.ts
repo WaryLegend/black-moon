@@ -1,4 +1,15 @@
 import { FieldValues, FormState } from "react-hook-form";
+import { CSSProperties } from "react";
+
+type UseFormDirtyStyleOptions = {
+  dirtyClassName?: string;
+  dirtyStyle?: CSSProperties;
+};
+
+const DEFAULT_DIRTY_CLASS = "border-amber-600";
+const DEFAULT_DIRTY_STYLE: CSSProperties = {
+  borderColor: "var(--color-amber-600)",
+};
 
 /**
  * Hook để lấy class style cho các trường đã thay đổi.
@@ -8,8 +19,11 @@ import { FieldValues, FormState } from "react-hook-form";
 export function useFormDirtyStyle<TFieldValues extends FieldValues>(
   // Chúng ta trích xuất kiểu của dirtyFields từ FormState
   dirtyFields: FormState<TFieldValues>["dirtyFields"],
-  dirtyClassName: string = "border-amber-600",
+  options: UseFormDirtyStyleOptions = {},
 ) {
+  const resolvedClassName = options.dirtyClassName ?? DEFAULT_DIRTY_CLASS;
+  const resolvedStyle = options.dirtyStyle ?? DEFAULT_DIRTY_STYLE;
+
   const hasTruthy = (val: unknown): boolean => {
     if (val == null) return false;
     if (typeof val === "boolean") return val;
@@ -44,8 +58,18 @@ export function useFormDirtyStyle<TFieldValues extends FieldValues>(
   function getDirtyClass<K extends keyof TFieldValues>(fieldName: K): string;
   function getDirtyClass(fieldName: string): string;
   function getDirtyClass(fieldName: keyof TFieldValues | string): string {
-    return getDirty(fieldName as any) ? dirtyClassName : "";
+    return getDirty(fieldName as any) ? resolvedClassName : "";
   }
 
-  return { getDirty, getDirtyClass };
+  function getDirtyStyle<K extends keyof TFieldValues>(
+    fieldName: K,
+  ): CSSProperties | undefined;
+  function getDirtyStyle(fieldName: string): CSSProperties | undefined;
+  function getDirtyStyle(
+    fieldName: keyof TFieldValues | string,
+  ): CSSProperties | undefined {
+    return getDirty(fieldName as any) ? resolvedStyle : undefined;
+  }
+
+  return { getDirty, getDirtyClass, getDirtyStyle };
 }

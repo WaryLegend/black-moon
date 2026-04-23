@@ -23,7 +23,7 @@ export function useProductVariants({
   const queryClient = useQueryClient();
 
   const { data, isPending, error } = useQuery({
-    queryKey: ["product-variants", filters, sortBy, page],
+    queryKey: ["product-variants", { filters, sortBy, page }],
     queryFn: () => productsApi.listVariants({ page, filters, sortBy }),
     staleTime: 10 * 60 * 1000,
   });
@@ -41,7 +41,7 @@ export function useProductVariants({
   if (meta.totalPages && page < meta.totalPages) {
     const nextPage = page + 1;
     queryClient.prefetchQuery({
-      queryKey: ["product-variants", filters, sortBy, nextPage],
+      queryKey: ["product-variants", { filters, sortBy, page: nextPage }],
       queryFn: () =>
         productsApi.listVariants({ page: nextPage, filters, sortBy }),
     });
@@ -50,7 +50,7 @@ export function useProductVariants({
   if (page > 1) {
     const prevPage = page - 1;
     queryClient.prefetchQuery({
-      queryKey: ["product-variants", filters, sortBy, prevPage],
+      queryKey: ["product-variants", { filters, sortBy, page: prevPage }],
       queryFn: () =>
         productsApi.listVariants({ page: prevPage, filters, sortBy }),
     });

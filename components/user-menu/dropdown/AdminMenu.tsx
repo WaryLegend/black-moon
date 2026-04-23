@@ -10,9 +10,10 @@ import Menus from "@/components/ui/Menus";
 import Image from "next/image";
 import Spinner from "@/components/ui/Spinner";
 import { CurrentAccount } from "@/types/profile";
+import { getRoleStyle } from "@/utils/constants";
 
 function AdminMenu({ admin }: { admin: CurrentAccount }) {
-  const { email } = admin || {};
+  const { email, role } = admin || {};
   const { fullName, avatarUrl } = admin?.profile || {};
 
   const pathname = usePathname();
@@ -36,7 +37,14 @@ function AdminMenu({ admin }: { admin: CurrentAccount }) {
           />
         </div>
         <div className="flex max-w-[25ch] flex-col">
-          <span className="truncate font-semibold">{fullName}</span>
+          <div className="flex gap-2">
+            <span className="truncate font-semibold">{fullName}</span>
+            <span
+              className={`inline-flex w-fit items-center rounded-md border px-2 py-0.5 text-xs ${getRoleStyle(role?.name)}`}
+            >
+              {role?.name ? role?.name.charAt(0).toUpperCase() : ""}
+            </span>
+          </div>
           <span className="text-primary-600 truncate text-sm font-light">
             {email}
           </span>

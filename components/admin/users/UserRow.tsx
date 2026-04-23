@@ -15,9 +15,11 @@ import type { UserSummary } from "@/types/users";
 import EditUserForm from "./EditUserForm";
 import { useUpdateUserActivation } from "./useUpdateUserActivation";
 import { getRoleStyle } from "@/utils/constants";
+import { useRouter } from "next/navigation";
 
 type UserRowProps = {
   user: UserSummary;
+  isMe?: boolean;
 };
 
 const Field = styled.div`
@@ -41,7 +43,7 @@ const StatusDot = styled.span<{ $isActive: boolean }>`
       : "linear-gradient(135deg, #dc2626, #fecaca)"};
 `;
 
-function UserRow({ user }: UserRowProps) {
+function UserRow({ user, isMe }: UserRowProps) {
   const { id, email, activated, role, createdAt, profile } = user;
 
   const firstName = profile?.firstName?.trim() || "—";
@@ -57,6 +59,8 @@ function UserRow({ user }: UserRowProps) {
       .join(" ") ||
     email ||
     `user_${id}`;
+
+  const router = useRouter();
 
   const { mutate: updateActivation, isPending: isUpdatingActivation } =
     useUpdateUserActivation();
@@ -78,7 +82,10 @@ function UserRow({ user }: UserRowProps) {
         height={40}
         className="block aspect-square max-w-[1.8rem] scale-150 rounded-full object-cover shadow-md lg:max-w-[2rem]"
       />
-      <Field>{firstName}</Field>
+      <Field>
+        {firstName}
+        <span className="text-accent-600">{isMe && " (You)"}</span>
+      </Field>
       <Field>{lastName}</Field>
       <Field
         className={`inline-flex w-fit items-center rounded-md border px-2 py-0.5 ${getRoleStyle(role?.name)}`}
@@ -99,16 +106,29 @@ function UserRow({ user }: UserRowProps) {
             <Menus.Menu>
               <Menus.Toggle id={id} />
               <Menus.List id={id}>
-                <Modal.Open opens="activation">
+                {!isMe && (
+                  <Modal.Open opens="activation">
+                    <Menus.Button
+                      icon={activated ? <HiLockClosed /> : <HiLockOpen />}
+                    >
+                      {activated ? "Disable" : "Activate"}
+                    </Menus.Button>
+                  </Modal.Open>
+                )}
+                {!isMe ? (
+                  <Modal.Open opens="edit-user">
+                    <Menus.Button icon={<HiPencil />}>
+                      View or Edit
+                    </Menus.Button>
+                  </Modal.Open>
+                ) : (
                   <Menus.Button
-                    icon={activated ? <HiLockClosed /> : <HiLockOpen />}
+                    icon={<HiPencil />}
+                    onClick={() => router.push("/admin/profile")}
                   >
-                    {activated ? "Disable" : "Activate"}
+                    View or Edit
                   </Menus.Button>
-                </Modal.Open>
-                <Modal.Open opens="edit-user">
-                  <Menus.Button icon={<HiPencil />}>View or Edit</Menus.Button>
-                </Modal.Open>
+                )}
               </Menus.List>
               <Modal.Window name="activation">
                 <ConfirmChange

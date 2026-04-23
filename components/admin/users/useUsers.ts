@@ -14,7 +14,7 @@ type UseUsersParams = {
 
 export function useUsers({ page, filters, sortBy }: UseUsersParams) {
   const queryClient = useQueryClient();
-  const queryKey = ["users", filters, sortBy, page] as const;
+  const queryKey = ["users", { filters, sortBy, page }] as const;
 
   const { isPending, data, error } = useQuery({
     queryFn: () => usersApi.list({ page, filters, sortBy }),
@@ -38,7 +38,7 @@ export function useUsers({ page, filters, sortBy }: UseUsersParams) {
   if (totalPages && page < totalPages) {
     const nextPage = page + 1;
     queryClient.prefetchQuery({
-      queryKey: ["users", filters, sortBy, nextPage],
+      queryKey: ["users", { filters, sortBy, page: nextPage }],
       queryFn: () => usersApi.list({ filters, sortBy, page: nextPage }),
     });
   }
@@ -46,7 +46,7 @@ export function useUsers({ page, filters, sortBy }: UseUsersParams) {
   if (page > 1) {
     const prevPage = page - 1;
     queryClient.prefetchQuery({
-      queryKey: ["users", filters, sortBy, prevPage],
+      queryKey: ["users", { filters, sortBy, page: prevPage }],
       queryFn: () => usersApi.list({ filters, sortBy, page: prevPage }),
     });
   }

@@ -5,6 +5,7 @@ import Pagination from "@/components/ui/Pagination";
 import type { UserSummary } from "@/types/users";
 
 import UserRow from "./UserRow";
+import { useCurrentAccount } from "@/hooks/useCurrentAccount";
 
 type UserTableProps = {
   users: UserSummary[];
@@ -12,6 +13,8 @@ type UserTableProps = {
 };
 
 function UserTable({ users, total }: UserTableProps) {
+  const { data: currentAccount } = useCurrentAccount();
+
   return (
     <Table columns="0.5fr 1.2fr 1fr 1fr 1.8fr 1.2fr 0.8fr 1.2fr 1fr">
       <Table.Header>
@@ -27,7 +30,13 @@ function UserTable({ users, total }: UserTableProps) {
       </Table.Header>
       <Table.Body
         data={users}
-        render={(user) => <UserRow user={user} key={user.id} />}
+        render={(user) => (
+          <UserRow
+            user={user}
+            isMe={user.id === currentAccount?.id}
+            key={user.id}
+          />
+        )}
       />
       <Table.Footer>
         <Pagination count={total} />

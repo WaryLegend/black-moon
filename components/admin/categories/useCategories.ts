@@ -15,7 +15,7 @@ export function useCategories({ page, filters, sortBy }: UseCategoriesParams) {
   const queryClient = useQueryClient();
   const { isPending, data, error } = useQuery({
     queryFn: () => categoriesApi.list({ page, filters, sortBy }),
-    queryKey: ["categories", filters, sortBy, page],
+    queryKey: ["categories", { filters, sortBy, page }],
     staleTime: 60 * 1000 * 10,
   });
 
@@ -34,13 +34,13 @@ export function useCategories({ page, filters, sortBy }: UseCategoriesParams) {
 
   if (totalPages && page < totalPages)
     queryClient.prefetchQuery({
-      queryKey: ["categories", filters, sortBy, page + 1],
+      queryKey: ["categories", { filters, sortBy, page: page + 1 }],
       queryFn: () => categoriesApi.list({ filters, sortBy, page: page + 1 }),
     });
 
   if (page > 1)
     queryClient.prefetchQuery({
-      queryKey: ["categories", filters, sortBy, page - 1],
+      queryKey: ["categories", { filters, sortBy, page: page - 1 }],
       queryFn: () => categoriesApi.list({ filters, sortBy, page: page - 1 }),
     });
 

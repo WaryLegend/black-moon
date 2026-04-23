@@ -49,7 +49,7 @@ function EditUserRole({ user }: { user: UserSummary }) {
     );
   };
 
-  const { getDirtyClass } = useFormDirtyStyle<RoleFormValues>(dirtyFields);
+  const { getDirtyStyle } = useFormDirtyStyle<RoleFormValues>(dirtyFields);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -66,7 +66,7 @@ function EditUserRole({ user }: { user: UserSummary }) {
             <CustomSelect
               inputId="edit-role"
               placeholder=""
-              className={getDirtyClass("roleName")}
+              controlStyle={getDirtyStyle("roleName")}
               isDisabled={isPending}
               options={ROLE_OPTIONS}
               value={field.value}
@@ -79,12 +79,12 @@ function EditUserRole({ user }: { user: UserSummary }) {
         />
       </FormRow>
       {isDirty && (
-        <FormRow>
+        <FormRow className="flex justify-end">
           <Button type="submit" disabled={isPending}>
             {isPending ? (
               <Spinner type="mini" color="var(--color-accent-800)" />
             ) : (
-              "Lưu"
+              "Lưu thay đổi"
             )}
           </Button>
         </FormRow>

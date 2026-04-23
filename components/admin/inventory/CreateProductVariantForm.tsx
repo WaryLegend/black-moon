@@ -115,8 +115,9 @@ export default function CreateProductVariantForm({
           rules={{ required: "Sản phẩm là bắt buộc" }}
           render={({ field }) => (
             <CustomSelectAsync
+              inputId="productId"
+              instanceId="productId"
               aria-labelledby="select-product"
-              filterField="productId"
               minWidth={320}
               placeholder="Chọn sản phẩm"
               defaultOptions

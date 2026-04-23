@@ -14,6 +14,7 @@ import { getTextColorStyle } from "@/utils/text.color";
 import type { ProductVariantSummary } from "@/types/products";
 
 import EditProductVariantForm from "./EditProductVariantForm";
+import Link from "next/link";
 
 const Field = styled.div`
   font-size: 1rem;
@@ -67,7 +68,14 @@ export default function ProductVariantRow({
         <div className="from-primary-200 to-primary-100 h-10 w-14 rounded-sm bg-gradient-to-tr" />
       )}
 
-      <Field>{sku}</Field>
+      <Field>
+        <Link
+          href={`/admin/catalog/inventory/history?search=${encodeURIComponent(sku)}`}
+          className="text-accent-600 hover:text-accent-700 underline-offset-2 hover:underline"
+        >
+          {sku}
+        </Link>
+      </Field>
 
       <Field>
         <div

@@ -20,7 +20,10 @@ const SIZE_OPTIONS = SIZE_VALUES.map((size) => ({
 export default function ProductVariantTableOperations() {
   return (
     <div className="flex w-full flex-wrap items-center gap-3">
-      <SearchFilter placeholder="Search by SKU or product name" />
+      <SearchFilter
+        placeholder="Search by SKU or product name"
+        className="min-w-75"
+      />
 
       <Filter
         filterField="products"

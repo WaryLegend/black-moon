@@ -9,6 +9,7 @@ import type { TargetGroupSummary, UpdateTargetGroupDto } from "@/types/groups";
 type UpdateGroupVariables = {
   groupId: number;
   payload: UpdateTargetGroupDto;
+  imageFile?: File | null;
 };
 
 export function useUpdateGroup() {
@@ -16,8 +17,8 @@ export function useUpdateGroup() {
 
   return useMutation<TargetGroupSummary, any, UpdateGroupVariables>({
     mutationKey: ["target-groups", "update"],
-    mutationFn: ({ groupId, payload }) =>
-      targetGroupsApi.update(groupId, payload),
+    mutationFn: ({ groupId, payload, imageFile }) =>
+      targetGroupsApi.update(groupId, payload, imageFile),
     onSuccess: () => {
       toast.success("Cập nhật nhóm thành công");
       queryClient.invalidateQueries({ queryKey: ["target-groups"] });

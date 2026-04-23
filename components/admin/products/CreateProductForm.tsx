@@ -233,8 +233,9 @@ function CreateProductForm({ onCloseModal }: CreateProductFormProps) {
           rules={{ required: "Danh mục là bắt buộc" }}
           render={({ field }) => (
             <CustomSelectAsync
+              inputId="categoryId"
+              instanceId="categoryId"
               aria-labelledby="select-category"
-              filterField="categoryId"
               minWidth={200}
               placeholder="Chọn danh mục"
               defaultOptions

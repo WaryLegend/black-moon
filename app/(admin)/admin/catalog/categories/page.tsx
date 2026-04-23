@@ -14,7 +14,7 @@ export default async function CategoriesPage({
 
   return (
     <>
-      <header className="flex flex-col items-center justify-between gap-3 lg:flex-row">
+      <header className="flex flex-col items-center justify-between gap-3 sm:items-start">
         <h1 className="text-3xl font-semibold">All Categories</h1>
         <CategoryTableOperations />
       </header>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useId, useTransition } from "react";
+import type { KeyboardEvent } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { HiMagnifyingGlass, HiXMark } from "react-icons/hi2";
 import { cn } from "@/utils/cn";
@@ -8,14 +9,12 @@ import { cn } from "@/utils/cn";
 type SearchFilterProps = {
   searchField?: string;
   placeholder?: string;
-  debounceMs?: number;
   className?: string;
 };
 
 function SearchFilter({
   searchField = "search",
   placeholder = "Tìm kiếm...",
-  debounceMs = 500,
   className = "",
 }: SearchFilterProps) {
   const id = useId(); // Sửa lỗi thiếu ID cho input
@@ -34,29 +33,33 @@ function SearchFilter({
     }
   }, [searchParams, searchField]);
 
-  // Logic Debounce
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      const params = new URLSearchParams(searchParams);
-      const normalized = value.trim();
+  function applySearch(nextValue: string) {
+    const params = new URLSearchParams(searchParams);
+    const normalized = nextValue.trim();
 
-      if (normalized) {
-        params.set(searchField, normalized);
-      } else {
-        params.delete(searchField);
-      }
+    if (normalized) {
+      params.set(searchField, normalized);
+    } else {
+      params.delete(searchField);
+    }
 
-      // Reset về trang 1 nếu có phân trang
-      if (params.get("page")) params.set("page", "1");
+    if (params.get("page")) params.set("page", "1");
 
-      // Sử dụng startTransition để Next.js xử lý việc điều hướng ở mức ưu tiên thấp hơn
-      startTransition(() => {
-        router.replace(`${pathname}?${params.toString()}`, { scroll: false });
-      });
-    }, debounceMs);
+    startTransition(() => {
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+    });
+  }
 
-    return () => clearTimeout(timeoutId);
-  }, [value, debounceMs, pathname, router, searchField]);
+  function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+    if (event.key !== "Enter") return;
+    event.preventDefault();
+    applySearch(value);
+  }
+
+  function handleClear() {
+    setValue("");
+    applySearch("");
+  }
 
   return (
     <div className="group relative flex items-center">
@@ -71,9 +74,10 @@ function SearchFilter({
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        onKeyDown={handleKeyDown}
         placeholder={placeholder}
         className={cn(
-          "border-accent-300 bg-primary-0 text-primary-700 focus:border-accent-500 focus:ring-accent-500 hover:border-accent-700 rounded-lg border py-2 pr-10 pl-10 text-sm shadow-sm transition-all outline-none focus:ring-1",
+          "border-accent-300 bg-primary-0 text-primary-700 focus:border-accent-500 focus:ring-accent-500 hover:border-accent-700 rounded-lg border py-2 pr-10 pl-10 text-sm shadow-sm transition-all focus:outline-1",
           className,
         )}
       />
@@ -81,7 +85,7 @@ function SearchFilter({
       {value && (
         <button
           type="button"
-          onClick={() => setValue("")}
+          onClick={handleClear}
           className="text-accent-400 hover:text-accent-700 absolute right-3 flex items-center"
           aria-label="Xóa tìm kiếm"
         >

@@ -132,6 +132,7 @@ const buildVariantFormData = (
 
   appendIfPresent(formData, "price", payload.price);
   appendIfPresent(formData, "quantity", payload.quantity);
+  appendIfPresent(formData, "notes", payload.notes);
 
   if (imageFile) {
     formData.append("image", imageFile);

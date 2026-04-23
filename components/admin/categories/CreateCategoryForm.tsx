@@ -148,8 +148,9 @@ function CreateCategoryForm({ onCloseModal }: CategoryFormProps) {
           rules={{ required: "Nhóm là bắt buộc" }}
           render={({ field }) => (
             <CustomSelectAsync
+              inputId="targetGroupId"
+              instanceId="targetGroupId"
               aria-labelledby="select-group"
-              filterField="targetGroupId"
               minWidth={200}
               placeholder="Chọn nhóm"
               defaultOptions

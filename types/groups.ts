@@ -10,6 +10,8 @@ export type TargetGroupSummary = {
   name: string;
   slug: string;
   isDeleted?: boolean;
+  imageUrl: string | null;
+  imageName: string | null;
   createdAt: string;
   updatedAt: string;
 };

@@ -13,7 +13,7 @@ export default async function UsersPage({
   const query = await searchParams;
   return (
     <>
-      <header className="flex flex-col items-center justify-between gap-3 lg:flex-row">
+      <header className="flex flex-col items-center justify-between gap-3 sm:items-start">
         <h1 className="text-3xl font-semibold">All Users</h1>
         <UserTableOperations />
       </header>

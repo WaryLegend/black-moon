@@ -23,10 +23,12 @@ export function useUpdateProductVariant() {
       mutationKey: ["product-variants", "update"],
       mutationFn: ({ variantId, payload, imageFile }) =>
         productsApi.updateVariant(variantId, payload, imageFile),
-      onSuccess: () => {
+      onSuccess: (_, variables) => {
         toast.success("Cập nhật biến thể thành công");
         queryClient.invalidateQueries({ queryKey: ["product-variants"] });
-        queryClient.invalidateQueries({ queryKey: ["products"] });
+        if (variables.payload.quantity !== undefined) {
+          queryClient.invalidateQueries({ queryKey: ["inventory-history"] });
+        }
       },
       onError: (error: any) => {
         const message =

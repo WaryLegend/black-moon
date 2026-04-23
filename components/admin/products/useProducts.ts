@@ -16,7 +16,7 @@ export function useProducts({ page, filters, sortBy }: UseProductsParams) {
   const queryClient = useQueryClient();
 
   const { data, isPending, error } = useQuery({
-    queryKey: ["products", filters, sortBy, page],
+    queryKey: ["products", { filters, sortBy, page }],
     queryFn: () => productsApi.list({ page, filters, sortBy }),
     staleTime: 10 * 60 * 1000,
   });
@@ -34,7 +34,7 @@ export function useProducts({ page, filters, sortBy }: UseProductsParams) {
   if (meta.totalPages && page < meta.totalPages) {
     const nextPage = page + 1;
     queryClient.prefetchQuery({
-      queryKey: ["products", filters, sortBy, nextPage],
+      queryKey: ["products", { filters, sortBy, page: nextPage }],
       queryFn: () => productsApi.list({ page: nextPage, filters, sortBy }),
     });
   }
@@ -42,7 +42,7 @@ export function useProducts({ page, filters, sortBy }: UseProductsParams) {
   if (page > 1) {
     const prevPage = page - 1;
     queryClient.prefetchQuery({
-      queryKey: ["products", filters, sortBy, prevPage],
+      queryKey: ["products", { filters, sortBy, page: prevPage }],
       queryFn: () => productsApi.list({ page: prevPage, filters, sortBy }),
     });
   }

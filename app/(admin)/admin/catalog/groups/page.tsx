@@ -13,7 +13,7 @@ export default async function GroupsPage({
   const query = await searchParams;
   return (
     <>
-      <header className="flex flex-col items-center justify-between lg:flex-row">
+      <header className="flex flex-col items-center justify-between gap-3 sm:items-start">
         <h1 className="text-3xl font-semibold">All Groups</h1>
         <GroupTableOperations />
       </header>

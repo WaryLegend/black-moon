@@ -88,7 +88,8 @@ function Filter({
     }
     return (
       <AsyncSelect
-        filterField={filterField}
+        inputId={filterField}
+        instanceId={filterField}
         loadOptions={loadOptions}
         defaultOptions={true}
         cacheOptions
@@ -103,6 +104,7 @@ function Filter({
   return (
     <Select
       inputId={filterField}
+      instanceId={filterField}
       options={resolvedOptions}
       value={currentFilter}
       onChange={handleChange}

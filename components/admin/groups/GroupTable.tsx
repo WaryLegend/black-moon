@@ -28,7 +28,7 @@ export default function GroupTable({
   const partiallySelected = selectedIds.length > 0 && !allSelected;
 
   return (
-    <Table columns="0.8fr 2fr 2fr 1fr 1fr">
+    <Table columns="0.8fr 0.9fr 1.8fr 1.8fr 0.8fr 1fr">
       <Table.Header>
         <div className="flex items-center gap-2">
           <SelectionCheckbox
@@ -41,6 +41,7 @@ export default function GroupTable({
             All
           </span>
         </div>
+        <div>Image</div>
         <div>Name</div>
         <div>Slug</div>
         <div>Deleted</div>

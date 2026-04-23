@@ -84,9 +84,9 @@ export const ORDER_STATUS = {
 
 // apply role style
 const ROLE_STYLES = {
-  admin: "bg-purple-50 text-purple-800 border-purple-200",
-  manager: "bg-green-50 text-green-800 border-green-200",
-  staff: "bg-blue-50 text-blue-800 border-blue-200",
+  admin: "bg-purple-50 text-purple-800 border-purple-300",
+  manager: "bg-green-50 text-green-800 border-green-300",
+  staff: "bg-blue-50 text-blue-800 border-blue-300",
 } as const;
 const DEFAULT_ROLE_STYLE = "bg-primary-100 text-primary-800 border-primary-300";
 

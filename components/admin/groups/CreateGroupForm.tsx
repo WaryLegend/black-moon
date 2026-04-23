@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import Form from "@/components/forms/admin/Form";
 import FormRow from "@/components/forms/admin/FormRow";
+import ImageInput from "@/components/forms/admin/ImageInput";
 import Input from "@/components/forms/admin/Input";
 import Button from "@/components/ui/Button";
 import type { CreateTargetGroupDto, TargetGroupSummary } from "@/types/groups";
@@ -49,6 +50,7 @@ const buildPayload = (values: GroupFormValues): CreateTargetGroupDto => ({
 
 function CreateGroupForm({ groupToEdit, onCloseModal }: CreateGroupFormProps) {
   const isEditMode = Boolean(groupToEdit);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const initialValues = useMemo(
     () => mapGroupToValues(groupToEdit),
     [groupToEdit],
@@ -77,9 +79,11 @@ function CreateGroupForm({ groupToEdit, onCloseModal }: CreateGroupFormProps) {
         {
           groupId: groupToEdit.id,
           payload: buildPayload(values),
+          imageFile: selectedFile,
         },
         {
           onSuccess: () => {
+            setSelectedFile(null);
             onCloseModal?.();
           },
         },
@@ -87,16 +91,24 @@ function CreateGroupForm({ groupToEdit, onCloseModal }: CreateGroupFormProps) {
       return;
     }
 
-    createGroup(buildPayload(values), {
-      onSuccess: () => {
-        reset(getEmptyValues());
-        onCloseModal?.();
+    createGroup(
+      {
+        payload: buildPayload(values),
+        imageFile: selectedFile,
       },
-    });
+      {
+        onSuccess: () => {
+          reset(getEmptyValues());
+          setSelectedFile(null);
+          onCloseModal?.();
+        },
+      },
+    );
   };
 
   const handleCancel = () => {
     reset(initialValues);
+    setSelectedFile(null);
     if (!isDirty) onCloseModal?.();
   };
 
@@ -159,6 +171,15 @@ function CreateGroupForm({ groupToEdit, onCloseModal }: CreateGroupFormProps) {
         />
       </FormRow>
 
+      <FormRow label="Hình ảnh" id="group-image" helper="PNG/JPG, tối đa 5MB">
+        <ImageInput
+          id="group-image"
+          value={selectedFile || groupToEdit?.imageUrl}
+          onChange={setSelectedFile}
+          disabled={isWorking}
+        />
+      </FormRow>
+
       <FormRow className="sticky bottom-0 flex justify-end gap-2 bg-inherit">
         <Button
           type="button"
@@ -168,7 +189,10 @@ function CreateGroupForm({ groupToEdit, onCloseModal }: CreateGroupFormProps) {
         >
           Hủy
         </Button>
-        <Button type="submit" disabled={isWorking || !isDirty}>
+        <Button
+          type="submit"
+          disabled={isWorking || (!isDirty && selectedFile === null)}
+        >
           {isEditMode ? "Lưu thay đổi" : "Tạo nhóm"}
         </Button>
       </FormRow>

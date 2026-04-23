@@ -7,11 +7,13 @@ import Form from "@/components/forms/admin/Form";
 import FormRow from "@/components/forms/admin/FormRow";
 import ImageInput from "@/components/forms/admin/ImageInput";
 import Input from "@/components/forms/admin/Input";
+import Textarea from "@/components/forms/admin/Textarea";
 import Button from "@/components/ui/Button";
 import { formatCurrency } from "@/utils/currency";
 import type { ProductVariantSummary } from "@/types/products";
 
 import { useUpdateProductVariant } from "./useUpdateProductVariant";
+import { useFormDirtyStyle } from "@/components/forms/admin/useFormDirtyStyle";
 
 type EditProductVariantFormProps = {
   variant: ProductVariantSummary;
@@ -24,6 +26,7 @@ type VariantFormValues = {
   size: string | null;
   price: number;
   quantity: number;
+  notes: string;
 };
 
 export default function EditProductVariantForm({
@@ -35,8 +38,9 @@ export default function EditProductVariantForm({
   const {
     register,
     watch,
+    setValue,
     handleSubmit,
-    formState: { errors, isDirty },
+    formState: { errors, isDirty, dirtyFields },
   } = useForm<VariantFormValues>({
     defaultValues: {
       sku: variant.sku,
@@ -44,8 +48,11 @@ export default function EditProductVariantForm({
       size: variant.size,
       price: variant.price ?? 0,
       quantity: variant.quantity ?? 0,
+      notes: "",
     },
   });
+
+  const quickNotes = ["Nhập hàng", "Kiểm kho", "Hoàn trả", "Điều chỉnh giá"];
 
   const { mutate: updateVariant, isPending } = useUpdateProductVariant();
 
@@ -56,6 +63,7 @@ export default function EditProductVariantForm({
         payload: {
           price: Number(values.price),
           quantity: Number(values.quantity),
+          notes: values.notes.trim() || undefined,
         },
         imageFile: selectedFile,
       },
@@ -66,6 +74,9 @@ export default function EditProductVariantForm({
       },
     );
   };
+
+  const { getDirtyClass } =
+    useFormDirtyStyle<ProductVariantSummary>(dirtyFields);
 
   return (
     <Form
@@ -102,6 +113,7 @@ export default function EditProductVariantForm({
           id="variant-price"
           type="number"
           step="any"
+          className={getDirtyClass("price")}
           min={0}
           disabled={isPending}
           {...register("price", {
@@ -116,16 +128,44 @@ export default function EditProductVariantForm({
         id="variant-quantity"
         error={errors.quantity?.message}
       >
-        <Input
-          id="variant-quantity"
-          type="number"
-          min={0}
-          disabled={isPending}
-          {...register("quantity", {
-            min: { value: 0, message: "Số lượng phải lớn hơn hoặc bằng 0" },
-            valueAsNumber: true,
-          })}
-        />
+        <div className="grid gap-3">
+          <Input
+            id="variant-quantity"
+            type="number"
+            className={getDirtyClass("quantity")}
+            min={0}
+            disabled={isPending}
+            {...register("quantity", {
+              min: { value: 0, message: "Số lượng phải lớn hơn hoặc bằng 0" },
+              valueAsNumber: true,
+            })}
+          />
+          {dirtyFields.quantity && (
+            <Textarea
+              id="variant-notes"
+              rows={3}
+              maxLength={500}
+              value={watch("notes")}
+              placeholder="Ghi chú thay đổi tồn kho (tùy chọn)"
+              suggestions={quickNotes}
+              disabled={isPending}
+              onSuggestionClick={(value) => {
+                const currentNotes = watch("notes");
+                if (currentNotes) {
+                  setValue("notes", `${currentNotes} ${value}`);
+                } else {
+                  setValue("notes", value);
+                }
+              }}
+              {...register("notes", {
+                maxLength: {
+                  value: 500,
+                  message: "Ghi chú quá dài",
+                },
+              })}
+            />
+          )}
+        </div>
       </FormRow>
 
       <FormRow

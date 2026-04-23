@@ -8,8 +8,8 @@ import { loadCategorySlugOptions } from "./useCategoryOptions";
 
 function ProductTableOperations() {
   return (
-    <div className="flex flex-wrap items-center gap-3">
-      <SearchFilter placeholder="Search by name or slug" />
+    <div className="flex w-full flex-wrap items-center gap-3">
+      <SearchFilter placeholder="Search by name or slug" className="min-w-60" />
 
       <Filter
         filterField="categories"
@@ -22,15 +22,16 @@ function ProductTableOperations() {
         }}
         loadOptions={loadCategorySlugOptions}
       />
-
-      <SortBy
-        options={[
-          { value: "createdAt-desc", label: "Date (recent first)" },
-          { value: "createdAt-asc", label: "Date (earlier first)" },
-          { value: "name-asc", label: "Name (A-Z)" },
-          { value: "name-desc", label: "Name (Z-A)" },
-        ]}
-      />
+      <div className="ml-0 sm:ml-auto">
+        <SortBy
+          options={[
+            { value: "createdAt-desc", label: "Date (recent first)" },
+            { value: "createdAt-asc", label: "Date (earlier first)" },
+            { value: "name-asc", label: "Name (A-Z)" },
+            { value: "name-desc", label: "Name (Z-A)" },
+          ]}
+        />
+      </div>
     </div>
   );
 }

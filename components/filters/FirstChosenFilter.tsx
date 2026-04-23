@@ -45,6 +45,7 @@ function FirstChosenFilter({
         </label>
         <Select
           inputId={filterField}
+          instanceId={filterField}
           minWidth="10rem"
           options={options}
           value={initialValue}
