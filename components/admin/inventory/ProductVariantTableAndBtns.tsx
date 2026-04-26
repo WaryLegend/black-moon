@@ -43,7 +43,7 @@ export default function ProductVariantTableAndBtns({
   const colorsFilterKey = (filters.colors ?? []).join(",");
   const sizesFilterKey = (filters.sizes ?? []).join(",");
 
-  const { isPending, variants, total } = useProductVariants({
+  const { isPending, variants, meta } = useProductVariants({
     page,
     filters,
     sortBy,
@@ -147,7 +147,7 @@ export default function ProductVariantTableAndBtns({
     <div className="flex flex-col gap-4">
       <ProductVariantTable
         variants={variants}
-        total={total}
+        meta={meta}
         selectedIds={selectedIds}
         onToggleAll={handleToggleAll}
         onToggleOne={handleToggleOne}

@@ -4,11 +4,11 @@ import Table from "@/components/ui/Table";
 import GroupRow from "./GroupRow";
 import Pagination from "@/components/ui/Pagination";
 import SelectionCheckbox from "@/components/ui/SelectionCheckbox";
-import type { TargetGroupSummary } from "@/types/groups";
+import type { TargetGroupsListMeta, TargetGroupSummary } from "@/types/groups";
 
 type GroupTableProps = {
   groups: TargetGroupSummary[];
-  total: number;
+  meta?: TargetGroupsListMeta;
   selectedIds: number[];
   onToggleAll: (checked: boolean) => void;
   onToggleOne: (groupId: number, checked: boolean) => void;
@@ -16,7 +16,7 @@ type GroupTableProps = {
 
 export default function GroupTable({
   groups,
-  total,
+  meta,
   selectedIds,
   onToggleAll,
   onToggleOne,
@@ -26,6 +26,8 @@ export default function GroupTable({
   const allSelected =
     pageIds.length > 0 && pageIds.every((id) => selectedIds.includes(id));
   const partiallySelected = selectedIds.length > 0 && !allSelected;
+
+  const { totalItems: total, pageSize } = meta ?? {};
 
   return (
     <Table columns="0.8fr 0.9fr 1.8fr 1.8fr 0.8fr 1fr">
@@ -59,7 +61,7 @@ export default function GroupTable({
         )}
       />
       <Table.Footer>
-        <Pagination count={total} />
+        <Pagination total={total ?? 0} pageSize={pageSize} />
       </Table.Footer>
     </Table>
   );

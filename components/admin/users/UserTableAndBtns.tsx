@@ -30,7 +30,7 @@ function UserTableAndBtns({ searchParams }: UserTableAndBtnsProps) {
   const page = parsePageParam(searchParams.page);
   const { filters, sortBy } = extractListParams(searchParams);
 
-  const { isPending, users, total } = useUsers({
+  const { isPending, users, meta } = useUsers({
     page,
     filters,
     sortBy,
@@ -43,7 +43,7 @@ function UserTableAndBtns({ searchParams }: UserTableAndBtnsProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <UserTable users={users} total={total} />
+      <UserTable users={users} meta={meta} />
       <AddUser />
     </div>
   );

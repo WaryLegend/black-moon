@@ -7,22 +7,24 @@ import { PAGE_SIZE } from "@/utils/constants";
 import Button from "@/components/ui/Button";
 
 type PaginationProps = {
-  count: number;
+  total: number;
+  pageSize?: number;
 };
 
 type PageItem = number | "...";
 
 export default function Pagination({
-  count,
+  total,
+  pageSize = PAGE_SIZE,
 }: PaginationProps): JSX.Element | null {
-  if (count <= PAGE_SIZE) return null;
-
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  if (total <= pageSize) return null;
+
   const currentPage = Number(searchParams.get("page")) || 1;
-  const pageCount = Math.ceil(count / PAGE_SIZE);
+  const pageCount = Math.ceil(total / pageSize);
 
   const setPage = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -80,13 +82,13 @@ export default function Pagination({
       <p className="text-sm md:text-base">
         Showing{" "}
         <span className="text-accent-600 font-semibold">
-          {(currentPage - 1) * PAGE_SIZE + 1}
+          {(currentPage - 1) * pageSize + 1}
         </span>{" "}
         to{" "}
         <span className="text-accent-600 font-semibold">
-          {currentPage !== pageCount ? currentPage * PAGE_SIZE : count}
+          {currentPage !== pageCount ? currentPage * pageSize : total}
         </span>{" "}
-        of <span className="font-semibold">{count}</span> results
+        of <span className="font-semibold">{total}</span> results
       </p>
 
       {/* Pagination buttons */}

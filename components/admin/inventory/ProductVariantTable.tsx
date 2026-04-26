@@ -4,11 +4,14 @@ import Pagination from "@/components/ui/Pagination";
 import SelectionCheckbox from "@/components/ui/SelectionCheckbox";
 import Table from "@/components/ui/Table";
 import ProductVariantRow from "@/components/admin/inventory/ProductVariantRow";
-import type { ProductVariantSummary } from "@/types/products";
+import type {
+  ProductVariantListMeta,
+  ProductVariantSummary,
+} from "@/types/products";
 
 type ProductVariantTableProps = {
   variants: ProductVariantSummary[];
-  total: number;
+  meta?: ProductVariantListMeta;
   selectedIds: number[];
   onToggleAll: (checked: boolean) => void;
   onToggleOne: (variantId: number, checked: boolean) => void;
@@ -16,7 +19,7 @@ type ProductVariantTableProps = {
 
 export default function ProductVariantTable({
   variants,
-  total,
+  meta,
   selectedIds,
   onToggleAll,
   onToggleOne,
@@ -25,6 +28,8 @@ export default function ProductVariantTable({
   const allSelected =
     pageIds.length > 0 && pageIds.every((id) => selectedIds.includes(id));
   const partiallySelected = selectedIds.length > 0 && !allSelected;
+
+  const { totalItems: total, pageSize } = meta ?? {};
 
   return (
     <Table columns="0.6fr 0.8fr 1.4fr 1fr 0.8fr 1fr 0.8fr 0.5fr 0.8fr">
@@ -63,7 +68,7 @@ export default function ProductVariantTable({
       />
 
       <Table.Footer>
-        <Pagination count={total} />
+        <Pagination total={total ?? 0} pageSize={pageSize} />
       </Table.Footer>
     </Table>
   );

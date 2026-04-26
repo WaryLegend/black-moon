@@ -1,6 +1,9 @@
 // constants.ts
 
-// Pagination size/length
+/**
+ * Pagination,
+ * Default page size
+ */
 export const PAGE_SIZE = 10;
 
 export const GROUPS = {

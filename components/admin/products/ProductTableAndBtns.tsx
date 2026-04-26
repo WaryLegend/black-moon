@@ -34,7 +34,7 @@ function ProductTableAndBtns({ searchParams }: ProductTableAndBtnsProps) {
   const page = parsePageParam(searchParams.page);
   const { filters, sortBy } = parseQueryParams(searchParams);
 
-  const { isPending, products, total } = useProducts({
+  const { isPending, products, meta } = useProducts({
     page,
     filters,
     sortBy,
@@ -131,7 +131,7 @@ function ProductTableAndBtns({ searchParams }: ProductTableAndBtnsProps) {
     <div className="flex flex-col gap-4">
       <ProductTable
         products={products}
-        total={total}
+        meta={meta}
         selectedIds={selectedIds}
         onToggleAll={handleToggleAll}
         onToggleOne={handleToggleOne}

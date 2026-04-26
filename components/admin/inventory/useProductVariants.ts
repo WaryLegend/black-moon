@@ -7,7 +7,6 @@ import type {
   ListProductVariantsFilters,
   ProductVariantSort,
 } from "@/types/products";
-import { PAGE_SIZE } from "@/utils/constants";
 
 type UseProductVariantsParams = {
   page: number;
@@ -29,16 +28,11 @@ export function useProductVariants({
   });
 
   const variants = data?.items ?? [];
-  const meta =
-    data?.meta ??
-    ({
-      page,
-      pageSize: PAGE_SIZE,
-      totalItems: 0,
-      totalPages: 0,
-    } as const);
+  const meta = data?.meta;
 
-  if (meta.totalPages && page < meta.totalPages) {
+  const totalPages = meta?.totalPages ?? 0;
+
+  if (totalPages && page < totalPages) {
     const nextPage = page + 1;
     queryClient.prefetchQuery({
       queryKey: ["product-variants", { filters, sortBy, page: nextPage }],
@@ -59,7 +53,6 @@ export function useProductVariants({
   return {
     isPending,
     variants,
-    total: meta.totalItems,
     meta,
     error,
   };

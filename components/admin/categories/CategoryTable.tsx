@@ -4,11 +4,11 @@ import Table from "@/components/ui/Table";
 import CategoryRow from "./CagetoryRow";
 import Pagination from "@/components/ui/Pagination";
 import SelectionCheckbox from "@/components/ui/SelectionCheckbox";
-import { CategorySummary } from "@/types/categories";
+import { CategoriesListMeta, CategorySummary } from "@/types/categories";
 
 type CategoryTableProps = {
   categories: CategorySummary[];
-  total: number;
+  meta?: CategoriesListMeta;
   selectedIds: number[];
   onToggleAll: (checked: boolean) => void;
   onToggleOne: (categoryId: number, checked: boolean) => void;
@@ -16,7 +16,7 @@ type CategoryTableProps = {
 
 function CategoryTable({
   categories,
-  total,
+  meta,
   selectedIds,
   onToggleAll,
   onToggleOne,
@@ -26,6 +26,8 @@ function CategoryTable({
   const allSelected =
     pageIds.length > 0 && pageIds.every((id) => selectedIds.includes(id));
   const partiallySelected = selectedIds.length > 0 && !allSelected;
+
+  const { totalItems: total, pageSize } = meta ?? {};
 
   return (
     <Table columns="0.8fr 0.9fr 1.8fr 1.8fr 1.2fr 0.8fr 1fr">
@@ -60,7 +62,7 @@ function CategoryTable({
         )}
       />
       <Table.Footer>
-        <Pagination count={total} />
+        <Pagination total={total ?? 0} pageSize={pageSize} />
       </Table.Footer>
     </Table>
   );

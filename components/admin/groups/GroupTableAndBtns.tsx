@@ -33,7 +33,7 @@ function GroupsTableAndBtns({ searchParams }: GroupsTableAndBtnsProps) {
   const page = parsePageParam(searchParams.page);
   const { sortBy } = parseQueryParams(searchParams);
 
-  const { isPending, groups, total } = useGroups({
+  const { isPending, groups, meta } = useGroups({
     page,
     sortBy,
   });
@@ -124,7 +124,7 @@ function GroupsTableAndBtns({ searchParams }: GroupsTableAndBtnsProps) {
     <div className="flex flex-col gap-4">
       <GroupTable
         groups={groups}
-        total={total}
+        meta={meta}
         selectedIds={selectedIds}
         onToggleAll={handleToggleAll}
         onToggleOne={handleToggleOne}

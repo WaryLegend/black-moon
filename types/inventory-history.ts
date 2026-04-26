@@ -56,14 +56,16 @@ export type InventoryHistorySummary = {
   } | null;
 };
 
+export type InventoryHistoryListMeta = {
+  page: number;
+  pageSize: number;
+  totalItems: number;
+  totalPages: number;
+};
+
 export type InventoryHistoryListResponse = {
   items: InventoryHistorySummary[];
-  meta: {
-    page: number;
-    pageSize: number;
-    totalItems: number;
-    totalPages: number;
-  };
+  meta: InventoryHistoryListMeta;
 };
 
 export type ListInventoryHistoryFilters = {

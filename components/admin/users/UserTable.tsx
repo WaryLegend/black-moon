@@ -2,18 +2,19 @@
 
 import Table from "@/components/ui/Table";
 import Pagination from "@/components/ui/Pagination";
-import type { UserSummary } from "@/types/users";
+import type { UsersListMeta, UserSummary } from "@/types/users";
 
 import UserRow from "./UserRow";
 import { useCurrentAccount } from "@/hooks/useCurrentAccount";
 
 type UserTableProps = {
   users: UserSummary[];
-  total: number;
+  meta?: UsersListMeta;
 };
 
-function UserTable({ users, total }: UserTableProps) {
+function UserTable({ users, meta }: UserTableProps) {
   const { data: currentAccount } = useCurrentAccount();
+  const { pageSize, totalItems: total } = meta ?? {};
 
   return (
     <Table columns="0.5fr 1.2fr 1fr 1fr 1.8fr 1.2fr 0.8fr 1.2fr 1fr">
@@ -39,7 +40,7 @@ function UserTable({ users, total }: UserTableProps) {
         )}
       />
       <Table.Footer>
-        <Pagination count={total} />
+        <Pagination total={total ?? 0} pageSize={pageSize} />
       </Table.Footer>
     </Table>
   );

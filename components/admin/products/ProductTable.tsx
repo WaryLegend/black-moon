@@ -3,13 +3,13 @@
 import Table from "@/components/ui/Table";
 import Pagination from "@/components/ui/Pagination";
 import SelectionCheckbox from "@/components/ui/SelectionCheckbox";
-import type { ProductSummary } from "@/types/products";
+import type { ProductsListMeta, ProductSummary } from "@/types/products";
 
 import ProductRow from "./ProductRow";
 
 type ProductTableProps = {
   products: ProductSummary[];
-  total: number;
+  meta?: ProductsListMeta;
   selectedIds: number[];
   onToggleAll: (checked: boolean) => void;
   onToggleOne: (productId: number, checked: boolean) => void;
@@ -17,7 +17,7 @@ type ProductTableProps = {
 
 function ProductTable({
   products,
-  total,
+  meta,
   selectedIds,
   onToggleAll,
   onToggleOne,
@@ -26,6 +26,8 @@ function ProductTable({
   const allSelected =
     pageIds.length > 0 && pageIds.every((id) => selectedIds.includes(id));
   const partiallySelected = selectedIds.length > 0 && !allSelected;
+
+  const { pageSize, totalItems: total } = meta ?? {};
 
   return (
     <Table columns="0.7fr 0.9fr 2fr 1.6fr 1.3fr 0.8fr 1fr">
@@ -62,7 +64,7 @@ function ProductTable({
       />
 
       <Table.Footer>
-        <Pagination count={total} />
+        <Pagination total={total ?? 0} pageSize={pageSize} />
       </Table.Footer>
     </Table>
   );

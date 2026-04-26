@@ -2,19 +2,24 @@
 
 import Pagination from "@/components/ui/Pagination";
 import Table from "@/components/ui/Table";
-import type { InventoryHistorySummary } from "@/types/inventory-history";
+import type {
+  InventoryHistoryListMeta,
+  InventoryHistorySummary,
+} from "@/types/inventory-history";
 
 import InventoryHistoryRow from "./InventoryHistoryRow";
 
 type InventoryHistoryTableProps = {
   rows: InventoryHistorySummary[];
-  total: number;
+  meta?: InventoryHistoryListMeta;
 };
 
 export default function InventoryHistoryTable({
   rows,
-  total,
+  meta,
 }: InventoryHistoryTableProps) {
+  const { totalItems: total, pageSize } = meta ?? {};
+
   return (
     <Table columns="0.5fr 1.2fr 0.6fr 0.6fr 0.6fr 1fr 1.3fr 1fr">
       <Table.Header>
@@ -36,7 +41,7 @@ export default function InventoryHistoryTable({
       />
 
       <Table.Footer>
-        <Pagination count={total} />
+        <Pagination total={total ?? 0} pageSize={pageSize} />
       </Table.Footer>
     </Table>
   );

@@ -7,7 +7,6 @@ import type {
   InventoryHistorySort,
   ListInventoryHistoryFilters,
 } from "@/types/inventory-history";
-import { PAGE_SIZE } from "@/utils/constants";
 
 type UseInventoryHistoryParams = {
   page: number;
@@ -29,16 +28,11 @@ export function useInventoryHistory({
   });
 
   const rows = data?.items ?? [];
-  const meta =
-    data?.meta ??
-    ({
-      page,
-      pageSize: PAGE_SIZE,
-      totalItems: 0,
-      totalPages: 0,
-    } as const);
+  const meta = data?.meta;
 
-  if (meta.totalPages && page < meta.totalPages) {
+  const totalPages = meta?.totalPages;
+
+  if (totalPages && page < totalPages) {
     const nextPage = page + 1;
     queryClient.prefetchQuery({
       queryKey: ["inventory-history", { filters, sortBy, page: nextPage }],
@@ -59,7 +53,6 @@ export function useInventoryHistory({
   return {
     isPending,
     rows,
-    total: meta.totalItems,
     meta,
     error,
   };

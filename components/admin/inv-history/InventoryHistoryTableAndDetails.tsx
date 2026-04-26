@@ -37,7 +37,7 @@ export default function InventoryHistoryTableAndDetails({
   const page = parsePageParam(searchParams.page);
   const { filters, sortBy } = parseQueryParams(searchParams);
 
-  const { isPending, rows, total } = useInventoryHistory({
+  const { isPending, rows, meta } = useInventoryHistory({
     page,
     filters,
     sortBy,
@@ -49,16 +49,15 @@ export default function InventoryHistoryTableAndDetails({
     );
   }
 
-  return <InventoryHistoryTable rows={rows} total={total} />;
+  return <InventoryHistoryTable rows={rows} meta={meta} />;
 }
 
 function parseQueryParams(searchParams: InventoryHistoryPageSearchParams): {
   filters: ListInventoryHistoryFilters;
   sortBy: InventoryHistorySort;
 } {
-  const { filters, sortBy } = parseListSearchParams<ListInventoryHistoryFilters>(
-    searchParams,
-    {
+  const { filters, sortBy } =
+    parseListSearchParams<ListInventoryHistoryFilters>(searchParams, {
       filterConfig: {
         search: {
           parse: (value) => {
@@ -74,8 +73,7 @@ function parseQueryParams(searchParams: InventoryHistoryPageSearchParams): {
         },
       },
       defaultSort: "timestamp-desc",
-    },
-  );
+    });
 
   const field = normalizeSortField(sortBy.field, SORT_FIELDS, "timestamp");
 

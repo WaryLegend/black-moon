@@ -194,14 +194,11 @@ export type ListProductVariantsParams = {
   sortBy?: ProductVariantSort;
 };
 
+export type ProductVariantListMeta = ProductsListMeta;
+
 export type ProductVariantsListResponse = {
   items: ProductVariantSummary[];
-  meta: {
-    page: number;
-    pageSize: number;
-    totalItems: number;
-    totalPages: number;
-  };
+  meta: ProductVariantListMeta;
 };
 
 export type CreateProductVariantsResponse = {

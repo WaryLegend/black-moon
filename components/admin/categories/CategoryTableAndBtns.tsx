@@ -35,7 +35,7 @@ function CategoryTableAndBtns({ searchParams }: CategoryTableAndBtnsProps) {
   const { filters, sortBy } = parseQueryParams(searchParams);
   const groupsFilterKey = (filters.groups ?? []).join(",");
 
-  const { isPending, categories, total } = useCategories({
+  const { isPending, categories, meta } = useCategories({
     page,
     filters,
     sortBy,
@@ -134,7 +134,7 @@ function CategoryTableAndBtns({ searchParams }: CategoryTableAndBtnsProps) {
     <div className="flex flex-col gap-4">
       <CategoryTable
         categories={categories}
-        total={total}
+        meta={meta}
         selectedIds={selectedIds}
         onToggleAll={handleToggleAll}
         onToggleOne={handleToggleOne}

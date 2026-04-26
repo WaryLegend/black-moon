@@ -4,7 +4,6 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { usersApi } from "@/services/users.api";
 import type { ListUsersFilters, ListUsersSort } from "@/types/users";
-import { PAGE_SIZE } from "@/utils/constants";
 
 type UseUsersParams = {
   page: number;
@@ -23,17 +22,9 @@ export function useUsers({ page, filters, sortBy }: UseUsersParams) {
   });
 
   const users = data?.items ?? [];
-  const meta =
-    data?.meta ??
-    ({
-      page,
-      pageSize: PAGE_SIZE,
-      totalItems: 0,
-      totalPages: 0,
-    } as const);
-  const total = meta.totalItems;
+  const meta = data?.meta;
 
-  const totalPages = meta.totalPages ?? 0;
+  const totalPages = meta?.totalPages ?? 0;
 
   if (totalPages && page < totalPages) {
     const nextPage = page + 1;
@@ -51,5 +42,5 @@ export function useUsers({ page, filters, sortBy }: UseUsersParams) {
     });
   }
 
-  return { isPending, users, total, meta, error };
+  return { isPending, users, meta, error };
 }

@@ -2,7 +2,6 @@
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { categoriesApi } from "@/services/categories.api";
-import { PAGE_SIZE } from "@/utils/constants";
 import type { CategorySort, ListCategoriesFilters } from "@/types/categories";
 
 type UseCategoriesParams = {
@@ -20,17 +19,9 @@ export function useCategories({ page, filters, sortBy }: UseCategoriesParams) {
   });
 
   const categories = data?.items ?? [];
-  const meta =
-    data?.meta ??
-    ({
-      page,
-      pageSize: PAGE_SIZE,
-      totalItems: 0,
-      totalPages: 0,
-    } as const);
-  const total = meta.totalItems;
+  const meta = data?.meta;
 
-  const totalPages = meta.totalPages ?? 0;
+  const totalPages = meta?.totalPages ?? 0;
 
   if (totalPages && page < totalPages)
     queryClient.prefetchQuery({
@@ -44,5 +35,5 @@ export function useCategories({ page, filters, sortBy }: UseCategoriesParams) {
       queryFn: () => categoriesApi.list({ filters, sortBy, page: page - 1 }),
     });
 
-  return { isPending, categories, total, error, meta };
+  return { isPending, categories, meta, error };
 }

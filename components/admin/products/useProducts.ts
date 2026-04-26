@@ -4,7 +4,6 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { productsApi } from "@/services/products.api";
 import type { ListProductsFilters, ProductSort } from "@/types/products";
-import { PAGE_SIZE } from "@/utils/constants";
 
 type UseProductsParams = {
   page: number;
@@ -22,16 +21,11 @@ export function useProducts({ page, filters, sortBy }: UseProductsParams) {
   });
 
   const products = data?.items ?? [];
-  const meta =
-    data?.meta ??
-    ({
-      page,
-      pageSize: PAGE_SIZE,
-      totalItems: 0,
-      totalPages: 0,
-    } as const);
+  const meta = data?.meta;
 
-  if (meta.totalPages && page < meta.totalPages) {
+  const totalPages = meta?.totalPages ?? 0;
+
+  if (totalPages && page < totalPages) {
     const nextPage = page + 1;
     queryClient.prefetchQuery({
       queryKey: ["products", { filters, sortBy, page: nextPage }],
@@ -50,7 +44,6 @@ export function useProducts({ page, filters, sortBy }: UseProductsParams) {
   return {
     isPending,
     products,
-    total: meta.totalItems,
     meta,
     error,
   };
