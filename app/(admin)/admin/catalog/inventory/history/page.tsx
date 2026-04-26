@@ -10,7 +10,7 @@ export const metadata = {
 
 export default async function InventoryHistoryPage({
   searchParams,
-}: AppPageProps<{}, InventoryHistoryPageSearchParams>) {
+}: AppPageProps<unknown, InventoryHistoryPageSearchParams>) {
   const query = await searchParams;
 
   return (

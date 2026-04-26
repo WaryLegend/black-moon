@@ -54,7 +54,7 @@ function GroupRow({ group, isSelected, onSelect }: GroupRowProps) {
           alt={`image of ${name}`}
           width={56}
           height={40}
-          className="block h-10 w-14 rounded-sm object-cover"
+          className="from-primary-200 to-primary-100 block h-10 w-14 rounded-sm bg-gradient-to-tr object-cover"
         />
       ) : (
         <div className="from-primary-200 to-primary-100 h-10 w-14 rounded-sm bg-gradient-to-tr" />

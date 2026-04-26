@@ -13,7 +13,7 @@ type UserSignupAppPageProps = {
 
 export default async function UserSignupPage({
   searchParams,
-}: AppPageProps<{}, UserSignupAppPageProps>) {
+}: AppPageProps<unknown, UserSignupAppPageProps>) {
   const { returnUrl } = await searchParams;
 
   return (

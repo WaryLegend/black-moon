@@ -9,7 +9,7 @@ export const metadata = {
 
 export default async function UsersPage({
   searchParams,
-}: AppPageProps<{}, UsersPageSearchParams>) {
+}: AppPageProps<unknown, UsersPageSearchParams>) {
   const query = await searchParams;
   return (
     <>

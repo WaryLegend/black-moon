@@ -1,6 +1,9 @@
 import Image from "next/image";
 import test_img from "@/public/t-shirt.jpg";
 
+/**
+ * @param {{ suggestions?: string[] }} props
+ */
 function SuggestionList({ suggestions = [] }) {
   return (
     <>

@@ -5,7 +5,7 @@ import { joinApiPath } from "@/lib/constants/api";
 
 const USERS_BASE_PATH = joinApiPath("/users");
 
-export interface UpdateProfilePayload extends Partial<ProfileDetails> {}
+export type UpdateProfilePayload = Partial<ProfileDetails>;
 
 const normalizeApiResponse = <T>(
   payload: ApiResponse<T> | T,

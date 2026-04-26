@@ -12,7 +12,7 @@ type ForgotPasswordQuery = {
 
 export default async function ForgotPasswordPage({
   searchParams,
-}: AppPageProps<{}, ForgotPasswordQuery>) {
+}: AppPageProps<unknown, ForgotPasswordQuery>) {
   const { returnUrl } = await searchParams;
 
   return (

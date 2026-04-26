@@ -9,7 +9,7 @@ export const metadata = {
 
 export default async function CategoriesPage({
   searchParams,
-}: AppPageProps<{}, CategoriesPageSearchParams>) {
+}: AppPageProps<unknown, CategoriesPageSearchParams>) {
   const query = await searchParams;
 
   return (

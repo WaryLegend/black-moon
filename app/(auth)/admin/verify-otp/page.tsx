@@ -11,7 +11,7 @@ type VerifyOtpQuery = {
 
 export default async function VerifyOtpPage({
   searchParams,
-}: AppPageProps<{}, VerifyOtpQuery>) {
+}: AppPageProps<unknown, VerifyOtpQuery>) {
   const { returnUrl } = await searchParams;
 
   return (

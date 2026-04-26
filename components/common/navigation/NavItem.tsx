@@ -31,7 +31,7 @@ function NavItem({ link }: { link: NavLink }) {
         prefetch={true}
       >
         <span
-          className={`group-hover:text-accent-700 transition-all${
+          className={`group-hover:text-accent-700 inline-block text-sm transition-all sm:text-lg ${
             isActive ? "" : "hover:scale-105"
           }`}
         >

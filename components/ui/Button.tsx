@@ -68,7 +68,7 @@ export default function Button({
   return (
     <button
       className={cn(
-        `disabled:text-primary-500 disabled:border-primary-300 disabled:bg-primary-200 transition-all duration-200 ${sizeClasses[defaultSize]} ${variantClasses[defaultVariant]}`,
+        `disabled:text-primary-500 disabled:border-primary-300 disabled:bg-primary-200 transition-all duration-200 not-disabled:active:scale-95 ${sizeClasses[defaultSize]} ${variantClasses[defaultVariant]}`,
         className,
       )}
       {...props}

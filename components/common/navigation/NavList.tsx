@@ -1,19 +1,22 @@
-"use client";
-
-import { grouplinks } from "@/utils/constants";
 import NavItem from "@/common/navigation/NavItem";
-import { motion } from "framer-motion";
+import { getPublicTargetGroups } from "@/services/homepage.api";
 
-function NavList() {
+async function NavList() {
+  const groups = await getPublicTargetGroups();
+
+  if (!groups.length) {
+    return null;
+  }
+
   return (
-    <motion.ul
-      layout
-      className="flex items-center justify-evenly md:justify-normal md:gap-8 lg:gap-15"
-    >
-      {grouplinks.map((link) => (
-        <NavItem key={link.href} link={link} />
+    <ul className="flex items-center justify-evenly md:justify-normal md:gap-8 lg:gap-15">
+      {groups.map((group) => (
+        <NavItem
+          key={group.slug}
+          link={{ href: `/${group.slug}`, label: group.name }}
+        />
       ))}
-    </motion.ul>
+    </ul>
   );
 }
 

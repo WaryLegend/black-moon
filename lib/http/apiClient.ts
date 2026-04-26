@@ -134,6 +134,16 @@ export function createApiClient(): AxiosInstance {
     async (error) => {
       const originalRequest = error.config;
 
+      if (!error.response) {
+        // Không có response <=> Server không phản hồi (AggregateError/Network Error)
+        return Promise.reject({
+          isNetworkError: true,
+          type: "NETWORK_ERROR",
+          statusCode: 503,
+          message: "Server không phản hồi hoặc mất kết nối",
+        });
+      }
+
       if (error.response?.status !== 401 || originalRequest._retry) {
         return Promise.reject(error);
       }

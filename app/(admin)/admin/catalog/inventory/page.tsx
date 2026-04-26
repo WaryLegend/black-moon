@@ -11,7 +11,7 @@ export const metadata = {
 
 export default async function InventoryPage({
   searchParams,
-}: AppPageProps<{}, ProductVariantsPageSearchParams>) {
+}: AppPageProps<unknown, ProductVariantsPageSearchParams>) {
   const query = await searchParams;
 
   return (

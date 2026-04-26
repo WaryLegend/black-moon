@@ -25,7 +25,7 @@ export default async function RootLayout({
   return (
     <html lang="vi">
       <body
-        className={`${josefin.className} text-primary-900 bg-primary-50 antialiased`}
+        className={`${josefin.className} text-primary-900 bg-primary-50 h-screen antialiased`}
       >
         <ThemeInitializer />
         <HydrateToken />

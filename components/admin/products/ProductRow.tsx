@@ -57,7 +57,7 @@ function ProductRow({ product, isSelected, onSelect }: ProductRowProps) {
           alt={`image of ${product.name}`}
           width={56}
           height={40}
-          className="block h-10 w-14 rounded-sm object-cover"
+          className="from-primary-200 to-primary-100 block h-10 w-14 rounded-sm bg-gradient-to-tr object-cover"
         />
       ) : (
         <div className="from-primary-200 to-primary-100 h-10 w-14 rounded-sm bg-gradient-to-tr" />
@@ -89,7 +89,10 @@ function ProductRow({ product, isSelected, onSelect }: ProductRowProps) {
                   </Modal.Open>
                 </Menus.List>
                 <Modal.Window name="edit">
-                  <EditProductForm productId={product.id} productSummary={product} />
+                  <EditProductForm
+                    productId={product.id}
+                    productSummary={product}
+                  />
                 </Modal.Window>
               </Menus.Menu>
             </Modal>

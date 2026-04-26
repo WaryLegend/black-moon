@@ -2,15 +2,16 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useMenuStore } from "@/contexts/HomeMenuStore";
-import { usePathname } from "next/navigation";
 
-function HomePanel({ panels }) {
-  const pathname = usePathname();
+type HomePanelProps = {
+  children?: React.ReactNode;
+};
+
+function HomePanel({ children }: HomePanelProps) {
   const { isOpen, closeMenu } = useMenuStore();
 
   return (
     <div className="pointer-events-none absolute top-0 right-0 left-0 z-5 h-screen">
-      {/* Overlay */}
       <motion.div
         key="overlay"
         className="pointer-events-auto inset-0 h-full backdrop-blur-sm"
@@ -21,7 +22,6 @@ function HomePanel({ panels }) {
         style={{ pointerEvents: isOpen ? "auto" : "none" }}
       />
 
-      {/* Panel */}
       <motion.div
         key="panel"
         initial={false}
@@ -38,20 +38,19 @@ function HomePanel({ panels }) {
         }}
         className="bg-primary-100/95 pointer-events-auto absolute top-0 right-0 left-0 z-10 flex h-4/5 justify-center rounded-b-sm py-10 pt-30 shadow-lg md:pt-20"
       >
-        {/* Fade animation for content */}
         <div className="w-full overflow-y-auto px-10">
           <AnimatePresence mode="wait">
-            {isOpen && (
+            {isOpen && children ? (
               <motion.div
-                key={pathname}
+                key="group-content"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                {panels[pathname]}
+                {children}
               </motion.div>
-            )}
+            ) : null}
           </AnimatePresence>
         </div>
       </motion.div>

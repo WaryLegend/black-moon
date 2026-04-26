@@ -14,7 +14,7 @@ type UserLoginQuery = {
 
 export default async function UserLoginPage({
   searchParams,
-}: AppPageProps<{}, UserLoginQuery>) {
+}: AppPageProps<unknown, UserLoginQuery>) {
   const { returnUrl } = await searchParams;
 
   return (

@@ -1,4 +1,4 @@
-export type AppPageProps<P = any, S = any> = {
+export type AppPageProps<P = unknown, S = unknown> = {
   params: Promise<P>;
   searchParams: Promise<S>;
 };

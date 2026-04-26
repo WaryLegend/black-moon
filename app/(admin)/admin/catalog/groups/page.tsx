@@ -9,7 +9,7 @@ export const metadata = {
 
 export default async function GroupsPage({
   searchParams,
-}: AppPageProps<{}, GroupsPageSearchParams>) {
+}: AppPageProps<unknown, GroupsPageSearchParams>) {
   const query = await searchParams;
   return (
     <>

@@ -6,11 +6,6 @@ export async function middleware(request: NextRequest) {
   const url = request.nextUrl;
   const pathname = url.pathname;
 
-  // ---------- NON-AUTH ----------
-  if (["/men", "/women", "/kids"].includes(pathname)) {
-    return NextResponse.rewrite(new URL("/", request.url));
-  }
-
   // ---------- TOKEN ----------
   const token = request.cookies.get("access_token")?.value;
   const refreshToken = request.cookies.get("refresh_token")?.value;
@@ -75,13 +70,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/admin/:path*",
-    "/user/:path*",
-    "/profile/:path*",
-    "/checkout",
-    "/men",
-    "/kids",
-    "/women",
-  ],
+  matcher: ["/admin/:path*", "/user/:path*", "/profile/:path*", "/checkout"],
 };
