@@ -41,10 +41,10 @@ export default async function HomeLayout({
   params: Promise<{ group?: string[] }>;
   children: React.ReactNode;
 }) {
-  const { group } = await params;
+  const { group: groupSlug } = await params;
   const groups = await getPublicTargetGroups();
   const sliders = groups.map((group) => group.slug);
-  const initialIndex = sliders.findIndex((slug) => slug === group?.[0]);
+  const initialIndex = sliders.findIndex((slug) => slug === groupSlug?.[0]);
 
   return (
     <div className="bg-primary-100 relative flex min-h-screen flex-col">

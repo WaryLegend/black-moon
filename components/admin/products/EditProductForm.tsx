@@ -70,21 +70,29 @@ export default function EditProductForm({
   // Ưu tiên dữ liệu chi tiết từ getById; fallback tạm bằng summary để modal mở mượt,
   // không bị "trống" trong lúc chờ fetch chi tiết.
   const productToEdit = fullProduct ?? productSummary;
-  const fallbackProduct =
-    productToEdit ??
-    ({
-      id: productId,
-      name: "",
-      slug: "",
-      baseSku: "",
-      category: { id: 0, name: "" },
-      images: [],
-      descriptions: [],
-      createdAt: "",
-      updatedAt: "",
-    } as ProductSummary);
+  const fallbackProduct = useMemo(
+    () =>
+      productToEdit ??
+      ({
+        id: productId,
+        name: "",
+        slug: "",
+        baseSku: "",
+        category: { id: 0, name: "" },
+        images: [],
+        descriptions: [],
+        createdAt: "",
+        updatedAt: "",
+      } as ProductSummary),
+    [productId, productToEdit],
+  );
 
-  const [images, setImages] = useState<DragAndDropImgDraft[]>(
+  const initialImageKeys = useMemo(
+    () => mapExistingImages(fallbackProduct).map((image) => image.localId),
+    [fallbackProduct],
+  );
+
+  const [images, setImages] = useState<DragAndDropImgDraft[]>(() =>
     mapExistingImages(fallbackProduct),
   );
   const imagesRef = useRef<DragAndDropImgDraft[]>(images);
@@ -137,12 +145,9 @@ export default function EditProductForm({
   }, []);
 
   const hasImageChanges = useMemo(() => {
-    const initialKeys = mapExistingImages(fallbackProduct).map(
-      (image) => image.localId,
-    );
     const currentKeys = images.map((image) => image.localId);
-    return initialKeys.join(",") !== currentKeys.join(",");
-  }, [fallbackProduct, images]);
+    return initialImageKeys.join(",") !== currentKeys.join(",");
+  }, [images, initialImageKeys]);
 
   const onSubmit = (values: ProductEditValues) => {
     const imageIdsInOrder = images

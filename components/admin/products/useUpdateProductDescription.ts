@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 
 import { productsApi } from "@/services/products.api";
 import type { UpdateProductDescriptionDto } from "@/types/products";
+import { resolveToastErrorMessage } from "@/lib/http/errorMessages";
 
 type UpdateProductDescriptionVariables = {
   productId: number;
@@ -16,7 +17,7 @@ export function useUpdateProductDescription() {
 
   return useMutation<
     { success: boolean },
-    any,
+    unknown,
     UpdateProductDescriptionVariables
   >({
     mutationKey: ["products", "description", "update"],
@@ -27,12 +28,8 @@ export function useUpdateProductDescription() {
         queryKey: ["products", "id", variables.productId],
       });
     },
-    onError: (error: any) => {
-      const message =
-        error?.response?.data?.message ??
-        error?.message ??
-        "Không thể lưu mô tả";
-      toast.error(message);
+    onError: (error) => {
+      toast.error(resolveToastErrorMessage(error, "Không thể lưu mô tả"));
     },
   });
 }

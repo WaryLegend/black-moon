@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 
 import { categoriesApi } from "@/services/categories.api";
 import type { CategorySummary, CreateCategoryDto } from "@/types/categories";
+import { resolveToastErrorMessage } from "@/lib/http/errorMessages";
 
 type CreateCategoryVariables = {
   payload: CreateCategoryDto;
@@ -14,7 +15,7 @@ type CreateCategoryVariables = {
 export function useCreateCategory() {
   const queryClient = useQueryClient();
 
-  return useMutation<CategorySummary, any, CreateCategoryVariables>({
+  return useMutation<CategorySummary, unknown, CreateCategoryVariables>({
     mutationKey: ["categories", "create"],
     mutationFn: ({ payload, imageFile }) =>
       categoriesApi.create(payload, imageFile),
@@ -22,12 +23,8 @@ export function useCreateCategory() {
       toast.success("Tạo danh mục thành công");
       queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
-    onError: (error: any) => {
-      const message =
-        error?.response?.data?.message ??
-        error?.message ??
-        "Không thể tạo danh mục";
-      toast.error(message);
+    onError: (error) => {
+      toast.error(resolveToastErrorMessage(error, "Không thể tạo danh mục"));
     },
   });
 }

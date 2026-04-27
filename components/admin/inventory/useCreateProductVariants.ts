@@ -8,6 +8,7 @@ import type {
   CreateProductVariantsResponse,
   CreateVariantMatrixItem,
 } from "@/types/products";
+import { resolveToastErrorMessage } from "@/lib/http/errorMessages";
 
 type CreateProductVariantsVariables = {
   productId: number;
@@ -19,7 +20,7 @@ export function useCreateProductVariants() {
 
   return useMutation<
     CreateProductVariantsResponse,
-    any,
+    unknown,
     CreateProductVariantsVariables
   >({
     mutationKey: ["product-variants", "create"],
@@ -47,12 +48,10 @@ export function useCreateProductVariants() {
       queryClient.invalidateQueries({ queryKey: ["product-variants"] });
       queryClient.invalidateQueries({ queryKey: ["products"] });
     },
-    onError: (error: any) => {
-      const message =
-        error?.response?.data?.message ??
-        error?.message ??
-        "Tạo biến thể mới không thành công";
-      toast.error(message);
+    onError: (error) => {
+      toast.error(
+        resolveToastErrorMessage(error, "Tạo biến thể mới không thành công"),
+      );
     },
   });
 }

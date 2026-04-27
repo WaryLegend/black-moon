@@ -1,13 +1,17 @@
 import axios from "axios";
+import type { AxiosError } from "axios";
 
 const NETWORK_ERROR_MESSAGE =
   "Không thể kết nối máy chủ lúc này. Vui lòng kiểm tra mạng và thử lại.";
 const SYSTEM_ERROR_MESSAGE = "Hệ thống đang bận. Vui lòng thử lại sau ít phút.";
 
-type ApiErrorPayload = {
+export type ApiErrorPayload = {
   message?: unknown;
   error?: unknown;
 };
+
+export type ApiErrorData = ApiErrorPayload | string;
+export type ApiError = AxiosError<ApiErrorData>;
 
 export function getServerErrorMessage(error: unknown): string | null {
   if (!axios.isAxiosError(error)) {

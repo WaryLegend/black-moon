@@ -4,11 +4,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 import { productsApi } from "@/services/products.api";
+import { resolveToastErrorMessage } from "@/lib/http/errorMessages";
 
 export function useBulkRestoreProductVariants() {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<{ updatedCount: number }, unknown, number[]>({
     mutationKey: ["product-variants", "bulk-restore"],
     mutationFn: (ids: number[]) => productsApi.bulkRestoreVariants({ ids }),
     onSuccess: (data) => {
@@ -16,12 +17,10 @@ export function useBulkRestoreProductVariants() {
       queryClient.invalidateQueries({ queryKey: ["product-variants"] });
       queryClient.invalidateQueries({ queryKey: ["products"] });
     },
-    onError: (error: any) => {
-      const message =
-        error?.response?.data?.message ??
-        error?.message ??
-        "Không thể khôi phục biến thể";
-      toast.error(message);
+    onError: (error) => {
+      toast.error(
+        resolveToastErrorMessage(error, "Không thể khôi phục biến thể"),
+      );
     },
   });
 }

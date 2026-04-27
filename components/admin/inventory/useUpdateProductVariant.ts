@@ -8,6 +8,7 @@ import type {
   ProductVariantSummary,
   UpdateProductVariantDto,
 } from "@/types/products";
+import { resolveToastErrorMessage } from "@/lib/http/errorMessages";
 
 type UpdateProductVariantVariables = {
   variantId: number;
@@ -18,25 +19,25 @@ type UpdateProductVariantVariables = {
 export function useUpdateProductVariant() {
   const queryClient = useQueryClient();
 
-  return useMutation<ProductVariantSummary, any, UpdateProductVariantVariables>(
-    {
-      mutationKey: ["product-variants", "update"],
-      mutationFn: ({ variantId, payload, imageFile }) =>
-        productsApi.updateVariant(variantId, payload, imageFile),
-      onSuccess: (_, variables) => {
-        toast.success("Cập nhật biến thể thành công");
-        queryClient.invalidateQueries({ queryKey: ["product-variants"] });
-        if (variables.payload.quantity !== undefined) {
-          queryClient.invalidateQueries({ queryKey: ["inventory-history"] });
-        }
-      },
-      onError: (error: any) => {
-        const message =
-          error?.response?.data?.message ??
-          error?.message ??
-          "Cập nhật biến thể thất bại";
-        toast.error(message);
-      },
+  return useMutation<
+    ProductVariantSummary,
+    unknown,
+    UpdateProductVariantVariables
+  >({
+    mutationKey: ["product-variants", "update"],
+    mutationFn: ({ variantId, payload, imageFile }) =>
+      productsApi.updateVariant(variantId, payload, imageFile),
+    onSuccess: (_, variables) => {
+      toast.success("Cập nhật biến thể thành công");
+      queryClient.invalidateQueries({ queryKey: ["product-variants"] });
+      if (variables.payload.quantity !== undefined) {
+        queryClient.invalidateQueries({ queryKey: ["inventory-history"] });
+      }
     },
-  );
+    onError: (error) => {
+      toast.error(
+        resolveToastErrorMessage(error, "Cập nhật biến thể thất bại"),
+      );
+    },
+  });
 }

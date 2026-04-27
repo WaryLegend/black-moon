@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useId, useTransition } from "react";
+import { useEffect, useRef, useState, useId, useTransition } from "react";
 import type { KeyboardEvent } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { HiMagnifyingGlass, HiXMark } from "react-icons/hi2";
@@ -17,18 +17,26 @@ function SearchFilter({
   placeholder = "Tìm kiếm...",
   className = "",
 }: SearchFilterProps) {
-  const id = useId(); // Sửa lỗi thiếu ID cho input
+  const id = useId();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [isPending, startTransition] = useTransition(); // Giúp UI mượt hơn khi URL thay đổi
+  const [isPending, startTransition] = useTransition();
 
   const [value, setValue] = useState(searchParams.get(searchField) ?? "");
 
-  // Đồng bộ hóa value khi URL thay đổi từ bên ngoài (ví dụ: nhấn nút Back)
+  // Lưu giá trị tìm kiếm cuối cùng từ URL (không phải từ input).
+  // Dùng ref thay vì state để tránh trigger re-render không cần thiết.
+  const prevSearchRef = useRef(searchParams.get(searchField) ?? "");
+
+  // Đồng bộ input khi URL thay đổi từ bên ngoài (ví dụ: nhấn nút Back/Forward).
+  // So sánh với ref thay vì value để tránh vòng lặp vô tận:
+  //   value thay đổi → effect chạy → setValue reset value → inf loop...
   useEffect(() => {
     const currentSearch = searchParams.get(searchField) ?? "";
-    if (currentSearch !== value) {
+
+    if (currentSearch !== prevSearchRef.current) {
+      prevSearchRef.current = currentSearch;
       setValue(currentSearch);
     }
   }, [searchParams, searchField]);
@@ -43,8 +51,13 @@ function SearchFilter({
       params.delete(searchField);
     }
 
+    // Reset về trang 1 khi thay đổi từ khóa tìm kiếm
     if (params.get("page")) params.set("page", "1");
 
+    // Cập nhật ref trước khi navigate để effect không ghi đè lại giá trị vừa set
+    prevSearchRef.current = normalized;
+
+    // startTransition giúp UI không bị block trong khi URL đang được cập nhật
     startTransition(() => {
       router.replace(`${pathname}?${params.toString()}`, { scroll: false });
     });
@@ -63,6 +76,7 @@ function SearchFilter({
 
   return (
     <div className="group relative flex items-center">
+      {/* Icon kính lúp — đổi màu khi đang pending*/}
       <div className="pointer-events-none absolute left-3 flex items-center">
         <HiMagnifyingGlass
           className={`h-5 w-5 transition-colors ${isPending ? "text-accent-300" : "text-accent-500"}`}
@@ -82,6 +96,7 @@ function SearchFilter({
         )}
       />
 
+      {/* Nút xóa — chỉ hiển thị khi có nội dung trong ô tìm kiếm */}
       {value && (
         <button
           type="button"

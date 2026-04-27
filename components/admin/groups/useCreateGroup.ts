@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 
 import { targetGroupsApi } from "@/services/target-groups.api";
 import type { CreateTargetGroupDto, TargetGroupSummary } from "@/types/groups";
+import { resolveToastErrorMessage } from "@/lib/http/errorMessages";
 
 type CreateGroupVariables = {
   payload: CreateTargetGroupDto;
@@ -14,7 +15,7 @@ type CreateGroupVariables = {
 export function useCreateGroup() {
   const queryClient = useQueryClient();
 
-  return useMutation<TargetGroupSummary, any, CreateGroupVariables>({
+  return useMutation<TargetGroupSummary, unknown, CreateGroupVariables>({
     mutationKey: ["target-groups", "create"],
     mutationFn: ({ payload, imageFile }) =>
       targetGroupsApi.create(payload, imageFile),
@@ -22,12 +23,8 @@ export function useCreateGroup() {
       toast.success("Tạo nhóm thành công");
       queryClient.invalidateQueries({ queryKey: ["target-groups"] });
     },
-    onError: (error: any) => {
-      const message =
-        error?.response?.data?.message ??
-        error?.message ??
-        "Không thể tạo nhóm";
-      toast.error(message);
+    onError: (error) => {
+      toast.error(resolveToastErrorMessage(error, "Không thể tạo nhóm"));
     },
   });
 }

@@ -192,7 +192,7 @@ export function useDescriptionEditFlow({
       return {
         descriptionIdsInOrder,
         newDescriptions: newDescriptionsWithOrder.map(
-          ({ order, ...rest }) => rest,
+          ({ order: _order, ...rest }) => rest,
         ),
         newDescriptionOrders: newDescriptionsWithOrder.map(
           ({ order }) => order,

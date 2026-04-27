@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 
 import { productsApi } from "@/services/products.api";
 import type { ProductSummary, UpdateProductDto } from "@/types/products";
+import { resolveToastErrorMessage } from "@/lib/http/errorMessages";
 
 type UpdateProductVariables = {
   productId: number;
@@ -15,7 +16,7 @@ type UpdateProductVariables = {
 export function useUpdateProduct() {
   const queryClient = useQueryClient();
 
-  return useMutation<ProductSummary, any, UpdateProductVariables>({
+  return useMutation<ProductSummary, unknown, UpdateProductVariables>({
     mutationKey: ["products", "update"],
     mutationFn: ({ productId, payload, imageFiles }) =>
       productsApi.update(productId, payload, imageFiles),
@@ -23,12 +24,10 @@ export function useUpdateProduct() {
       toast.success("Cập nhật sản phẩm thành công");
       queryClient.invalidateQueries({ queryKey: ["products"] });
     },
-    onError: (error: any) => {
-      const message =
-        error?.response?.data?.message ??
-        error?.message ??
-        "Không thể cập nhật sản phẩm";
-      toast.error(message);
+    onError: (error) => {
+      toast.error(
+        resolveToastErrorMessage(error, "Không thể cập nhật sản phẩm"),
+      );
     },
   });
 }

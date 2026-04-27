@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 
 import { targetGroupsApi } from "@/services/target-groups.api";
 import type { TargetGroupSummary, UpdateTargetGroupDto } from "@/types/groups";
+import { resolveToastErrorMessage } from "@/lib/http/errorMessages";
 
 type UpdateGroupVariables = {
   groupId: number;
@@ -15,7 +16,7 @@ type UpdateGroupVariables = {
 export function useUpdateGroup() {
   const queryClient = useQueryClient();
 
-  return useMutation<TargetGroupSummary, any, UpdateGroupVariables>({
+  return useMutation<TargetGroupSummary, unknown, UpdateGroupVariables>({
     mutationKey: ["target-groups", "update"],
     mutationFn: ({ groupId, payload, imageFile }) =>
       targetGroupsApi.update(groupId, payload, imageFile),
@@ -23,12 +24,8 @@ export function useUpdateGroup() {
       toast.success("Cập nhật nhóm thành công");
       queryClient.invalidateQueries({ queryKey: ["target-groups"] });
     },
-    onError: (error: any) => {
-      const message =
-        error?.response?.data?.message ??
-        error?.message ??
-        "Không thể cập nhật nhóm";
-      toast.error(message);
+    onError: (error) => {
+      toast.error(resolveToastErrorMessage(error, "Không thể cập nhật nhóm"));
     },
   });
 }

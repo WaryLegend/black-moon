@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 
 import { productsApi } from "@/services/products.api";
 import type { CreateProductDto, CreateProductResponse } from "@/types/products";
+import { resolveToastErrorMessage } from "@/lib/http/errorMessages";
 
 type CreateProductVariables = {
   payload: CreateProductDto;
@@ -14,7 +15,7 @@ type CreateProductVariables = {
 export function useCreateProduct() {
   const queryClient = useQueryClient();
 
-  return useMutation<CreateProductResponse, any, CreateProductVariables>({
+  return useMutation<CreateProductResponse, unknown, CreateProductVariables>({
     mutationKey: ["products", "create"],
     mutationFn: ({ payload, imageFiles }) =>
       productsApi.create(payload, imageFiles),
@@ -29,12 +30,8 @@ export function useCreateProduct() {
 
       queryClient.invalidateQueries({ queryKey: ["products"] });
     },
-    onError: (error: any) => {
-      const message =
-        error?.response?.data?.message ??
-        error?.message ??
-        "Không thể tạo sản phẩm";
-      toast.error(message);
+    onError: (error) => {
+      toast.error(resolveToastErrorMessage(error, "Không thể tạo sản phẩm"));
     },
   });
 }
