@@ -3,19 +3,9 @@
 import Filter from "@/components/filters/Filter";
 import SearchFilter from "@/components/filters/SearchFilter";
 import SortBy from "@/components/filters/SortBy";
-import { COLOR_VALUES, SIZE_VALUES } from "@/utils/constants";
+import { COLOR_OPTIONS, SIZE_OPTIONS } from "@/utils/constants";
 
 import { loadProductSlugOptions } from "./useProductOptions";
-
-const COLOR_OPTIONS = COLOR_VALUES.map((color) => ({
-  value: color,
-  label: color,
-}));
-
-const SIZE_OPTIONS = SIZE_VALUES.map((size) => ({
-  value: size,
-  label: size,
-}));
 
 export default function ProductVariantTableOperations() {
   return (

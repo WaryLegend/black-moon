@@ -1,5 +1,6 @@
 "use client";
 
+import { ReactNode } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import type { FilterChangeEvent, FilterOption } from "@/types/filter";
 import Select from "./CustomSelect";
@@ -7,7 +8,7 @@ import Select from "./CustomSelect";
 type FirstChosenFilterProps = {
   options: FilterOption[];
   filterField: string;
-  label?: string;
+  label?: string | ReactNode;
   className?: string;
 };
 
@@ -15,7 +16,7 @@ type FirstChosenFilterProps = {
 function FirstChosenFilter({
   options,
   filterField,
-  label = "",
+  label,
   className = "",
 }: FirstChosenFilterProps) {
   const router = useRouter();
@@ -40,9 +41,16 @@ function FirstChosenFilter({
   return (
     <>
       <div className={`flex items-center gap-2 p-1 ${className}`}>
-        <label htmlFor={filterField} className="font-semibold">
-          {label}
-        </label>
+        {label &&
+          (typeof label === "string" ? (
+            // normal case of label
+            <label htmlFor={filterField} className="font-medium">
+              {label}
+            </label>
+          ) : (
+            // react node case
+            <>{label}</>
+          ))}
         <Select
           inputId={filterField}
           instanceId={filterField}

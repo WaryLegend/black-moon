@@ -43,7 +43,7 @@ export function getGenderLabel(gender?: keyof typeof genderLabels | null) {
 }
 
 // filter Price
-export const PRICES_RANGE = [
+export const PRICE_RANGES = [
   { label: "Tất cả giá", value: "all" },
   { label: "Dưới 199.000 VND", value: "under-199000" },
   {
@@ -128,3 +128,13 @@ export const COLOR_VALUES = [
 ] as const;
 
 export const SIZE_VALUES = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"] as const;
+
+export const COLOR_OPTIONS = COLOR_VALUES.map((color) => ({
+  value: color.toUpperCase(),
+  label: color.toLowerCase(),
+}));
+
+export const SIZE_OPTIONS = SIZE_VALUES.map((size) => ({
+  value: size.toUpperCase(),
+  label: size.toUpperCase(),
+}));

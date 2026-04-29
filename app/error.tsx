@@ -28,7 +28,7 @@ export default function Error({
 
   return (
     <div className="flex h-screen w-screen items-center justify-center">
-      <div className="from-primary-0 to-primary-200 flex flex-col items-center justify-center bg-gradient-to-br via-transparent p-10 text-center max-sm:h-screen">
+      <div className="bg-accent-50 flex flex-col items-center justify-center p-10 text-center max-sm:h-screen">
         {/* Visual Icon */}
         <div className="text-accent-600 mb-6 flex items-center justify-center">
           <TbMoonOff size={50} />

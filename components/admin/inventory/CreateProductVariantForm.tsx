@@ -10,7 +10,7 @@ import CustomSelectAsync from "@/components/filters/CustomSelectAsync";
 import Button from "@/components/ui/Button";
 import type {
   CreateVariantMatrixItem,
-  ProductSummary,
+  ProductDetailSummary,
   ProductVariantSummary,
 } from "@/types/products";
 import { useProduct } from "../products/useProduct";
@@ -21,6 +21,7 @@ import VariantMatrixBuilder, {
 import { useCreateProductVariants } from "./useCreateProductVariants";
 import { loadProductIdOptions } from "./useProductOptions";
 import Spinner from "@/components/ui/Spinner";
+import { formatCurrency } from "@/utils/currency";
 
 type FormValues = {
   productId: number | null;
@@ -61,7 +62,7 @@ export default function CreateProductVariantForm({
 
   const disabledKeys = useMemo(
     () =>
-      ((selectedProduct as ProductSummary | undefined)?.variants ?? [])
+      ((selectedProduct as ProductDetailSummary | undefined)?.variants ?? [])
         .filter(
           (variant: ProductVariantSummary) =>
             Boolean(variant.color) && Boolean(variant.size),
@@ -144,6 +145,7 @@ export default function CreateProductVariantForm({
             label="Giá mặc định"
             id="variant-base-price"
             error={errors.basePrice?.message}
+            helper={<>{formatCurrency(watch("basePrice"))}</>}
           >
             <Input
               id="variant-base-price"

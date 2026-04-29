@@ -1,5 +1,3 @@
-import { ColorsAndSizesProvider } from "@/contexts/ColorsAndSizesContext";
-import { getColors, getSizes } from "@/lib/apiSettings";
 import Header from "@/common/layout/Header";
 import LogoLink from "@/common/navigation/LogoLink";
 import User from "@/components/user-menu/User";
@@ -21,8 +19,6 @@ export default async function StoreLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [colors, sizes] = await Promise.all([getColors(), getSizes()]);
-
   return (
     <div className="bg-primary-100 relative flex min-h-screen flex-col">
       <StickyHeaderWrapper>
@@ -42,9 +38,7 @@ export default async function StoreLayout({
 
       <main className="h-full w-full">
         <div className="mx-auto max-w-[1750px] px-4 py-4 sm:px-10 sm:py-5 md:px-20 lg:px-30">
-          <ColorsAndSizesProvider value={{ colors, sizes }}>
-            {children}
-          </ColorsAndSizesProvider>
+          {children}
         </div>
       </main>
       {/* <footer>Footer</footer> */}

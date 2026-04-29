@@ -12,7 +12,7 @@ import ImagesInput, {
 } from "@/components/forms/admin/ImagesInput.tsx";
 import Input from "@/components/forms/admin/Input";
 import Button from "@/components/ui/Button";
-import type { ProductSummary } from "@/types/products";
+import type { ProductDetailSummary } from "@/types/products";
 import { useUpdateProduct } from "./useUpdateProduct";
 import { useFormDirtyStyle } from "@/components/forms/admin/useFormDirtyStyle";
 import ProductDescriptionsInput, {
@@ -25,7 +25,6 @@ import { useDescriptionEditFlow } from "./useDescriptionEditFlow";
 
 type EditProductFormProps = {
   productId: number;
-  productSummary?: ProductSummary;
   onCloseModal?: () => void;
 };
 
@@ -44,7 +43,17 @@ const normalizeString = (value?: string | null) => {
   return normalized && normalized.length ? normalized : undefined;
 };
 
-const mapToDefaultValues = (product: ProductSummary): ProductEditValues => ({
+const emptyProductDefaults: ProductEditValues = {
+  name: "",
+  slug: "",
+  baseSku: "",
+  categoryName: "",
+  descriptions: [],
+};
+
+const mapToDefaultValues = (
+  product: ProductDetailSummary,
+): ProductEditValues => ({
   name: product.name,
   slug: product.slug ?? "",
   baseSku: product.baseSku,
@@ -52,7 +61,7 @@ const mapToDefaultValues = (product: ProductSummary): ProductEditValues => ({
   descriptions: normalizeDescriptionDrafts(product.descriptions ?? []),
 });
 
-const mapExistingImages = (product: ProductSummary) =>
+const mapExistingImages = (product: ProductDetailSummary) =>
   (product.images ?? [])
     .filter((image) => Boolean(image.imageUrl))
     .map((image) =>
@@ -61,40 +70,18 @@ const mapExistingImages = (product: ProductSummary) =>
 
 export default function EditProductForm({
   productId,
-  productSummary,
   onCloseModal,
 }: EditProductFormProps) {
-  const { product: fullProduct, isPending: isLoadingProduct } =
+  const { product, isPending: isLoadingProduct } =
     useProduct(productId);
 
-  // Ưu tiên dữ liệu chi tiết từ getById; fallback tạm bằng summary để modal mở mượt,
-  // không bị "trống" trong lúc chờ fetch chi tiết.
-  const productToEdit = fullProduct ?? productSummary;
-  const fallbackProduct = useMemo(
-    () =>
-      productToEdit ??
-      ({
-        id: productId,
-        name: "",
-        slug: "",
-        baseSku: "",
-        category: { id: 0, name: "" },
-        images: [],
-        descriptions: [],
-        createdAt: "",
-        updatedAt: "",
-      } as ProductSummary),
-    [productId, productToEdit],
-  );
 
   const initialImageKeys = useMemo(
-    () => mapExistingImages(fallbackProduct).map((image) => image.localId),
-    [fallbackProduct],
+    () => (product ? mapExistingImages(product).map((image) => image.localId) : []),
+    [product],
   );
 
-  const [images, setImages] = useState<DragAndDropImgDraft[]>(() =>
-    mapExistingImages(fallbackProduct),
-  );
+  const [images, setImages] = useState<DragAndDropImgDraft[]>([]);
   const imagesRef = useRef<DragAndDropImgDraft[]>(images);
 
   const {
@@ -105,7 +92,7 @@ export default function EditProductForm({
     reset,
     formState: { errors, dirtyFields },
   } = useForm<ProductEditValues>({
-    defaultValues: mapToDefaultValues(fallbackProduct),
+    defaultValues: emptyProductDefaults,
   });
   const currentDescriptions = useWatch({ control, name: "descriptions" }) ?? [];
 
@@ -118,21 +105,21 @@ export default function EditProductForm({
     buildStructuralDescriptionPayload,
   } = useDescriptionEditFlow({
     productId,
-    productDescriptions: productToEdit?.descriptions,
+    productDescriptions: product?.descriptions,
     currentDescriptions,
     getLatestDescriptions: () => getValues("descriptions") ?? [],
   });
 
   useEffect(() => {
-    if (!productToEdit) return;
+    if (!product) return;
 
-    const nextValues = mapToDefaultValues(productToEdit);
-    const nextImages = mapExistingImages(productToEdit);
+    const nextValues = mapToDefaultValues(product);
+    const nextImages = mapExistingImages(product);
 
     setImages(nextImages);
     imagesRef.current = nextImages;
     reset(nextValues);
-  }, [productToEdit, reset]);
+  }, [product, reset]);
 
   useEffect(() => {
     imagesRef.current = images;
@@ -206,10 +193,10 @@ export default function EditProductForm({
 
   const handleCancel = () => {
     images.forEach(revokeDragAndDropImgUrl);
-    const nextImages = mapExistingImages(fallbackProduct);
+    const nextImages = product ? mapExistingImages(product) : [];
     setImages(nextImages);
     imagesRef.current = nextImages;
-    reset(mapToDefaultValues(fallbackProduct));
+    reset(product ? mapToDefaultValues(product) : emptyProductDefaults);
     onCloseModal?.();
   };
 
@@ -223,7 +210,7 @@ export default function EditProductForm({
   const canSubmitMain =
     hasBaseInfoChanges || hasImageChanges || hasStructuralDescriptionChanges;
 
-  if (!productToEdit && isLoadingProduct) {
+  if (!product && isLoadingProduct) {
     return (
       <div className="flex min-h-56 items-center justify-center px-10 py-8">
         <div className="flex items-center gap-3">

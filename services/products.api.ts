@@ -9,6 +9,7 @@ import type {
   CreateProductVariantsResponse,
   ListProductVariantsParams,
   ListProductsParams,
+  ProductDetailSummary,
   ProductSummary,
   ProductVariantSummary,
   ProductVariantsListResponse,
@@ -185,7 +186,7 @@ export const productsApi = {
   },
 
   getById(productId: number) {
-    return httpClient.get<ProductSummary>(
+    return httpClient.get<ProductDetailSummary>(
       `${PRODUCTS_BASE_PATH}/id/${productId}`,
     );
   },

@@ -1,12 +1,17 @@
 "use client";
 
+import { cn } from "@/utils/cn";
 import { useEffect, useRef } from "react";
+
+type StickyFilterWrapperProps = {
+  children: React.ReactNode;
+  className?: string;
+};
 
 export default function StickyFilterWrapper({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+  className = "",
+}: StickyFilterWrapperProps) {
   const filterRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -36,7 +41,10 @@ export default function StickyFilterWrapper({
   return (
     <div
       ref={filterRef}
-      className="data-[sticky=true]:md:bg-primary-0/90 sticky top-[calc(var(--header-height)_+_1px)] z-10 rounded-lg transition duration-200 md:size-fit md:px-2 data-[sticky=true]:md:self-center data-[sticky=true]:md:shadow-sm"
+      className={cn(
+        "data-[sticky=true]:bg-primary-0/95 sticky top-[calc(var(--header-height)_+_1px)] z-10 rounded-lg transition duration-200 data-[sticky=true]:w-full data-[sticky=true]:shadow-sm md:px-2",
+        className,
+      )}
       data-sticky="false"
     >
       {children}

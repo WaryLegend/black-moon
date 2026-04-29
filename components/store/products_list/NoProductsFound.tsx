@@ -15,9 +15,8 @@ function NoProductsFound({ hasActiveFilters }: Props) {
   if (hasActiveFilters) {
     return (
       <div className="bg-accent-50 rounded-lg p-10 text-center">
-        <p className="text-2xl leading-relaxed font-semibold">
+        <p className="text-xl leading-relaxed font-semibold">
           Không tìm thấy sản phẩm nào phù hợp với bộ lọc của bạn.
-          <br className="sm:hidden" />
         </p>
       </div>
     );
@@ -26,7 +25,7 @@ function NoProductsFound({ hasActiveFilters }: Props) {
   // Trường hợp 2: Danh mục trống từ đầu
   return (
     <div className="bg-accent-50 rounded-lg p-10 text-center">
-      <p className="text-2xl font-semibold">
+      <p className="text-xl font-semibold">
         Hiện chưa có sản phẩm nào trong mục này.{" "}
         <button
           onClick={() => router.push(activeLink || "/")}

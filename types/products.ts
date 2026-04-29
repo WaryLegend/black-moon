@@ -19,13 +19,15 @@ export type ProductVariantsPageSearchParams = {
 export type ProductCategorySummary = {
   id: number;
   name: string;
-  slug?: string;
+  slug: string;
+  isDeleted: boolean;
 };
 
 export type ProductImageSummary = {
   id: number;
   imageUrl: string | null;
-  imageName?: string | null;
+  imageName: string | null;
+  imageOrder: number | null;
 };
 
 export type ProductDescriptionSummary = {
@@ -44,14 +46,35 @@ export type ProductSummary = {
   name: string;
   slug: string;
   baseSku: string;
-  isDeleted?: boolean;
-  isFeatured?: boolean;
-  category: ProductCategorySummary;
-  descriptions?: ProductDescriptionSummary[];
-  variants?: ProductVariantSummary[];
-  images: ProductImageSummary[];
+  minPrice: number;
+  maxPrice: number;
+  isDeleted: boolean;
+  isFeatured: boolean;
   createdAt: string;
   updatedAt: string;
+  category: ProductCategorySummary | null;
+  images: ProductImageSummary[];
+  options: {
+    colors: string[];
+    sizes: string[];
+  };
+};
+
+export type ProductDetailSummary = {
+  id: number;
+  name: string;
+  slug: string;
+  baseSku: string;
+  minPrice: number;
+  maxPrice: number;
+  isDeleted: boolean;
+  isFeatured: boolean;
+  createdAt: string;
+  updatedAt: string;
+  category: ProductCategorySummary | null;
+  images: ProductImageSummary[];
+  descriptions: ProductDescriptionSummary[];
+  variants: ProductVariantSummary[];
 };
 
 export type ProductsListMeta = {
@@ -67,16 +90,24 @@ export type ProductsListResponse = {
 };
 
 export type CreateProductResponse = {
-  product: ProductSummary;
+  product: ProductDetailSummary;
   variantCreatedCount: number;
 };
 
 export type ListProductsFilters = {
   search?: string;
   categories?: string[];
+  colors?: string[];
+  sizes?: string[];
+  priceRange?: PriceRange;
 };
 
-export type ProductSortField = "createdAt" | "name";
+export type PriceRange = {
+  minPrice?: number;
+  maxPrice?: number;
+};
+
+export type ProductSortField = "createdAt" | "name" | "price";
 
 export type ProductSort = {
   field: ProductSortField;
@@ -137,23 +168,17 @@ export type BulkProductsResponse = {
 
 export type ProductVariantSummary = {
   id: number;
-  product?: {
-    id: number;
-    name: string | null;
-    slug: string;
-    isDeleted: boolean;
-  } | null;
   sku: string;
   color: string | null;
   size: string | null;
-  price: number | null;
   quantity: number | null;
+  price: number | null;
   image: {
     id: number;
     imageUrl: string | null;
     imageName: string | null;
   } | null;
-  isDeleted?: boolean;
+  isDeleted: boolean;
 };
 
 export type CreateVariantMatrixItem = {

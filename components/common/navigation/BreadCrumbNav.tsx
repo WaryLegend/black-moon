@@ -1,70 +1,43 @@
 import Link from "next/link";
 import { IoIosArrowBack } from "react-icons/io";
-import { GROUPS } from "@/utils/constants";
 import { capitalizeFirst } from "@/utils/capitalize";
-import { notFound } from "next/navigation";
+import type { BreadCrumbPaths } from "@/types/breadcrumb";
 
-type Category =
-  | string
-  | {
-      id: string;
-      name?: string;
-    };
-type BreadCrumbPaths = {
-  group: string;
-  category?: Category;
-  product?: string;
-};
-type GroupKey = keyof typeof GROUPS;
+function BreadCrumbNav({ paths }: { paths?: BreadCrumbPaths }) {
+  if (!paths?.group || !paths.category) return null;
 
-function BreadCrumbNav({ paths }: { paths: BreadCrumbPaths }) {
   const { group, category, product } = paths;
-
-  // Validate group
-  if (!Object.keys(GROUPS).includes(group)) {
-    notFound();
-  }
-
-  const groupKey = group as GroupKey;
-  const { label: groupLabel, href: groupHref } = GROUPS[groupKey];
-
-  const categoryName =
-    typeof category === "string"
-      ? category
-      : (category?.name ?? category?.id ?? "");
+  const groupHref = `/${group.slug}`;
+  const categoryHref = `${groupHref}/${category.slug}`;
 
   return (
-    <h1 className="inline-flex text-xl font-semibold md:text-2xl lg:text-3xl">
+    <h1 className="inline-flex text-xl font-semibold md:text-2xl">
       <Link
         href={groupHref}
         className="hover:text-accent-700 text-accent-600 flex hover:underline"
       >
         <IoIosArrowBack />
-        {capitalizeFirst(groupLabel)}
+        {capitalizeFirst(group.name)}
       </Link>
 
-      {category && (
-        <>
-          <span className="mx-2 font-light">|</span>
-          {product ? (
-            <Link
-              href={`/${groupKey}/${typeof category === "string" ? category : category.id}`}
-              className="hover:text-accent-700 text-accent-600 hover:underline"
-            >
-              {/* Replace with actual category name if available */}
-              {capitalizeFirst(categoryName)}
-            </Link>
-          ) : (
-            <span>{capitalizeFirst(categoryName)}</span>
-          )}
-        </>
-      )}
+      <>
+        <span className="mx-2 font-light">|</span>
+        {product ? (
+          <Link
+            href={categoryHref}
+            className="hover:text-accent-700 text-accent-600 hover:underline"
+          >
+            {capitalizeFirst(category.name)}
+          </Link>
+        ) : (
+          <span>{capitalizeFirst(category.name)}</span>
+        )}
+      </>
 
       {product && (
         <>
           <span className="mx-2 font-light">|</span>
-          {/* Replace with actual product name if available */}
-          <span>{capitalizeFirst(product)}</span>
+          <span>{capitalizeFirst(product.name)}</span>
         </>
       )}
     </h1>

@@ -1,13 +1,14 @@
+import { ReactNode } from "react";
 import { SortOption } from "@/types/sort";
 import FirstChosenFilter from "./FirstChosenFilter";
 
 type SortByProps = {
   options: SortOption[];
-  label?: string;
+  label?: string | ReactNode;
   className?: string;
 };
 
-// SortBy reuses FirstChosenFilter with a hard-coded "sortBy" field for consistency.
+// SortBy reuses FirstChosenFilter with "sortBy" field for consistency.
 function SortBy({ options, label = "Sort by", className = "" }: SortByProps) {
   return (
     <FirstChosenFilter

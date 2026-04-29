@@ -29,7 +29,7 @@ export default function NotFound() {
         className="border-accent-500 text-accent-500 hover:bg-accent-100 rounded-lg border px-6 py-3 text-lg transition-colors duration-200"
         replace={true}
       >
-        Back to Homepage
+        Back to Home
       </Link>
     </div>
   );
