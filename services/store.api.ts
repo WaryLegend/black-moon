@@ -31,7 +31,7 @@ export const getPublicProductBySlug = cache(
   async (slug: string): Promise<ProductDetailSummary | null> => {
     try {
       const url = `${PRODUCTS_BASE_PATH}/${encodeURIComponent(slug)}`;
-      return await apiFetch<ProductDetailSummary>(url, { revalidate: 60 });
+      return await apiFetch<ProductDetailSummary>(url, { revalidate: 0 });
     } catch (error) {
       console.error("Error fetching product by slug:", error);
       return null;

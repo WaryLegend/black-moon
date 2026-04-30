@@ -1,12 +1,22 @@
 import QuantityInput from "./QuantityInput";
-import ProductAvgRates from "./ProductAvgRates";
-import ColorAndSizeRadio from "./ColorAndSizeRadio";
+// import ProductAvgRates from "./ProductAvgRates";
+import ColorAndSizeRadio from "./ColorAndSizeOption";
 import AddToWishListWrapper from "./AddToWishListWrapper";
 import ProductCost from "./ProductCost";
 import AddToCart from "./AddToCart";
+import { ProductDetailSummary } from "@/types/products";
 
-export default function ProductMenu({ product }) {
-  const { name: productName, reviews } = product;
+export default function ProductMenu({
+  product,
+}: {
+  product: ProductDetailSummary;
+}) {
+  const { name: productName } = product;
+  // const reviews = (
+  //   product as ProductDetailSummary & {
+  //     reviews?: { avgRating?: number; total?: number };
+  //   }
+  // ).reviews;
 
   return (
     <aside>
@@ -24,12 +34,12 @@ export default function ProductMenu({ product }) {
             {/* Price section */}
             <ProductCost />
             {/* avg product rates */}
-            <div className="ml-auto">
+            {/* <div className="ml-auto">
               <ProductAvgRates
                 avgRating={reviews?.avgRating}
                 totalReviews={reviews?.total}
               />
-            </div>
+            </div> */}
           </section>
           {/* set quantity section */}
           <QuantityInput />

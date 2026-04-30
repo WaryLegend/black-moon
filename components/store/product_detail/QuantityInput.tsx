@@ -2,7 +2,6 @@
 
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { useProductStore } from "@/contexts/ProductStore";
-import { useSettingStore } from "@/contexts/SettingStore";
 import { useRef } from "react";
 import Button from "@/components/ui/Button";
 import Spinner from "@/components/ui/Spinner";
@@ -10,11 +9,9 @@ import Spinner from "@/components/ui/Spinner";
 function QuantityInput({ defaultValue = 1 }) {
   const quantity = useProductStore((p) => p.quantity);
   const setQuantity = useProductStore((p) => p.setQuantity);
-  const inStock = useProductStore((p) => p.selectedVariant()?.stock);
-  const limit = useSettingStore((s) => s.settings?.order_limit);
+  const inStock = useProductStore((p) => p.selectedVariant()?.quantity);
 
-  const prevDefault = useRef(null);
-  const prevMaxAllowed = useRef(null);
+  const prevDefault = useRef<number | null>(null);
 
   if (defaultValue !== prevDefault.current) {
     setQuantity(defaultValue);
@@ -27,13 +24,13 @@ function QuantityInput({ defaultValue = 1 }) {
     );
 
   // check if instock is smaller than limit
-  const maxAllowed = Math.min(inStock, limit);
+  const maxAllowed = Math.min(inStock, 10);
 
   return (
     <div>
       {inStock > 0 ? (
         <>
-          <div className="bg-primary-100 inline-flex items-center rounded-full px-4 py-2">
+          <div className="bg-primary-100 inline-flex items-center rounded-full px-2 py-1 md:px-4 md:py-2">
             <Button
               icon
               disabled={quantity <= 1}

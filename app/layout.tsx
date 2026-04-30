@@ -7,11 +7,9 @@ const josefin = Josefin_Sans({
 
 import "@/styles/globals.css";
 import { Toaster } from "react-hot-toast";
-import ThemeInitializer from "@/contexts/ThemeInitializer";
-import SettingInitializer from "@/contexts/SettingInitializer";
 import { WebSocketProvider } from "@/contexts/websocket.context";
+import ThemeInitializer from "@/contexts/ThemeInitializer";
 import QueryProvider from "@/contexts/QueryClientProvider";
-import { getSettings } from "@/lib/apiSettings";
 import HydrateToken from "@/contexts/HydrateToken";
 import OverlayScreenLoader from "@/components/ui/OverlayScreenLoader";
 
@@ -20,8 +18,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const settings = await getSettings();
-
   return (
     <html lang="vi">
       <body
@@ -29,7 +25,6 @@ export default async function RootLayout({
       >
         <ThemeInitializer />
         <HydrateToken />
-        <SettingInitializer settings={settings} />
         <QueryProvider>
           <WebSocketProvider>{children}</WebSocketProvider>
           <OverlayScreenLoader />

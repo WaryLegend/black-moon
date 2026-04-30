@@ -1,20 +1,17 @@
-import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import BreadCrumbNav from "@/common/navigation/BreadCrumbNav";
 import ProductDetails from "@/components/store/product_detail/ProductDetails";
 import ProductMenu from "@/components/store/product_detail/ProductMenu";
 // import ProductRates from "@/components/store/product_detail/ProductRates";
-import ProductInitializer from "@/contexts/ProductInitializer";
+import ProductInitializer from "@/components/store/product_detail/ProductInitializer";
 import {
   getCategoryBySlug,
   getPublicProductBySlug,
 } from "@/services/store.api";
 import type { AppPageProps } from "@/types/page-props";
-import type {
-  ProductDetailSummary,
-  ProductImageSummary,
-} from "@/types/products";
+
+import ProductGallery from "@/components/store/product_detail/ProductGallery";
 
 type Params = {
   group: string;
@@ -40,13 +37,6 @@ type Params = {
 //     DEFAULT_REVIEWS
 //   );
 // }
-
-function getProductImages(
-  product: ProductDetailSummary,
-): ProductImageSummary[] {
-  const images = product.images ?? [];
-  return images.length ? images : [];
-}
 
 export async function generateMetadata({ params }: AppPageProps<Params>) {
   const { product: productSlug } = await params;
@@ -75,10 +65,9 @@ export default async function ProductDetailsPage({
 
   const groupName = category.targetGroup?.name ?? groupSlug;
   // const reviews = getReviews(product);
-  const images = getProductImages(product);
 
   return (
-    <div className="flex flex-col gap-1 md:gap-4">
+    <div className="flex flex-col gap-2 md:gap-4">
       <ProductInitializer product={product} />
       <BreadCrumbNav
         paths={{
@@ -93,36 +82,7 @@ export default async function ProductDetailsPage({
         {/* LEFT: product images, details and more...*/}
         <div className="flex flex-col gap-10">
           {/* product images */}
-          <div className="relative grid grid-cols-2 overflow-hidden rounded-lg">
-            {images.length
-              ? images.map((image, index) => (
-                  <div
-                    key={image.id ?? index}
-                    className="relative aspect-square"
-                  >
-                    {image.imageUrl ? (
-                      <Image
-                        src={image.imageUrl}
-                        alt={`image of ${product.name}`}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : (
-                      <div className="from-primary-200 to-primary-100 h-full w-full bg-gradient-to-tr" />
-                    )}
-                  </div>
-                ))
-              : Array.from({ length: 6 }).map((_, index) => (
-                  <div key={index} className="relative aspect-square">
-                    <Image
-                      src="/t-shirt.jpg"
-                      alt="Product"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                ))}
-          </div>
+          <ProductGallery />
 
           {/* Product details */}
           <ProductDetails />

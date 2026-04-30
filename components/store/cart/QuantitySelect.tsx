@@ -1,11 +1,10 @@
 "use client";
 
 import { useCartStore } from "@/contexts/CartStore";
-import { useSettingStore } from "@/contexts/SettingStore";
 
 function QuantitySelect({ id, quantity }) {
   const { getItemStock, updateQuantity } = useCartStore();
-  const limit = useSettingStore((s) => s.settings?.order_limit ?? 10);
+  const limit = 10;
 
   // check if item 's stock is smaller than limit
   const itemStock = getItemStock(id);

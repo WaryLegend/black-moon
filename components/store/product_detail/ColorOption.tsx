@@ -1,16 +1,28 @@
 "use client";
 
-import { useColorsAndSizes } from "@/contexts/ColorsAndSizesContext";
 import { useMemo } from "react";
+import { COLOR_OPTIONS } from "@/utils/constants";
 
-function ColorRadio({ availableColors, selectedColor, onChange }) {
-  const { colors: ALL_COLORS_LABELED } = useColorsAndSizes();
+type Props = {
+  availableColors: string[];
+  selectedColor: string | null;
+  onChange: (color: string) => void;
+};
 
-  const filteredColors = useMemo(() => {
-    return ALL_COLORS_LABELED.filter((item) =>
-      availableColors.includes(item.value),
-    );
-  }, [ALL_COLORS_LABELED, availableColors]);
+export default function ColorOption({
+  availableColors,
+  selectedColor,
+  onChange,
+}: Props) {
+  const normalizedSet = useMemo(
+    () => new Set(availableColors.map((c) => c.toUpperCase())),
+    [availableColors],
+  );
+
+  const filteredColors = useMemo(
+    () => COLOR_OPTIONS.filter((item) => normalizedSet.has(item.value)),
+    [normalizedSet],
+  );
 
   return (
     <div>
@@ -24,13 +36,11 @@ function ColorRadio({ availableColors, selectedColor, onChange }) {
               value={value}
               onChange={() => onChange(value)}
               className="peer hidden"
-              checked={selectedColor === value}
+              checked={(selectedColor ?? "").toUpperCase() === value}
             />
             <span
               className="border-primary-800 peer-checked:ring-accent-700 peer-hover:outline-accent-700 ring-offset-primary-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border transition-all peer-checked:ring-2 peer-checked:ring-offset-2"
-              style={{
-                backgroundColor: value,
-              }}
+              style={{ backgroundColor: label }}
               title={label}
             />
           </label>
@@ -39,5 +49,3 @@ function ColorRadio({ availableColors, selectedColor, onChange }) {
     </div>
   );
 }
-
-export default ColorRadio;

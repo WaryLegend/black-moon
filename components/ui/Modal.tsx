@@ -42,7 +42,7 @@ function Open({
   children,
   opens: opensWindowName,
 }: {
-  children: React.ReactElement<any>;
+  children: React.ReactElement<{ onClick?: () => void }>;
   opens: string;
 }) {
   const { open } = useModalContext();
@@ -55,8 +55,9 @@ function Window({
   children,
   name,
 }: {
-  children: React.ReactElement<any>;
+  children: React.ReactElement<{ onCloseModal?: () => void }>;
   name: string;
+  className?: string;
 }) {
   const { openName, close } = useModalContext();
 

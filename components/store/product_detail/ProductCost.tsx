@@ -4,9 +4,7 @@ import { useProductStore } from "@/contexts/ProductStore";
 import { formatCurrency } from "@/utils/currency";
 
 export default function ProductCost() {
-  const variantPrice = useProductStore(
-    (v) => v.selectedVariant()?.variantPrice,
-  );
+  const variantPrice = useProductStore((v) => v.selectedVariant()?.price);
 
   if (!variantPrice) return null;
 
@@ -17,7 +15,6 @@ export default function ProductCost() {
 
   return (
     <div>
-      {/* Default Price */}
       <span
         className={
           sale > 0

@@ -133,9 +133,9 @@ function ImageViewer({ src, alt }: { src: string; alt?: string }) {
           <Image
             src={getHighResImage(src)}
             alt={alt || "Enlarged image"}
-            width={1200}
-            height={1200}
-            className="w-[500px] object-contain transition-shadow duration-300 select-none"
+            width={500}
+            height={500}
+            className="aspect-square w-[500px] object-contain transition-shadow duration-300 select-none"
             draggable={false}
             priority
           />

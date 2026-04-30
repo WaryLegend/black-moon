@@ -1,16 +1,26 @@
 "use client";
 
-import { useColorsAndSizes } from "@/contexts/ColorsAndSizesContext";
+import { SIZE_OPTIONS } from "@/utils/constants";
 
-function SizeRadio({ availableSizes, selectedSize, onChange }) {
-  const { sizes: ALL_SIZES_LABELED } = useColorsAndSizes();
+type Props = {
+  availableSizes: string[];
+  selectedSize: string | null;
+  onChange: (size: string) => void;
+};
+
+export default function SizeOption({
+  availableSizes,
+  selectedSize,
+  onChange,
+}: Props) {
+  const normalizedSizes = new Set(availableSizes.map((s) => s.toUpperCase()));
 
   return (
     <div>
       <p className="mb-2 font-medium">Kích cỡ</p>
       <div className="flex flex-wrap gap-1 md:gap-2 lg:gap-3">
-        {ALL_SIZES_LABELED.map(({ value, label }) => {
-          const isAvailable = availableSizes.includes(value);
+        {SIZE_OPTIONS.map(({ value, label }) => {
+          const isAvailable = normalizedSizes.has(value);
           return (
             <label key={value} className="relative">
               <input
@@ -20,7 +30,7 @@ function SizeRadio({ availableSizes, selectedSize, onChange }) {
                 disabled={!isAvailable}
                 className="peer hidden"
                 onChange={() => onChange(value)}
-                checked={selectedSize === value}
+                checked={(selectedSize ?? "").toUpperCase() === value}
               />
               <span
                 className={`border-accent-700 ring-offset-primary-0 peer-checked:bg-accent-600 peer-checked:ring-accent-600 peer-checked:text-primary-0 inline-flex h-8 w-16 items-center justify-center rounded-sm border-2 text-sm transition-all select-none peer-checked:ring-2 peer-checked:ring-offset-2 ${isAvailable ? "cursor-pointer" : "opacity-40"}`}
@@ -39,5 +49,3 @@ function SizeRadio({ availableSizes, selectedSize, onChange }) {
     </div>
   );
 }
-
-export default SizeRadio;

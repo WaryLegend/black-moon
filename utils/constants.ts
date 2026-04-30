@@ -17,20 +17,6 @@ export const groupLabels = Object.fromEntries(
   Object.entries(GROUPS).map(([key, val]) => [key, val.label]),
 );
 
-// 👉 for navigation (Homepage page naviagtion)
-export const grouplinks = Object.values(GROUPS).map(({ href, label }) => ({
-  href,
-  label,
-}));
-
-// 👉 for radio option, filter, select, ...
-export const groupOptions = Object.entries(GROUPS).map(
-  ([value, { label }]) => ({
-    value,
-    label,
-  }),
-);
-
 const genderLabels = {
   MALE: "Nam",
   FEMALE: "Nữ",
