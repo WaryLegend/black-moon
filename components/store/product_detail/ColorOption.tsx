@@ -26,7 +26,7 @@ export default function ColorOption({
 
   return (
     <div>
-      <p className="mb-2 font-medium">Màu sắc</p>
+      <p className="text-primary-600 mb-2 text-sm font-medium">{`Màu sắc: ${selectedColor}`}</p>
       <div className="flex flex-wrap gap-2">
         {filteredColors.map(({ value, label }) => (
           <label key={value} className="relative">

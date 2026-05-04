@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { useWishListStore } from "@/contexts/WishListStore";
+import { useWishlist } from "@/components/store/wishlist/useWishlist";
 
 function WishlistIcon() {
-  const isPending = useWishListStore((state) => state.isPending);
-  const totalTypes = useWishListStore((state) => state.getTotalTypes());
+  const { data, isPending } = useWishlist();
+  const totalItems = data?.meta?.totalItems ?? data?.items?.length ?? 0;
 
   if (isPending)
     return (
@@ -25,9 +25,9 @@ function WishlistIcon() {
     >
       <FaRegHeart className="h-5 w-5 group-hover:hidden" />
       <FaHeart className="hidden h-5 w-5 group-hover:block" />
-      {!isPending && totalTypes > 0 && (
+      {!isPending && totalItems > 0 && (
         <span className="absolute top-0 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
-          {totalTypes}
+          {totalItems}
         </span>
       )}
     </Link>

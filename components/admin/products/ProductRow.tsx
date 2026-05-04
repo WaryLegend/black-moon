@@ -32,6 +32,17 @@ const StatusDot = styled.span<{ $isDeleted: boolean }>`
       : "linear-gradient(135deg, #adadad, #cfcccc)"};
 `;
 
+const FeaturedDot = styled.span<{ $isFeatured: boolean }>`
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background-image: ${(props) =>
+    props.$isFeatured
+      ? "linear-gradient(135deg, #16a34a, #86efac)"
+      : "linear-gradient(135deg, #adadad, #cfcccc)"};
+`;
+
 type ProductRowProps = {
   product: ProductSummary;
   isSelected: boolean;
@@ -73,6 +84,9 @@ function ProductRow({ product, isSelected, onSelect }: ProductRowProps) {
         </Link>
       </Field>
       <Field>{product.category?.name || "-"}</Field>
+      <Field className="flex items-center">
+        <FeaturedDot $isFeatured={Boolean(product.isFeatured)} />
+      </Field>
       <Field className="flex items-center">
         <StatusDot $isDeleted={Boolean(product.isDeleted)} />
       </Field>

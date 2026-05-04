@@ -3,13 +3,12 @@ import ProductReviews from "./ProductReviews";
 import TextButton from "@/components/ui/TextButton";
 import { FaPencilAlt } from "react-icons/fa";
 
-export default function ProductRates({ reviews }) {
+export default function ProductRatingSection({ reviews }) {
   const { total, latestReviews, avgRating } = reviews;
   return (
     <div className="grid gap-3">
       <div className="border-primary-400 space-y-2 border-b pb-2">
         <h1 className="text-2xl font-semibold lg:text-3xl">Đánh giá</h1>
-        {/* Average Rating */}
         <ProductAvgRates
           totalReviews={total}
           avgRating={avgRating}

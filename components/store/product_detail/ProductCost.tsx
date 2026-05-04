@@ -5,12 +5,15 @@ import { formatCurrency } from "@/utils/currency";
 
 export default function ProductCost() {
   const variantPrice = useProductStore((v) => v.selectedVariant()?.price);
+  const createdAt = useProductStore((v) => v.selectedVariant()?.createdAt);
+  console.log("variantPrice", variantPrice, "createdAt", createdAt);
 
   if (!variantPrice) return null;
 
   // test
-  const sale = 1;
-  const isNew = true;
+  const sale = 0;
+  const isNew = false;
+
   const finalPrice = variantPrice * (1 - sale / 100);
 
   return (

@@ -7,7 +7,6 @@ function UserTableOperations() {
       <TabFilter
         filterField="role"
         options={[
-          { value: "all", label: "All" },
           { value: "user", label: "User" },
           { value: "staff", label: "Staff" },
           { value: "manager", label: "Manager" },
@@ -16,11 +15,11 @@ function UserTableOperations() {
       />
 
       <TabFilter
+        label="Activated"
         filterField="activated"
         options={[
-          { value: "all", label: "All" },
-          { value: "true", label: "Activated" },
-          { value: "false", label: "Disabled" },
+          { value: "true", label: "True" },
+          { value: "false", label: "False" },
         ]}
       />
       <div className="ml-0 sm:ml-auto">

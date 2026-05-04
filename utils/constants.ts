@@ -58,8 +58,9 @@ export const PRICE_RANGES = [
   },
 ];
 
-// Star ⭐ rating length 5/5, 10/10 ?
+// Star ⭐ rating length 5/5, 5/10 ?
 export const STAR_LENGTH = 5;
+export const MAX_RATE = 5;
 
 // Order status
 export const ORDER_STATUS = {

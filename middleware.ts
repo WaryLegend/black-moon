@@ -26,7 +26,9 @@ export async function middleware(request: NextRequest) {
   ].includes(pathname);
 
   const isUserProtectedRoute =
-    pathname.startsWith("/profile") || pathname === "/checkout";
+    pathname.startsWith("/profile") ||
+    pathname === "/checkout" ||
+    pathname === "/wishlist";
 
   const isAdminProtectedRoute =
     pathname.startsWith("/admin") && !isAdminAuthRoute;
@@ -70,5 +72,11 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/user/:path*", "/profile/:path*", "/checkout"],
+  matcher: [
+    "/admin/:path*",
+    "/user/:path*",
+    "/profile/:path*",
+    "/checkout",
+    "/wishlist",
+  ],
 };

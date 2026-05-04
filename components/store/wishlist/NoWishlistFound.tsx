@@ -11,7 +11,7 @@ function NoWishlistFound() {
   const destination = activeLink || "/";
 
   return (
-    <div className="flex flex-col gap-5 text-center">
+    <div className="flex flex-col gap-5 py-5 text-center">
       <p className="up text-2xl font-semibold">
         Không có sản phẩm nào trong danh sách mong muốn của bạn.
       </p>

@@ -50,6 +50,10 @@ const buildListEndpoint = (params: ListProductsParams = {}) => {
     query.set("categories", params.filters.categories.join(","));
   }
 
+  if (params.filters?.isFeatured !== undefined) {
+    query.set("isFeatured", String(params.filters.isFeatured));
+  }
+
   if (params.sortBy?.field) {
     query.set("sortField", params.sortBy.field);
     query.set("sortOrder", params.sortBy.direction);
@@ -202,14 +206,14 @@ export const productsApi = {
     imageFiles: File[] = [],
   ) {
     if (!imageFiles.length) {
-      return httpClient.patch<ProductSummary>(
+      return httpClient.patch<ProductDetailSummary>(
         `${PRODUCTS_BASE_PATH}/${productId}`,
         payload,
       );
     }
 
     const formData = buildProductFormData(payload, imageFiles);
-    return httpClient.patch<ProductSummary>(
+    return httpClient.patch<ProductDetailSummary>(
       `${PRODUCTS_BASE_PATH}/${productId}`,
       formData,
     );

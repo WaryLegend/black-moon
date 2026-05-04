@@ -3,6 +3,7 @@
 import Filter from "@/components/filters/Filter";
 import SearchFilter from "@/components/filters/SearchFilter";
 import SortBy from "@/components/filters/SortBy";
+import TabFilter from "@/components/filters/TabFilter";
 
 import { loadCategorySlugOptions } from "./useCategoryOptions";
 
@@ -22,6 +23,16 @@ function ProductTableOperations() {
         }}
         loadOptions={loadCategorySlugOptions}
       />
+
+      <TabFilter
+        label="Featured"
+        filterField="isFeatured"
+        options={[
+          { value: "true", label: "True" },
+          { value: "false", label: "False" },
+        ]}
+      />
+
       <div className="ml-0 sm:ml-auto">
         <SortBy
           options={[
@@ -29,6 +40,8 @@ function ProductTableOperations() {
             { value: "createdAt-asc", label: "Date (earlier first)" },
             { value: "name-asc", label: "Name (A-Z)" },
             { value: "name-desc", label: "Name (Z-A)" },
+            { value: "isFeatured-desc", label: "Featured first" },
+            { value: "isFeatured-asc", label: "Not featured first" },
           ]}
         />
       </div>

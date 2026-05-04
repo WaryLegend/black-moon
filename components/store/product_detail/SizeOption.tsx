@@ -17,7 +17,7 @@ export default function SizeOption({
 
   return (
     <div>
-      <p className="mb-2 font-medium">Kích cỡ</p>
+      <p className="text-primary-600 mb-2 text-sm font-medium">{`Kích cỡ: ${selectedSize}`}</p>
       <div className="flex flex-wrap gap-1 md:gap-2 lg:gap-3">
         {SIZE_OPTIONS.map(({ value, label }) => {
           const isAvailable = normalizedSizes.has(value);

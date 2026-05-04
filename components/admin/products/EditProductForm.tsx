@@ -12,6 +12,7 @@ import ImagesInput, {
 } from "@/components/forms/admin/ImagesInput.tsx";
 import Input from "@/components/forms/admin/Input";
 import Button from "@/components/ui/Button";
+import ToggleSwitch from "@/components/ui/ToggleSwitch";
 import type { ProductDetailSummary } from "@/types/products";
 import { useUpdateProduct } from "./useUpdateProduct";
 import { useFormDirtyStyle } from "@/components/forms/admin/useFormDirtyStyle";
@@ -33,6 +34,7 @@ type ProductEditValues = {
   slug: string;
   baseSku: string;
   categoryName: string;
+  isFeatured: boolean;
   descriptions: ProductDescriptionDraft[];
 };
 
@@ -48,6 +50,7 @@ const emptyProductDefaults: ProductEditValues = {
   slug: "",
   baseSku: "",
   categoryName: "",
+  isFeatured: false,
   descriptions: [],
 };
 
@@ -58,6 +61,7 @@ const mapToDefaultValues = (
   slug: product.slug ?? "",
   baseSku: product.baseSku,
   categoryName: product.category?.name ?? "",
+  isFeatured: Boolean(product.isFeatured),
   descriptions: normalizeDescriptionDrafts(product.descriptions ?? []),
 });
 
@@ -72,12 +76,11 @@ export default function EditProductForm({
   productId,
   onCloseModal,
 }: EditProductFormProps) {
-  const { product, isPending: isLoadingProduct } =
-    useProduct(productId);
-
+  const { product, isPending: isLoadingProduct } = useProduct(productId);
 
   const initialImageKeys = useMemo(
-    () => (product ? mapExistingImages(product).map((image) => image.localId) : []),
+    () =>
+      product ? mapExistingImages(product).map((image) => image.localId) : [],
     [product],
   );
 
@@ -148,7 +151,8 @@ export default function EditProductForm({
     const hasNewImages = newImagesInOrder.length > 0;
     const hasExistingImageOrder = imageIdsInOrder.length > 0;
 
-    const hasBaseInfoChanges = getDirty("name") || getDirty("slug");
+    const hasBaseInfoChanges =
+      getDirty("name") || getDirty("slug") || getDirty("isFeatured");
 
     const structuralDescriptionPayload = buildStructuralDescriptionPayload(
       values.descriptions,
@@ -158,6 +162,7 @@ export default function EditProductForm({
       name: values.name.trim(),
       slug: normalizeString(values.slug),
       ...(hasExistingImageOrder ? { imageIdsInOrder } : {}),
+      ...(getDirty("isFeatured") ? { isFeatured: values.isFeatured } : {}),
       ...(hasNewImages
         ? {
             newImageOrders: newImagesInOrder.map(({ index }) => index + 1),
@@ -206,7 +211,8 @@ export default function EditProductForm({
   // Nút "Lưu thay đổi" của form chính chỉ bật cho thay đổi cấp product
   // (name/slug/images/description order/new description), không phụ thuộc
   // thay đổi nội bộ từng description vì đã có Save riêng theo item.
-  const hasBaseInfoChanges = getDirty("name") || getDirty("slug");
+  const hasBaseInfoChanges =
+    getDirty("name") || getDirty("slug") || getDirty("isFeatured");
   const canSubmitMain =
     hasBaseInfoChanges || hasImageChanges || hasStructuralDescriptionChanges;
 
@@ -278,6 +284,26 @@ export default function EditProductForm({
 
       <FormRow label="Danh mục*" id="edit-category">
         <Input id="edit-category" disabled {...register("categoryName")} />
+      </FormRow>
+
+      <FormRow
+        label={<div className="cursor-default">Làm nổi bật</div>}
+        helper="Sản phẩm nổi bật sẽ được ưu tiên hiển thị trên trang chủ và các vị trí quảng bá khác."
+      >
+        <Controller
+          name="isFeatured"
+          control={control}
+          render={({ field }) => (
+            <ToggleSwitch
+              value={field.value}
+              onChange={field.onChange}
+              disabled={isPending}
+              className={getDirtyClass("isFeatured")}
+              onLabel="True"
+              offLabel="False"
+            />
+          )}
+        />
       </FormRow>
 
       <FormRow label={<div className="cursor-default">Mô tả sản phẩm</div>}>

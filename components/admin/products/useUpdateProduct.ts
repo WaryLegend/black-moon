@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 import { productsApi } from "@/services/products.api";
-import type { ProductSummary, UpdateProductDto } from "@/types/products";
+import type { ProductDetailSummary, UpdateProductDto } from "@/types/products";
 import { resolveToastErrorMessage } from "@/lib/http/errorMessages";
 
 type UpdateProductVariables = {
@@ -16,7 +16,7 @@ type UpdateProductVariables = {
 export function useUpdateProduct() {
   const queryClient = useQueryClient();
 
-  return useMutation<ProductSummary, unknown, UpdateProductVariables>({
+  return useMutation<ProductDetailSummary, unknown, UpdateProductVariables>({
     mutationKey: ["products", "update"],
     mutationFn: ({ productId, payload, imageFiles }) =>
       productsApi.update(productId, payload, imageFiles),

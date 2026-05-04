@@ -30,7 +30,7 @@ function ProductTable({
   const { pageSize, totalItems: total } = meta ?? {};
 
   return (
-    <Table columns="0.7fr 0.9fr 2fr 1.6fr 1.3fr 0.8fr 1fr">
+    <Table columns="0.7fr 0.9fr 2fr 1.6fr 1.3fr 0.8fr 0.8fr 1fr">
       <Table.Header>
         <div className="flex items-center gap-2">
           <SelectionCheckbox
@@ -47,6 +47,7 @@ function ProductTable({
         <div>Name</div>
         <div>Slug</div>
         <div>Category</div>
+        <div>Featured</div>
         <div>Deleted</div>
         <div></div>
       </Table.Header>

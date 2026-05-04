@@ -1,6 +1,5 @@
 import ChatBot from "@/components/ui/ChatBot";
 import CartInitializer from "@/contexts/CartInitializer";
-import WishListInitializer from "@/contexts/WishListInitializer";
 
 export default async function UserLayout({
   children,
@@ -9,11 +8,9 @@ export default async function UserLayout({
 }) {
   const user = null;
   const serverCart = null;
-  const serverWishList = null;
   return (
     <>
       <CartInitializer user={user} cart={serverCart} />
-      <WishListInitializer user={user} wishlist={serverWishList} />
       {children}
       <ChatBot />
     </>

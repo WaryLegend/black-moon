@@ -20,7 +20,6 @@ export type ProductCategorySummary = {
   id: number;
   name: string;
   slug: string;
-  isDeleted: boolean;
 };
 
 export type ProductImageSummary = {
@@ -58,6 +57,10 @@ export type ProductSummary = {
     colors: string[];
     sizes: string[];
   };
+  reviews: {
+    total: number;
+    avgRating: number;
+  };
 };
 
 export type ProductDetailSummary = {
@@ -75,6 +78,10 @@ export type ProductDetailSummary = {
   images: ProductImageSummary[];
   descriptions: ProductDescriptionSummary[];
   variants: ProductVariantSummary[];
+  reviews?: {
+    total: number;
+    avgRating: number;
+  };
 };
 
 export type ProductsListMeta = {
@@ -100,6 +107,7 @@ export type ListProductsFilters = {
   colors?: string[];
   sizes?: string[];
   priceRange?: PriceRange;
+  isFeatured?: boolean;
 };
 
 export type PriceRange = {
@@ -107,7 +115,7 @@ export type PriceRange = {
   maxPrice?: number;
 };
 
-export type ProductSortField = "createdAt" | "name" | "price";
+export type ProductSortField = "createdAt" | "name" | "price" | "isFeatured";
 
 export type ProductSort = {
   field: ProductSortField;
@@ -142,6 +150,7 @@ export type CreateProductDescriptionDto = {
 export type UpdateProductDto = {
   name?: string;
   slug?: string;
+  isFeatured?: boolean;
   imageIdsInOrder?: number[];
   newImageOrders?: number[];
   descriptionIdsInOrder?: number[];
@@ -173,6 +182,8 @@ export type ProductVariantSummary = {
   size: string | null;
   quantity: number | null;
   price: number | null;
+  createdAt: string;
+  updatedAt: string;
   image: {
     id: number;
     imageUrl: string | null;

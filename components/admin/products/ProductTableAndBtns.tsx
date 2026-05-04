@@ -24,7 +24,7 @@ import { useBulkRestoreProducts } from "./useBulkRestoreProducts";
 import { useBulkSoftDeleteProducts } from "./useBulkSoftDeleteProducts";
 import { useProducts } from "./useProducts";
 
-const SORT_FIELDS: ProductSortField[] = ["createdAt", "name"];
+const SORT_FIELDS: ProductSortField[] = ["createdAt", "name", "isFeatured"];
 
 type ProductTableAndBtnsProps = {
   searchParams: ProductsPageSearchParams;
@@ -161,6 +161,13 @@ function parseQueryParams(searchParams: ProductsPageSearchParams): {
           parseItem: (value) => {
             const normalized = value.trim().toLowerCase();
             return normalized ? normalized : undefined;
+          },
+        },
+        isFeatured: {
+          parse: (value) => {
+            if (value === "true") return true;
+            if (value === "false") return false;
+            return undefined;
           },
         },
       },

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import FractionalStar from "@/components/ui/FractionalStar";
+import Star from "@/components/ui/Star";
 import { STAR_LENGTH } from "@/utils/constants";
 
 export default function StarRating({ onChange }) {
@@ -27,7 +27,7 @@ export default function StarRating({ onChange }) {
             onMouseLeave={() => setHover(0)}
             onClick={() => handleClick(index + 1)}
           >
-            <FractionalStar
+            <Star
               fillPercent={fill}
               className="text-accent-500 mx-1 transition-all"
               size={24}

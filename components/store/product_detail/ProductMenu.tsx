@@ -1,5 +1,4 @@
 import QuantityInput from "./QuantityInput";
-// import ProductAvgRates from "./ProductAvgRates";
 import ColorAndSizeRadio from "./ColorAndSizeOption";
 import AddToWishListWrapper from "./AddToWishListWrapper";
 import ProductCost from "./ProductCost";
@@ -12,11 +11,6 @@ export default function ProductMenu({
   product: ProductDetailSummary;
 }) {
   const { name: productName } = product;
-  // const reviews = (
-  //   product as ProductDetailSummary & {
-  //     reviews?: { avgRating?: number; total?: number };
-  //   }
-  // ).reviews;
 
   return (
     <aside>
@@ -28,22 +22,11 @@ export default function ProductMenu({
             </h1>
             <AddToWishListWrapper />
           </header>
-          {/* colors and sizes variant selection */}
           <ColorAndSizeRadio />
-          <section className="grid grid-cols-[1fr_auto]">
-            {/* Price section */}
+          <div className="grid grid-cols-[1fr_auto]">
             <ProductCost />
-            {/* avg product rates */}
-            {/* <div className="ml-auto">
-              <ProductAvgRates
-                avgRating={reviews?.avgRating}
-                totalReviews={reviews?.total}
-              />
-            </div> */}
-          </section>
-          {/* set quantity section */}
+          </div>
           <QuantityInput />
-          {/* Add to cart */}
           <AddToCart />
         </div>
       </div>

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import type { ProductSummary, UpdateProductDto } from "@/types/products";
+import type { ProductDetailSummary, UpdateProductDto } from "@/types/products";
 
 import {
   normalizeDescriptionDrafts,
@@ -17,7 +17,7 @@ type StructuralDescriptionPayload = Pick<
 
 type UseDescriptionEditFlowParams = {
   productId: number;
-  productDescriptions?: ProductSummary["descriptions"];
+  productDescriptions?: ProductDetailSummary["descriptions"];
   currentDescriptions: ProductDescriptionDraft[];
   getLatestDescriptions: () => ProductDescriptionDraft[];
 };

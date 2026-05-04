@@ -6,9 +6,9 @@ import { usePathname } from "next/navigation";
 
 import { formatCurrency } from "@/utils/currency";
 import { SIZE_VALUES } from "@/utils/constants";
-import AddToWishList from "@/components/store/wishlist/AddToWishList";
 import type { CategorySummary } from "@/types/categories";
 import type { ProductSummary } from "@/types/products";
+import ProductAvgRates from "@/components/store/product_detail/ProductAvgRates";
 
 type ProductItemProps = {
   product: ProductSummary;
@@ -55,8 +55,7 @@ function ProductItem({ product, category }: ProductItemProps) {
   const colors = getUniqueColors(product);
   const sizeLabel = getSizeLabel(product);
   const groupName = category?.targetGroup?.name ?? "-";
-
-  const wishlistVariant = null;
+  const { avgRating, total: totalReviews } = product.reviews;
 
   return (
     <li className="group border-primary-200 bg-primary-0 flex cursor-pointer flex-col overflow-hidden rounded-lg border shadow-md transition hover:shadow-md">
@@ -91,7 +90,6 @@ function ProductItem({ product, category }: ProductItemProps) {
                 </span>
               )}
             </div>
-            <AddToWishList item={wishlistVariant} />
           </div>
 
           <div className="text-primary-500 flex justify-between text-xs uppercase">
@@ -106,6 +104,7 @@ function ProductItem({ product, category }: ProductItemProps) {
           <div className="text-accent-600 text-sm font-semibold sm:text-base">
             {getPriceLabel(product)}
           </div>
+          <ProductAvgRates rates={avgRating} totalReviews={totalReviews} />
         </div>
       </Link>
     </li>
