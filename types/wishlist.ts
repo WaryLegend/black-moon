@@ -16,28 +16,35 @@ export type WishlistVariantImage = {
   imageName: string | null;
 };
 
-export type WishlistVariantProduct = {
+export type WishlistCategory = {
+  slug: string;
+  targetGroup: {
+    slug: string;
+  } | null;
+};
+
+export type WishlistProduct = {
   id: number;
   name: string;
   slug: string;
-  isDeleted: boolean;
+  category: WishlistCategory | null;
 };
-
-export type WishlistVariantSummary = {
+// ___ for user summary types ___
+export type WishlistUserVariantSummary = {
   id: number;
   sku: string;
   color: string | null;
   size: string | null;
   image: WishlistVariantImage | null;
   isDeleted: boolean;
-  product: WishlistVariantProduct | null;
+  product: WishlistProduct | null;
 };
 
 export type WishlistUserItem = {
   id: number;
   createdAt: string;
   updatedAt: string;
-  variant: WishlistVariantSummary | null;
+  variant: WishlistUserVariantSummary | null;
 };
 
 export type WishlistListMeta = {
@@ -67,6 +74,22 @@ export type WishlistUserSummary = {
     fullName: string | null;
     gender: string | null;
     avatarUrl: string | null;
+  } | null;
+};
+
+// ___ for admin summary types ___
+export type WishlistVariantSummary = {
+  id: number;
+  sku: string;
+  color: string | null;
+  size: string | null;
+  image: WishlistVariantImage | null;
+  isDeleted: boolean;
+  product: {
+    id: number;
+    name: string;
+    slug: string;
+    isDeleted: boolean;
   } | null;
 };
 

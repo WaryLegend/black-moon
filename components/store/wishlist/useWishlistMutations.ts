@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { wishlistApi } from "@/services/wishlist.api";
 import { useCurrentAccount } from "@/hooks/useCurrentAccount";
 import { WISHLIST_QUERY_KEY } from "./useWishlist";
+import toast from "react-hot-toast";
 
 export function useAddToWishlist() {
   const { data: user } = useCurrentAccount();
@@ -19,6 +20,7 @@ export function useAddToWishlist() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: WISHLIST_QUERY_KEY });
+      toast.success("Sản phẩm đã được thêm vào yêu thích");
     },
   });
 }
@@ -30,6 +32,7 @@ export function useRemoveFromWishlist() {
     mutationFn: (wishlistId: number) => wishlistApi.remove(wishlistId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: WISHLIST_QUERY_KEY });
+      toast.success("Sản phẩm đã được xóa khỏi yêu thích");
     },
   });
 }

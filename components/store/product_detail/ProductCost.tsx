@@ -5,8 +5,6 @@ import { formatCurrency } from "@/utils/currency";
 
 export default function ProductCost() {
   const variantPrice = useProductStore((v) => v.selectedVariant()?.price);
-  const createdAt = useProductStore((v) => v.selectedVariant()?.createdAt);
-  console.log("variantPrice", variantPrice, "createdAt", createdAt);
 
   if (!variantPrice) return null;
 

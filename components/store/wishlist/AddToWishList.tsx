@@ -1,7 +1,7 @@
 "use client";
 
 import type { MouseEvent } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 import Button from "@/components/ui/Button";
@@ -20,13 +20,19 @@ type AddToWishListProps = {
 
 function AddToWishList({ variantId, className = "" }: AddToWishListProps) {
   const router = useRouter();
-  const { data: user, isPending: isUserPending } = useCurrentAccount();
-  const { data } = useWishlist();
+  const { data: user } = useCurrentAccount();
+  const { data: wishlist } = useWishlist();
   const { mutateAsync: addItem, isPending: isAdding } = useAddToWishlist();
   const { mutateAsync: removeItem, isPending: isRemoving } =
     useRemoveFromWishlist();
 
-  const existingItem = data?.items.find(
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const returnUrl =
+    pathname + (searchParams.toString() ? `?${searchParams}` : "");
+
+  const existingItem = wishlist?.items.find(
     (item) => item.variant?.id === variantId,
   );
   const isInWishlist = Boolean(existingItem);
@@ -38,10 +44,8 @@ function AddToWishList({ variantId, className = "" }: AddToWishListProps) {
 
     if (!variantId) return;
 
-    if (isUserPending) return;
-
     if (!user?.id) {
-      router.push("/user/login");
+      router.push(`/user/login?returnUrl=${encodeURIComponent(returnUrl)}`);
       return;
     }
 

@@ -67,7 +67,7 @@ function WishList({ searchParams }: WishListProps) {
         />
       </div>
 
-      <ul className="divide-primary-300 flex flex-col divide-y">
+      <ul className="divide-primary-300 grid grid-cols-[repeat(auto-fit,minmax(min-content,1fr))] gap-4 lg:grid-cols-2">
         {items.map((item) => (
           <WishItem key={item.id} item={item} />
         ))}

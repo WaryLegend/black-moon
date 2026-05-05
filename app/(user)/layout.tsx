@@ -6,11 +6,9 @@ export default async function UserLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const user = null;
-  const serverCart = null;
   return (
     <>
-      <CartInitializer user={user} cart={serverCart} />
+      <CartInitializer user={null} cart={null} />
       {children}
       <ChatBot />
     </>
