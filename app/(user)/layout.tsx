@@ -1,5 +1,5 @@
 import ChatBot from "@/components/ui/ChatBot";
-import CartInitializer from "@/contexts/CartInitializer";
+import CartInitializer from "@/components/store/cart/CartInitializer";
 
 export default async function UserLayout({
   children,
@@ -8,7 +8,7 @@ export default async function UserLayout({
 }) {
   return (
     <>
-      <CartInitializer user={null} cart={null} />
+      <CartInitializer />
       {children}
       <ChatBot />
     </>

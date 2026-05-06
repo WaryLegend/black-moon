@@ -1,19 +1,26 @@
 "use client";
 
-import { useCartStore } from "@/contexts/CartStore";
+import { useSettingStore } from "@/contexts/SettingStore";
 
-function QuantitySelect({ id, quantity }) {
-  const { getItemStock, updateQuantity } = useCartStore();
-  const limit = 10;
+import { useCartActions } from "./useCartActions";
 
-  // check if item 's stock is smaller than limit
-  const itemStock = getItemStock(id);
-  const maxAllowed = Math.min(itemStock, limit);
+type QuantitySelectProps = {
+  itemId: number | string;
+  quantity: number;
+  stock: number | null;
+};
+
+function QuantitySelect({ itemId, quantity, stock }: QuantitySelectProps) {
+  const limit = useSettingStore((s) => s.settings?.order_limit ?? 10);
+  const { updateQuantity } = useCartActions();
+
+  const maxAllowed =
+    stock === null || stock === undefined ? limit : Math.min(stock, limit);
 
   //find if there's a issue with quantity
   const issueMessage =
-    quantity > itemStock
-      ? `Chỉ còn ${itemStock} sản phẩm`
+    stock !== null && stock !== undefined && quantity > stock
+      ? `Chỉ còn ${stock} sản phẩm`
       : quantity > limit
         ? `Giới hạn ${limit} sản phẩm`
         : null;
@@ -24,9 +31,9 @@ function QuantitySelect({ id, quantity }) {
         <span className="block text-sm text-red-600">{issueMessage}</span>
       )}
       <select
-        id={`quantity-${id}`}
+        id={`quantity-${itemId}`}
         value={quantity}
-        onChange={(e) => updateQuantity(id, Number(e.target.value))}
+        onChange={(event) => updateQuantity(itemId, Number(event.target.value))}
         className="border-primary-400 bg-primary-0 rounded-lg border px-2 py-1 text-sm font-medium transition-all"
       >
         {Array.from(

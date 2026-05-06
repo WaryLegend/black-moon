@@ -1,8 +1,8 @@
-import { useCartStore } from "@/contexts/CartStore";
+import { useCartData } from "@/components/store/cart/useCart";
 import CheckItem from "./CheckItem";
 
 function CheckItemList() {
-  const { items } = useCartStore();
+  const { items } = useCartData();
 
   return (
     <ul className="divide-primary-300 flex max-h-96 flex-col divide-y overflow-y-auto rounded-lg">

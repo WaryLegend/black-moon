@@ -2,11 +2,10 @@
 
 import Link from "next/link";
 import { MdOutlineShoppingCart, MdShoppingCart } from "react-icons/md";
-import { useCartStore } from "@/contexts/CartStore";
+import { useCartData } from "@/components/store/cart/useCart";
 
 function CartIcon() {
-  const isPending = useCartStore((state) => state.isPending);
-  const totalItems = useCartStore((state) => state.getTotalItems());
+  const { isPending, totalItems } = useCartData();
 
   if (isPending)
     return (

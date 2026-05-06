@@ -1,12 +1,10 @@
 import { formatCurrency } from "@/utils/currency";
-import { useCartStore } from "@/contexts/CartStore";
+import { useCartData } from "@/components/store/cart/useCart";
 import OrderSummarySkeleton from "@/components/skeletons/OrderSummarySkeletion";
 import CheckItemList from "./CheckItemList";
 
 export default function OrderSummary() {
-  const isPending = useCartStore((state) => state.isPending);
-  const totalItems = useCartStore((c) => c.getTotalItems());
-  const totalPrice = useCartStore((c) => c.getTotalPrice());
+  const { isPending, totalItems, totalPrice } = useCartData();
 
   if (isPending) return <OrderSummarySkeleton />;
   // Tính phí ship giả lập

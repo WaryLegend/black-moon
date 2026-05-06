@@ -1,20 +1,20 @@
 "use client";
+
 import { useIsMobile } from "@/hooks/useIsMobile";
-import SummaryCartBtn from "./SummaryCartBtn";
+
 import CartMenu from "./CartMenu";
+import SummaryCartBtn from "./SummaryCartBtn";
 
 function CartSummeryWrapper() {
   const isMobile = useIsMobile();
 
   return (
     <>
-      {/* Desktop  */}
       {!isMobile && (
         <aside>
           <CartMenu />
         </aside>
       )}
-      {/* Mobile fixed button */}
       {isMobile && <SummaryCartBtn />}
     </>
   );

@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { useCartStore } from "@/contexts/CartStore";
+import { useCartData } from "@/components/store/cart/useCart";
 import { formatCurrency } from "@/utils/currency";
 import { RiBankCard2Fill } from "react-icons/ri";
 import { FaWallet, FaTruckFast } from "react-icons/fa6";
@@ -29,7 +29,7 @@ const paymentOptions = [
 export default function Payment() {
   const router = useRouter();
   const { prevStep } = useCheckoutStepStore();
-  const total = useCartStore((c) => c.getTotalPrice());
+  const { totalPrice: total } = useCartData();
 
   const { handleSubmit, setValue, watch } = useFormContext();
   const paymentMethod = watch("paymentMethod");

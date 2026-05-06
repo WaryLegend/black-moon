@@ -1,21 +1,26 @@
 "use client";
 
-import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
-import { useCartStore } from "@/contexts/CartStore";
+
+import Button from "@/components/ui/Button";
 import { useSettingStore } from "@/contexts/SettingStore";
 
-function CheckoutBtn({ disabled }) {
+import { useCartData } from "./useCart";
+
+type CheckoutBtnProps = {
+  disabled?: boolean;
+};
+
+function CheckoutBtn({ disabled }: CheckoutBtnProps) {
   const router = useRouter();
-  // disabled if there's a quantity-issue in the cart
-  const { getHasIssue } = useCartStore();
   const limit = useSettingStore((s) => s.settings?.order_limit ?? 10);
+  const { getHasIssue } = useCartData();
 
   return (
     <Button
       type="button"
       className="w-full lg:text-2xl"
-      disabled={disabled || getHasIssue(limit)}
+      disabled={Boolean(disabled) || getHasIssue(limit)}
       onClick={() => router.push("/checkout")}
     >
       Thanh toán
