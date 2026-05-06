@@ -16,7 +16,7 @@ export const metadata = {
     "Black & Moon is a modern fashion brand offering stylish, high-quality clothing. Discover the latest collections of shirts, dresses, pants, and accessories for men, women and kids.",
 };
 
-export const revalidate = 3600 * 24; // 24 hours
+export const revalidate = 86400; // 24 hours
 
 export async function generateStaticParams() {
   try {

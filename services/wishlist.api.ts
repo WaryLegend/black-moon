@@ -31,8 +31,8 @@ export const wishlistApi = {
   async getByUser(params: { page?: number; sortBy?: WishlistSort } = {}) {
     const query = buildWishlistQuery(params);
     const url = query
-      ? `${WISHLISTS_BASE_PATH}/user?${query}`
-      : `${WISHLISTS_BASE_PATH}/user`;
+      ? `${WISHLISTS_BASE_PATH}/me?${query}`
+      : `${WISHLISTS_BASE_PATH}/me`;
     const response = await apiClient.get<WishlistUserListResponse>(url);
     return response.data;
   },
