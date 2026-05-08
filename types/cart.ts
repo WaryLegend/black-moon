@@ -4,7 +4,7 @@ export type CartItemVariantImage = {
   imageName: string | null;
 };
 
-export type CartItemVariantProduct = {
+export type CartItemProduct = {
   id: number;
   name: string;
   slug: string;
@@ -16,11 +16,12 @@ export type CartItemVariant = {
   sku: string;
   color: string | null;
   size: string | null;
+  price: number;
   image: CartItemVariantImage | null;
   isDeleted: boolean;
   quantity: number | null;
   version: number;
-  product: CartItemVariantProduct | null;
+  product: CartItemProduct | null;
 };
 
 export type CartItem = {
@@ -32,6 +33,12 @@ export type CartItem = {
   variant: CartItemVariant | null;
 };
 
+export type GuestCartItem = {
+  id: number;
+  quantity: number;
+  variant: CartItemVariant;
+};
+
 export type CartResponse = {
   id: number;
   createdAt: string;
@@ -39,36 +46,6 @@ export type CartResponse = {
   totalItems: number;
   totalPrice: number;
   items: CartItem[];
-};
-
-export type CartGuestItem = {
-  id: string;
-  variantId: number;
-  name: string;
-  sku: string;
-  color: string | null;
-  size: string | null;
-  quantity: number;
-  price: number;
-  imageUrl: string | null;
-  url?: string;
-  stock?: number | null;
-};
-
-export type CartDisplayItem = {
-  id: number | string;
-  variantId: number;
-  name: string;
-  sku: string;
-  color: string | null;
-  size: string | null;
-  quantity: number;
-  unitPrice: number;
-  totalPrice: number;
-  imageUrl: string | null;
-  url?: string;
-  stock?: number | null;
-  isDeleted?: boolean;
 };
 
 export type CreateCartItemDto = {

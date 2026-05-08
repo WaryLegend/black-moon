@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 
 import Button from "@/components/ui/Button";
-import { useSettingStore } from "@/contexts/SettingStore";
 
 import { useCartData } from "./useCart";
 
@@ -13,7 +12,7 @@ type CheckoutBtnProps = {
 
 function CheckoutBtn({ disabled }: CheckoutBtnProps) {
   const router = useRouter();
-  const limit = useSettingStore((s) => s.settings?.order_limit ?? 10);
+  const limit = 10; // temporary hardcode, will be replaced by setting store later
   const { getHasIssue } = useCartData();
 
   return (

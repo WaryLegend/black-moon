@@ -1,23 +1,21 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import type { CartGuestItem } from "@/types/cart";
+import type { GuestCartItem } from "@/types/cart";
 
 type CartState = {
-  items: CartGuestItem[];
+  items: GuestCartItem[];
   isPending: boolean;
-  hasMerged: boolean;
-  setItems: (items: CartGuestItem[]) => void;
-  addItem: (item: CartGuestItem) => void;
-  updateQuantity: (id: string, quantity: number) => void;
-  removeItem: (id: string) => void;
+  setItems: (items: GuestCartItem[]) => void;
+  addItem: (item: GuestCartItem) => void;
+  updateQuantity: (id: number, quantity: number) => void;
+  removeItem: (id: number) => void;
   clearCart: () => void;
   setIsPending: () => void;
-  setHasMerged: (value: boolean) => void;
   getTotalTypes: () => number;
   getTotalItems: () => number;
   getTotalPrice: () => number;
-  getItemStock: (id: string) => number;
+  getItemVariantQuantity: (id: number) => number | null;
   getHasIssue: (orderLimit?: number) => boolean;
 };
 
@@ -26,18 +24,15 @@ export const useCartStore = create<CartState>()(
     (set, get) => ({
       items: [],
       isPending: true,
-      hasMerged: false,
 
       setItems: (items) => set({ items }),
       addItem: (item) => {
         const { items } = get();
-        const existing = items.find(
-          (entry) => entry.variantId === item.variantId,
-        );
+        const existing = items.find((entry) => entry.id === item.id);
 
         if (existing) {
           const nextItems = items.map((entry) =>
-            entry.variantId === item.variantId
+            entry.id === item.id
               ? { ...entry, quantity: entry.quantity + item.quantity }
               : entry,
           );
@@ -61,32 +56,35 @@ export const useCartStore = create<CartState>()(
       },
       clearCart: () => set({ items: [] }),
       setIsPending: () => set({ isPending: false }),
-      setHasMerged: (value) => set({ hasMerged: value }),
 
       getTotalTypes: () => get().items.length,
       getTotalItems: () =>
         get().items.reduce((sum, item) => sum + item.quantity, 0),
       getTotalPrice: () =>
         get().items.reduce(
-          (total, item) => total + item.price * item.quantity,
+          (total, item) => total + item.variant.price * item.quantity,
           0,
         ),
-      getItemStock: (id) => {
+      getItemVariantQuantity: (id) => {
         const { items } = get();
         const item = items.find((entry) => entry.id === id);
-        return item?.stock ?? 0;
+        return item?.variant.quantity ?? null;
       },
       getHasIssue: (orderLimit = Infinity) =>
-        get().items.some(
-          (item) =>
-            item.quantity > orderLimit || item.quantity > (item.stock ?? 0),
-        ),
+        get().items.some((item) => {
+          const variantQuantity = item.variant.quantity;
+          return (
+            item.quantity > orderLimit ||
+            (variantQuantity !== null &&
+              variantQuantity !== undefined &&
+              item.quantity > variantQuantity)
+          );
+        }),
     }),
     {
       name: "cart-storage",
       partialize: (state) => ({
         items: state.items,
-        hasMerged: state.hasMerged,
       }),
       onRehydrateStorage: () => (state) => {
         if (state) {

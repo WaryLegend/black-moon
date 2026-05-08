@@ -3,8 +3,10 @@
 import Link from "next/link";
 import { MdOutlineShoppingCart, MdShoppingCart } from "react-icons/md";
 import { useCartData } from "@/components/store/cart/useCart";
+import { useCartSync } from "@/components/store/cart/useCartSync";
 
 function CartIcon() {
+  useCartSync();
   const { isPending, totalItems } = useCartData();
 
   if (isPending)

@@ -11,9 +11,7 @@ const CARTS_BASE_PATH = joinApiPath("/carts");
 
 export const cartApi = {
   async getByUser() {
-    const response = await apiClient.get<CartResponse>(
-      `${CARTS_BASE_PATH}/user`,
-    );
+    const response = await apiClient.get<CartResponse>(`${CARTS_BASE_PATH}/me`);
     return response.data;
   },
 
@@ -42,14 +40,14 @@ export const cartApi = {
 
   async clearCart() {
     const response = await apiClient.delete<{ success: boolean }>(
-      `${CARTS_BASE_PATH}/user/items`,
+      `${CARTS_BASE_PATH}/me/clear`,
     );
     return response.data;
   },
 
   async mergeCart(payload: MergeCartDto) {
     const response = await apiClient.post<CartResponse>(
-      `${CARTS_BASE_PATH}/user/merge`,
+      `${CARTS_BASE_PATH}/me/merge`,
       payload,
     );
     return response.data;

@@ -1,26 +1,32 @@
 "use client";
 
-import { useSettingStore } from "@/contexts/SettingStore";
-
 import { useCartActions } from "./useCartActions";
 
 type QuantitySelectProps = {
-  itemId: number | string;
+  itemId: number;
   quantity: number;
-  stock: number | null;
+  variantQuantity: number | null; // number of items in stock for this variant
 };
 
-function QuantitySelect({ itemId, quantity, stock }: QuantitySelectProps) {
-  const limit = useSettingStore((s) => s.settings?.order_limit ?? 10);
+function QuantitySelect({
+  itemId,
+  quantity,
+  variantQuantity,
+}: QuantitySelectProps) {
+  const limit = 10; // temporary hardcode, will be replaced by setting store later
   const { updateQuantity } = useCartActions();
 
   const maxAllowed =
-    stock === null || stock === undefined ? limit : Math.min(stock, limit);
+    variantQuantity === null || variantQuantity === undefined
+      ? limit
+      : Math.min(variantQuantity, limit);
 
   //find if there's a issue with quantity
   const issueMessage =
-    stock !== null && stock !== undefined && quantity > stock
-      ? `Chỉ còn ${stock} sản phẩm`
+    variantQuantity !== null &&
+    variantQuantity !== undefined &&
+    quantity > variantQuantity
+      ? `Chỉ còn ${variantQuantity} sản phẩm`
       : quantity > limit
         ? `Giới hạn ${limit} sản phẩm`
         : null;

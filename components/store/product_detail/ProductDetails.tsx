@@ -60,7 +60,7 @@ export default function ProductDetails() {
               </div>
 
               <div
-                className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                className={`overflow-hidden transition-all duration-500 ease-in-out ${
                   openIndices.includes(index)
                     ? "max-h-[500px] overflow-y-auto opacity-100"
                     : "max-h-0 opacity-0"

@@ -1,7 +1,6 @@
 "use client";
 
 import CartListSkeleton from "@/components/skeletons/CartListSkeleton";
-import { useSettingStore } from "@/contexts/SettingStore";
 
 import CartItem from "./CartItem";
 import NoCartlistFound from "./NoCartlistFound";
@@ -9,15 +8,19 @@ import { useCartData } from "./useCart";
 
 function CartList() {
   const { items, isPending } = useCartData();
-  const limit = useSettingStore((s) => s.settings?.order_limit ?? 10);
+  const limit = 10;
 
   if (isPending) return <CartListSkeleton />;
   if (items.length === 0) return <NoCartlistFound />;
 
   const problematicCount = items.filter((item) => {
-    if (item.quantity > limit) return true;
-    if (item.stock === null || item.stock === undefined) return false;
-    return item.quantity > item.stock;
+    const quantity = item.quantity ?? 0;
+    if (quantity > limit) return true;
+    const variantStock = item.variant?.quantity;
+    if (variantStock === null || variantStock === undefined) {
+      return false;
+    }
+    return quantity > variantStock;
   }).length;
 
   return (

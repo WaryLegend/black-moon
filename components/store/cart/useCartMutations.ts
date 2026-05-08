@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { cartApi } from "@/services/cart.api";
 import type {
+  CartResponse,
   CreateCartItemDto,
   MergeCartDto,
   UpdateCartItemDto,
@@ -16,8 +17,8 @@ export function useAddCartItem() {
 
   return useMutation({
     mutationFn: (payload: CreateCartItemDto) => cartApi.addItem(payload),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: CART_QUERY_KEY });
+    onSuccess: (cart) => {
+      queryClient.setQueryData<CartResponse>(CART_QUERY_KEY, cart);
     },
   });
 }
@@ -28,8 +29,8 @@ export function useUpdateCartItem() {
   return useMutation({
     mutationFn: (payload: { itemId: number; data: UpdateCartItemDto }) =>
       cartApi.updateItem(payload.itemId, payload.data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: CART_QUERY_KEY });
+    onSuccess: (cart) => {
+      queryClient.setQueryData<CartResponse>(CART_QUERY_KEY, cart);
     },
   });
 }
@@ -61,8 +62,8 @@ export function useMergeCart() {
 
   return useMutation({
     mutationFn: (payload: MergeCartDto) => cartApi.mergeCart(payload),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: CART_QUERY_KEY });
+    onSuccess: (cart) => {
+      queryClient.setQueryData<CartResponse>(CART_QUERY_KEY, cart);
     },
   });
 }

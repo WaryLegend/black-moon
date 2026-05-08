@@ -7,7 +7,7 @@ import Button from "@/components/ui/Button";
 import { useCartActions } from "./useCartActions";
 
 type RemoveItemBtnProps = {
-  itemId: number | string;
+  itemId: number;
 };
 
 function RemoveItemBtn({ itemId }: RemoveItemBtnProps) {

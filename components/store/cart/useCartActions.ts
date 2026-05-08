@@ -2,9 +2,9 @@
 
 import toast from "react-hot-toast";
 
-import { useCurrentAccount } from "@/hooks/useCurrentAccount";
+import { useAccessToken } from "@/hooks/useAccessToken";
 import { useCartStore } from "@/contexts/CartStore";
-import type { CartGuestItem } from "@/types/cart";
+import type { GuestCartItem } from "@/types/cart";
 
 import {
   useAddCartItem,
@@ -13,11 +13,9 @@ import {
   useClearCart,
 } from "./useCartMutations";
 
-export type AddToCartInput = Omit<CartGuestItem, "id">;
-
 export function useCartActions() {
-  const { data: user, isPending: isUserPending } = useCurrentAccount();
-  const isAuthenticated = Boolean(user?.id);
+  const accessToken = useAccessToken();
+  const isAuthenticated = Boolean(accessToken);
 
   const addCartItem = useAddCartItem();
   const updateCartItem = useUpdateCartItem();
@@ -29,13 +27,15 @@ export function useCartActions() {
   const removeGuestItem = useCartStore((state) => state.removeItem);
   const clearGuestCart = useCartStore((state) => state.clearCart);
 
-  const addItem = async (item: AddToCartInput) => {
-    if (isUserPending) return;
+  const addItem = async (item: GuestCartItem) => {
+    const variantId = item.variant?.id;
+    if (!variantId) return;
+
     if (isAuthenticated) {
       try {
         await addCartItem.mutateAsync({
-          variantId: item.variantId,
-          quantity: item.quantity,
+          variantId,
+          quantity: item.quantity ?? undefined,
         });
         toast.success("Đã thêm vào giỏ hàng", { icon: "🛒" });
       } catch {
@@ -44,14 +44,12 @@ export function useCartActions() {
       return;
     }
 
-    addGuestItem({ id: crypto.randomUUID(), ...item });
+    addGuestItem(item);
     toast.success("Đã thêm vào giỏ hàng", { icon: "🛒" });
   };
 
-  const updateQuantity = async (itemId: number | string, quantity: number) => {
-    if (isUserPending) return;
+  const updateQuantity = async (itemId: number, quantity: number) => {
     if (isAuthenticated) {
-      if (typeof itemId !== "number") return;
       try {
         await updateCartItem.mutateAsync({ itemId, data: { quantity } });
       } catch {
@@ -60,14 +58,11 @@ export function useCartActions() {
       return;
     }
 
-    if (typeof itemId !== "string") return;
     updateGuestQuantity(itemId, quantity);
   };
 
-  const removeItem = async (itemId: number | string) => {
-    if (isUserPending) return;
+  const removeItem = async (itemId: number) => {
     if (isAuthenticated) {
-      if (typeof itemId !== "number") return;
       try {
         await removeCartItem.mutateAsync(itemId);
         toast.success("Đã gỡ khỏi giỏ hàng");
@@ -77,13 +72,11 @@ export function useCartActions() {
       return;
     }
 
-    if (typeof itemId !== "string") return;
     removeGuestItem(itemId);
     toast.success("Đã gỡ khỏi giỏ hàng");
   };
 
   const clearCart = async () => {
-    if (isUserPending) return;
     if (isAuthenticated) {
       try {
         await clearCartItems.mutateAsync();

@@ -47,16 +47,17 @@ export default function ChatBot() {
   return (
     <>
       {/* Open chat Button */}
-      <Button
-        icon
+      <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="bg-accent-600 text-primary-0 hover:bg-accent-700 fixed right-6 bottom-24 z-40 h-12 w-12 rounded-full rounded-ee-none shadow-xl lg:bottom-6"
+        className={cn(
+          "bg-accent-600 text-primary-0 hover:bg-accent-700 fixed right-6 bottom-24 z-40 flex h-12 w-12 items-center justify-center rounded-full rounded-ee-none shadow-xl transition-all duration-200 lg:bottom-6",
+        )}
         title={open ? "Đóng chat" : "Mở chat"}
         aria-label="ChatBot assistance"
       >
         {open ? <FiX size={26} /> : <FiMessageCircle size={26} />}
-      </Button>
+      </button>
 
       {/* Chat Window */}
       <AnimatePresence>

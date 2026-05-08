@@ -1,45 +1,66 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import toast from "react-hot-toast";
 
-import { useCurrentAccount } from "@/hooks/useCurrentAccount";
+import { useAccessToken } from "@/hooks/useAccessToken";
 import { useCartStore } from "@/contexts/CartStore";
 
 import { useMergeCart } from "./useCartMutations";
 
 export function useCartSync() {
-  const { data: user } = useCurrentAccount();
-  const guestItems = useCartStore((state) => state.items);
-  const hasMerged = useCartStore((state) => state.hasMerged);
-  const setHasMerged = useCartStore((state) => state.setHasMerged);
-  const clearGuestCart = useCartStore((state) => state.clearCart);
+  const accessToken = useAccessToken();
+  const hasAccessToken = Boolean(accessToken);
 
-  const mergeCart = useMergeCart();
+  const guestItems = useCartStore((state) => state.items);
+  const clearGuestCart = useCartStore((state) => state.clearCart);
+  const submittedMergeKeyRef = useRef<string | null>(null);
+
+  const { mutate, isPending } = useMergeCart();
+
+  const mergeItems = useMemo(
+    () =>
+      guestItems.flatMap((item) => {
+        const variantId = item.variant?.id;
+        const quantity = item.quantity ?? 0;
+
+        if (!variantId || quantity <= 0) return [];
+        return { variantId, quantity };
+      }),
+    [guestItems],
+  );
+
+  const mergeKey = useMemo(
+    () =>
+      mergeItems
+        .map((item) => `${item.variantId}:${item.quantity}`)
+        .sort()
+        .join("|"),
+    [mergeItems],
+  );
 
   useEffect(() => {
-    if (!user?.id) {
-      if (hasMerged) {
-        setHasMerged(false);
-      }
+    if (!hasAccessToken) {
+      submittedMergeKeyRef.current = null;
       return;
     }
 
-    if (hasMerged || guestItems.length === 0 || mergeCart.isPending) {
+    if (!mergeItems.length || !mergeKey) {
+      submittedMergeKeyRef.current = null;
       return;
     }
 
-    mergeCart.mutate(
-      {
-        items: guestItems.map((item) => ({
-          variantId: item.variantId,
-          quantity: item.quantity,
-        })),
-      },
+    if (isPending || submittedMergeKeyRef.current === mergeKey) {
+      return;
+    }
+
+    submittedMergeKeyRef.current = mergeKey;
+
+    mutate(
+      { items: mergeItems },
       {
         onSuccess: () => {
           clearGuestCart();
-          setHasMerged(true);
           toast.success("Đã đồng bộ giỏ hàng");
         },
         onError: () => {
@@ -47,12 +68,5 @@ export function useCartSync() {
         },
       },
     );
-  }, [
-    user?.id,
-    guestItems,
-    hasMerged,
-    mergeCart,
-    clearGuestCart,
-    setHasMerged,
-  ]);
+  }, [hasAccessToken, mergeItems, mergeKey, isPending, mutate, clearGuestCart]);
 }
