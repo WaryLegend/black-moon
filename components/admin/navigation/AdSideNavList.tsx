@@ -7,6 +7,7 @@ import {
   MdOutlineInventory2,
   MdOutlineMenuBook,
   MdOutlineShoppingCart,
+  MdSettings,
 } from "react-icons/md";
 import AdSideNavItem from "./AdSideNavItem";
 
@@ -59,6 +60,11 @@ const navLinks = [
     name: "Promotions",
     href: `${ADMIN_ROOT}/promotions`,
     icon: <FaTicketAlt className="h-5 w-5" />,
+  },
+  {
+    name: "System configs",
+    href: `${ADMIN_ROOT}/system-configs`,
+    icon: <MdSettings className="h-5 w-5" />,
   },
 ];
 
