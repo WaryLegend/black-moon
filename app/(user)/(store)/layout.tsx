@@ -4,6 +4,7 @@ import User from "@/components/user-menu/User";
 import Cart from "@/common/navigation/CartIcon";
 import WishList from "@/common/navigation/WishlistIcon";
 import StickyHeaderWrapper from "@/common/layout/StickyHeaderWrapper";
+import Footer from "@/common/layout/Footer";
 
 export const metadata = {
   title: {
@@ -41,7 +42,7 @@ export default async function StoreLayout({
           {children}
         </div>
       </main>
-      {/* <footer>Footer</footer> */}
+      <Footer />
     </div>
   );
 }

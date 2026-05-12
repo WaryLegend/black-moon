@@ -13,6 +13,7 @@ import {
 import NoWishlistFound from "./NoWishlistFound";
 import WishItem from "./WishItem";
 import { useWishlist } from "./useWishlist";
+import Pagination from "@/components/ui/Pagination";
 
 type WishListProps = {
   searchParams: WishlistPageSearchParams;
@@ -41,7 +42,9 @@ function WishList({ searchParams }: WishListProps) {
 
   const { data, isPending } = useWishlist({ sortBy });
   const items = data?.items ?? [];
+
   const totalItems = data?.meta?.totalItems ?? items.length;
+  const pageSize = data?.meta?.pageSize;
 
   if (isPending) {
     return <WishListSkeleton />;
@@ -72,6 +75,7 @@ function WishList({ searchParams }: WishListProps) {
           <WishItem key={item.id} item={item} />
         ))}
       </ul>
+      <Pagination total={totalItems ?? 0} pageSize={pageSize} />
     </div>
   );
 }

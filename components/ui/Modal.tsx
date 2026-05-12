@@ -86,7 +86,7 @@ function Window({
 
   return createPortal(
     <div
-      className="bg-primary-900/20 fixed inset-0 z-[900] flex items-center justify-center backdrop-blur-sm transition-all"
+      className="bg-primary-900/20 fixed inset-0 z-[900] flex items-center justify-center backdrop-blur-xs transition-all"
       aria-modal="true"
     >
       <div

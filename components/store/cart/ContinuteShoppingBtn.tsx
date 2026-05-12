@@ -1,13 +1,13 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import Button from "@/components/ui/Button";
 import { useMenuStore } from "@/contexts/HomeMenuStore";
-import { useRouter } from "next/navigation";
 
 function ContinuteShoppingBtn() {
   const router = useRouter();
   const { activeLink, openMenu } = useMenuStore();
-  // Determine where to go back when clicking "Continue shopping"
   const destination = activeLink || "/";
 
   return (

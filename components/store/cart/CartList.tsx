@@ -1,31 +1,28 @@
 "use client";
 
-import { useCartStore } from "@/contexts/CartStore";
-import { useSettingStore } from "@/contexts/SettingStore";
-import NoCartlistFound from "./NoCartlistFound";
 import CartListSkeleton from "@/components/skeletons/CartListSkeleton";
+
 import CartItem from "./CartItem";
+import NoCartlistFound from "./NoCartlistFound";
+import { useCartData } from "./useCart";
 
 function CartList() {
-  const items = useCartStore((state) => state.items);
-  const isPending = useCartStore((state) => state.isPending);
-  const limit = useSettingStore((s) => s.settings?.order_limit ?? 10);
+  const { items, isPending } = useCartData();
+  const limit = 10;
 
-  // 1. Still loading/pending (hydration in progress)
   if (isPending) return <CartListSkeleton />;
-
-  // 2. Hydrated + empty → show empty state
   if (items.length === 0) return <NoCartlistFound />;
 
-  // 3. Tính số lượng sản phẩm "có vấn đề" (vượt limit hoặc vượt stock)
-  const problematicItems = items.filter((item) => {
-    const currentQty = item.quantity;
-    // Vượt giới hạn đặt hàng HOẶC vượt tồn kho → "có vấn đề"
-    return currentQty > limit || currentQty > (item.stock || 0);
-  });
-  const problematicCount = problematicItems.length;
+  const problematicCount = items.filter((item) => {
+    const quantity = item.quantity ?? 0;
+    if (quantity > limit) return true;
+    const variantStock = item.variant?.quantity;
+    if (variantStock === null || variantStock === undefined) {
+      return false;
+    }
+    return quantity > variantStock;
+  }).length;
 
-  // 4. Hydrated + has items → show list
   return (
     <div className="flex flex-col gap-4">
       {problematicCount > 0 && (

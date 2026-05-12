@@ -13,4 +13,5 @@ export const PUBLIC_AUTH_ENDPOINTS = new Set([
   joinApiPath("/auth/google"),
   joinApiPath("/auth/activate-code"),
   joinApiPath("/auth/verify-reset-code"),
+  joinApiPath("/system-configs/public"),
 ]);

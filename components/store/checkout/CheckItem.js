@@ -1,38 +1,64 @@
 "use client";
 
-import { useCartStore } from "@/contexts/CartStore";
 import { capitalizeFirst } from "@/utils/capitalize";
 import { formatCurrency } from "@/utils/currency";
 import { HiTrash } from "react-icons/hi2";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
+import { useCartActions } from "@/components/store/cart/useCartActions";
 
 function CheckItem({ item }) {
-  const { id, name, color, size, variantPrice, quantity, image, url } = item;
-  const { updateQuantity, removeItem } = useCartStore();
-  //test
-  const isNew = false;
-  const sale = 0;
-
-  const finalPrice = variantPrice * (1 - sale / 100);
+  const {
+    id,
+    name,
+    color,
+    size,
+    unitPrice,
+    totalPrice,
+    quantity,
+    imageUrl,
+    url,
+  } = item;
+  const { updateQuantity, removeItem } = useCartActions();
 
   return (
     <li className="bg-primary-50 relative flex flex-row items-center gap-3 p-3 md:gap-6">
       {/* Image */}
-      <Link
-        href={url}
-        className="group w-20 rounded-lg transition hover:shadow-md"
-      >
-        <div className="relative aspect-[5/6] w-full shrink-0 self-center overflow-hidden rounded-lg md:self-auto">
-          <Image
-            src={image}
-            alt={name}
-            fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
-          />
+      {url ? (
+        <Link
+          href={url}
+          className="group w-20 rounded-lg transition hover:shadow-md"
+        >
+          <div className="relative aspect-[5/6] w-full shrink-0 self-center overflow-hidden rounded-lg md:self-auto">
+            {imageUrl ? (
+              <Image
+                src={imageUrl}
+                alt={name}
+                fill
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+            ) : (
+              <div className="from-primary-200 to-primary-100 h-full w-full bg-gradient-to-tr" />
+            )}
+          </div>
+        </Link>
+      ) : (
+        <div className="group w-20 rounded-lg">
+          <div className="relative aspect-[5/6] w-full shrink-0 self-center overflow-hidden rounded-lg md:self-auto">
+            {imageUrl ? (
+              <Image
+                src={imageUrl}
+                alt={name}
+                fill
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+            ) : (
+              <div className="from-primary-200 to-primary-100 h-full w-full bg-gradient-to-tr" />
+            )}
+          </div>
         </div>
-      </Link>
+      )}
 
       {/* Product Info */}
       <div className="flex flex-1 flex-col justify-between">
@@ -42,13 +68,9 @@ function CheckItem({ item }) {
             Màu sắc: {capitalizeFirst(color)}
           </p>
           <p className="text-primary-600 text-sm">Kích cỡ: {size}</p>
-          {sale > 0 && <p className="text-sm text-red-600">Sale</p>}
-          <p
-            className={`${sale > 0 ? "text-red-600" : "text-accent-600"} mt-1 font-medium`}
-          >
-            {formatCurrency(finalPrice)}
+          <p className="text-accent-600 mt-1 font-medium">
+            {formatCurrency(unitPrice)}
           </p>
-          {isNew && <p className="text-primary-600 text-sm">New</p>}
         </div>
 
         {/* QUANTITY + TOTAL */}
@@ -81,11 +103,9 @@ function CheckItem({ item }) {
             >
               {formatCurrency(finalPrice * quantity)}
             </span>
-          </p>
-        </div>
-      </div>
-
-      {/* Remove button */}
+              <span className="text-accent-600 font-bold">
+                {formatCurrency(totalPrice)}
+              </span>
       <div className="absolute top-1 right-1">
         <Button
           aria-label="Remove item"

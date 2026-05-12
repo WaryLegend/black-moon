@@ -2,16 +2,17 @@
 
 import { FaGift, FaTicketAlt } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
-import { formatCurrency } from "@/utils/currency";
-import { useCartStore } from "@/contexts/CartStore";
+
 import CartMenuSkeleton from "@/components/skeletons/CartMenuSkeleton";
-import ContinuteShoppingBtn from "./ContinuteShoppingBtn";
+import { formatCurrency } from "@/utils/currency";
+
 import CheckoutBtn from "./CheckoutBtn";
+import ContinuteShoppingBtn from "./ContinuteShoppingBtn";
+import { useCartData } from "./useCart";
 
 function CartMenu() {
-  const { isPending } = useCartStore();
-  const totalItems = useCartStore((state) => state.getTotalItems());
-  const totalPrice = useCartStore((state) => state.getTotalPrice());
+  const { isPending, totalItems, totalPrice } = useCartData();
+
   if (isPending) {
     return <CartMenuSkeleton />;
   }

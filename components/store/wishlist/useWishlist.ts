@@ -6,7 +6,7 @@ import { wishlistApi } from "@/services/wishlist.api";
 import { useCurrentAccount } from "@/hooks/useCurrentAccount";
 import type { WishlistSort } from "@/types/wishlist";
 
-export const WISHLIST_QUERY_KEY = ["wishlists", "user"] as const;
+export const WISHLIST_QUERY_KEY = ["wishlists", "me"] as const;
 
 const DEFAULT_SORT: WishlistSort = {
   field: "createdAt",
