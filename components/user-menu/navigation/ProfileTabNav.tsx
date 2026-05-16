@@ -9,22 +9,22 @@ const navLinks = [
   {
     name: "Thông tin tài khoản",
     href: "/profile/info",
-    icon: <FaRegUser className="h-6 w-6" />,
+    icon: <FaRegUser className="h-4 w-4" />,
   },
   {
     name: "Lịch sử đơn hàng",
     href: "/profile/orders",
-    icon: <MdOutlineShoppingCart className="h-6 w-6" />,
+    icon: <MdOutlineShoppingCart className="h-4 w-4" />,
   },
   {
     name: "Địa chỉ giao hàng",
     href: "/profile/addresses",
-    icon: <FaMapMarkerAlt className="h-6 w-6" />,
+    icon: <FaMapMarkerAlt className="h-4 w-4" />,
   },
   {
     name: "Cài đặt",
     href: "/profile/settings",
-    icon: <FaGears className="h-6 w-6" />,
+    icon: <FaGears className="h-4 w-4" />,
   },
 ];
 

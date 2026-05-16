@@ -37,7 +37,7 @@ export default async function StoreLayout({
         </Header>
       </StickyHeaderWrapper>
 
-      <main className="h-full w-full">
+      <main className="flex-grow">
         <div className="mx-auto max-w-[1750px] px-4 py-4 sm:px-10 sm:py-5 md:px-20 lg:px-30">
           {children}
         </div>

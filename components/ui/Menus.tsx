@@ -20,6 +20,7 @@ import {
   useClick,
   useDismiss,
   useRole,
+  type UseFloatingReturn,
 } from "@floating-ui/react";
 import { cn } from "@/utils/cn";
 
@@ -33,10 +34,10 @@ const MenusContext = createContext<MenusContextValue | null>(null);
 
 // 2. Context quản lý Tọa độ (Riêng biệt cho từng cụm Menu)
 type FloatingContextValue = {
-  refs: any;
+  refs: UseFloatingReturn<Element>["refs"];
   floatingStyles: React.CSSProperties;
-  getReferenceProps: (userProps?: any) => any;
-  getFloatingProps: (userProps?: any) => any;
+  getReferenceProps: ReturnType<typeof useInteractions>["getReferenceProps"];
+  getFloatingProps: ReturnType<typeof useInteractions>["getFloatingProps"];
 };
 const FloatingContext = createContext<FloatingContextValue | null>(null);
 
@@ -72,7 +73,9 @@ function Menu({ children }: { children: React.ReactNode }) {
   // Mỗi Menu (dòng) sẽ có một instance useFloating riêng
   const { refs, floatingStyles, context } = useFloating({
     open: openId !== "", // Floating UI cần biết trạng thái để autoUpdate
-    onOpenChange: (isOpen) => !isOpen && close(),
+    onOpenChange: (isOpen) => {
+      if (!isOpen) close();
+    },
     middleware: [offset(8), flip(), shift()],
     whileElementsMounted: autoUpdate,
   });
@@ -99,7 +102,7 @@ function Menu({ children }: { children: React.ReactNode }) {
 // 4. Toggle
 interface ToggleProps {
   id: string | number;
-  children?: React.ReactElement<any>;
+  children?: React.ReactElement;
 }
 
 function Toggle({ id, children }: ToggleProps) {
@@ -108,13 +111,16 @@ function Toggle({ id, children }: ToggleProps) {
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    openId === id ? close() : open(id);
+    if (openId === id) {
+      close();
+      return;
+    }
+    open(id);
   };
 
   const commonProps = getReferenceProps({
     ref: refs.setReference,
     onClick: handleClick,
-    "data-menu-id": id,
   });
 
   // For custom toggle
@@ -125,7 +131,7 @@ function Toggle({ id, children }: ToggleProps) {
   return (
     <button
       {...commonProps}
-      className="hover:bg-primary-100 translate-x-3 cursor-pointer rounded-lg p-1.5 transition"
+      className="hover:bg-primary-100 cursor-pointer rounded-lg p-1.5 transition"
     >
       <HiEllipsisHorizontal className="text-primary-700 h-6 w-6" />
     </button>

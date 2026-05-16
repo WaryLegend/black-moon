@@ -132,8 +132,7 @@ function UserRow({ user, isMe }: UserRowProps) {
               </Menus.List>
               <Modal.Window name="activation">
                 <ConfirmChange
-                  actionName={activated ? "Khóa" : "Kích hoạt"}
-                  resourceName={resourceName}
+                  message={activated ? "disable" : "activate"}
                   disabled={isUpdatingActivation}
                   onConfirm={handleToggleActivation}
                 />

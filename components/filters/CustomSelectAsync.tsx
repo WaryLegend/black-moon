@@ -225,7 +225,7 @@ export default function CustomSelectAsync({
       }),
       indicatorSeparator: () => ({ display: "none" }),
     }),
-    [getOptionStyle, minWidth],
+    [getOptionStyle, minWidth, controlStyle],
   );
 
   const animatedComponents = useMemo(

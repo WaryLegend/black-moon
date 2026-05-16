@@ -10,6 +10,8 @@ import { LuCake } from "react-icons/lu";
 import type { ProfileDetails } from "@/types/profile";
 import { useEditProfile } from "./useEditProfile";
 import FormField from "@/components/forms/common/FormField";
+import { useFormDirtyStyle } from "@/components/forms/admin/useFormDirtyStyle";
+import { cn } from "@/utils/cn";
 
 type EditProfileValues = {
   firstName: string;
@@ -73,8 +75,7 @@ export default function EditProfileForm({
     );
   };
 
-  const dirtyClass = (field: keyof EditProfileValues) =>
-    dirtyFields[field] ? "border-amber-600" : "";
+  const { getDirtyClass } = useFormDirtyStyle<EditProfileValues>(dirtyFields);
 
   return (
     <>
@@ -98,7 +99,10 @@ export default function EditProfileForm({
               id="lastName"
               placeholder="Họ*"
               disabled={isPending}
-              className={`border-accent-300 w-full rounded-lg border px-4 py-2 pl-10 ${dirtyClass("lastName")}`}
+              className={cn(
+                `border-accent-300 w-full rounded-lg border px-4 py-2 pl-10`,
+                getDirtyClass("lastName"),
+              )}
               {...register("lastName", {
                 required: "Họ không được để trống",
               })}
@@ -116,7 +120,10 @@ export default function EditProfileForm({
               id="firstName"
               placeholder="Tên*"
               disabled={isPending}
-              className={`border-accent-300 w-full rounded-lg border px-4 py-2 pl-10 ${dirtyClass("firstName")}`}
+              className={cn(
+                `border-accent-300 w-full rounded-lg border px-4 py-2 pl-10`,
+                getDirtyClass("firstName"),
+              )}
               {...register("firstName", {
                 required: "Tên không được để trống",
               })}
@@ -137,7 +144,10 @@ export default function EditProfileForm({
             id="phoneNumber"
             placeholder="Số điện thoại"
             disabled={isPending}
-            className={`border-accent-300 w-full rounded-lg border px-4 py-2 pl-10 ${dirtyClass("phoneNumber")}`}
+            className={cn(
+              `border-accent-300 w-full rounded-lg border px-4 py-2 pl-10`,
+              getDirtyClass("phoneNumber"),
+            )}
             {...register("phoneNumber", {
               validate: (value) => {
                 if (!value) return true;
@@ -165,7 +175,10 @@ export default function EditProfileForm({
               type="date"
               id="birthDate"
               disabled={isPending}
-              className={`border-accent-300 w-full rounded-lg border px-4 py-2 pl-10 ${dirtyClass("birthDate")}`}
+              className={cn(
+                `border-accent-300 w-full rounded-lg border px-4 py-2 pl-10`,
+                getDirtyClass("birthDate"),
+              )}
               {...register("birthDate")}
             />
           </FormField>
@@ -178,7 +191,10 @@ export default function EditProfileForm({
           >
             <select
               disabled={isPending}
-              className={`border-accent-300 bg-primary-0 h-[41.6px] w-full rounded-lg border px-4 py-2 pl-10 ${dirtyClass("gender")}`}
+              className={cn(
+                `border-accent-300 bg-primary-0 h-[41.6px] w-full rounded-lg border px-4 py-2 pl-10`,
+                getDirtyClass("gender"),
+              )}
               {...register("gender")}
             >
               <option value="MALE">Nam</option>

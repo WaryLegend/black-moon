@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import { HiCheck, HiXMark } from "react-icons/hi2";
 
 type ConfirmChangeProps = {
+  title?: string;
   message?: string | ReactNode;
   onConfirm?: () => void | Promise<void>;
   disabled?: boolean;
@@ -10,6 +11,7 @@ type ConfirmChangeProps = {
 };
 
 function ConfirmChange({
+  title = "Confirm Change",
   message,
   onConfirm,
   disabled,
@@ -23,7 +25,7 @@ function ConfirmChange({
 
   return (
     <div className="flex max-w-xl flex-col gap-3">
-      <h3 className="text-xl font-bold">Confirm Change</h3>
+      <h3 className="text-xl font-bold">{title}</h3>
 
       <div className="text-primary-500 mb-2 text-base">
         {!message ? (

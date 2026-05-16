@@ -1,5 +1,5 @@
 import { FieldValues, FormState } from "react-hook-form";
-import { CSSProperties } from "react";
+import { CSSProperties, useCallback, useMemo } from "react";
 
 type UseFormDirtyStyleOptions = {
   dirtyClassName?: string;
@@ -12,64 +12,97 @@ const DEFAULT_DIRTY_STYLE: CSSProperties = {
 };
 
 /**
- * Hook để lấy class style cho các trường đã thay đổi.
- * Hỗ trợ cả giá trị boolean đơn giản và object/array (đệ quy).
- * Cũng hỗ trợ field path dạng "a.b.c".
+ * Cấu trúc đệ quy của `dirtyFields` từ react-hook-form.
+ * - Primitive field → `boolean`
+ * - Nested object   → `DirtyValueObject`
+ * - Field array     → `DirtyValueObject[]`
+ */
+type DirtyValue = boolean | DirtyValueObject | DirtyValueObject[];
+type DirtyValueObject = { [key: string]: DirtyValue };
+
+/**
+ * Hook trả về các helper để lấy class / style cho field đã bị thay đổi.
+ *
+ * @param dirtyFields - `formState.dirtyFields` từ `useForm`
+ * @param options     - Tuỳ chỉnh class và style khi dirty (mặc định: `border-amber-600`)
+ *
+ * @returns
+ * - `getDirty(fieldName)`      — `true` nếu field (hoặc bất kỳ con nào) đã dirty
+ * - `getDirtyClass(fieldName)` — trả về className nếu dirty, chuỗi rỗng nếu không
+ * - `getDirtyStyle(fieldName)` — trả về CSSProperties nếu dirty, `undefined` nếu không
+ *
+ * @example
+ * const { getDirtyClass } = useFormDirtyStyle(formState.dirtyFields);
+ *
+ * <input className={twMerge("border-gray-300", getDirtyClass("email"))} />
+ * <input className={twMerge("border-gray-300", getDirtyClass("address.city"))} />
  */
 export function useFormDirtyStyle<TFieldValues extends FieldValues>(
-  // Chúng ta trích xuất kiểu của dirtyFields từ FormState
   dirtyFields: FormState<TFieldValues>["dirtyFields"],
   options: UseFormDirtyStyleOptions = {},
 ) {
-  const resolvedClassName = options.dirtyClassName ?? DEFAULT_DIRTY_CLASS;
-  const resolvedStyle = options.dirtyStyle ?? DEFAULT_DIRTY_STYLE;
+  const {
+    dirtyClassName = DEFAULT_DIRTY_CLASS,
+    dirtyStyle = DEFAULT_DIRTY_STYLE,
+  } = options;
 
-  const hasTruthy = (val: unknown): boolean => {
-    if (val == null) return false;
-    if (typeof val === "boolean") return val;
-    if (typeof val === "object") {
-      return Object.values(val as Record<string, unknown>).some((v) =>
-        hasTruthy(v),
-      );
-    }
-    return false;
-  };
+  /**
+   * Duyệt đệ quy một nhánh của dirtyFields.
+   * Trả về `true` nếu tìm thấy bất kỳ `true` nào trong cây.
+   *
+   * Cần đệ quy vì RHF không flatten dirtyFields —
+   * thay đổi ở `address.city` chỉ đánh dấu `{ address: { city: true } }`,
+   * không phải `{ "address.city": true }`.
+   */
+  const hasTruthy = useCallback(
+    (val: DirtyValue | null | undefined): boolean => {
+      if (val == null) return false;
+      if (typeof val === "boolean") return val;
+      if (Array.isArray(val)) return val.some((v) => hasTruthy(v));
+      // còn lại là DirtyValueObject — kiểm tra tất cả giá trị con
+      return Object.values(val).some((v) => hasTruthy(v));
+    },
+    [],
+  );
 
-  function getDirty<K extends keyof TFieldValues>(fieldName: K): boolean;
-  function getDirty(fieldName: string): boolean;
-  function getDirty(fieldName: keyof TFieldValues | string): boolean {
-    if (!dirtyFields) return false;
+  const getDirty = useCallback(
+    (fieldName: keyof TFieldValues | string): boolean => {
+      if (!dirtyFields) return false;
 
-    // Hỗ trợ path dạng dotted: "a.b.c"
-    if (typeof fieldName === "string" && fieldName.includes(".")) {
-      const parts = fieldName.split(".");
-      let cur: any = dirtyFields as any;
-      for (const p of parts) {
-        if (cur == null) return false;
-        cur = cur[p];
+      // Tách "address.city" → ["address", "city"]
+      // Tách "tags.0.label" → ["tags", "0", "label"]  ("0" là array index)
+      const parts = (fieldName as string).split(".");
+      let cur: DirtyValue | undefined = (dirtyFields as DirtyValueObject)[
+        parts[0]
+      ];
+
+      for (const p of parts.slice(1)) {
+        if (cur == null || typeof cur === "boolean") return false;
+        // JS tự coerce "0" → 0 khi truy cập array, nên không cần Number(p)
+        cur = (cur as DirtyValueObject)[p];
       }
+
       return hasTruthy(cur);
-    }
+    },
+    [dirtyFields, hasTruthy],
+  );
 
-    const val = (dirtyFields as any)[fieldName as string];
-    return hasTruthy(val);
-  }
+  /** Trả về `dirtyClassName` nếu field dirty, chuỗi rỗng nếu không. */
+  const getDirtyClass = useCallback(
+    (fieldName: keyof TFieldValues | string): string =>
+      getDirty(fieldName) ? dirtyClassName : "",
+    [getDirty, dirtyClassName],
+  );
 
-  function getDirtyClass<K extends keyof TFieldValues>(fieldName: K): string;
-  function getDirtyClass(fieldName: string): string;
-  function getDirtyClass(fieldName: keyof TFieldValues | string): string {
-    return getDirty(fieldName as any) ? resolvedClassName : "";
-  }
+  /** Trả về `dirtyStyle` nếu field dirty, `undefined` nếu không. */
+  const getDirtyStyle = useCallback(
+    (fieldName: keyof TFieldValues | string): CSSProperties | undefined =>
+      getDirty(fieldName) ? dirtyStyle : undefined,
+    [getDirty, dirtyStyle],
+  );
 
-  function getDirtyStyle<K extends keyof TFieldValues>(
-    fieldName: K,
-  ): CSSProperties | undefined;
-  function getDirtyStyle(fieldName: string): CSSProperties | undefined;
-  function getDirtyStyle(
-    fieldName: keyof TFieldValues | string,
-  ): CSSProperties | undefined {
-    return getDirty(fieldName as any) ? resolvedStyle : undefined;
-  }
-
-  return { getDirty, getDirtyClass, getDirtyStyle };
+  return useMemo(
+    () => ({ getDirty, getDirtyClass, getDirtyStyle }),
+    [getDirty, getDirtyClass, getDirtyStyle],
+  );
 }
